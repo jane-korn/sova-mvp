@@ -8,13 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.30">
-    <script src="questions-data.js?v=6.30"></script>
-    <script src="article-urls.js?v=6.30"></script>
-    <script src="content-data.js?v=6.30"></script>
-    <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>
+    <link rel="stylesheet" href="css/variables.css?v=6.32">
+    <script src="questions-data.js?v=6.32"></script>
+    <script src="article-urls.js?v=6.32"></script>
+    <script src="content-data.js?v=6.32"></script>
     <style>
         * {
             margin: 0;
@@ -2248,14 +2245,9 @@
                 font-size: 32px !important;
             }
 
-            /* Increase stage labels for mobile readability */
-            #sova-model text[font-size="20"] {
-                font-size: 26px !important;
-            }
-
-            /* Increase stage descriptions for mobile readability */
-            #sova-model text[font-size="16"] {
-                font-size: 20px !important;
+            /* Increase ALL stage text (stage labels and descriptions) on mobile */
+            #sova-model text textPath {
+                font-size: 36px !important;
             }
 
             /* Make inactive elements more visible on mobile */
