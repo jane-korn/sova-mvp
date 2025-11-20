@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.18 - INCREASED: Pictorial text and dot sizes for better visibility -->
+<!-- UPDATED: 2025-11-20 - Version 6.19 - FIXED: Tooltip popovers centered on mobile, not extending off right edge -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.18">
-    <script src="questions-data.js?v=6.18"></script>
-    <script src="article-urls.js?v=6.18"></script>
-    <script src="content-data.js?v=6.18"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.19">
+    <script src="questions-data.js?v=6.19"></script>
+    <script src="article-urls.js?v=6.19"></script>
+    <script src="content-data.js?v=6.19"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -2121,11 +2121,11 @@
                 max-width: 100% !important;
             }
 
-            /* FIX: Tooltip popovers stay within margins */
+            /* FIX: Tooltip popovers centered on page and within margins */
             .tooltip-popover {
-                left: 0 !important;
-                right: 0 !important;
-                margin-left: 0 !important;
+                left: 50% !important;
+                right: auto !important;
+                margin-left: -200px !important;
                 transform: none !important;
                 width: calc(100vw - 32px) !important;
                 max-width: 400px !important;
@@ -2133,8 +2133,8 @@
             }
 
             .tooltip-popover::after {
-                left: 24px !important;
-                transform: none !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
             }
 
             /* FIX 6: Element heading container same margins as Startup Health */
