@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.12 - FIXED: All margins/tooltips mobile - assessment buttons, element headers, filters, research references -->
+<!-- UPDATED: 2025-11-20 - Version 6.13 - FIXED: Element grid single column, filter buttons compressed, gap/research margins increased -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.12">
-    <script src="questions-data.js?v=6.12"></script>
-    <script src="article-urls.js?v=6.12"></script>
-    <script src="content-data.js?v=6.12"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.13">
+    <script src="questions-data.js?v=6.13"></script>
+    <script src="article-urls.js?v=6.13"></script>
+    <script src="content-data.js?v=6.13"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1992,26 +1992,48 @@
             }
 
             /* FIX: Element Breakdown - full width tiles */
+            #elementGrid {
+                grid-template-columns: 1fr !important;
+                gap: 12px !important;
+                padding: 0 16px !important;
+            }
+
             .element-card,
             .score-item {
                 width: 100% !important;
                 max-width: 100% !important;
-                margin: 0 0 12px 0 !important;
+                margin: 0 !important;
                 padding: 16px 12px !important;
             }
 
-            /* FIX: Your Gaps filter section */
-            .filter-section,
-            .element-filter {
-                width: 100% !important;
-                padding: 12px !important;
-                margin: 0 !important;
+            /* FIX: Your Gaps heading section */
+            #gapsSection .flex {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 12px !important;
+                margin-bottom: 20px !important;
             }
 
-            .filter-buttons {
-                flex-wrap: wrap !important;
+            /* Hide "Click an element" text on mobile */
+            #gapsSection p[style*="opacity: 0.5"] {
+                display: none !important;
+            }
+
+            /* FIX: Filter buttons - compress to single line */
+            .filter-buttons,
+            #elementFilterButtons {
+                flex-wrap: nowrap !important;
                 justify-content: flex-start !important;
-                gap: 8px !important;
+                gap: 4px !important;
+                overflow-x: auto !important;
+            }
+
+            .filter-btn,
+            .element-filter-btn {
+                font-size: 10px !important;
+                padding: 6px 8px !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
             }
 
             /* FIX: Element headings with tooltips - stack on mobile */
@@ -2032,39 +2054,54 @@
                 gap: 6px !important;
             }
 
-            /* FIX: Gap statement containers */
-            .gap-statement {
-                padding: 12px !important;
-                margin: 0 0 12px 0 !important;
+            /* FIX: Gap statement containers - MORE MARGIN */
+            .gap-item,
+            [class*="gap-card"] {
+                padding: 16px !important;
+                margin: 0 16px 16px 16px !important;
+                max-width: calc(100% - 32px) !important;
+            }
+
+            /* FIX: Gap details two-column to ensure tools visible */
+            .gap-details {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .gap-column {
+                width: 100% !important;
+                padding: 8px 0 !important;
             }
 
             /* FIX: Shorten "How to address this" heading on mobile */
-            .advice-heading::after {
-                content: "Advice" !important;
+            h3:contains("HOW TO ADDRESS THIS"),
+            [style*="HOW TO ADDRESS THIS"] {
+                font-size: 11px !important;
             }
 
-            .advice-heading {
-                font-size: 0 !important;
-            }
-
-            .advice-heading::after {
-                font-size: 13px !important;
-            }
-
-            /* FIX: Research References - better spacing */
-            .research-section {
-                padding: 12px !important;
-                margin: 0 0 12px 0 !important;
+            /* FIX: Research References - LEFT/RIGHT MARGINS */
+            .research-section,
+            [style*="RESEARCH REFERENCES"] {
+                padding: 16px !important;
+                margin: 0 16px 16px 16px !important;
+                max-width: calc(100% - 32px) !important;
             }
 
             .research-item {
-                padding: 10px !important;
-                margin: 0 0 10px 0 !important;
+                padding: 12px !important;
+                margin: 0 0 12px 0 !important;
             }
 
             .research-quote {
                 font-size: 13px !important;
-                line-height: 1.4 !important;
+                line-height: 1.5 !important;
+                padding: 0 !important;
+            }
+
+            /* Fix research content box */
+            [style*="border-left: 4px solid #C4FF00"] {
+                padding: 12px !important;
+                margin: 0 !important;
             }
         }
 
@@ -5847,12 +5884,21 @@
                     btn.style.padding = '6px 10px';
                 });
 
+                // Fix Element Breakdown grid
+                const elementGrid = document.getElementById('elementGrid');
+                if (elementGrid) {
+                    elementGrid.style.gridTemplateColumns = '1fr';
+                    elementGrid.style.gap = '12px';
+                    elementGrid.style.padding = '0 16px';
+                    console.log('✅ Element grid fixed - single column');
+                }
+
                 // Fix element cards
                 const elementCards = document.querySelectorAll('.element-card, .score-item');
                 elementCards.forEach(card => {
                     card.style.width = '100%';
                     card.style.maxWidth = '100%';
-                    card.style.margin = '0 0 12px 0';
+                    card.style.margin = '0';
                     card.style.padding = '16px 12px';
                 });
                 if (elementCards.length > 0) console.log('✅ Element cards fixed:', elementCards.length);
@@ -5865,19 +5911,37 @@
                     section.style.margin = '0';
                 });
 
-                const filterButtons = document.querySelectorAll('.filter-buttons');
+                // Hide "Click an element" text
+                const clickText = document.querySelector('[style*="opacity: 0.5"]');
+                if (clickText && clickText.textContent.includes('Click an element')) {
+                    clickText.style.display = 'none';
+                    console.log('✅ "Click an element" text hidden');
+                }
+
+                const filterButtons = document.querySelectorAll('.filter-buttons, #elementFilterButtons');
                 filterButtons.forEach(btns => {
-                    btns.style.flexWrap = 'wrap';
+                    btns.style.flexWrap = 'nowrap';
                     btns.style.justifyContent = 'flex-start';
-                    btns.style.gap = '8px';
+                    btns.style.gap = '4px';
+                    btns.style.overflowX = 'auto';
                 });
+
+                // Compress filter buttons
+                const filterBtns = document.querySelectorAll('.filter-btn, .element-filter-btn');
+                filterBtns.forEach(btn => {
+                    btn.style.fontSize = '10px';
+                    btn.style.padding = '6px 8px';
+                    btn.style.whiteSpace = 'nowrap';
+                    btn.style.flexShrink = '0';
+                });
+                if (filterBtns.length > 0) console.log('✅ Filter buttons compressed:', filterBtns.length);
 
                 // Fix element headers with tooltips
                 const elementHeaders = document.querySelectorAll('.element-header');
                 elementHeaders.forEach(header => {
                     header.style.flexDirection = 'column';
                     header.style.alignItems = 'flex-start';
-                    header.style.gap = '12px';
+                    header.style.gap = '8px';
                 });
 
                 const elementTooltips = document.querySelectorAll('.element-tooltips');
@@ -5885,27 +5949,48 @@
                     tooltips.style.width = '100%';
                     tooltips.style.justifyContent = 'flex-start';
                     tooltips.style.flexWrap = 'wrap';
-                    tooltips.style.gap = '6px';
+                    tooltips.style.gap = '4px';
                 });
 
-                // Fix gap statements
-                const gapStatements = document.querySelectorAll('.gap-statement');
-                gapStatements.forEach(statement => {
-                    statement.style.padding = '12px';
-                    statement.style.margin = '0 0 12px 0';
+                // Compress tooltip buttons
+                const tooltipBtns = document.querySelectorAll('.element-tooltips button, .element-tooltips [style*="border"]');
+                tooltipBtns.forEach(btn => {
+                    btn.style.fontSize = '9px';
+                    btn.style.padding = '4px 8px';
                 });
 
-                // Fix research sections
-                const researchSections = document.querySelectorAll('.research-section');
+                // Fix gap items with MORE MARGIN
+                const gapItems = document.querySelectorAll('.gap-item');
+                gapItems.forEach(item => {
+                    item.style.padding = '16px';
+                    item.style.margin = '0 16px 16px 16px';
+                    item.style.maxWidth = 'calc(100% - 32px)';
+                });
+                if (gapItems.length > 0) console.log('✅ Gap items fixed with margins:', gapItems.length);
+
+                // Fix research sections with LEFT/RIGHT MARGINS
+                const researchSections = document.querySelectorAll('[style*="RESEARCH REFERENCES"]');
                 researchSections.forEach(section => {
-                    section.style.padding = '12px';
-                    section.style.margin = '0 0 12px 0';
+                    const parent = section.closest('div');
+                    if (parent) {
+                        parent.style.padding = '16px';
+                        parent.style.margin = '0 16px 16px 16px';
+                        parent.style.maxWidth = 'calc(100% - 32px)';
+                    }
                 });
 
                 const researchItems = document.querySelectorAll('.research-item');
                 researchItems.forEach(item => {
-                    item.style.padding = '10px';
-                    item.style.margin = '0 0 10px 0';
+                    item.style.padding = '12px';
+                    item.style.margin = '0 0 12px 0';
+                });
+                if (researchItems.length > 0) console.log('✅ Research items fixed:', researchItems.length);
+
+                // Fix border-left boxes in research
+                const researchBoxes = document.querySelectorAll('[style*="border-left: 4px solid"]');
+                researchBoxes.forEach(box => {
+                    box.style.padding = '12px';
+                    box.style.margin = '0';
                 });
 
                 console.log('✅ All mobile fixes applied!');
