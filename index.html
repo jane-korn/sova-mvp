@@ -2944,7 +2944,7 @@
             // Validate required fields
             const teamSize = document.querySelector('input[name="teamSize"]:checked')?.value;
             const stage = document.querySelector('input[name="stage"]:checked')?.value;
-            const location = document.getElementById('location').value;
+            const location = document.getElementById('location').value || 'Not specified';
 
             console.log('Form values:', { teamSize, stage, location });
 
@@ -2954,10 +2954,6 @@
             }
             if (!stage) {
                 alert('Please select your stage');
-                return;
-            }
-            if (!location) {
-                alert('Please select your state or territory');
                 return;
             }
 
