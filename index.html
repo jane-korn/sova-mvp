@@ -12,6 +12,9 @@
     <script src="questions-data.js?v=6.9"></script>
     <script src="article-urls.js?v=6.9"></script>
     <script src="content-data.js?v=6.9"></script>
+    <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
+    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script>
     <style>
         * {
             margin: 0;
@@ -5569,14 +5572,20 @@
         function applyMobileFixes() {
             const isMobile = window.innerWidth <= 768;
 
+            console.log('🔧 Mobile Fix Running - Window Width:', window.innerWidth, 'isMobile:', isMobile);
+
             if (isMobile) {
+                console.log('📱 Applying mobile fixes...');
+
                 // Force hide sidebar buttons on mobile
                 const sidebarButtons = ['webChartSidebar', 'reportSidebar', 'actionSidebar'];
                 sidebarButtons.forEach(id => {
                     const el = document.getElementById(id);
+                    console.log('Hiding sidebar button:', id, 'Element found:', !!el);
                     if (el) {
                         el.style.display = 'none';
                         el.style.visibility = 'hidden';
+                        console.log('✅ Hidden:', id);
                     }
                 });
 
