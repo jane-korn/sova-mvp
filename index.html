@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.27 - RESTORED: Sidebar tabs visible on mobile (WebChart, Report, Actions) -->
+<!-- UPDATED: 2025-11-20 - Version 6.28 - RESTORED: Sidebar tabs visible on mobile (WebChart, Report, Actions) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.27">
-    <script src="questions-data.js?v=6.27"></script>
-    <script src="article-urls.js?v=6.27"></script>
-    <script src="content-data.js?v=6.27"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.28">
+    <script src="questions-data.js?v=6.28"></script>
+    <script src="article-urls.js?v=6.28"></script>
+    <script src="content-data.js?v=6.28"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -2243,7 +2243,15 @@
                 padding: 12px 4px;
             }
 
-            /* SVG text sizes inherited from main SVG (no override needed) */
+            /* Increase SVG element labels for mobile readability */
+            #sova-model text[font-size="24"] {
+                font-size: 32px !important;
+            }
+
+            /* Make inactive elements more visible on mobile */
+            #sova-model text[opacity="0.3"] {
+                opacity: 0.6 !important;
+            }
 
             .question-container {
                 padding: 20px 16px;
