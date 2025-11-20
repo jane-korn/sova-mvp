@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.17 - FIXED: Resource button consistency, button spacing, report tooltips within margins -->
+<!-- UPDATED: 2025-11-20 - Version 6.18 - INCREASED: Pictorial text and dot sizes for better visibility -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.17">
-    <script src="questions-data.js?v=6.17"></script>
-    <script src="article-urls.js?v=6.17"></script>
-    <script src="content-data.js?v=6.17"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.18">
+    <script src="questions-data.js?v=6.18"></script>
+    <script src="article-urls.js?v=6.18"></script>
+    <script src="content-data.js?v=6.18"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -2615,36 +2615,36 @@
                     <circle cx="650" cy="650" r="50" fill="none" stroke="#C5D952" stroke-width="3" opacity="0.5"/>
                     <circle cx="650" cy="650" r="100" fill="url(#discoveryGradient)" stroke="none" stroke-width="100"/>
 
-                    <!-- Stage Labels - curved along circles -->
+                    <!-- Stage Labels - curved along circles (INCREASED SIZE) -->
                     <!-- DISCOVERY -->
-                    <text font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
                         <textPath href="#discoveryPath" startOffset="50%" text-anchor="middle">DISCOVERY</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="12" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
                         <textPath href="#discoverySubPath" startOffset="50%" text-anchor="middle">Building Foundations</textPath>
                     </text>
 
                     <!-- VALIDATION -->
-                    <text font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
                         <textPath href="#validationPath" startOffset="50%" text-anchor="middle">VALIDATION</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="12" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
                         <textPath href="#validationSubPath" startOffset="50%" text-anchor="middle">Proving the Model</textPath>
                     </text>
 
                     <!-- EFFICIENCY -->
-                    <text font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
                         <textPath href="#efficiencyPath" startOffset="50%" text-anchor="middle">EFFICIENCY</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="12" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
                         <textPath href="#efficiencySubPath" startOffset="50%" text-anchor="middle">Optimising Systems</textPath>
                     </text>
 
                     <!-- SCALE -->
-                    <text font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
                         <textPath href="#scalePath" startOffset="50%" text-anchor="middle">SCALE</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="12" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
                         <textPath href="#scaleSubPath" startOffset="50%" text-anchor="middle">Innovation &amp; Growth</textPath>
                     </text>
 
@@ -2654,61 +2654,61 @@
                     <!-- Connecting polygon (when 3+ elements completed) -->
                     <polygon id="webChart" points="" fill="rgba(196, 255, 0, 0.15)" stroke="#C4FF00" stroke-width="4" stroke-linejoin="round" style="display: none;"/>
 
-                    <!-- Center Circle - Premium Styling -->
+                    <!-- Center Circle - Premium Styling (INCREASED SIZE) -->
                     <g id="sova-center-circle" style="cursor: help;">
                         <circle cx="650" cy="650" r="50" fill="url(#centerGlow)"/>
                         <circle cx="650" cy="650" r="50" fill="#C4FF00" opacity="0.95"/>
-                        <text x="650" y="650" font-family="Arial, sans-serif" font-size="22" font-weight="900" fill="#3D2517" text-anchor="middle" dominant-baseline="middle" letter-spacing="-0.5">SOVA</text>
+                        <text x="650" y="650" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#3D2517" text-anchor="middle" dominant-baseline="middle" letter-spacing="-0.5">SOVA</text>
                     </g>
 
                     <!-- Element Dots on Outer Ring (r=510) with Premium Styling - center (650,650) -->
                     <!-- 9 elements evenly spaced at 40° intervals, starting from 0° (12 o'clock) clockwise -->
                     <!-- Lines start at r=50 (edge of center circle), dots at r=510 -->
 
-                    <!-- GOVERNANCE (0° / 12 o'clock) - ACTIVE -->
+                    <!-- GOVERNANCE (0° / 12 o'clock) - ACTIVE (INCREASED SIZE) -->
                     <line x1="650" y1="600" x2="650" y2="140" stroke="#C5D952" stroke-width="2.5" opacity="0.7" class="element-spoke"/>
-                    <circle cx="650" cy="140" r="18" fill="#C5D952" class="element-dot active" id="governance-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Governance')"/>
-                    <text x="650" y="115" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Governance')">GOVERNANCE</text>
+                    <circle cx="650" cy="140" r="24" fill="#C5D952" class="element-dot active" id="governance-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Governance')"/>
+                    <text x="650" y="115" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Governance')">GOVERNANCE</text>
 
-                    <!-- PURPOSE (40°) - ACTIVE -->
+                    <!-- PURPOSE (40°) - ACTIVE (INCREASED SIZE) -->
                     <line x1="682" y1="612" x2="978" y2="259" stroke="#E8C547" stroke-width="2.5" opacity="0.7"/>
-                    <circle cx="978" cy="259" r="18" fill="#E8C547" class="element-dot active" id="purpose-dot" style="filter: drop-shadow(0 2px 8px rgba(232, 197, 71, 0.5)); cursor: pointer;" onclick="startElementAssessment('Purpose')"/>
-                    <text x="1015" y="247" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#E8C547" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Purpose')">PURPOSE</text>
+                    <circle cx="978" cy="259" r="24" fill="#E8C547" class="element-dot active" id="purpose-dot" style="filter: drop-shadow(0 2px 8px rgba(232, 197, 71, 0.5)); cursor: pointer;" onclick="startElementAssessment('Purpose')"/>
+                    <text x="1015" y="247" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#E8C547" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Purpose')">PURPOSE</text>
 
-                    <!-- STRATEGY (80°) - ACTIVE -->
+                    <!-- STRATEGY (80°) - ACTIVE (INCREASED SIZE) -->
                     <line x1="699" y1="641" x2="1152" y2="561" stroke="#C5D952" stroke-width="2.5" opacity="0.7"/>
-                    <circle cx="1152" cy="561" r="18" fill="#C5D952" class="element-dot active" id="strategy-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Strategy')"/>
-                    <text x="1180" y="567" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#C4FF00" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Strategy')">STRATEGY</text>
+                    <circle cx="1152" cy="561" r="24" fill="#C5D952" class="element-dot active" id="strategy-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Strategy')"/>
+                    <text x="1180" y="567" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#C4FF00" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Strategy')">STRATEGY</text>
 
-                    <!-- PERFORMANCE (120°) - LOCKED -->
+                    <!-- PERFORMANCE (120°) - LOCKED (INCREASED SIZE) -->
                     <line x1="693" y1="675" x2="1092" y2="905" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="1092" cy="905" r="18" fill="#E8C547" class="element-dot locked" id="performance-dot" opacity="0.4"/>
-                    <text x="1125" y="920" font-family="Arial, sans-serif" font-size="16" fill="#f5f1e8" text-anchor="start" opacity="0.3" letter-spacing="0.5">PERFORMANCE</text>
+                    <circle cx="1092" cy="905" r="24" fill="#E8C547" class="element-dot locked" id="performance-dot" opacity="0.4"/>
+                    <text x="1125" y="920" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="start" opacity="0.3" letter-spacing="0.5">PERFORMANCE</text>
 
-                    <!-- MARKETING (160°) - ACTIVE -->
+                    <!-- MARKETING (160°) - ACTIVE (INCREASED SIZE) -->
                     <line x1="667" y1="697" x2="824" y2="1129" stroke="#C5D952" stroke-width="2.5" opacity="0.7"/>
-                    <circle cx="824" cy="1129" r="18" fill="#C5D952" class="element-dot active" id="marketing-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
-                    <text x="824" y="1160" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
+                    <circle cx="824" cy="1129" r="24" fill="#C5D952" class="element-dot active" id="marketing-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
+                    <text x="824" y="1160" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
 
-                    <!-- FINANCE (200°) - LOCKED -->
+                    <!-- FINANCE (200°) - LOCKED (INCREASED SIZE) -->
                     <line x1="633" y1="697" x2="476" y2="1129" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="476" cy="1129" r="18" fill="#E8C547" class="element-dot locked" id="finance-dot" opacity="0.4"/>
-                    <text x="476" y="1160" font-family="Arial, sans-serif" font-size="16" fill="#f5f1e8" text-anchor="middle" opacity="0.3" letter-spacing="0.5">FINANCE</text>
+                    <circle cx="476" cy="1129" r="24" fill="#E8C547" class="element-dot locked" id="finance-dot" opacity="0.4"/>
+                    <text x="476" y="1160" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="middle" opacity="0.3" letter-spacing="0.5">FINANCE</text>
 
-                    <!-- PEOPLE (240°) - LOCKED -->
+                    <!-- PEOPLE (240°) - LOCKED (INCREASED SIZE) -->
                     <line x1="607" y1="675" x2="208" y2="905" stroke="#C5D952" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="208" cy="905" r="18" fill="#C5D952" class="element-dot locked" id="people-dot" opacity="0.4"/>
-                    <text x="175" y="920" font-family="Arial, sans-serif" font-size="16" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PEOPLE</text>
+                    <circle cx="208" cy="905" r="24" fill="#C5D952" class="element-dot locked" id="people-dot" opacity="0.4"/>
+                    <text x="175" y="920" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PEOPLE</text>
 
-                    <!-- PROCESS (280°) - LOCKED -->
+                    <!-- PROCESS (280°) - LOCKED (INCREASED SIZE) -->
                     <line x1="601" y1="641" x2="148" y2="561" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="148" cy="561" r="18" fill="#E8C547" class="element-dot locked" id="process-dot" opacity="0.4"/>
-                    <text x="120" y="567" font-family="Arial, sans-serif" font-size="16" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PROCESS</text>
+                    <circle cx="148" cy="561" r="24" fill="#E8C547" class="element-dot locked" id="process-dot" opacity="0.4"/>
+                    <text x="120" y="567" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PROCESS</text>
 
-                    <!-- TECHNOLOGY (320°) - LOCKED -->
+                    <!-- TECHNOLOGY (320°) - LOCKED (INCREASED SIZE) -->
                     <line x1="618" y1="612" x2="322" y2="259" stroke="#C5D952" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="322" cy="259" r="18" fill="#C5D952" class="element-dot locked" id="technology-dot" opacity="0.4"/>
-                    <text x="285" y="247" font-family="Arial, sans-serif" font-size="16" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">TECHNOLOGY</text>
+                    <circle cx="322" cy="259" r="24" fill="#C5D952" class="element-dot locked" id="technology-dot" opacity="0.4"/>
+                    <text x="285" y="247" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">TECHNOLOGY</text>
                 </svg>
 
                 <!-- Tooltip -->
