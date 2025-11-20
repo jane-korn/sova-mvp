@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.20 - FIXED: Mobile pictorial sizes + element text larger and moved from dots -->
+<!-- UPDATED: 2025-11-20 - Version 6.21 - FIXED: SVG viewBox expanded, MARKETING spacing, text cutoff -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.20">
-    <script src="questions-data.js?v=6.20"></script>
-    <script src="article-urls.js?v=6.20"></script>
-    <script src="content-data.js?v=6.20"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.21">
+    <script src="questions-data.js?v=6.21"></script>
+    <script src="article-urls.js?v=6.21"></script>
+    <script src="content-data.js?v=6.21"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -2548,7 +2548,7 @@
         <!-- Model Section -->
         <div class="model-section" id="modelSection">
             <div class="model-wrapper">
-                <svg id="sova-model" viewBox="0 0 1300 1300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <svg id="sova-model" viewBox="-50 -50 1400 1400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <!-- Define curved paths for text -->
                     <defs>
                         <!-- Gradients for premium ring styling -->
@@ -2685,7 +2685,7 @@
                     <!-- MARKETING (160°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="667" y1="697" x2="824" y2="1129" stroke="#C5D952" stroke-width="2.5" opacity="0.7"/>
                     <circle cx="824" cy="1129" r="24" fill="#C5D952" class="element-dot active" id="marketing-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
-                    <text x="824" y="1168" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
+                    <text x="824" y="1175" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
 
                     <!-- FINANCE (200°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="633" y1="697" x2="476" y2="1129" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
