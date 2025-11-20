@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.22">
-    <script src="questions-data.js?v=6.22"></script>
-    <script src="article-urls.js?v=6.22"></script>
-    <script src="content-data.js?v=6.22"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.23">
+    <script src="questions-data.js?v=6.23"></script>
+    <script src="article-urls.js?v=6.23"></script>
+    <script src="content-data.js?v=6.23"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -3062,8 +3062,10 @@
                 `;
 
                 buttonsDiv.innerHTML = `
-                    <button class="btn-primary" onclick="startAtStage('${previousStage}')">Start at ${previousStage}</button>
-                    <button class="btn-primary" style="background: white; color: var(--sova-coffee); border: 2px solid var(--sova-coffee);" onclick="startAtStage('${stage}')">No, I want ${stage} anyway</button>
+                    <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+                        <button class="btn-primary" onclick="startAtStage('${previousStage}')" style="width: 100%; white-space: normal; min-height: 48px; padding: 12px 16px;">Start at ${previousStage}</button>
+                        <button class="btn-primary" style="width: 100%; background: white; color: var(--sova-coffee); border: 2px solid var(--sova-coffee); white-space: normal; min-height: 48px; padding: 12px 16px;" onclick="startAtStage('${stage}')">No, I want ${stage} anyway</button>
+                    </div>
                 `;
             }
 
