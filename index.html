@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.10 - FIXED: Full-width containers on mobile, removed black bars on sides -->
+<!-- UPDATED: 2025-11-20 - Version 6.11 - FIXED: Report sections mobile responsive - gap cards, element breakdown, two-column layouts stack -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.10">
-    <script src="questions-data.js?v=6.10"></script>
-    <script src="article-urls.js?v=6.10"></script>
-    <script src="content-data.js?v=6.10"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.11">
+    <script src="questions-data.js?v=6.11"></script>
+    <script src="article-urls.js?v=6.11"></script>
+    <script src="content-data.js?v=6.11"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1919,6 +1919,63 @@
             .container {
                 max-width: 100% !important;
                 overflow-x: hidden !important;
+            }
+
+            /* Fix results section - Element Breakdown */
+            .score-card {
+                flex-direction: column !important;
+                width: 100% !important;
+                padding: 16px !important;
+                gap: 16px !important;
+            }
+
+            /* Fix element cards wrapping */
+            .score-details {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
+            /* Fix gap cards - buttons and content */
+            .gap-card {
+                padding: 16px 12px !important;
+                margin: 0 0 16px 0 !important;
+                max-width: 100% !important;
+            }
+
+            /* Fix gap card header to prevent overflow */
+            .gap-card-header {
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+            }
+
+            /* Fix two-column layouts to stack on mobile */
+            .two-column,
+            .gap-details {
+                flex-direction: column !important;
+                gap: 16px !important;
+            }
+
+            .column,
+            .gap-column {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            /* Fix brown header bar in gaps */
+            .gap-header-box,
+            [style*="background: #3D2517"] {
+                margin: 0 !important;
+                border-radius: 12px !important;
+                padding: 16px 12px !important;
+            }
+
+            /* Fix tooltips/buttons on gap cards */
+            .tooltip-btn,
+            [style*="border: 2px solid"] {
+                font-size: 12px !important;
+                padding: 8px 12px !important;
+                white-space: nowrap !important;
             }
         }
 
@@ -5642,6 +5699,48 @@
                     questionContainer.style.padding = '24px 16px';
                     console.log('✅ Question container fixed');
                 }
+
+                // Fix score cards (Element Breakdown)
+                const scoreCards = document.querySelectorAll('.score-card');
+                scoreCards.forEach(card => {
+                    card.style.flexDirection = 'column';
+                    card.style.width = '100%';
+                    card.style.padding = '16px';
+                });
+                if (scoreCards.length > 0) console.log('✅ Score cards fixed:', scoreCards.length);
+
+                // Fix gap cards
+                const gapCards = document.querySelectorAll('.gap-card');
+                gapCards.forEach(card => {
+                    card.style.padding = '16px 12px';
+                    card.style.margin = '0 0 16px 0';
+                    card.style.maxWidth = '100%';
+                });
+                if (gapCards.length > 0) console.log('✅ Gap cards fixed:', gapCards.length);
+
+                // Fix two-column layouts to stack
+                const twoColumns = document.querySelectorAll('.two-column, .gap-details');
+                twoColumns.forEach(col => {
+                    col.style.flexDirection = 'column';
+                    col.style.gap = '16px';
+                });
+
+                // Fix individual columns
+                const columns = document.querySelectorAll('.column, .gap-column');
+                columns.forEach(col => {
+                    col.style.width = '100%';
+                    col.style.maxWidth = '100%';
+                    col.style.padding = '0';
+                });
+                if (columns.length > 0) console.log('✅ Columns stacked:', columns.length);
+
+                // Fix brown header boxes
+                const brownHeaders = document.querySelectorAll('[style*="background: #3D2517"], [style*="background:#3D2517"]');
+                brownHeaders.forEach(header => {
+                    header.style.margin = '0';
+                    header.style.borderRadius = '12px';
+                    header.style.padding = '16px 12px';
+                });
 
                 console.log('✅ All mobile fixes applied!');
             } else {
