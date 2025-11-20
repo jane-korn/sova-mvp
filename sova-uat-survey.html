@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOVA UAT Feedback Survey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Corbel Light', Corbel, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            background: #f5f1e8;
+            color: #3D2517;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px 50px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(61, 37, 23, 0.1);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-text {
+            font-size: 48px;
+            font-weight: 800;
+            color: #C4FF00;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 0 #3D2517;
+        }
+
+        h1 {
+            color: #3D2517;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .intro {
+            text-align: center;
+            font-size: 18px;
+            color: #3D2517;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        .question-block {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(61, 37, 23, 0.1);
+        }
+
+        .question-block:last-of-type {
+            border-bottom: none;
+        }
+
+        .question-label {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3D2517;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .required {
+            color: #C4FF00;
+            font-weight: 700;
+        }
+
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px 16px;
+            border: 2px solid rgba(61, 37, 23, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .radio-option:hover, .checkbox-option:hover {
+            border-color: #C4FF00;
+            background: rgba(196, 255, 0, 0.05);
+        }
+
+        .radio-option.selected, .checkbox-option.selected {
+            border-color: #C4FF00;
+            background: rgba(196, 255, 0, 0.1);
+        }
+
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            margin-right: 12px;
+            cursor: pointer;
+            pointer-events: none;
+            flex-shrink: 0;
+        }
+
+        .radio-option label,
+        .checkbox-option label {
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0;
+            pointer-events: none;
+            flex: 1;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px;
+            border: 2px solid rgba(61, 37, 23, 0.2);
+            border-radius: 8px;
+            font-family: 'Corbel Light', Corbel, 'Segoe UI', Arial, sans-serif;
+            font-size: 16px;
+            color: #3D2517;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #C4FF00;
+        }
+
+        .conditional-question {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(196, 255, 0, 0.05);
+            border-left: 4px solid #C4FF00;
+            border-radius: 8px;
+        }
+
+        .conditional-question.show {
+            display: block;
+        }
+
+        .submit-btn {
+            background: #C4FF00;
+            color: #3D2517;
+            border: none;
+            padding: 16px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto 0;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: #3D2517;
+            color: #C4FF00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 255, 0, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: rgba(196, 255, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .success-message h2 {
+            color: #3D2517;
+            margin-bottom: 16px;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .logo-text {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-text">SOVA</div>
+        </div>
+
+        <h1>UAT Feedback Survey</h1>
+        <p class="intro">Thank you so much for testing out Sova. We would love to know what you think.</p>
+
+        <form id="surveyForm">
+            <!-- Optional Name Field -->
+            <div class="question-block">
+                <label class="question-label">Your Name (optional)</label>
+                <input type="text" name="respondent_name" placeholder="Enter your name (optional)" style="width: 100%; padding: 12px 16px; border: 2px solid rgba(61, 37, 23, 0.2); border-radius: 8px; font-size: 16px; font-family: 'Corbel Light', Corbel, sans-serif; transition: all 0.3s ease;" onfocus="this.style.borderColor='#C4FF00'" onblur="this.style.borderColor='rgba(61, 37, 23, 0.2)'">
+            </div>
+
+            <!-- Question 1: First Impression -->
+            <div class="question-block">
+                <label class="question-label">1. I understood what Sova does <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q1" value="Strongly Agree" id="q1_sa" required onchange="checkConditional('q1')">
+                    <label for="q1_sa">Strongly Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q1" value="Agree" id="q1_a" onchange="checkConditional('q1')">
+                    <label for="q1_a">Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q1" value="Neutral" id="q1_n" onchange="checkConditional('q1')">
+                    <label for="q1_n">Neutral</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q1" value="Disagree" id="q1_d" onchange="checkConditional('q1')">
+                    <label for="q1_d">Disagree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q1" value="Strongly Disagree" id="q1_sd" onchange="checkConditional('q1')">
+                    <label for="q1_sd">Strongly Disagree</label>
+                </div>
+                <div class="conditional-question" id="q1_followup">
+                    <label class="question-label">Please help us understand what we could do better:</label>
+                    <textarea name="q1_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 2: Assessment Experience -->
+            <div class="question-block">
+                <label class="question-label">2. The assessment questions were relevant to my situation and business <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q2" value="Strongly Agree" id="q2_sa" required onchange="checkConditional('q2')">
+                    <label for="q2_sa">Strongly Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q2" value="Agree" id="q2_a" onchange="checkConditional('q2')">
+                    <label for="q2_a">Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q2" value="Neutral" id="q2_n" onchange="checkConditional('q2')">
+                    <label for="q2_n">Neutral</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q2" value="Disagree" id="q2_d" onchange="checkConditional('q2')">
+                    <label for="q2_d">Disagree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q2" value="Strongly Disagree" id="q2_sd" onchange="checkConditional('q2')">
+                    <label for="q2_sd">Strongly Disagree</label>
+                </div>
+                <div class="conditional-question" id="q2_followup">
+                    <label class="question-label">Please help us understand what we could do better:</label>
+                    <textarea name="q2_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 3: Results Value -->
+            <div class="question-block">
+                <label class="question-label">3. The gap analysis identified weaknesses I wasn't fully aware of <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q3" value="Strongly Agree" id="q3_sa" required onchange="checkConditional('q3')">
+                    <label for="q3_sa">Strongly Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q3" value="Agree" id="q3_a" onchange="checkConditional('q3')">
+                    <label for="q3_a">Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q3" value="Neutral" id="q3_n" onchange="checkConditional('q3')">
+                    <label for="q3_n">Neutral</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q3" value="Disagree" id="q3_d" onchange="checkConditional('q3')">
+                    <label for="q3_d">Disagree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q3" value="Strongly Disagree" id="q3_sd" onchange="checkConditional('q3')">
+                    <label for="q3_sd">Strongly Disagree</label>
+                </div>
+                <div class="conditional-question" id="q3_followup">
+                    <label class="question-label">Please help us understand what we could do better:</label>
+                    <textarea name="q3_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 4: Action Intent -->
+            <div class="question-block">
+                <label class="question-label">4. I would take action based on the gaps identified and resources provided <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q4" value="Yes, immediately" id="q4_yi" required onchange="checkConditional('q4')">
+                    <label for="q4_yi">Yes, immediately</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q4" value="Yes, within 3 months" id="q4_y3" onchange="checkConditional('q4')">
+                    <label for="q4_y3">Yes, within 3 months</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q4" value="Maybe" id="q4_m" onchange="checkConditional('q4')">
+                    <label for="q4_m">Maybe</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q4" value="Unlikely" id="q4_u" onchange="checkConditional('q4')">
+                    <label for="q4_u">Unlikely</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q4" value="No" id="q4_n" onchange="checkConditional('q4')">
+                    <label for="q4_n">No</label>
+                </div>
+                <div class="conditional-question" id="q4_followup">
+                    <label class="question-label">Please help us understand why:</label>
+                    <textarea name="q4_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 5: Recommendation -->
+            <div class="question-block">
+                <label class="question-label">5. I would recommend Sova to other startup founders <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q5" value="Strongly Agree" id="q5_sa" required onchange="checkConditional('q5')">
+                    <label for="q5_sa">Strongly Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q5" value="Agree" id="q5_a" onchange="checkConditional('q5')">
+                    <label for="q5_a">Agree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q5" value="Neutral" id="q5_n" onchange="checkConditional('q5')">
+                    <label for="q5_n">Neutral</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q5" value="Disagree" id="q5_d" onchange="checkConditional('q5')">
+                    <label for="q5_d">Disagree</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q5" value="Strongly Disagree" id="q5_sd" onchange="checkConditional('q5')">
+                    <label for="q5_sd">Strongly Disagree</label>
+                </div>
+                <div class="conditional-question" id="q5_followup">
+                    <label class="question-label">Please help us understand why:</label>
+                    <textarea name="q5_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 6: Willingness to Pay -->
+            <div class="question-block">
+                <label class="question-label">6. How much would you pay for a tool like this? <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q6" value="$500-$1000" id="q6_high" required onchange="checkConditional('q6')">
+                    <label for="q6_high">$500-$1000</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q6" value="$300-$500" id="q6_mid_high" onchange="checkConditional('q6')">
+                    <label for="q6_mid_high">$300-$500</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q6" value="$100-$300" id="q6_mid" onchange="checkConditional('q6')">
+                    <label for="q6_mid">$100-$300</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q6" value="Under $100" id="q6_low" onchange="checkConditional('q6')">
+                    <label for="q6_low">Under $100</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q6" value="I wouldn't pay" id="q6_none" onchange="checkConditional('q6')">
+                    <label for="q6_none">I wouldn't pay</label>
+                </div>
+                <div class="conditional-question" id="q6_followup">
+                    <label class="question-label">Please help us understand why:</label>
+                    <textarea name="q6_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 7: Technical Issues -->
+            <div class="question-block">
+                <label class="question-label">7. Did you experience any technical problems? <span class="required">*</span></label>
+                <div class="radio-option">
+                    <input type="radio" name="q7" value="No" id="q7_n" required onchange="checkConditional('q7')">
+                    <label for="q7_n">No</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="q7" value="Yes" id="q7_y" onchange="checkConditional('q7')">
+                    <label for="q7_y">Yes</label>
+                </div>
+                <div class="conditional-question" id="q7_followup">
+                    <label class="question-label">Please briefly describe:</label>
+                    <textarea name="q7_followup" rows="3"></textarea>
+                </div>
+            </div>
+
+            <!-- Question 8: What liked most -->
+            <div class="question-block">
+                <label class="question-label">8. What did you like most about Sova? <span class="required">*</span></label>
+                <textarea name="q8" rows="4" required></textarea>
+            </div>
+
+            <!-- Question 9: What would make more valuable -->
+            <div class="question-block">
+                <label class="question-label">9. What would make Sova more valuable to you? <span class="required">*</span></label>
+                <textarea name="q9" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <h2>Thank you!</h2>
+            <p>Your feedback has been received. We really appreciate you taking the time to help us improve Sova.</p>
+        </div>
+    </div>
+
+    <script>
+        // Make entire radio option box clickable
+        document.querySelectorAll('.radio-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const radio = this.querySelector('input[type="radio"]');
+                radio.checked = true;
+
+                // Remove selected class from siblings
+                const siblings = this.parentElement.querySelectorAll('.radio-option');
+                siblings.forEach(sib => sib.classList.remove('selected'));
+
+                // Add selected class to clicked option
+                this.classList.add('selected');
+
+                // Trigger conditional logic
+                const questionNum = radio.name;
+                checkConditional(questionNum);
+            });
+        });
+
+        // Conditional question logic with smooth scrolling
+        function checkConditional(questionNum) {
+            const selectedValue = document.querySelector(`input[name="${questionNum}"]:checked`).value;
+            const followup = document.getElementById(`${questionNum}_followup`);
+            const currentBlock = document.querySelector(`input[name="${questionNum}"]`).closest('.question-block');
+
+            let shouldShowFollowup = false;
+
+            if (questionNum === 'q1' || questionNum === 'q2' || questionNum === 'q3' || questionNum === 'q5') {
+                // Show followup for Neutral, Disagree, Strongly Disagree
+                shouldShowFollowup = (selectedValue === 'Neutral' || selectedValue === 'Disagree' || selectedValue === 'Strongly Disagree');
+            } else if (questionNum === 'q4') {
+                // Show followup for Maybe, Unlikely, No
+                shouldShowFollowup = (selectedValue === 'Maybe' || selectedValue === 'Unlikely' || selectedValue === 'No');
+            } else if (questionNum === 'q6') {
+                // Show followup for "Under $100" or "I wouldn't pay"
+                shouldShowFollowup = (selectedValue === 'Under $100' || selectedValue === "I wouldn't pay");
+            } else if (questionNum === 'q7') {
+                // Show followup for Yes
+                shouldShowFollowup = (selectedValue === 'Yes');
+            }
+
+            if (shouldShowFollowup) {
+                followup.classList.add('show');
+                // Scroll to followup question
+                setTimeout(() => {
+                    followup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            } else {
+                followup.classList.remove('show');
+                followup.querySelector('textarea').value = '';
+                // Scroll to next question
+                const nextBlock = currentBlock.nextElementSibling;
+                if (nextBlock && nextBlock.classList.contains('question-block')) {
+                    setTimeout(() => {
+                        nextBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                }
+            }
+        }
+
+        // Form submission
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {};
+
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            // Add timestamp
+            data.timestamp = new Date().toISOString();
+
+            // Here you would normally send to your backend
+            // For now, we'll log it and show success message
+            console.log('Survey Response:', data);
+
+            // You can integrate with Google Forms by:
+            // 1. Getting the form action URL from your Google Form
+            // 2. Mapping field names to Google Form entry IDs
+            // 3. Submitting via fetch() or creating a hidden iframe
+
+            // Show success message
+            document.querySelector('.container form').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+
+            // Optional: Send email notification
+            // sendEmailNotification(data);
+        });
+    </script>
+</body>
+</html>
