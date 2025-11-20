@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.16 - FIXED: Tools position, Resource button styling, button spacing -->
+<!-- UPDATED: 2025-11-20 - Version 6.17 - FIXED: Resource button consistency, button spacing, report tooltips within margins -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.16">
-    <script src="questions-data.js?v=6.16"></script>
-    <script src="article-urls.js?v=6.16"></script>
-    <script src="content-data.js?v=6.16"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.17">
+    <script src="questions-data.js?v=6.17"></script>
+    <script src="article-urls.js?v=6.17"></script>
+    <script src="content-data.js?v=6.17"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1009,7 +1009,7 @@
             display: flex;
             justify-content: flex-end;
             gap: 12px;
-            margin-top: -8px;
+            margin-top: 8px;
             margin-bottom: 16px;
         }
 
@@ -2105,6 +2105,20 @@
                 line-height: 1 !important;
                 white-space: nowrap !important;
                 flex-shrink: 0 !important;
+            }
+
+            /* FIX: Report tooltip buttons (Definition, Why it matters, Experts) - fit within margins */
+            .tooltip-trigger {
+                font-size: 10px !important;
+                padding: 4px 8px !important;
+                white-space: nowrap !important;
+            }
+
+            /* Ensure button container doesn't overflow */
+            [style*="display: flex"][style*="gap: 12px"][style*="z-index: 1000000"] {
+                gap: 4px !important;
+                flex-wrap: wrap !important;
+                max-width: 100% !important;
             }
 
             /* FIX: Tooltip popovers stay within margins */
@@ -3861,15 +3875,13 @@
                 // Create line break for Resource button
                 buttonsContainer.appendChild(document.createElement('br'));
 
-                // Create clickable link with lime green border
+                // Create clickable link - same as Definition button but with lime green border
                 const link = document.createElement('a');
                 link.className = 'info-btn';
                 link.textContent = resourceConfig.label;
                 link.href = references[linkFieldName] || references[resourceConfig.key + 'Link'];
                 link.target = '_blank';
-                link.style.textDecoration = 'none';
-                link.style.display = 'inline-block';
-                link.style.border = '2px solid #C4FF00';
+                link.style.borderColor = '#C4FF00';
                 link.style.marginTop = '8px';
                 buttonsContainer.appendChild(link);
             }
