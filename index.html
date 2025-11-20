@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.7 - FIXED: Mobile button click issue (pointer-events on ::before pseudo-element) -->
+<!-- UPDATED: 2025-11-20 - Version 6.8 - FIXED: Mobile sidebar buttons extending beyond screen, report section text cutoff -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1882,6 +1882,34 @@
             .element-progress-item {
                 padding: 12px;
                 font-size: 14px;
+            }
+
+            /* HIDE sticky sidebar buttons on mobile - they extend beyond screen */
+            #webChartSidebar,
+            #reportSidebar,
+            #actionSidebar {
+                display: none !important;
+            }
+
+            /* Fix report sections - proper padding and no cutoff */
+            .report-section {
+                padding: 20px 12px !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                max-width: 100% !important;
+            }
+
+            /* Ensure report content doesn't get cut off */
+            #reportSection {
+                padding: 0 8px !important;
+                max-width: 100% !important;
+                overflow-x: hidden !important;
+            }
+
+            /* Fix container width on mobile */
+            .container {
+                max-width: 100% !important;
+                overflow-x: hidden !important;
             }
         }
 
