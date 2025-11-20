@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.9 - FIXED: Added JavaScript mobile fixes to override inline styles, force hide sidebar buttons -->
+<!-- UPDATED: 2025-11-20 - Version 6.10 - FIXED: Full-width containers on mobile, removed black bars on sides -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.9">
-    <script src="questions-data.js?v=6.9"></script>
-    <script src="article-urls.js?v=6.9"></script>
-    <script src="content-data.js?v=6.9"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.10">
+    <script src="questions-data.js?v=6.10"></script>
+    <script src="article-urls.js?v=6.10"></script>
+    <script src="content-data.js?v=6.10"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1646,7 +1646,9 @@
             }
 
             .container {
-                padding: 8px 16px;
+                padding: 8px 0;
+                max-width: 100% !important;
+                margin: 0 !important;
             }
 
             /* Header - Mobile */
@@ -1657,9 +1659,11 @@
 
             /* Preliminary Section - Mobile */
             .prelim-section {
-                padding: 40px 24px;
-                border-radius: 24px;
+                padding: 40px 16px;
+                border-radius: 0;
+                margin: 0;
                 margin-bottom: 24px;
+                max-width: 100% !important;
             }
 
             .prelim-section h2 {
@@ -1753,8 +1757,10 @@
 
             /* Questionnaire - Mobile */
             .question-container {
-                padding: 24px 20px;
-                border-radius: 16px;
+                padding: 24px 16px;
+                border-radius: 0;
+                margin: 0;
+                max-width: 100% !important;
             }
 
             .question-text {
@@ -5611,8 +5617,35 @@
                 const container = document.querySelector('.container');
                 if (container) {
                     container.style.maxWidth = '100%';
+                    container.style.margin = '0';
+                    container.style.padding = '8px 0';
                     container.style.overflowX = 'hidden';
+                    console.log('✅ Container fixed');
                 }
+
+                // Fix preliminary section
+                const prelimSection = document.querySelector('.prelim-section');
+                if (prelimSection) {
+                    prelimSection.style.maxWidth = '100%';
+                    prelimSection.style.margin = '0 0 24px 0';
+                    prelimSection.style.borderRadius = '0';
+                    prelimSection.style.padding = '40px 16px';
+                    console.log('✅ Prelim section fixed');
+                }
+
+                // Fix question container
+                const questionContainer = document.querySelector('.question-container');
+                if (questionContainer) {
+                    questionContainer.style.maxWidth = '100%';
+                    questionContainer.style.margin = '0';
+                    questionContainer.style.borderRadius = '0';
+                    questionContainer.style.padding = '24px 16px';
+                    console.log('✅ Question container fixed');
+                }
+
+                console.log('✅ All mobile fixes applied!');
+            } else {
+                console.log('💻 Desktop mode - no mobile fixes needed');
             }
         }
 
