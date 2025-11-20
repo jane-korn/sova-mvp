@@ -2245,9 +2245,13 @@
                 font-size: 32px !important;
             }
 
-            /* Increase ALL stage text (stage labels and descriptions) on mobile */
-            #sova-model text textPath {
-                font-size: 36px !important;
+            /* Increase stage labels on mobile - but differentiate from descriptions */
+            #sova-model text.stage-label {
+                font-size: 34px !important;
+            }
+
+            #sova-model text.stage-desc {
+                font-size: 24px !important;
             }
 
             /* Make inactive elements more visible on mobile */
@@ -2619,36 +2623,36 @@
                     <circle cx="650" cy="650" r="50" fill="none" stroke="#C5D952" stroke-width="3" opacity="0.5"/>
                     <circle cx="650" cy="650" r="100" fill="url(#discoveryGradient)" stroke="none" stroke-width="100"/>
 
-                    <!-- Stage Labels - curved along circles (INCREASED SIZE) -->
+                    <!-- Stage Labels - curved along circles (INCREASED SIZE FOR DESKTOP) -->
                     <!-- DISCOVERY -->
-                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#f5f1e8" opacity="0.9" class="stage-label">
                         <textPath href="#discoveryPath" startOffset="50%" text-anchor="middle">DISCOVERY</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="20" font-style="italic" fill="#E8C547" opacity="0.8" class="stage-desc">
                         <textPath href="#discoverySubPath" startOffset="50%" text-anchor="middle">Building Foundations</textPath>
                     </text>
 
                     <!-- VALIDATION -->
-                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#f5f1e8" opacity="0.9" class="stage-label">
                         <textPath href="#validationPath" startOffset="50%" text-anchor="middle">VALIDATION</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="20" font-style="italic" fill="#E8C547" opacity="0.8" class="stage-desc">
                         <textPath href="#validationSubPath" startOffset="50%" text-anchor="middle">Proving the Model</textPath>
                     </text>
 
                     <!-- EFFICIENCY -->
-                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#f5f1e8" opacity="0.9" class="stage-label">
                         <textPath href="#efficiencyPath" startOffset="50%" text-anchor="middle">EFFICIENCY</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="20" font-style="italic" fill="#E8C547" opacity="0.8" class="stage-desc">
                         <textPath href="#efficiencySubPath" startOffset="50%" text-anchor="middle">Optimising Systems</textPath>
                     </text>
 
                     <!-- SCALE -->
-                    <text font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#f5f1e8" opacity="0.9">
+                    <text font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#f5f1e8" opacity="0.9" class="stage-label">
                         <textPath href="#scalePath" startOffset="50%" text-anchor="middle">SCALE</textPath>
                     </text>
-                    <text font-family="Arial, sans-serif" font-size="16" font-style="italic" fill="#E8C547" opacity="0.8">
+                    <text font-family="Arial, sans-serif" font-size="20" font-style="italic" fill="#E8C547" opacity="0.8" class="stage-desc">
                         <textPath href="#scaleSubPath" startOffset="50%" text-anchor="middle">Innovation &amp; Growth</textPath>
                     </text>
 
