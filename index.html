@@ -3545,10 +3545,94 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Show message confirming save
+            // Show custom styled message confirming save
             setTimeout(() => {
-                alert('Progress saved. You can continue anytime by clicking on any element.');
+                showSovaModal('Progress saved! You can continue anytime by clicking on any element.');
             }, 500);
+        }
+
+        // Custom Sova-styled modal (replaces basic alert)
+        function showSovaModal(message) {
+            // Remove any existing modal
+            const existingModal = document.getElementById('sovaModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            // Create modal overlay
+            const modal = document.createElement('div');
+            modal.id = 'sovaModal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.85);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+            `;
+
+            // Create modal content
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: #3D2517;
+                padding: 48px;
+                border-radius: 24px;
+                max-width: 500px;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(196, 255, 0, 0.3);
+                border: 3px solid #C4FF00;
+                animation: slideIn 0.3s ease;
+            `;
+
+            modalContent.innerHTML = `
+                <div style="font-size: 64px; margin-bottom: 24px;">✓</div>
+                <h2 style="color: #C4FF00; font-size: 28px; font-weight: 800; margin-bottom: 16px; letter-spacing: 1px;">
+                    PROGRESS SAVED
+                </h2>
+                <p style="color: #f5f1e8; font-size: 18px; line-height: 1.6; margin-bottom: 32px;">
+                    ${message}
+                </p>
+                <button onclick="document.getElementById('sovaModal').remove()" style="
+                    background: #C4FF00;
+                    color: #3D2517;
+                    border: none;
+                    padding: 16px 48px;
+                    font-size: 18px;
+                    font-weight: 700;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    transition: all 0.3s ease;
+                " onmouseover="this.style.background='#3D2517'; this.style.color='#C4FF00'; this.style.border='2px solid #C4FF00';"
+                   onmouseout="this.style.background='#C4FF00'; this.style.color='#3D2517'; this.style.border='none';">
+                    Got it
+                </button>
+            `;
+
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            // Close on click outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            // Close on Escape key
+            const escapeHandler = (e) => {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            };
+            document.addEventListener('keydown', escapeHandler);
         }
 
         // Save Progress
