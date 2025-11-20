@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.8 - FIXED: Mobile sidebar buttons extending beyond screen, report section text cutoff -->
+<!-- UPDATED: 2025-11-20 - Version 6.9 - FIXED: Added JavaScript mobile fixes to override inline styles, force hide sidebar buttons -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.8">
-    <script src="questions-data.js?v=6.8"></script>
-    <script src="article-urls.js?v=6.8"></script>
-    <script src="content-data.js?v=6.8"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.9">
+    <script src="questions-data.js?v=6.9"></script>
+    <script src="article-urls.js?v=6.9"></script>
+    <script src="content-data.js?v=6.9"></script>
     <style>
         * {
             margin: 0;
@@ -5564,6 +5564,54 @@
             // DOM already loaded
             initializeAssessment();
         }
+
+        // Mobile-specific fixes - hide sidebar buttons and fix layout
+        function applyMobileFixes() {
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // Force hide sidebar buttons on mobile
+                const sidebarButtons = ['webChartSidebar', 'reportSidebar', 'actionSidebar'];
+                sidebarButtons.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.style.display = 'none';
+                        el.style.visibility = 'hidden';
+                    }
+                });
+
+                // Fix report section width
+                const reportSection = document.getElementById('reportSection');
+                if (reportSection) {
+                    reportSection.style.paddingLeft = '8px';
+                    reportSection.style.paddingRight = '8px';
+                    reportSection.style.maxWidth = '100%';
+                    reportSection.style.overflowX = 'hidden';
+                }
+
+                // Fix all report-section elements
+                const reportSections = document.querySelectorAll('.report-section');
+                reportSections.forEach(section => {
+                    section.style.padding = '20px 12px';
+                    section.style.marginLeft = '0';
+                    section.style.marginRight = '0';
+                    section.style.maxWidth = '100%';
+                });
+
+                // Fix container
+                const container = document.querySelector('.container');
+                if (container) {
+                    container.style.maxWidth = '100%';
+                    container.style.overflowX = 'hidden';
+                }
+            }
+        }
+
+        // Apply on load
+        applyMobileFixes();
+
+        // Reapply on resize
+        window.addEventListener('resize', applyMobileFixes);
 
         // Make entire radio option containers clickable
         document.addEventListener('click', function(e) {
