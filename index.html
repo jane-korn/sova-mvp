@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.13 - FIXED: Element grid single column, filter buttons compressed, gap/research margins increased -->
+<!-- UPDATED: 2025-11-20 - Version 6.14 - FIXED: Systematic margin consistency - 2-column grid, 9px buttons, 28px tooltip height, 16px padding -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.13">
-    <script src="questions-data.js?v=6.13"></script>
-    <script src="article-urls.js?v=6.13"></script>
-    <script src="content-data.js?v=6.13"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.14">
+    <script src="questions-data.js?v=6.14"></script>
+    <script src="article-urls.js?v=6.14"></script>
+    <script src="content-data.js?v=6.14"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1991,11 +1991,25 @@
                 padding: 6px 10px !important;
             }
 
-            /* FIX: Element Breakdown - full width tiles */
+            /* STANDARDIZE ALL SECTION PADDING TO 16PX */
+            [style*="background: #3D2517"],
+            [style*="background: #f5f1e8"] {
+                padding: 40px 16px !important;
+            }
+
+            /* All inner containers same margins */
+            [style*="max-width: 1200px"],
+            [style*="max-width: 1400px"] {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* FIX 1 & 2: Element Breakdown heading and tiles - 2 per row */
             #elementGrid {
-                grid-template-columns: 1fr !important;
+                grid-template-columns: repeat(2, 1fr) !important;
                 gap: 12px !important;
-                padding: 0 16px !important;
+                padding: 0 !important;
             }
 
             .element-card,
@@ -2006,60 +2020,106 @@
                 padding: 16px 12px !important;
             }
 
+            /* Element Breakdown heading same margin as others */
+            #elementGrid + h2,
+            [style*="Element Breakdown"] {
+                margin: 0 0 24px 0 !important;
+            }
+
+            /* FIX 3: Your Startup Health content same margins */
+            #statusContent,
+            #overallScoreVisual {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            /* Startup Health grid stacks on mobile */
+            [style*="grid-template-columns: 2fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 24px !important;
+            }
+
             /* FIX: Your Gaps heading section */
-            #gapsSection .flex {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 12px !important;
-                margin-bottom: 20px !important;
+            [style*="Your Gaps"] {
+                margin: 0 0 24px 0 !important;
             }
 
             /* Hide "Click an element" text on mobile */
-            #gapsSection p[style*="opacity: 0.5"] {
+            [style*="Click an element"] {
                 display: none !important;
             }
 
-            /* FIX: Filter buttons - compress to single line */
+            /* FIX 4: Filter by Element same margins, all buttons on one line */
             .filter-buttons,
             #elementFilterButtons {
                 flex-wrap: nowrap !important;
                 justify-content: flex-start !important;
-                gap: 4px !important;
+                gap: 3px !important;
                 overflow-x: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
             .filter-btn,
-            .element-filter-btn {
-                font-size: 10px !important;
-                padding: 6px 8px !important;
+            .element-filter-btn,
+            button[style*="background: #3D2517"],
+            button[style*="background: white"] {
+                font-size: 9px !important;
+                padding: 6px 6px !important;
                 white-space: nowrap !important;
                 flex-shrink: 0 !important;
+                min-width: auto !important;
             }
 
-            /* FIX: Element headings with tooltips - stack on mobile */
-            .element-header {
+            /* FIX 5: Element headings with Definition/Why/Experts buttons - one line, same height, under heading */
+            .element-header,
+            [style*="justify-content: space-between"][style*="align-items: center"] {
                 flex-direction: column !important;
                 align-items: flex-start !important;
-                gap: 12px !important;
+                gap: 8px !important;
+                padding: 0 16px !important;
             }
 
             .element-title {
                 width: 100% !important;
+                margin: 0 !important;
             }
 
-            .element-tooltips {
+            .element-tooltips,
+            [style*="display: flex"][style*="gap: 8px"] {
                 width: 100% !important;
                 justify-content: flex-start !important;
-                flex-wrap: wrap !important;
-                gap: 6px !important;
+                flex-wrap: nowrap !important;
+                gap: 4px !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
-            /* FIX: Gap statement containers - MORE MARGIN */
-            .gap-item,
-            [class*="gap-card"] {
+            /* FIX 5: Compress tooltip buttons - same height, one line */
+            .element-tooltips button,
+            [style*="padding: 8px 16px"][style*="border: 2px solid"] {
+                font-size: 9px !important;
+                padding: 6px 8px !important;
+                height: 28px !important;
+                line-height: 1 !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* FIX 6: Element heading container same margins as Startup Health */
+            .gap-card-header,
+            [style*="background: #3D2517"][style*="padding: 24px"] {
                 padding: 16px !important;
-                margin: 0 16px 16px 16px !important;
-                max-width: calc(100% - 32px) !important;
+                margin: 0 !important;
+            }
+
+            /* FIX 7: Gap statement containers same margins as Element heading */
+            .gap-item,
+            [class*="gap-card"],
+            [style*="border-radius: 16px"][style*="margin-bottom: 32px"] {
+                padding: 16px !important;
+                margin: 0 0 16px 0 !important;
+                max-width: 100% !important;
             }
 
             /* FIX: Gap details two-column to ensure tools visible */
@@ -5884,13 +5944,13 @@
                     btn.style.padding = '6px 10px';
                 });
 
-                // Fix Element Breakdown grid
+                // Fix Element Breakdown grid - 2 columns on mobile
                 const elementGrid = document.getElementById('elementGrid');
                 if (elementGrid) {
-                    elementGrid.style.gridTemplateColumns = '1fr';
+                    elementGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
                     elementGrid.style.gap = '12px';
-                    elementGrid.style.padding = '0 16px';
-                    console.log('✅ Element grid fixed - single column');
+                    elementGrid.style.padding = '0';
+                    console.log('✅ Element grid fixed - 2 columns');
                 }
 
                 // Fix element cards
@@ -5922,15 +5982,15 @@
                 filterButtons.forEach(btns => {
                     btns.style.flexWrap = 'nowrap';
                     btns.style.justifyContent = 'flex-start';
-                    btns.style.gap = '4px';
+                    btns.style.gap = '3px';
                     btns.style.overflowX = 'auto';
                 });
 
-                // Compress filter buttons
+                // Compress filter buttons - single line, 9px font
                 const filterBtns = document.querySelectorAll('.filter-btn, .element-filter-btn');
                 filterBtns.forEach(btn => {
-                    btn.style.fontSize = '10px';
-                    btn.style.padding = '6px 8px';
+                    btn.style.fontSize = '9px';
+                    btn.style.padding = '6px 6px';
                     btn.style.whiteSpace = 'nowrap';
                     btn.style.flexShrink = '0';
                 });
@@ -5948,23 +6008,26 @@
                 elementTooltips.forEach(tooltips => {
                     tooltips.style.width = '100%';
                     tooltips.style.justifyContent = 'flex-start';
-                    tooltips.style.flexWrap = 'wrap';
+                    tooltips.style.flexWrap = 'nowrap';
                     tooltips.style.gap = '4px';
                 });
 
-                // Compress tooltip buttons
+                // Compress tooltip buttons - same height (28px), one line
                 const tooltipBtns = document.querySelectorAll('.element-tooltips button, .element-tooltips [style*="border"]');
                 tooltipBtns.forEach(btn => {
                     btn.style.fontSize = '9px';
-                    btn.style.padding = '4px 8px';
+                    btn.style.padding = '6px 8px';
+                    btn.style.height = '28px';
+                    btn.style.lineHeight = '1';
+                    btn.style.whiteSpace = 'nowrap';
                 });
 
-                // Fix gap items with MORE MARGIN
+                // Fix gap items - same margins as Element heading containers
                 const gapItems = document.querySelectorAll('.gap-item');
                 gapItems.forEach(item => {
                     item.style.padding = '16px';
-                    item.style.margin = '0 16px 16px 16px';
-                    item.style.maxWidth = 'calc(100% - 32px)';
+                    item.style.margin = '0 0 16px 0';
+                    item.style.maxWidth = '100%';
                 });
                 if (gapItems.length > 0) console.log('✅ Gap items fixed with margins:', gapItems.length);
 
