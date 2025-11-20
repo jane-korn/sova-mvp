@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.14 - FIXED: Systematic margin consistency - 2-column grid, 9px buttons, 28px tooltip height, 16px padding -->
+<!-- UPDATED: 2025-11-20 - Version 6.15 - FIXED: 7 UX issues - buttons, fonts, layout, tooltips, sidebars -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.14">
-    <script src="questions-data.js?v=6.14"></script>
-    <script src="article-urls.js?v=6.14"></script>
-    <script src="content-data.js?v=6.14"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.15">
+    <script src="questions-data.js?v=6.15"></script>
+    <script src="article-urls.js?v=6.15"></script>
+    <script src="content-data.js?v=6.15"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -2106,6 +2106,22 @@
                 flex-shrink: 0 !important;
             }
 
+            /* FIX: Tooltip popovers stay within margins */
+            .tooltip-popover {
+                left: 0 !important;
+                right: 0 !important;
+                margin-left: 0 !important;
+                transform: none !important;
+                width: calc(100vw - 32px) !important;
+                max-width: 400px !important;
+                min-width: unset !important;
+            }
+
+            .tooltip-popover::after {
+                left: 24px !important;
+                transform: none !important;
+            }
+
             /* FIX 6: Element heading container same margins as Startup Health */
             .gap-card-header,
             [style*="background: #3D2517"][style*="padding: 24px"] {
@@ -2469,7 +2485,7 @@
                 <!-- Navigation -->
                 <div class="navigation-buttons">
                     <button class="nav-btn" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
-                    <button class="nav-btn" id="saveExitBtn" onclick="exitQuestionnaire()" style="background: white; color: var(--sova-coffee); border: 2px solid var(--sova-coffee);">Save & Exit</button>
+                    <button class="nav-btn" id="saveExitBtn" onclick="exitQuestionnaire()">Save & Exit</button>
                 </div>
             </div>
         </div>
@@ -3767,9 +3783,6 @@
                         link.target = '_blank';
                         link.style.textDecoration = 'none';
                         link.style.display = 'inline-block';
-                        link.style.border = '2px solid #C4FF00'; // Lime outline to stand out
-                        link.style.fontSize = '13px'; // Match other buttons
-                        link.style.fontWeight = '600'; // Match other buttons
                         buttonsContainer.appendChild(link);
                         return;
                     } else if (data) {
@@ -4986,16 +4999,13 @@
                                                 <h4 style="color: #C4FF00; font-size: clamp(18px, 2.2vw, 24px); font-weight: 700; margin: 0; line-height: 1.3; letter-spacing: -0.5px;">${questionText}</h4>
                                             </div>
 
-                                            <!-- Split Layout: Left (Advice + Quotes) | Right (Tools) -->
-                                            <div style="display: grid; grid-template-columns: ${(tools.length > 0 || bookRec) ? '2fr 1fr' : '1fr'}; gap: 0;">
-
-                                                <!-- LEFT: Advice + Insights -->
-                                                <div style="padding: 36px; ${(tools.length > 0 || bookRec) ? 'border-right: 2px solid #f5f1e8;' : ''}">
-                                                    <!-- Advice section with subtle label -->
-                                                    <div style="margin-bottom: 28px;">
-                                                        <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">How to Address This</div>
-                                                        <p style="color: #3D2517; font-size: 16px; line-height: 1.7; margin: 0; font-weight: 400;">${advice}</p>
-                                                    </div>
+                                            <!-- Full Width Layout: Advice, Research References, then Tools -->
+                                            <div style="padding: 36px;">
+                                                <!-- Advice section with subtle label -->
+                                                <div style="margin-bottom: 28px;">
+                                                    <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">How to Address This</div>
+                                                    <p style="color: #3D2517; font-size: 14px; line-height: 1.7; margin: 0; font-weight: 400;">${advice}</p>
+                                                </div>
 
                                                     <!-- Evidence Base: Compact reference-style citations -->
                                                     ${(quoteFailure || quoteFailure2 || quoteBestPractice || quoteBestPractice2 || vcRequirements) ? `
@@ -5010,7 +5020,7 @@
                                                                         <p id="quote_failure_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteFailure.replace(/"/g, '&quot;')}" data-short-text="${quoteFailure.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #3D2517; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteFailure.substring(0, 120)}${quoteFailure.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
                                                                             ${quoteFailure.length > 120 ? `<button onclick="toggleQuote('quote_failure_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteFailureLink ? `<a href="${quoteFailureLink}" target="_blank" style="color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer;">View source →</a>` : ''}
+                                                                            ${quoteFailureLink ? `<button onclick="window.open('${quoteFailureLink}', '_blank')" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -5020,7 +5030,7 @@
                                                                         <p id="quote_failure2_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteFailure2.replace(/"/g, '&quot;')}" data-short-text="${quoteFailure2.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #3D2517; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteFailure2.substring(0, 120)}${quoteFailure2.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
                                                                             ${quoteFailure2.length > 120 ? `<button onclick="toggleQuote('quote_failure2_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteFailure2Link ? `<a href="${quoteFailure2Link}" target="_blank" style="color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer;">View source →</a>` : ''}
+                                                                            ${quoteFailure2Link ? `<button onclick="window.open('${quoteFailure2Link}', '_blank')" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -5030,7 +5040,7 @@
                                                                         <p id="quote_best_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteBestPractice.replace(/"/g, '&quot;')}" data-short-text="${quoteBestPractice.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #3D2517; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteBestPractice.substring(0, 120)}${quoteBestPractice.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
                                                                             ${quoteBestPractice.length > 120 ? `<button onclick="toggleQuote('quote_best_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteBestPracticeLink ? `<a href="${quoteBestPracticeLink}" target="_blank" style="color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer;">View source →</a>` : ''}
+                                                                            ${quoteBestPracticeLink ? `<button onclick="window.open('${quoteBestPracticeLink}', '_blank')" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -5040,7 +5050,7 @@
                                                                         <p id="quote_best2_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteBestPractice2.replace(/"/g, '&quot;')}" data-short-text="${quoteBestPractice2.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #3D2517; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteBestPractice2.substring(0, 120)}${quoteBestPractice2.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
                                                                             ${quoteBestPractice2.length > 120 ? `<button onclick="toggleQuote('quote_best2_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteBestPractice2Link ? `<a href="${quoteBestPractice2Link}" target="_blank" style="color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer;">View source →</a>` : ''}
+                                                                            ${quoteBestPractice2Link ? `<button onclick="window.open('${quoteBestPractice2Link}', '_blank')" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -5050,37 +5060,30 @@
                                                                         <p id="quote_vc_${elementName}_${gap.stage}_${idx}" data-full-text="${vcRequirements.replace(/"/g, '&quot;')}" data-short-text="${vcRequirements.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #3D2517; font-size: 11px; line-height: 1.4; margin: 0;">${vcRequirements.substring(0, 120)}${vcRequirements.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
                                                                             ${vcRequirements.length > 120 ? `<button onclick="toggleQuote('quote_vc_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${vcRequirementsLink ? `<a href="${vcRequirementsLink}" target="_blank" style="color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer;">View source →</a>` : ''}
+                                                                            ${vcRequirementsLink ? `<button onclick="window.open('${vcRequirementsLink}', '_blank')" style="background: none; border: none; color: #3D2517; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
                                                             </div>
                                                         </div>
                                                     ` : ''}
-                                                </div>
 
-                                                <!-- RIGHT: Tools (Recommended Tools + More Resources) -->
+                                                <!-- Recommended Tools (moved after Research References) -->
                                                 ${(tools.length > 0 || bookRec) ? `
-                                                    <div style="background: #f5f1e8; padding: 36px 28px;">
+                                                    <div style="margin-top: 28px;">
                                                         ${tools.length > 0 ? `
-                                                            <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px;">Tools</div>
-                                                        ` : ''}
-
-                                                        <!-- Recommended Tools -->
-                                                        ${tools.length > 0 ? `
-                                                            <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                                                            <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;">Recommended Tools</div>
+                                                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px;">
                                                                 ${tools.map(tool => {
                                                                 if (tool.link) {
                                                                     return `
-                                                                        <a href="${tool.link}" target="_blank" style="background: #f5f1e8; color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; display: block; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: 0 2px 8px rgba(61, 37, 23, 0.06); border: 2px solid transparent; position: relative; overflow: hidden;" onmouseover="this.style.background='#3D2517'; this.style.color='#C4FF00'; this.style.borderColor='#3D2517';" onmouseout="this.style.background='#f5f1e8'; this.style.color='#3D2517'; this.style.borderColor='transparent';">
-                                                                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                                                <span>${tool.name}</span>
-                                                                            </div>
+                                                                        <a href="${tool.link}" target="_blank" style="background: rgba(61, 37, 23, 0.03); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; display: block; transition: all 0.3s ease; border: 2px solid rgba(61, 37, 23, 0.1);" onmouseover="this.style.background='#3D2517'; this.style.color='#C4FF00'; this.style.borderColor='#3D2517';" onmouseout="this.style.background='rgba(61, 37, 23, 0.03)'; this.style.color='#3D2517'; this.style.borderColor='rgba(61, 37, 23, 0.1)';">
+                                                                            ${tool.name}
                                                                         </a>
                                                                     `;
                                                                 } else {
                                                                     return `
-                                                                        <div style="background: rgba(255, 255, 255, 0.5); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0.5; border: 2px dashed rgba(61, 37, 23, 0.2);">
+                                                                        <div style="background: rgba(61, 37, 23, 0.02); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0.5; border: 2px dashed rgba(61, 37, 23, 0.2);">
                                                                             ${tool.name}
                                                                         </div>
                                                                     `;
@@ -5089,10 +5092,10 @@
                                                             </div>
                                                         ` : ''}
 
-                                                        <!-- More Resources (Books) -->
+                                                        <!-- Recommended Reading -->
                                                         ${bookRec ? `
                                                             <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 16px 0;">Recommended Reading</div>
-                                                            <div style="background: linear-gradient(135deg, rgba(61, 37, 23, 0.06) 0%, rgba(61, 37, 23, 0.02) 100%); padding: 20px; border-radius: 12px; border-left: 3px solid #3D2517;">
+                                                            <div style="background: rgba(61, 37, 23, 0.03); border-radius: 8px; padding: 16px; border-left: 3px solid #3D2517;">
                                                                 <p style="color: #3D2517; font-size: 14px; line-height: 1.6; margin: 0; font-weight: 600;">${bookRec}</p>
                                                             </div>
                                                         ` : ''}
@@ -5823,20 +5826,25 @@
 
             console.log('🔧 Mobile Fix Running - Window Width:', window.innerWidth, 'isMobile:', isMobile);
 
-            if (isMobile) {
-                console.log('📱 Applying mobile fixes...');
-
-                // Force hide sidebar buttons on mobile
-                const sidebarButtons = ['webChartSidebar', 'reportSidebar', 'actionSidebar'];
-                sidebarButtons.forEach(id => {
-                    const el = document.getElementById(id);
-                    console.log('Hiding sidebar button:', id, 'Element found:', !!el);
-                    if (el) {
+            // Handle sidebar buttons visibility
+            const sidebarButtons = ['webChartSidebar', 'reportSidebar', 'actionSidebar'];
+            sidebarButtons.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (isMobile) {
                         el.style.display = 'none';
                         el.style.visibility = 'hidden';
-                        console.log('✅ Hidden:', id);
+                        console.log('📱 Hidden sidebar:', id);
+                    } else {
+                        el.style.display = 'block';
+                        el.style.visibility = 'visible';
+                        console.log('💻 Showing sidebar:', id);
                     }
-                });
+                }
+            });
+
+            if (isMobile) {
+                console.log('📱 Applying mobile fixes...');
 
                 // Fix report section width
                 const reportSection = document.getElementById('reportSection');
