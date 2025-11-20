@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.15 - FIXED: 7 UX issues - buttons, fonts, layout, tooltips, sidebars -->
+<!-- UPDATED: 2025-11-20 - Version 6.16 - FIXED: Tools position, Resource button styling, button spacing -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.15">
-    <script src="questions-data.js?v=6.15"></script>
-    <script src="article-urls.js?v=6.15"></script>
-    <script src="content-data.js?v=6.15"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.16">
+    <script src="questions-data.js?v=6.16"></script>
+    <script src="article-urls.js?v=6.16"></script>
+    <script src="content-data.js?v=6.16"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1009,7 +1009,8 @@
             display: flex;
             justify-content: flex-end;
             gap: 12px;
-            margin-bottom: 20px;
+            margin-top: -8px;
+            margin-bottom: 16px;
         }
 
         .info-btn {
@@ -3747,12 +3748,14 @@
             const isVC = userData.aimingForVC;
 
             // Define button configurations (removed tools, advice, book, quotes - quotes for report only)
+            // Resource button goes on separate line
             const buttonConfigs = [
-                { key: 'resources', label: 'Resource', isLink: true },
                 { key: 'keyTerms', label: 'Definitions' },
                 { key: 'articles', label: 'Why it matters' },
                 { key: 'vcMapping', label: 'VC Perspective', showIf: isVC }
             ];
+
+            const resourceConfig = { key: 'resources', label: 'Resource', isLink: true };
 
             // Create buttons and content sections for available data
             buttonConfigs.forEach(config => {
@@ -3845,6 +3848,31 @@
                 contentDiv.innerHTML = contentHTML;
                 contentContainer.appendChild(contentDiv);
             });
+
+            // Handle Resource button separately - on its own line with lime green border
+            const fieldMap = {
+                'resources': 'Resources'
+            };
+            const excelFieldName = fieldMap[resourceConfig.key];
+            const linkFieldName = excelFieldName + 'Link';
+            const hasLink = references[linkFieldName] || references[resourceConfig.key + 'Link'];
+
+            if (hasLink) {
+                // Create line break for Resource button
+                buttonsContainer.appendChild(document.createElement('br'));
+
+                // Create clickable link with lime green border
+                const link = document.createElement('a');
+                link.className = 'info-btn';
+                link.textContent = resourceConfig.label;
+                link.href = references[linkFieldName] || references[resourceConfig.key + 'Link'];
+                link.target = '_blank';
+                link.style.textDecoration = 'none';
+                link.style.display = 'inline-block';
+                link.style.border = '2px solid #C4FF00';
+                link.style.marginTop = '8px';
+                buttonsContainer.appendChild(link);
+            }
         }
 
         // Simplify and expand VC content for clarity
@@ -5007,6 +5035,40 @@
                                                     <p style="color: #3D2517; font-size: 14px; line-height: 1.7; margin: 0; font-weight: 400;">${advice}</p>
                                                 </div>
 
+                                                <!-- Recommended Tools (between Advice and Research References) -->
+                                                ${(tools.length > 0 || bookRec) ? `
+                                                    <div style="margin-bottom: 28px;">
+                                                        ${tools.length > 0 ? `
+                                                            <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;">Recommended Tools</div>
+                                                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px;">
+                                                                ${tools.map(tool => {
+                                                                if (tool.link) {
+                                                                    return `
+                                                                        <a href="${tool.link}" target="_blank" style="background: rgba(61, 37, 23, 0.03); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; display: block; transition: all 0.3s ease; border: 2px solid rgba(61, 37, 23, 0.1);" onmouseover="this.style.background='#3D2517'; this.style.color='#C4FF00'; this.style.borderColor='#3D2517';" onmouseout="this.style.background='rgba(61, 37, 23, 0.03)'; this.style.color='#3D2517'; this.style.borderColor='rgba(61, 37, 23, 0.1)';">
+                                                                            ${tool.name}
+                                                                        </a>
+                                                                    `;
+                                                                } else {
+                                                                    return `
+                                                                        <div style="background: rgba(61, 37, 23, 0.02); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0.5; border: 2px dashed rgba(61, 37, 23, 0.2);">
+                                                                            ${tool.name}
+                                                                        </div>
+                                                                    `;
+                                                                }
+                                                                }).join('')}
+                                                            </div>
+                                                        ` : ''}
+
+                                                        <!-- Recommended Reading -->
+                                                        ${bookRec ? `
+                                                            <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 16px 0;">Recommended Reading</div>
+                                                            <div style="background: rgba(61, 37, 23, 0.03); border-radius: 8px; padding: 16px; border-left: 3px solid #3D2517;">
+                                                                <p style="color: #3D2517; font-size: 14px; line-height: 1.6; margin: 0; font-weight: 600;">${bookRec}</p>
+                                                            </div>
+                                                        ` : ''}
+                                                    </div>
+                                                ` : ''}
+
                                                     <!-- Evidence Base: Compact reference-style citations -->
                                                     ${(quoteFailure || quoteFailure2 || quoteBestPractice || quoteBestPractice2 || vcRequirements) ? `
                                                         <div style="background: rgba(61, 37, 23, 0.03); border-radius: 8px; padding: 16px; border-left: 3px solid #C4FF00;">
@@ -5067,40 +5129,6 @@
                                                             </div>
                                                         </div>
                                                     ` : ''}
-
-                                                <!-- Recommended Tools (moved after Research References) -->
-                                                ${(tools.length > 0 || bookRec) ? `
-                                                    <div style="margin-top: 28px;">
-                                                        ${tools.length > 0 ? `
-                                                            <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px;">Recommended Tools</div>
-                                                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px;">
-                                                                ${tools.map(tool => {
-                                                                if (tool.link) {
-                                                                    return `
-                                                                        <a href="${tool.link}" target="_blank" style="background: rgba(61, 37, 23, 0.03); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; text-decoration: none; display: block; transition: all 0.3s ease; border: 2px solid rgba(61, 37, 23, 0.1);" onmouseover="this.style.background='#3D2517'; this.style.color='#C4FF00'; this.style.borderColor='#3D2517';" onmouseout="this.style.background='rgba(61, 37, 23, 0.03)'; this.style.color='#3D2517'; this.style.borderColor='rgba(61, 37, 23, 0.1)';">
-                                                                            ${tool.name}
-                                                                        </a>
-                                                                    `;
-                                                                } else {
-                                                                    return `
-                                                                        <div style="background: rgba(61, 37, 23, 0.02); color: #3D2517; padding: 16px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; opacity: 0.5; border: 2px dashed rgba(61, 37, 23, 0.2);">
-                                                                            ${tool.name}
-                                                                        </div>
-                                                                    `;
-                                                                }
-                                                                }).join('')}
-                                                            </div>
-                                                        ` : ''}
-
-                                                        <!-- Recommended Reading -->
-                                                        ${bookRec ? `
-                                                            <div style="color: #3D2517; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin: 0 0 16px 0;">Recommended Reading</div>
-                                                            <div style="background: rgba(61, 37, 23, 0.03); border-radius: 8px; padding: 16px; border-left: 3px solid #3D2517;">
-                                                                <p style="color: #3D2517; font-size: 14px; line-height: 1.6; margin: 0; font-weight: 600;">${bookRec}</p>
-                                                            </div>
-                                                        ` : ''}
-                                                    </div>
-                                                ` : ''}
                                             </div>
                                         </div>
                                     </div>
