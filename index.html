@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.11 - FIXED: Report sections mobile responsive - gap cards, element breakdown, two-column layouts stack -->
+<!-- UPDATED: 2025-11-20 - Version 6.12 - FIXED: All margins/tooltips mobile - assessment buttons, element headers, filters, research references -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.11">
-    <script src="questions-data.js?v=6.11"></script>
-    <script src="article-urls.js?v=6.11"></script>
-    <script src="content-data.js?v=6.11"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.12">
+    <script src="questions-data.js?v=6.12"></script>
+    <script src="article-urls.js?v=6.12"></script>
+    <script src="content-data.js?v=6.12"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1976,6 +1976,95 @@
                 font-size: 12px !important;
                 padding: 8px 12px !important;
                 white-space: nowrap !important;
+            }
+
+            /* FIX: Assessment tooltip buttons - prevent overflow */
+            .info-buttons-row {
+                justify-content: flex-start !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+                margin: 0 0 16px 0 !important;
+            }
+
+            .info-btn {
+                font-size: 11px !important;
+                padding: 6px 10px !important;
+            }
+
+            /* FIX: Element Breakdown - full width tiles */
+            .element-card,
+            .score-item {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 0 12px 0 !important;
+                padding: 16px 12px !important;
+            }
+
+            /* FIX: Your Gaps filter section */
+            .filter-section,
+            .element-filter {
+                width: 100% !important;
+                padding: 12px !important;
+                margin: 0 !important;
+            }
+
+            .filter-buttons {
+                flex-wrap: wrap !important;
+                justify-content: flex-start !important;
+                gap: 8px !important;
+            }
+
+            /* FIX: Element headings with tooltips - stack on mobile */
+            .element-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 12px !important;
+            }
+
+            .element-title {
+                width: 100% !important;
+            }
+
+            .element-tooltips {
+                width: 100% !important;
+                justify-content: flex-start !important;
+                flex-wrap: wrap !important;
+                gap: 6px !important;
+            }
+
+            /* FIX: Gap statement containers */
+            .gap-statement {
+                padding: 12px !important;
+                margin: 0 0 12px 0 !important;
+            }
+
+            /* FIX: Shorten "How to address this" heading on mobile */
+            .advice-heading::after {
+                content: "Advice" !important;
+            }
+
+            .advice-heading {
+                font-size: 0 !important;
+            }
+
+            .advice-heading::after {
+                font-size: 13px !important;
+            }
+
+            /* FIX: Research References - better spacing */
+            .research-section {
+                padding: 12px !important;
+                margin: 0 0 12px 0 !important;
+            }
+
+            .research-item {
+                padding: 10px !important;
+                margin: 0 0 10px 0 !important;
+            }
+
+            .research-quote {
+                font-size: 13px !important;
+                line-height: 1.4 !important;
             }
         }
 
@@ -5740,6 +5829,83 @@
                     header.style.margin = '0';
                     header.style.borderRadius = '12px';
                     header.style.padding = '16px 12px';
+                });
+
+                // Fix assessment tooltip buttons
+                const infoButtonsRow = document.querySelector('.info-buttons-row');
+                if (infoButtonsRow) {
+                    infoButtonsRow.style.justifyContent = 'flex-start';
+                    infoButtonsRow.style.flexWrap = 'wrap';
+                    infoButtonsRow.style.gap = '8px';
+                    infoButtonsRow.style.margin = '0 0 16px 0';
+                    console.log('✅ Assessment tooltip buttons fixed');
+                }
+
+                const infoButtons = document.querySelectorAll('.info-btn');
+                infoButtons.forEach(btn => {
+                    btn.style.fontSize = '11px';
+                    btn.style.padding = '6px 10px';
+                });
+
+                // Fix element cards
+                const elementCards = document.querySelectorAll('.element-card, .score-item');
+                elementCards.forEach(card => {
+                    card.style.width = '100%';
+                    card.style.maxWidth = '100%';
+                    card.style.margin = '0 0 12px 0';
+                    card.style.padding = '16px 12px';
+                });
+                if (elementCards.length > 0) console.log('✅ Element cards fixed:', elementCards.length);
+
+                // Fix filter sections
+                const filterSections = document.querySelectorAll('.filter-section, .element-filter');
+                filterSections.forEach(section => {
+                    section.style.width = '100%';
+                    section.style.padding = '12px';
+                    section.style.margin = '0';
+                });
+
+                const filterButtons = document.querySelectorAll('.filter-buttons');
+                filterButtons.forEach(btns => {
+                    btns.style.flexWrap = 'wrap';
+                    btns.style.justifyContent = 'flex-start';
+                    btns.style.gap = '8px';
+                });
+
+                // Fix element headers with tooltips
+                const elementHeaders = document.querySelectorAll('.element-header');
+                elementHeaders.forEach(header => {
+                    header.style.flexDirection = 'column';
+                    header.style.alignItems = 'flex-start';
+                    header.style.gap = '12px';
+                });
+
+                const elementTooltips = document.querySelectorAll('.element-tooltips');
+                elementTooltips.forEach(tooltips => {
+                    tooltips.style.width = '100%';
+                    tooltips.style.justifyContent = 'flex-start';
+                    tooltips.style.flexWrap = 'wrap';
+                    tooltips.style.gap = '6px';
+                });
+
+                // Fix gap statements
+                const gapStatements = document.querySelectorAll('.gap-statement');
+                gapStatements.forEach(statement => {
+                    statement.style.padding = '12px';
+                    statement.style.margin = '0 0 12px 0';
+                });
+
+                // Fix research sections
+                const researchSections = document.querySelectorAll('.research-section');
+                researchSections.forEach(section => {
+                    section.style.padding = '12px';
+                    section.style.margin = '0 0 12px 0';
+                });
+
+                const researchItems = document.querySelectorAll('.research-item');
+                researchItems.forEach(item => {
+                    item.style.padding = '10px';
+                    item.style.margin = '0 0 10px 0';
                 });
 
                 console.log('✅ All mobile fixes applied!');
