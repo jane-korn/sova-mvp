@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.30 - RESTORED: Sidebar tabs visible on mobile (WebChart, Report, Actions) -->
+<!-- UPDATED: 2025-11-21 - Version 6.32 - FINAL: All 115 questions + Scale validation updated -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,9 +9,9 @@
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
     <link rel="stylesheet" href="css/variables.css">
-    <script src="questions-data.js"></script>
-    <script src="article-urls.js"></script>
-    <script src="content-data.js"></script>
+    <script src="questions-data.js?v=20251121-090000"></script>
+    <script src="article-urls.js?v=20251121"></script>
+    <script src="content-data.js?v=20251121"></script>
     <style>
         * {
             margin: 0;
@@ -2914,8 +2914,8 @@
             'Scale': {
                 heading: "Let's quickly check you've completed Efficiency foundations",
                 questions: [
+                    "Have you implemented the legal requirements to establish the business (e.g., business name registration, ABN, insurance, GST etc)?",
                     "Do you have written policies that guide daily decisions and your business governance?",
-                    "Do you focus on your core offering (you say no to 90% of 'nice-to-have' features)?",
                     "Do you change your approach when the market shifts (you're flexible, not stubborn)?"
                 ]
             }
@@ -3675,6 +3675,7 @@
             const allQuestions = allQuestionsData;
             let questions = allQuestions[currentElement]?.[currentStage] || [];
 
+            console.log(`🔍 DEBUG: allQuestionsData.Governance.Efficiency.length =`, allQuestionsData.Governance.Efficiency.length);
             console.log(`Found ${questions.length} questions for ${currentElement} ${currentStage}`);
 
             // Filter based on Solo vs Team (check both capitalized and lowercase field names)

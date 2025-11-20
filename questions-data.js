@@ -1,7 +1,8 @@
 // Assessment questions data - Generated from Self Assessment Structure.xlsx
 // Organized by Element and Stage for efficient lookups
-// Total questions: 114
-// Last updated: 2025-11-20 16:39:52
+// Total questions: 115
+// Last updated: 2025-11-21 10:03:42
+// Hyperlinks extracted: 461
 
 var allQuestionsData = {
   "Governance": {
@@ -17,7 +18,7 @@ var allQuestionsData = {
         "Tool/Framework 2": "ABN Registration",
         "Tool/Framework 3": "Business Structure Guide",
         "Tool/Framework 4": null,
-        "Advice": "Use SOVA's Australian Startup Business Establishment Requirements checklist to make sure you haven't missed anything critical. Complete your ABN Registration (it's free and takes 15 minutes), then use a Business Structure Guide to choose between sole trader, partnership, or company. Don't skip public liability insurance ($500-$2k/year) or your domain name registration (.com.au requires an ABN). If you're working with others, budget for a shareholders agreement ($1,500-$5,000), it prevents expensive conflicts later. Get professional advice from Accountants and Lawyers, as this decision affects your tax and liability forever, and changing structures is more costly than paying a professional to complete your business set up. ",
+        "Advice": "Use Sova's Australian Startup Business Establishment Requirements checklist to make sure you haven't missed anything critical. Complete your ABN Registration (it's free and takes 15 minutes), then use a Business Structure Guide to choose between sole trader, partnership, or company. Don't skip public liability insurance ($500-$2k/year) or your domain name registration (.com.au requires an ABN). If you're working with others, budget for a shareholders agreement ($1,500-$5,000), it prevents expensive conflicts later. Get professional advice from Accountants and Lawyers, as this decision affects your tax and liability forever, and changing structures is more costly than paying a professional to complete your business set up. ",
         "Article References": "AusCorporate: Ten Reasons Startups Fail",
         "Other Articles": null,
         "VC requirements mapping": "VCs look for legal foundations first. They check whether you've properly registered your business (ABN/ACN), started protecting your intellectual property (trademarks filed), and have a founders' agreement with equity vesting (4-year standard with 1-year cliff). Red flags include unclear ownership structures, no legal entity, or missing insurance coverage.",
@@ -40,15 +41,15 @@ var allQuestionsData = {
       {
         "Element": "Governance",
         "Stage": "Discovery",
-        "Solo": null,
+        "Solo": "NA",
         "Team": "We have clear verbal agreements on ownership split, roles, and decision-making (with plans to formalise in writing once we validate customers will pay)",
         "Key Terms Defined": "Shareholder/Partnership Agreement: A legal document that defines who owns what percentage, who does what, and how decisions are made. IMPORTANT: In Discovery, focus on verbal clarity and mutual understanding. Formalise in writing (with lawyer review) when you reach Validation stage and have proven customers will pay. Early clarity is essential; legal formalisation should not delay customer validation.",
         "Resources": null,
-        "Tool/Framework 1": "Shareholders Agreement Template (if Team)",
+        "Tool/Framework 1": "Shareholders Agreement Template",
         "Tool/Framework 2": null,
         "Tool/Framework 3": null,
         "Tool/Framework 4": null,
-        "Advice": "Startup conflicts from unclear ownership and roles are a major issue—don't become a statistic. Use the Shareholders Agreement Template (if Team) and have it professionally reviewed (don't use free templates for this). Define: Who owns what %, Decision-making authority (who can spend money, hire people, change direction), IP ownership (who owns what you build), Exit rules (what happens if someone wants out). Document everything. Handshake deals destroy friendships and businesses.",
+        "Advice": "Startup conflicts from unclear ownership and roles are a major issue—don't become a statistic. Use the Shareholders Agreement Template (if Team) and have it professionally reviewed. Define: Who owns what %, Decision-making authority (who can spend money, hire people, change direction), IP ownership (who owns what you build), Exit rules (what happens if someone wants out). Document everything. Handshake deals destroy friendships and businesses.",
         "Article References": "Entrepreneur: Founder Pitfalls; AusCorporate: Ten Reasons Startups Fail",
         "Other Articles": null,
         "VC requirements mapping": "This is critical for VCs  —  Team & Management carries 30% weight in their evaluation. They want to see a written founders' agreement with equity vesting (4 years with 1-year cliff is standard), documented roles and responsibilities, clear decision-making authority, and a dispute resolution process. Major red flags: no written agreement, equal 50/50 splits without tie-breaker mechanisms, or verbal agreements only.",
@@ -79,7 +80,7 @@ var allQuestionsData = {
         "Tool/Framework 2": "Brene Brown - Dare to Lead, List of Values",
         "Tool/Framework 3": "Sova - Experts and Networks Guide",
         "Tool/Framework 4": "RAPID framework",
-        "Advice": "You can't make good decisions without a framework. Start with the Core Values Canvas or use Brene Brown - Dare to Lead, List of Values to identify 3-5 core values that truly matter to you (skip the corporate fluff like 'integrity' — everyone claims that). Then use SOVA's Experts Guide to find professionals who understand startup realities, and apply the RAPID framework to clarify decision-making roles: who Recommends, who Agrees, who Performs, who has Input, and who Decides. Clear decision frameworks prevent founder conflict and wasted time arguing.",
+        "Advice": "You can't make good decisions without a framework. Start with the Core Values Canvas or use Brene Brown - Dare to Lead, List of Values to identify 3-5 core values that truly matter to you (skip the corporate fluff like 'integrity' — everyone claims that). Then use Sova's Experts Guide to find professionals who understand startup realities, and apply the RAPID framework to clarify decision-making roles: who Recommends, who Agrees, who Performs, who has Input, and who Decides. Clear decision frameworks prevent founder conflict and wasted time arguing.",
         "Article References": "Entrepreneur: Founder Pitfalls; AusCorporate: Ten Reasons Startups Fail",
         "Other Articles": null,
         "VC requirements mapping": "VCs assess your decision-making capability as part of Team & Management evaluation (30% weight). They look for structured frameworks showing you won't make reactive decisions. Having trusted advisors, clear values, and systematic decision processes demonstrates founder maturity. Strong decision frameworks signal you'll navigate challenges effectively rather than pivoting chaotically.",
@@ -165,6 +166,37 @@ var allQuestionsData = {
       }
     ],
     "Efficiency": [
+      {
+        "Element": "Governance",
+        "Stage": "Efficiency",
+        "Solo": "I have implemented the legal requirements establish the business (e.g., business name registration, ABN, insurance, gst etc)",
+        "Team": "We have implemented the legal requirements establish the business (e.g., business name registration, ABN, insurance, gst etc)",
+        "Key Terms Defined": "Business Establishment Requirements: The essential legal and administrative steps to set up a business in Australia. Full company setup, trademarks, patents etc. Free resources: business.gov.au starting checklist.",
+        "Resources": "Sova - Australian Startup Setup Guide",
+        "Tool/Framework 1": "Sova - Australian Startup Setup Guide",
+        "Tool/Framework 2": "Business.gov.au checklist",
+        "Tool/Framework 3": "Business Structure Guide",
+        "Tool/Framework 4": null,
+        "Advice": "Use Sova's Australian Startup Business Establishment Requirements checklist or business.gov.au's checklist to make sure you haven't missed anything critical. Get professional advice from Accountants and Lawyers, as this decision affects your tax and liability forever, and changing structures is more costly than paying a professional to complete your business set up. ",
+        "Article References": "AusCorporate: Ten Reasons Startups Fail",
+        "Other Articles": null,
+        "VC requirements mapping": "VCs look for legal foundations first. They check whether you've properly registered your business (ABN/ACN), started protecting your intellectual property (trademarks filed), and have a founders' agreement with equity vesting (4-year standard with 1-year cliff). Red flags include unclear ownership structures, no legal entity, or missing insurance coverage.",
+        "Book": null,
+        "Quote (startup failure)": "Governance Problems - Lack of foundational legal structure, compliance oversight, and board governance creates operational vulnerability and limits investment readiness",
+        "Quote (startup failure) 2": null,
+        "Quote (best practice)": null,
+        "Quote (best practice) 2": null,
+        "Tool/Framework 1Link": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
+        "Tool/Framework 2Link": "https://business.gov.au/-/media/business-information/templates-and-tools/starting-a-business-checklist.docx?sc_lang=en&hash=4F7A8FAF11CCE7CCC1D2A4D44111C30D",
+        "Tool/Framework 3Link": "https://business.gov.au/",
+        "Tool/Framework 4Link": null,
+        "ResourcesLink": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
+        "VC requirements mappingLink": "https://www.diligent.com/resources/blog/corporate-governance-for-startups-vc-investors",
+        "Quote (startup failure)Link": "https://www.dilitrust.com/startup-corporate-governance/",
+        "Quote (startup failure) 2Link": null,
+        "Quote (best practice)Link": null,
+        "Quote (best practice) 2Link": null
+      },
       {
         "Element": "Governance",
         "Stage": "Efficiency",
@@ -883,8 +915,8 @@ var allQuestionsData = {
         "Book": "The Lean Startup - Eric Ries",
         "Quote (startup failure)": "Hearing “cool idea!” from friends or family isn’t validation. These responses often stem from politeness rather than genuine market need. ",
         "Quote (startup failure) 2": null,
-        "Quote (best practice)": "Startup idea validation is the process of systematically assessing the viability of your concept.  It’s about stepping outside your own enthusiasm and gathering real-world data to determine if there’s a genuine market need for your offering. ",
-        "Quote (best practice) 2": "Start small and scale slowly in conjunction with validated customer demand.",
+        "Quote (best practice)": "Recent work in strategic management identifies experimentation as the preferred framework for decision-making in young businesses (Camuffo et al., 2020; Gans, Stern and Wu, 2019).",
+        "Quote (best practice) 2": null,
         "Tool/Framework 1Link": "https://www.tilburguniversity.edu/campus/entrepreneurship/toolbox/experiment-board",
         "Tool/Framework 2Link": "https://www.productplan.com/glossary/aarrr-framework/",
         "Tool/Framework 3Link": null,
@@ -893,8 +925,8 @@ var allQuestionsData = {
         "VC requirements mappingLink": null,
         "Quote (startup failure)Link": "https://foundersnetwork.com/startup-idea-validation-mistakes/",
         "Quote (startup failure) 2Link": null,
-        "Quote (best practice)Link": "https://foundersnetwork.com/startup-idea-validation-mistakes/",
-        "Quote (best practice) 2Link": "https://www.linkedin.com/pulse/only-8-reasons-startups-fail-how-avoidthem-marshall-hargrave-yoktc/"
+        "Quote (best practice)Link": "https://dash.harvard.edu/bitstreams/8d40a8f4-ec5f-4dbf-8018-3d3d8be39a1a/download",
+        "Quote (best practice) 2Link": null
       },
       {
         "Element": "Strategy",
@@ -914,8 +946,8 @@ var allQuestionsData = {
         "Book": "Duct Tape Marketing - Jantsch",
         "Quote (startup failure)": "The founders who survived all tracked one specific number. The ones who didn’t? They’re no longer in business. That number is Customer Lifetime Value to Customer Acquisition Cost ratio (LTV:CAC). And if you’re not tracking it, you’re flying blind.",
         "Quote (startup failure) 2": null,
-        "Quote (best practice)": null,
-        "Quote (best practice) 2": null,
+        "Quote (best practice)": "Start small and scale slowly in conjunction with validated customer demand.",
+        "Quote (best practice) 2": "Startup idea validation is the process of systematically assessing the viability of your concept.  It’s about stepping outside your own enthusiasm and gathering real-world data to determine if there’s a genuine market need for your offering. ",
         "Tool/Framework 1Link": "https://growthmethod.com/traction-channels/",
         "Tool/Framework 2Link": "https://growthmethod.com/bullseye-framework/",
         "Tool/Framework 3Link": "https://www.productplan.com/glossary/customer-acquisition-cost/",
@@ -924,8 +956,8 @@ var allQuestionsData = {
         "VC requirements mappingLink": "https://dpr648.medium.com/is-my-market-size-big-enough-to-raise-venture-capital-f9e06ad2bef4",
         "Quote (startup failure)Link": "https://medium.com/marketing-magic/why-i-now-refuse-to-work-with-founders-who-wont-track-this-one-number-e2da108a2e9c",
         "Quote (startup failure) 2Link": null,
-        "Quote (best practice)Link": null,
-        "Quote (best practice) 2Link": null
+        "Quote (best practice)Link": "https://www.linkedin.com/pulse/only-8-reasons-startups-fail-how-avoidthem-marshall-hargrave-yoktc/",
+        "Quote (best practice) 2Link": "https://foundersnetwork.com/startup-idea-validation-mistakes/"
       },
       {
         "Element": "Strategy",
@@ -1234,8 +1266,8 @@ var allQuestionsData = {
         "Book": "The Referral Engine - Jantsch",
         "Quote (startup failure)": "No matter how many features, no matter how great the UX, no matter how cool the AI, if people don’t care, or don’t want to pay for it, or want it to work differently, then your company will fail.",
         "Quote (startup failure) 2": null,
-        "Quote (best practice)": null,
-        "Quote (best practice) 2": "DAU/MAU ratio of 20%+ is good for most consumer products. If it's dropping, you have an engagement problem before you have a growth problem. - Lenny Rachitsky",
+        "Quote (best practice)": "DAU/MAU ratio of 20%+ is good for most consumer products. If it's dropping, you have an engagement problem before you have a growth problem. - Lenny Rachitsky",
+        "Quote (best practice) 2": null,
         "Tool/Framework 1Link": "https://www.lowcode.agency/glossary/activation-rate-in-startup-metrics",
         "Tool/Framework 2Link": "https://www.productplan.com/glossary/aarrr-framework/",
         "Tool/Framework 3Link": "posthog.com/product-engineers/activation-metrics",
@@ -1244,8 +1276,8 @@ var allQuestionsData = {
         "VC requirements mappingLink": "https://press.farm/andreessen-horowitzs-investment-criteria/",
         "Quote (startup failure)Link": "https://longform.asmartbear.com/find-customers-to-interview/",
         "Quote (startup failure) 2Link": null,
-        "Quote (best practice)Link": null,
-        "Quote (best practice) 2Link": "https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29"
+        "Quote (best practice)Link": "https://www.lennysnewsletter.com/p/what-is-good-retention-issue-29",
+        "Quote (best practice) 2Link": null
       },
       {
         "Element": "Marketing",
@@ -2425,7 +2457,7 @@ var allQuestionsData = {
       {
         "Element": "People",
         "Stage": "Discovery",
-        "Solo": null,
+        "Solo": "NA",
         "Team": "We have all co-founders contributing equal time/effort, with ownership matching actual contributions",
         "Key Terms Defined": "Co-founder Equity: Ownership should match time/effort contribution. One full-time + one part-time with equal equity = time bomb. 24% of co-founder relationships dissolve within 4 years.",
         "Resources": null,
@@ -2456,7 +2488,7 @@ var allQuestionsData = {
       {
         "Element": "People",
         "Stage": "Discovery",
-        "Solo": null,
+        "Solo": "NA",
         "Team": "We have had explicit conversations about roles, time commitment, and long-term goals",
         "Key Terms Defined": "Expectation Alignment: Clear, written agreements about who does what, how much time, what success looks like. Prevents 'I thought you were handling that' disasters.",
         "Resources": null,
