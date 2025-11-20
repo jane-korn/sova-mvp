@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.21 - FIXED: SVG viewBox expanded, MARKETING spacing, text cutoff -->
+<!-- UPDATED: 2025-11-20 - Version 6.22 - RESTORED: Sidebar tabs visible on mobile (WebChart, Report, Actions) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.21">
-    <script src="questions-data.js?v=6.21"></script>
-    <script src="article-urls.js?v=6.21"></script>
-    <script src="content-data.js?v=6.21"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.22">
+    <script src="questions-data.js?v=6.22"></script>
+    <script src="article-urls.js?v=6.22"></script>
+    <script src="content-data.js?v=6.22"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -1894,12 +1894,7 @@
                 font-size: 14px;
             }
 
-            /* HIDE sticky sidebar buttons on mobile - they extend beyond screen */
-            #webChartSidebar,
-            #reportSidebar,
-            #actionSidebar {
-                display: none !important;
-            }
+            /* Sidebar buttons visible on mobile */
 
             /* Fix report sections - proper padding and no cutoff */
             .report-section {
@@ -5863,20 +5858,14 @@
 
             console.log('🔧 Mobile Fix Running - Window Width:', window.innerWidth, 'isMobile:', isMobile);
 
-            // Handle sidebar buttons visibility
+            // Handle sidebar buttons visibility - always show them
             const sidebarButtons = ['webChartSidebar', 'reportSidebar', 'actionSidebar'];
             sidebarButtons.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
-                    if (isMobile) {
-                        el.style.display = 'none';
-                        el.style.visibility = 'hidden';
-                        console.log('📱 Hidden sidebar:', id);
-                    } else {
-                        el.style.display = 'block';
-                        el.style.visibility = 'visible';
-                        console.log('💻 Showing sidebar:', id);
-                    }
+                    el.style.display = 'block';
+                    el.style.visibility = 'visible';
+                    console.log('✅ Sidebar button visible:', id);
                 }
             });
 
