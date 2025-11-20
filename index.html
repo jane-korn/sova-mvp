@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.28 - RESTORED: Sidebar tabs visible on mobile (WebChart, Report, Actions) -->
+<!-- UPDATED: 2025-11-20 - Version 6.29 - RESTORED: Sidebar tabs visible on mobile (WebChart, Report, Actions) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.28">
-    <script src="questions-data.js?v=6.28"></script>
-    <script src="article-urls.js?v=6.28"></script>
-    <script src="content-data.js?v=6.28"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.29">
+    <script src="questions-data.js?v=6.29"></script>
+    <script src="article-urls.js?v=6.29"></script>
+    <script src="content-data.js?v=6.29"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -3872,31 +3872,23 @@
             });
 
             // Handle Resource button separately - on its own line with lime green border
-            const fieldMap = {
-                'resources': 'Resources'
-            };
-            const excelFieldName = fieldMap[resourceConfig.key];
-            const linkFieldName = excelFieldName + 'Link';
-            const hasLink = references[linkFieldName] || references[resourceConfig.key + 'Link'];
+            const resourceData = references['Resources'];
+            const resourceLink = references['ResourcesLink'];
 
-            if (hasLink) {
+            if (resourceLink) {
                 // Create line break for Resource button
                 buttonsContainer.appendChild(document.createElement('br'));
 
-                // Create clickable link - same as Definition button but with lime green border
-                const link = document.createElement('a');
-                link.className = 'info-btn';
-                link.textContent = resourceConfig.label;
-                link.href = references[linkFieldName] || references[resourceConfig.key + 'Link'];
-                link.target = '_blank';
-                link.style.borderColor = '#C4FF00';
-                link.style.marginTop = '8px';
-                link.style.padding = '8px 16px';
-                link.style.fontSize = '13px';
-                link.style.fontWeight = '600';
-                link.style.lineHeight = 'normal';
-                link.style.verticalAlign = 'middle';
-                buttonsContainer.appendChild(link);
+                // Create button - exactly like Definition but opens link and has lime border
+                const button = document.createElement('button');
+                button.className = 'info-btn';
+                button.textContent = 'Resource';
+                button.style.borderColor = '#C4FF00';
+                button.style.marginTop = '8px';
+                button.onclick = () => {
+                    window.open(resourceLink, '_blank');
+                };
+                buttonsContainer.appendChild(button);
             }
         }
 
