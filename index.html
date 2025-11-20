@@ -3583,13 +3583,15 @@
                 padding: 24px 32px;
                 border-radius: 12px;
                 max-width: 360px;
+                width: 90%;
+                margin: 0 20px;
                 text-align: center;
                 box-shadow: 0 8px 24px rgba(196, 255, 0, 0.3);
                 border: 2px solid #C4FF00;
             `;
 
             modalContent.innerHTML = `
-                <p style="color: #f5f1e8; font-size: 16px; line-height: 1.5; margin-bottom: 20px;">
+                <p style="color: #f5f1e8; font-size: 16px; line-height: 1.5; margin-bottom: 20px; word-wrap: break-word;">
                     ${message}
                 </p>
                 <button onclick="document.getElementById('sovaModal').remove()" style="
