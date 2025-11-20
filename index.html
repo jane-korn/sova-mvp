@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-20 - Version 6.19 - FIXED: Tooltip popovers centered on mobile, not extending off right edge -->
+<!-- UPDATED: 2025-11-20 - Version 6.20 - FIXED: Mobile pictorial sizes + element text larger and moved from dots -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
-    <link rel="stylesheet" href="css/variables.css?v=6.19">
-    <script src="questions-data.js?v=6.19"></script>
-    <script src="article-urls.js?v=6.19"></script>
-    <script src="content-data.js?v=6.19"></script>
+    <link rel="stylesheet" href="css/variables.css?v=6.20">
+    <script src="questions-data.js?v=6.20"></script>
+    <script src="article-urls.js?v=6.20"></script>
+    <script src="content-data.js?v=6.20"></script>
     <!-- Mobile Debug Console - TEMPORARY FOR TESTING -->
     <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
     <script>eruda.init();</script>
@@ -2246,10 +2246,7 @@
                 padding: 12px 4px;
             }
 
-            /* Ensure SVG text is readable on tiny screens */
-            #sova-model text {
-                font-size: 12px;
-            }
+            /* SVG text sizes inherited from main SVG (no override needed) */
 
             .question-container {
                 padding: 20px 16px;
@@ -2665,50 +2662,50 @@
                     <!-- 9 elements evenly spaced at 40° intervals, starting from 0° (12 o'clock) clockwise -->
                     <!-- Lines start at r=50 (edge of center circle), dots at r=510 -->
 
-                    <!-- GOVERNANCE (0° / 12 o'clock) - ACTIVE (INCREASED SIZE) -->
+                    <!-- GOVERNANCE (0° / 12 o'clock) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="650" y1="600" x2="650" y2="140" stroke="#C5D952" stroke-width="2.5" opacity="0.7" class="element-spoke"/>
                     <circle cx="650" cy="140" r="24" fill="#C5D952" class="element-dot active" id="governance-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Governance')"/>
-                    <text x="650" y="115" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Governance')">GOVERNANCE</text>
+                    <text x="650" y="108" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Governance')">GOVERNANCE</text>
 
-                    <!-- PURPOSE (40°) - ACTIVE (INCREASED SIZE) -->
+                    <!-- PURPOSE (40°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="682" y1="612" x2="978" y2="259" stroke="#E8C547" stroke-width="2.5" opacity="0.7"/>
                     <circle cx="978" cy="259" r="24" fill="#E8C547" class="element-dot active" id="purpose-dot" style="filter: drop-shadow(0 2px 8px rgba(232, 197, 71, 0.5)); cursor: pointer;" onclick="startElementAssessment('Purpose')"/>
-                    <text x="1015" y="247" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#E8C547" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Purpose')">PURPOSE</text>
+                    <text x="1020" y="245" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#E8C547" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Purpose')">PURPOSE</text>
 
-                    <!-- STRATEGY (80°) - ACTIVE (INCREASED SIZE) -->
+                    <!-- STRATEGY (80°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="699" y1="641" x2="1152" y2="561" stroke="#C5D952" stroke-width="2.5" opacity="0.7"/>
                     <circle cx="1152" cy="561" r="24" fill="#C5D952" class="element-dot active" id="strategy-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Strategy')"/>
-                    <text x="1180" y="567" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#C4FF00" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Strategy')">STRATEGY</text>
+                    <text x="1188" y="569" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#C4FF00" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Strategy')">STRATEGY</text>
 
-                    <!-- PERFORMANCE (120°) - LOCKED (INCREASED SIZE) -->
+                    <!-- PERFORMANCE (120°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="693" y1="675" x2="1092" y2="905" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="1092" cy="905" r="24" fill="#E8C547" class="element-dot locked" id="performance-dot" opacity="0.4"/>
-                    <text x="1125" y="920" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="start" opacity="0.3" letter-spacing="0.5">PERFORMANCE</text>
+                    <text x="1133" y="925" font-family="Arial, sans-serif" font-size="24" fill="#f5f1e8" text-anchor="start" opacity="0.3" letter-spacing="0.5">PERFORMANCE</text>
 
-                    <!-- MARKETING (160°) - ACTIVE (INCREASED SIZE) -->
+                    <!-- MARKETING (160°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="667" y1="697" x2="824" y2="1129" stroke="#C5D952" stroke-width="2.5" opacity="0.7"/>
                     <circle cx="824" cy="1129" r="24" fill="#C5D952" class="element-dot active" id="marketing-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
-                    <text x="824" y="1160" font-family="Arial, sans-serif" font-size="20" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
+                    <text x="824" y="1168" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#C4FF00" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
 
-                    <!-- FINANCE (200°) - LOCKED (INCREASED SIZE) -->
+                    <!-- FINANCE (200°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="633" y1="697" x2="476" y2="1129" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="476" cy="1129" r="24" fill="#E8C547" class="element-dot locked" id="finance-dot" opacity="0.4"/>
-                    <text x="476" y="1160" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="middle" opacity="0.3" letter-spacing="0.5">FINANCE</text>
+                    <text x="476" y="1168" font-family="Arial, sans-serif" font-size="24" fill="#f5f1e8" text-anchor="middle" opacity="0.3" letter-spacing="0.5">FINANCE</text>
 
-                    <!-- PEOPLE (240°) - LOCKED (INCREASED SIZE) -->
+                    <!-- PEOPLE (240°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="607" y1="675" x2="208" y2="905" stroke="#C5D952" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="208" cy="905" r="24" fill="#C5D952" class="element-dot locked" id="people-dot" opacity="0.4"/>
-                    <text x="175" y="920" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PEOPLE</text>
+                    <text x="167" y="925" font-family="Arial, sans-serif" font-size="24" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PEOPLE</text>
 
-                    <!-- PROCESS (280°) - LOCKED (INCREASED SIZE) -->
+                    <!-- PROCESS (280°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="601" y1="641" x2="148" y2="561" stroke="#E8C547" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="148" cy="561" r="24" fill="#E8C547" class="element-dot locked" id="process-dot" opacity="0.4"/>
-                    <text x="120" y="567" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PROCESS</text>
+                    <text x="112" y="569" font-family="Arial, sans-serif" font-size="24" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">PROCESS</text>
 
-                    <!-- TECHNOLOGY (320°) - LOCKED (INCREASED SIZE) -->
+                    <!-- TECHNOLOGY (320°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <line x1="618" y1="612" x2="322" y2="259" stroke="#C5D952" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="322" cy="259" r="24" fill="#C5D952" class="element-dot locked" id="technology-dot" opacity="0.4"/>
-                    <text x="285" y="247" font-family="Arial, sans-serif" font-size="20" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">TECHNOLOGY</text>
+                    <text x="280" y="245" font-family="Arial, sans-serif" font-size="24" fill="#f5f1e8" text-anchor="end" opacity="0.3" letter-spacing="0.5">TECHNOLOGY</text>
                 </svg>
 
                 <!-- Tooltip -->
