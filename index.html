@@ -1209,11 +1209,11 @@
         /* Enhanced glow animation - prominent pulse without movement */
         @keyframes glow {
             0%, 100% {
-                filter: drop-shadow(0 0 12px var(--sova-lime)) drop-shadow(0 0 24px var(--sova-lime)) drop-shadow(0 0 36px var(--sova-lime));
+                filter: drop-shadow(0 0 12px var(--sova-lime)) drop-shadow(0 0 24px var(--sova-lime)) drop-shadow(0 0 36px var(--sova-lime)) !important;
                 opacity: 1;
             }
             50% {
-                filter: drop-shadow(0 0 50px var(--sova-lime)) drop-shadow(0 0 80px var(--sova-lime)) drop-shadow(0 0 120px var(--sova-lime)) drop-shadow(0 0 150px var(--sova-lime));
+                filter: drop-shadow(0 0 50px var(--sova-lime)) drop-shadow(0 0 80px var(--sova-lime)) drop-shadow(0 0 120px var(--sova-lime)) drop-shadow(0 0 150px var(--sova-lime)) !important;
                 opacity: 1;
             }
         }
@@ -3164,8 +3164,9 @@
             }
 
             console.log('💫 Applying glow animation to dot...');
-            // Clear any existing animation first
+            // Clear any existing animation and inline filter first
             dot.style.animation = '';
+            dot.style.filter = '';
             // Force reflow
             void dot.offsetWidth;
             // Elegant pulse animation - slower and more iterations for visibility
