@@ -1209,12 +1209,14 @@
         /* Enhanced glow animation - prominent pulse without movement */
         @keyframes glow {
             0%, 100% {
-                filter: drop-shadow(0 0 3px var(--sova-lime)) drop-shadow(0 0 6px var(--sova-lime));
+                filter: drop-shadow(0 0 8px var(--sova-lime)) drop-shadow(0 0 16px var(--sova-lime)) drop-shadow(0 0 24px var(--sova-lime));
                 opacity: 1;
+                transform: scale(1);
             }
             50% {
-                filter: drop-shadow(0 0 20px var(--sova-lime)) drop-shadow(0 0 30px var(--sova-lime)) drop-shadow(0 0 40px var(--sova-lime));
-                opacity: 0.95;
+                filter: drop-shadow(0 0 30px var(--sova-lime)) drop-shadow(0 0 50px var(--sova-lime)) drop-shadow(0 0 70px var(--sova-lime));
+                opacity: 1;
+                transform: scale(1.15);
             }
         }
 
@@ -3168,17 +3170,17 @@
             dot.style.animation = '';
             // Force reflow
             void dot.offsetWidth;
-            // Elegant pulse animation
-            dot.style.animation = 'glow 1.2s ease-in-out 2';
+            // Elegant pulse animation - slower and more iterations for visibility
+            dot.style.animation = 'glow 1.5s ease-in-out 4';
             console.log('✨ Animation applied:', dot.style.animation);
 
             // After pulse, graceful zoom into assessment
-            console.log('⏰ Setting timeout for graceful zoom (2400ms)...');
+            console.log('⏰ Setting timeout for graceful zoom (6000ms)...');
             setTimeout(() => {
                 console.log('🎬 Timeout fired! Starting zoom transition...');
                 dot.style.animation = '';
                 gracefulZoomToAssessment(nextElement);
-            }, 2400); // 2 iterations × 1.2s = 2.4s
+            }, 6000); // 4 iterations × 1.5s = 6s
         }
 
         // Graceful Zoom Transition to Assessment
