@@ -3164,32 +3164,55 @@
                 }
             }
 
-            console.log('💫 Applying glow animation to dot...');
-            console.log('📱 User agent:', navigator.userAgent);
-            console.log('🔍 Dot element before:', dot);
-            console.log('🎨 Inline style before:', dot.getAttribute('style'));
+            console.log('💫 Applying JavaScript-based pulse animation for mobile compatibility...');
 
-            // Clear any existing animation and inline filter first
-            dot.style.animation = '';
-            dot.style.filter = '';
-            dot.removeAttribute('style');
-            // Force reflow
-            void dot.offsetWidth;
-            // Elegant pulse animation - slower and more iterations for visibility
-            dot.style.cssText = 'animation: glow 1.5s ease-in-out 4 !important;';
+            // JavaScript-based animation (CSS animations don't work well on SVG in iOS)
+            const originalR = parseFloat(dot.getAttribute('r')) || 24;
+            const originalOpacity = parseFloat(dot.getAttribute('opacity')) || 1;
+            let pulseCount = 0;
+            const maxPulses = 4;
 
-            console.log('✨ Animation applied:', dot.style.animation);
-            console.log('🎨 Inline style after:', dot.getAttribute('style'));
-            console.log('🖥️ Computed style:', window.getComputedStyle(dot).animation);
-            console.log('🌟 Computed filter:', window.getComputedStyle(dot).filter);
+            function pulse() {
+                if (pulseCount >= maxPulses) {
+                    // Reset and zoom to assessment
+                    dot.setAttribute('r', originalR);
+                    dot.setAttribute('opacity', originalOpacity);
+                    console.log('🎬 Pulse complete! Starting zoom transition...');
+                    gracefulZoomToAssessment(nextElement);
+                    return;
+                }
 
-            // After pulse, graceful zoom into assessment
-            console.log('⏰ Setting timeout for graceful zoom (6000ms)...');
-            setTimeout(() => {
-                console.log('🎬 Timeout fired! Starting zoom transition...');
-                dot.style.animation = '';
-                gracefulZoomToAssessment(nextElement);
-            }, 6000); // 4 iterations × 1.5s = 6s
+                // Pulse out (grow bigger and brighter)
+                let progress = 0;
+                const pulseOut = setInterval(() => {
+                    progress += 0.05;
+                    if (progress >= 1) {
+                        clearInterval(pulseOut);
+                        // Start pulse in
+                        let progressIn = 0;
+                        const pulseIn = setInterval(() => {
+                            progressIn += 0.05;
+                            if (progressIn >= 1) {
+                                clearInterval(pulseIn);
+                                pulseCount++;
+                                pulse(); // Next pulse
+                            } else {
+                                const r = originalR + (6 * (1 - progressIn));
+                                const opacity = originalOpacity - (0.3 * (1 - progressIn));
+                                dot.setAttribute('r', r);
+                                dot.setAttribute('opacity', opacity);
+                            }
+                        }, 30);
+                    } else {
+                        const r = originalR + (6 * progress);
+                        const opacity = originalOpacity - (0.3 * progress);
+                        dot.setAttribute('r', r);
+                        dot.setAttribute('opacity', opacity);
+                    }
+                }, 30);
+            }
+
+            pulse(); // Start pulsing
         }
 
         // Graceful Zoom Transition to Assessment
