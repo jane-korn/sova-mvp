@@ -3167,10 +3167,11 @@
             // Clear any existing animation and inline filter first
             dot.style.animation = '';
             dot.style.filter = '';
+            dot.removeAttribute('style');
             // Force reflow
             void dot.offsetWidth;
             // Elegant pulse animation - slower and more iterations for visibility
-            dot.style.animation = 'glow 1.5s ease-in-out 4';
+            dot.style.cssText = 'animation: glow 1.5s ease-in-out 4 !important;';
             console.log('✨ Animation applied:', dot.style.animation);
 
             // After pulse, graceful zoom into assessment
