@@ -6258,12 +6258,22 @@
             if (e.target.type === 'radio') {
                 const currentGroup = e.target.closest('.question-group');
                 if (currentGroup && currentGroup.parentElement.id === 'step1Section') {
-                    // Get all question groups in the preliminary section
-                    const allGroups = Array.from(document.querySelectorAll('#step1Section .question-group'));
+                    // Get all visible question groups in the preliminary section
+                    const allGroups = Array.from(document.querySelectorAll('#step1Section .question-group'))
+                        .filter(group => group.style.display !== 'none');
                     const currentIndex = allGroups.indexOf(currentGroup);
 
-                    // Scroll to next question group if it exists
-                    if (currentIndex >= 0 && currentIndex < allGroups.length - 1) {
+                    // If this is Q2 (stage selection) or last visible question, scroll to Continue button
+                    if (e.target.name === 'stage' || currentIndex === allGroups.length - 1) {
+                        setTimeout(() => {
+                            const continueButton = document.querySelector('#step1Section .btn-primary');
+                            if (continueButton) {
+                                continueButton.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }, 300);
+                    }
+                    // Otherwise scroll to next question group if it exists
+                    else if (currentIndex >= 0 && currentIndex < allGroups.length - 1) {
                         setTimeout(() => {
                             const nextGroup = allGroups[currentIndex + 1];
                             if (nextGroup) {
