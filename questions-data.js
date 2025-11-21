@@ -1,7 +1,7 @@
 // Assessment questions data - Generated from Self Assessment Structure.xlsx
 // Organized by Element and Stage for efficient lookups
 // Total questions: 115
-// Last updated: 2025-11-21 11:44:39
+// Last updated: 2025-11-21 11:51:09
 // Hyperlinks extracted: 463
 
 var allQuestionsData = {
@@ -471,7 +471,7 @@ var allQuestionsData = {
         "Quote (startup failure) 2": "By neglecting to research customer needs before commencing their engineering efforts, entrepreneurs end up wasting valuable time and capital on MVPs that are likely to miss their mark. These are false starts.",
         "Quote (best practice)": "Suppose the startup owner fails to draw up a comprehensive business plan or build a business model that seems sustainable over the long run. In that case, the startup might lose money, encounter operational issues, and run into legal problems.",
         "Quote (best practice) 2": "Take the time to map out your business model canvas. Identify your target customers, value proposition, channels, revenue streams, resources, activities, and partnerships. Refine based on continuous market feedback.",
-        "Tool/Framework 1Link": "mailto:medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0",
+        "Tool/Framework 1Link": "https://medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0",
         "Tool/Framework 2Link": "https://www.strategyzer.com/library/the-business-model-canvas",
         "Tool/Framework 3Link": "https://business.gov.au/planning/business-plans/develop-your-business-plan",
         "Tool/Framework 4Link": "https://www.business.com/articles/the-art-of-words-how-to-write-the-perfect-mission-statement/",
@@ -822,7 +822,7 @@ var allQuestionsData = {
         "Quote (startup failure) 2": "Long-term goals are often overlooked in startups for reasons (or excuses) of agility but if you want to move fast, you need to know where you are going. You have to be able to make quick but smart decisions. And this requires a clear sense of direction.",
         "Quote (best practice)": null,
         "Quote (best practice) 2": null,
-        "Tool/Framework 1Link": "mailto:medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0",
+        "Tool/Framework 1Link": "https://medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0",
         "Tool/Framework 2Link": null,
         "Tool/Framework 3Link": null,
         "Tool/Framework 4Link": null,
