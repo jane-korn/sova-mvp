@@ -1,8 +1,8 @@
 // Assessment questions data - Generated from Self Assessment Structure.xlsx
 // Organized by Element and Stage for efficient lookups
 // Total questions: 115
-// Last updated: 2025-11-21 10:03:42
-// Hyperlinks extracted: 461
+// Last updated: 2025-11-21 11:44:39
+// Hyperlinks extracted: 463
 
 var allQuestionsData = {
   "Governance": {
@@ -15,7 +15,7 @@ var allQuestionsData = {
         "Key Terms Defined": "Business Establishment Requirements: The essential legal and administrative steps to safely test your business idea in Australia. At Discovery stage, this means: ABN registration (15 minutes online), basic public liability insurance, understanding tax obligations. Full company setup, trademarks, and patents come later (after validating customers will pay). Free resources: business.gov.au starting checklist.",
         "Resources": "Sova - Australian Startup Setup Guide",
         "Tool/Framework 1": "Sova - Australian Startup Setup Guide",
-        "Tool/Framework 2": "ABN Registration",
+        "Tool/Framework 2": "Business.gov.au checklist",
         "Tool/Framework 3": "Business Structure Guide",
         "Tool/Framework 4": null,
         "Advice": "Use Sova's Australian Startup Business Establishment Requirements checklist to make sure you haven't missed anything critical. Complete your ABN Registration (it's free and takes 15 minutes), then use a Business Structure Guide to choose between sole trader, partnership, or company. Don't skip public liability insurance ($500-$2k/year) or your domain name registration (.com.au requires an ABN). If you're working with others, budget for a shareholders agreement ($1,500-$5,000), it prevents expensive conflicts later. Get professional advice from Accountants and Lawyers, as this decision affects your tax and liability forever, and changing structures is more costly than paying a professional to complete your business set up. ",
@@ -28,7 +28,7 @@ var allQuestionsData = {
         "Quote (best practice)": null,
         "Quote (best practice) 2": null,
         "Tool/Framework 1Link": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
-        "Tool/Framework 2Link": "https://www.abr.gov.au/",
+        "Tool/Framework 2Link": "https://business.gov.au/-/media/business-information/templates-and-tools/starting-a-business-checklist.docx?sc_lang=en&hash=4F7A8FAF11CCE7CCC1D2A4D44111C30D",
         "Tool/Framework 3Link": "https://business.gov.au/",
         "Tool/Framework 4Link": null,
         "ResourcesLink": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
@@ -249,7 +249,7 @@ var allQuestionsData = {
         "Quote (best practice)": "Be open to feedback that can help you improve the overall quality of your service or product.",
         "Quote (best practice) 2": "Work with mentors and advisors who can help guide you through business challenges. ",
         "Tool/Framework 1Link": "https://www.aicd.com.au/regulatory-compliance.html",
-        "Tool/Framework 2Link": null,
+        "Tool/Framework 2Link": "mindtools.com/at7k8my/porter-s-five-forces",
         "Tool/Framework 3Link": null,
         "Tool/Framework 4Link": null,
         "ResourcesLink": null,
@@ -822,7 +822,7 @@ var allQuestionsData = {
         "Quote (startup failure) 2": "Long-term goals are often overlooked in startups for reasons (or excuses) of agility but if you want to move fast, you need to know where you are going. You have to be able to make quick but smart decisions. And this requires a clear sense of direction.",
         "Quote (best practice)": null,
         "Quote (best practice) 2": null,
-        "Tool/Framework 1Link": null,
+        "Tool/Framework 1Link": "mailto:medium.com/@steve_mullen/an-introduction-to-lean-canvas-5c17c469d3e0",
         "Tool/Framework 2Link": null,
         "Tool/Framework 3Link": null,
         "Tool/Framework 4Link": null,
