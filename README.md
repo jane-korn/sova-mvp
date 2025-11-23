@@ -4,6 +4,21 @@
 
 A mobile-responsive business assessment tool for Australian startups and scaleups.
 
+## V2 Journey-Based Enhancements (NEW!)
+
+**Branch:** `v2-journey-based-enhancements`
+
+Based on first UAT feedback, we're building v2 with a journey-focused approach:
+- Enhanced value proposition and onboarding
+- Progressive one-question-per-page flow
+- Pace selection (3/6/9 month timelines)
+- Guided element selection with clear priorities
+- Built-in feedback mechanism
+- Progress tracking and celebrations
+
+**See:** `V2_ENHANCEMENTS.md` for complete proposal
+**Prototype:** `index-v2.html` (journey-based onboarding)
+
 ## About Sova
 
 Sova helps startups assess their business maturity across 9 elements and 4 stages:

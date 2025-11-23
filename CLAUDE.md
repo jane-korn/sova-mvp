@@ -6,6 +6,70 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
+## V2 Journey-Based Enhancements (2025-11-24)
+
+### UAT Feedback Received
+First UAT feedback highlighted critical UX issues:
+- **Lack of purpose clarity** - Users didn't understand value proposition
+- **Stage confusion** - Users stuck between stages (Validation/Product)
+- **Overwhelming element selection** - No guidance on where to start
+- **Checklist vs journey feel** - Needed buddy approach, not box-ticking
+- **Missing progression sense** - No timeline or "homework done" celebration
+- **No feedback mechanism** - Users resorted to screenshots
+
+### V2 Branch Created
+**Branch:** `v2-journey-based-enhancements`
+
+### Key V2 Files
+- **V2_ENHANCEMENTS.md** - Complete enhancement proposal document
+- **index-v2.html** - New journey-based onboarding prototype
+
+### V2 Features Implemented (Prototype)
+1. **Enhanced Welcome Page**
+   - Clear value proposition upfront
+   - "Buddy" positioning vs consultant
+   - Statistics showing what users will build
+   - Compelling problem/solution framing
+
+2. **Progressive Onboarding**
+   - One question per page (Solo/Team → Stage → Pace)
+   - Explanations for why each question matters
+   - Visual examples and pro tips
+   - Supportive, encouraging tone
+
+3. **Pace Selection System**
+   - Intensive (3 months), Steady (6 months), Gradual (9 months), Custom
+   - Sets expectations for time commitment
+   - Calculates estimated completion date
+   - Journey tracking in localStorage
+
+4. **Guided Element Selection**
+   - Clear recommended path with reasoning
+   - Numbered sequence (1-4)
+   - "Why this first?" explanations
+   - Option to unlock all for advanced users
+   - Locked elements until prerequisites complete
+
+5. **Built-in Feedback**
+   - Floating feedback button (always visible)
+   - Simple modal for quick feedback
+   - Page tracking for context
+
+### V2 Implementation Plan
+See V2_ENHANCEMENTS.md for:
+- Detailed wireframes and copy
+- Technical data model changes
+- New components needed
+- 4-phase rollout plan
+- Success metrics
+
+### Next Steps for V2
+1. Test index-v2.html prototype locally
+2. Gather stakeholder feedback
+3. Integrate with existing assessment flow (index.html)
+4. Add celebration modals and progress tracking
+5. Deploy to v2-beta URL for UAT round 2
+
 ## Recent Updates (2025-11-21)
 
 ### Mobile Fixes

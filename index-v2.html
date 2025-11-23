@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<!-- Sova v2.0 - Journey-Based Assessment -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Sova - Your Startup Journey Companion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Corbel Light', Corbel, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            background: #000000;
+            color: #f5f1e8;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 40px;
+            padding: 16px 0;
+        }
+
+        .logo-text {
+            font-size: 32px;
+            font-weight: 800;
+            color: #C4FF00;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(196, 255, 0, 0.3);
+        }
+
+        /* Journey Page Sections */
+        .journey-section {
+            background: linear-gradient(135deg, #f5f1e8 0%, #ffffff 100%);
+            padding: 60px 48px;
+            border-radius: 32px;
+            margin-bottom: 24px;
+            box-shadow:
+                0 2px 8px rgba(61, 37, 23, 0.04),
+                0 8px 24px rgba(61, 37, 23, 0.08),
+                0 16px 48px rgba(61, 37, 23, 0.12);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .journey-section h1 {
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 24px;
+            color: #3D2517;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .journey-section h2 {
+            font-size: clamp(28px, 4vw, 36px);
+            margin-bottom: 20px;
+            color: #3D2517;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .journey-section h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #3D2517;
+            font-weight: 600;
+        }
+
+        .journey-section p {
+            color: #3D2517;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            opacity: 0.85;
+        }
+
+        .hero-statement {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 600;
+            color: #3D2517;
+            line-height: 1.4;
+            margin-bottom: 32px;
+            opacity: 1;
+        }
+
+        .problem-list, .solution-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .problem-list li, .solution-list li {
+            padding: 16px 0 16px 40px;
+            position: relative;
+            font-size: 18px;
+            color: #3D2517;
+            line-height: 1.6;
+        }
+
+        .problem-list li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            font-size: 24px;
+        }
+
+        .solution-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-size: 28px;
+            color: #C4FF00;
+            font-weight: 800;
+        }
+
+        .buddy-callout {
+            background: linear-gradient(135deg, rgba(196, 255, 0, 0.15) 0%, rgba(197, 217, 82, 0.08) 100%);
+            border-left: 4px solid #C4FF00;
+            padding: 32px;
+            border-radius: 16px;
+            margin: 32px 0;
+        }
+
+        .buddy-callout p {
+            font-size: 20px;
+            font-weight: 500;
+            color: #3D2517;
+            margin: 0;
+            opacity: 1;
+        }
+
+        .timeline-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .timeline-card {
+            background: white;
+            border: 2px solid rgba(61, 37, 23, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .timeline-card:hover {
+            border-color: #C4FF00;
+            box-shadow: 0 6px 20px rgba(196, 255, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .timeline-card h4 {
+            color: #3D2517;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-card p {
+            font-size: 14px;
+            opacity: 0.7;
+            margin: 0;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #C4FF00 0%, #C5D952 100%);
+            color: #3D2517;
+            border: none;
+            padding: 20px 48px;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(196, 255, 0, 0.3);
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(196, 255, 0, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        .cta-center {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 32px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            padding: 24px;
+            border: 2px solid rgba(196, 255, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: #C4FF00;
+            text-shadow: 2px 2px 4px rgba(61, 37, 23, 0.1);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: #3D2517;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .uat-banner {
+            background: linear-gradient(135deg, #3D2517 0%, #5A3A2A 100%);
+            color: #f5f1e8;
+            padding: 24px 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            border: 2px solid #C4FF00;
+        }
+
+        .uat-banner h3 {
+            color: #C4FF00;
+            margin-bottom: 12px;
+        }
+
+        .uat-banner p {
+            color: #f5f1e8;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .journey-section {
+                padding: 40px 24px;
+            }
+
+            .timeline-options {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-button {
+                width: 100%;
+                padding: 18px 32px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Page transition */
+        .page {
+            animation: pageSlideIn 0.4s ease-out;
+        }
+
+        @keyframes pageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">SOVA</div>
+        </div>
+
+        <!-- PAGE 1: WELCOME & VALUE PROP -->
+        <div id="page-welcome" class="page">
+            <div class="uat-banner">
+                <h3>Thanks for being an early adopter</h3>
+                <p>You're part of our UAT group for our February 2026 launch. Your feedback shapes Sova's evolution and you'll get 50% off at launch. Please complete the assessment and share your honest feedback via the survey.</p>
+            </div>
+
+            <div class="journey-section">
+                <h1>Most startups fail because they skip the fundamentals. You don't have to be one of them.</h1>
+
+                <div class="hero-statement">
+                    Think of Sova as your startup co-pilot. We'll guide you through the essential foundations—one step at a time, at your own pace.
+                </div>
+
+                <h2>The Challenge</h2>
+                <ul class="problem-list">
+                    <li>90% of startups fail in their first 5 years</li>
+                    <li>Founder advice is fragmented and overwhelming</li>
+                    <li>You don't know what you don't know</li>
+                    <li>Consultants and accelerators are expensive</li>
+                </ul>
+
+                <div class="buddy-callout">
+                    <p>We studied why startups fail, what makes them succeed, and how mature companies achieve business excellence. Then we synthesised it all into a practical journey that meets you where you are.</p>
+                </div>
+
+                <h2>Your Journey with Sova</h2>
+                <ul class="solution-list">
+                    <li>A clear roadmap of what matters at your stage</li>
+                    <li>Daily bite-sized tasks (15-30 min sessions)</li>
+                    <li>Progress tracking so you can see how far you've come</li>
+                    <li>Evidence-based frameworks used by successful startups</li>
+                    <li>Complete at your pace: 3, 6, or 9 months</li>
+                </ul>
+
+                <h2>What You'll Build</h2>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Essential elements assessed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">115</div>
+                        <div class="stat-label">Questions across all stages</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Tools & frameworks to learn from</div>
+                    </div>
+                </div>
+
+                <div class="cta-center">
+                    <button class="cta-button" onclick="nextPage('page-solo-team')">Start Your Journey →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 2: SOLO OR TEAM -->
+        <div id="page-solo-team" class="page hidden">
+            <div class="journey-section">
+                <h1>First things first—are you flying solo or with a team?</h1>
+
+                <p style="font-size: 20px; margin-bottom: 32px;">This matters because the way you approach governance, decision-making, and accountability changes significantly based on your setup.</p>
+
+                <div class="timeline-options">
+                    <div class="timeline-card" onclick="selectOption('teamSize', 'Solo')">
+                        <h4>👤 Solo</h4>
+                        <p>Just me for now</p>
+                    </div>
+                    <div class="timeline-card" onclick="selectOption('teamSize', 'Team')">
+                        <h4>👥 Team</h4>
+                        <p>2+ people</p>
+                    </div>
+                </div>
+
+                <div class="cta-center">
+                    <button class="cta-button" onclick="nextPage('page-stage-selection')" id="btn-continue-team" style="display: none;">Next: What Stage Are You At? →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3: STAGE SELECTION -->
+        <div id="page-stage-selection" class="page hidden">
+            <div class="journey-section">
+                <h1>Where are you in your startup journey?</h1>
+
+                <p style="font-size: 20px; margin-bottom: 32px;">No wrong answer here! We'll meet you where you are and help you build the right foundations for your stage.</p>
+
+                <div class="buddy-callout" style="margin-bottom: 32px;">
+                    <p><strong>Pro tip:</strong> Most founders underestimate their stage. That's okay—we'll validate this in the next step.</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div class="timeline-card" style="text-align: left; cursor: pointer;" onclick="selectOption('stage', 'Discovery')">
+                        <h4>🔍 Discovery</h4>
+                        <p>"I'm exploring problems and testing solution ideas"</p>
+                    </div>
+                    <div class="timeline-card" style="text-align: left; cursor: pointer;" onclick="selectOption('stage', 'Validation')">
+                        <h4>✓ Validation</h4>
+                        <p>"I've got early customers and I'm proving the model works"</p>
+                    </div>
+                    <div class="timeline-card" style="text-align: left; cursor: pointer;" onclick="selectOption('stage', 'Efficiency')">
+                        <h4>⚙️ Efficiency</h4>
+                        <p>"It works! Now I need to streamline and scale sustainably"</p>
+                    </div>
+                    <div class="timeline-card" style="text-align: left; cursor: pointer;" onclick="selectOption('stage', 'Scale')">
+                        <h4>📈 Scale</h4>
+                        <p>"We're growing fast and need systems for expansion"</p>
+                    </div>
+                    <div class="timeline-card" style="text-align: left; cursor: pointer;" onclick="selectOption('stage', 'Unsure')">
+                        <h4>❓ Unsure</h4>
+                        <p>"Help me figure this out"</p>
+                    </div>
+                </div>
+
+                <div class="cta-center">
+                    <button class="cta-button" onclick="nextPage('page-pace-selection')" id="btn-continue-stage" style="display: none;">Next: Set Your Pace →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: PACE SELECTION -->
+        <div id="page-pace-selection" class="page hidden">
+            <div class="journey-section">
+                <h1>Let's set your pace</h1>
+
+                <p style="font-size: 20px; margin-bottom: 24px;">This assessment covers 4 essential elements:</p>
+
+                <ul class="solution-list">
+                    <li><strong>Governance</strong> - Your values, ethics, and decision framework</li>
+                    <li><strong>Purpose</strong> - Your vision and mission</li>
+                    <li><strong>Strategy</strong> - Your plan and positioning</li>
+                    <li><strong>Marketing</strong> - Your customer experience and brand</li>
+                </ul>
+
+                <div class="buddy-callout" style="margin: 32px 0;">
+                    <p>Most founders complete this in 3-6 months. What feels right for you?</p>
+                </div>
+
+                <div class="timeline-options">
+                    <div class="timeline-card" onclick="selectOption('pace', 'intensive')">
+                        <h4>⚡ Intensive</h4>
+                        <p>3 months</p>
+                        <p style="font-size: 12px;">Daily 30-min sessions</p>
+                    </div>
+                    <div class="timeline-card" onclick="selectOption('pace', 'steady')">
+                        <h4>🎯 Steady</h4>
+                        <p>6 months</p>
+                        <p style="font-size: 12px;">3x per week, 30-min</p>
+                    </div>
+                    <div class="timeline-card" onclick="selectOption('pace', 'gradual')">
+                        <h4>🌱 Gradual</h4>
+                        <p>9 months</p>
+                        <p style="font-size: 12px;">2x per week, 20-min</p>
+                    </div>
+                    <div class="timeline-card" onclick="selectOption('pace', 'custom')">
+                        <h4>🔧 My Own Pace</h4>
+                        <p>Flexible</p>
+                        <p style="font-size: 12px;">I'll decide as I go</p>
+                    </div>
+                </div>
+
+                <div class="cta-center">
+                    <button class="cta-button" onclick="createJourney()" id="btn-create-journey" style="display: none;">Create My Journey →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: ELEMENT SELECTION (Coming from validation) -->
+        <div id="page-element-selection" class="page hidden">
+            <div class="journey-section">
+                <h1>Your Assessment Journey</h1>
+
+                <p style="font-size: 18px; margin-bottom: 8px;"><strong>Progress:</strong> 0% complete</p>
+                <p style="font-size: 18px; margin-bottom: 32px;" id="journey-estimate"><strong>Estimated completion:</strong> <span id="completion-date"></span></p>
+
+                <h2>Here's your recommended path</h2>
+                <p style="margin-bottom: 32px;">We recommend starting with Governance—it's the foundation everything else builds on. But you can tackle these in any order you prefer.</p>
+
+                <div style="display: flex; flex-direction: column; gap: 24px;">
+                    <div class="timeline-card" style="text-align: left; border-color: #C4FF00; background: linear-gradient(135deg, rgba(196, 255, 0, 0.08) 0%, #ffffff 100%);">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div>
+                                <h3 style="color: #3D2517; font-size: 28px; margin-bottom: 8px;">1. GOVERNANCE</h3>
+                                <p style="font-size: 16px; margin-bottom: 12px;">"Your values, ethics, and decision-making framework"</p>
+                                <p style="font-size: 14px; opacity: 0.7; margin-bottom: 8px;"><strong>Status:</strong> Not started</p>
+                                <p style="font-size: 14px; opacity: 0.7; margin-bottom: 12px;"><strong>Time:</strong> ~2-3 weeks at your pace</p>
+                                <div class="buddy-callout" style="padding: 16px; margin: 12px 0;">
+                                    <p style="font-size: 14px; margin: 0;"><strong>Why start here?</strong> This sets the foundation for all other decisions</p>
+                                </div>
+                                <button class="cta-button" style="font-size: 16px; padding: 12px 32px;" onclick="startElement('Governance')">Start Governance →</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-card" style="text-align: left; opacity: 0.6;">
+                        <h3 style="color: #3D2517; font-size: 24px; margin-bottom: 8px;">2. PURPOSE 🔒</h3>
+                        <p style="font-size: 16px; margin-bottom: 8px;">"Your vision, mission, and why you exist"</p>
+                        <p style="font-size: 14px; opacity: 0.7;"><strong>Status:</strong> Complete Governance first (recommended)</p>
+                    </div>
+
+                    <div class="timeline-card" style="text-align: left; opacity: 0.6;">
+                        <h3 style="color: #3D2517; font-size: 24px; margin-bottom: 8px;">3. STRATEGY 🔒</h3>
+                        <p style="font-size: 16px; margin-bottom: 8px;">"Your plans, priorities, and positioning"</p>
+                        <p style="font-size: 14px; opacity: 0.7;"><strong>Status:</strong> Complete Governance & Purpose first</p>
+                    </div>
+
+                    <div class="timeline-card" style="text-align: left; opacity: 0.6;">
+                        <h3 style="color: #3D2517; font-size: 24px; margin-bottom: 8px;">4. MARKETING 🔒</h3>
+                        <p style="font-size: 16px; margin-bottom: 8px;">"Your customer experience and brand"</p>
+                        <p style="font-size: 14px; opacity: 0.7;"><strong>Status:</strong> Final piece of the foundation</p>
+                    </div>
+                </div>
+
+                <p style="text-align: center; margin-top: 32px; font-size: 14px; opacity: 0.7; cursor: pointer;" onclick="unlockAllElements()">
+                    <u>I know what I'm doing, let me choose →</u>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Feedback Button -->
+    <div style="position: fixed; bottom: 24px; right: 24px; z-index: 1000;">
+        <button onclick="openFeedback()" style="
+            background: #C4FF00;
+            color: #3D2517;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(196, 255, 0, 0.4);
+            transition: all 0.3s ease;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            💬 Feedback
+        </button>
+    </div>
+
+    <script>
+        // User journey data
+        let journeyData = {
+            teamSize: null,
+            stage: null,
+            pace: null,
+            startDate: new Date().toISOString(),
+            estimatedCompletion: null
+        };
+
+        function nextPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // Show target page
+            document.getElementById(pageId).classList.remove('hidden');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectOption(field, value) {
+            journeyData[field] = value;
+            console.log('Selected:', field, value);
+
+            // Show continue button based on field
+            if (field === 'teamSize') {
+                document.getElementById('btn-continue-team').style.display = 'inline-block';
+            } else if (field === 'stage') {
+                document.getElementById('btn-continue-stage').style.display = 'inline-block';
+            } else if (field === 'pace') {
+                document.getElementById('btn-create-journey').style.display = 'inline-block';
+            }
+
+            // Highlight selected option
+            event.currentTarget.style.borderColor = '#C4FF00';
+            event.currentTarget.style.background = 'linear-gradient(135deg, rgba(196, 255, 0, 0.15) 0%, #ffffff 100%)';
+        }
+
+        function createJourney() {
+            // Calculate estimated completion based on pace
+            const paceMonths = {
+                intensive: 3,
+                steady: 6,
+                gradual: 9,
+                custom: 6 // default
+            };
+
+            const months = paceMonths[journeyData.pace];
+            const completionDate = new Date();
+            completionDate.setMonth(completionDate.getMonth() + months);
+
+            journeyData.estimatedCompletion = completionDate.toISOString();
+
+            // Update completion date display
+            const options = { year: 'numeric', month: 'long' };
+            document.getElementById('completion-date').textContent =
+                completionDate.toLocaleDateString('en-AU', options);
+
+            // Save to localStorage
+            localStorage.setItem('sovaJourneyData', JSON.stringify(journeyData));
+
+            console.log('Journey created:', journeyData);
+
+            // Go to element selection
+            nextPage('page-element-selection');
+        }
+
+        function startElement(elementName) {
+            // Save current element
+            journeyData.currentElement = elementName;
+            localStorage.setItem('sovaJourneyData', JSON.stringify(journeyData));
+
+            // Redirect to actual assessment (index.html with element parameter)
+            window.location.href = 'index.html?element=' + elementName + '&journey=true';
+        }
+
+        function unlockAllElements() {
+            alert('All elements unlocked! (This would show all 4 elements as clickable)');
+        }
+
+        function openFeedback() {
+            // Simple feedback modal (would be more sophisticated in production)
+            const feedback = prompt('How can we improve Sova? Your feedback directly shapes our product:');
+            if (feedback) {
+                console.log('Feedback received:', feedback);
+                alert('Thank you! Your feedback has been recorded.');
+                // In production: send to backend/analytics
+            }
+        }
+
+        // Load existing journey data if available
+        window.onload = function() {
+            const saved = localStorage.getItem('sovaJourneyData');
+            if (saved) {
+                journeyData = JSON.parse(saved);
+                console.log('Loaded journey data:', journeyData);
+            }
+        };
+    </script>
+</body>
+</html>
