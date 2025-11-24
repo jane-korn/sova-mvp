@@ -2997,57 +2997,64 @@
             }
         }
 
-        // Show validation questions one per page
+        // Show validation questions - all on one page
         function showValidationFlow(stage) {
             const questions = validationQuestions[stage].questions;
+            const heading = validationQuestions[stage].heading;
             const container = document.getElementById('validation-pages-container');
-            container.innerHTML = '';
 
-            // Create a page for each validation question
+            // Build all questions on one page
+            let questionsHTML = '';
             questions.forEach((qData, index) => {
-                const pageNum = 3 + index; // Pages 3, 4, 5 for validation (since we removed page 1)
-                const isLast = index === questions.length - 1;
+                questionsHTML += `
+                    <div style="margin-bottom: 2.5rem;">
+                        <h3 style="color: #f5f5dc; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">${qData.q}</h3>
+                        <p style="color: #b8d78f; font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">${qData.hint}</p>
 
-                const pageHTML = `
-                    <div id="prelim-page-${pageNum}" class="prelim-page" style="display: none;">
-                        <h1 style="color: #f5f5dc; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem;">${qData.q}</h1>
-                        <p style="color: #b8d78f; font-size: 1rem; margin-bottom: 3rem;">${qData.hint}</p>
-
-                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
-                            <div class="option-card" onclick="selectValidationAnswer(${index}, 'Yes', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer;">
-                                <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc;">Yes</div>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <div class="option-card validation-option" onclick="selectValidationAnswer(${index}, 'Yes', this)" style="background: rgba(245, 245, 220, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; flex: 1; text-align: center;">
+                                <div style="font-size: 1rem; font-weight: 600; color: #f5f5dc;">Yes</div>
                             </div>
-                            <div class="option-card" onclick="selectValidationAnswer(${index}, 'No', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer;">
-                                <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc;">No</div>
+                            <div class="option-card validation-option" onclick="selectValidationAnswer(${index}, 'No', this)" style="background: rgba(245, 245, 220, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; flex: 1; text-align: center;">
+                                <div style="font-size: 1rem; font-weight: 600; color: #f5f5dc;">No</div>
                             </div>
-                            <div class="option-card" onclick="selectValidationAnswer(${index}, 'Partially', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer;">
-                                <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc;">Partially</div>
+                            <div class="option-card validation-option" onclick="selectValidationAnswer(${index}, 'Partially', this)" style="background: rgba(245, 245, 220, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; flex: 1; text-align: center;">
+                                <div style="font-size: 1rem; font-weight: 600; color: #f5f5dc;">Partially</div>
                             </div>
-                        </div>
-
-                        <div style="display: flex; gap: 1rem;">
-                            <button class="btn-secondary" onclick="nextPrelimPage(${pageNum - 1})" style="background: transparent; color: #b8d78f; border: 2px solid #b8d78f; padding: 1rem 2rem; border-radius: 32px; cursor: pointer;">Back</button>
-                            <button class="btn-primary" id="btn-continue-validation-${index}" onclick="${isLast ? 'checkValidationResults()' : `nextPrelimPage(${pageNum + 1})`}" disabled style="background: #eaffc4; color: #2d2828; padding: 1rem 2rem; border-radius: 32px; border: none; font-weight: 600; cursor: pointer;">Continue</button>
                         </div>
                     </div>
                 `;
-
-                container.innerHTML += pageHTML;
             });
 
-            // Update total pages
-            prelimData.totalPages = 3 + questions.length;
+            const pageHTML = `
+                <div id="prelim-page-3" class="prelim-page" style="display: none;">
+                    <h1 style="color: #f5f5dc; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.5rem;">${heading}</h1>
+                    <p style="color: #b8d78f; font-size: 1rem; margin-bottom: 3rem;">To double check you are ready for ${stage}</p>
+
+                    ${questionsHTML}
+
+                    <div style="display: flex; gap: 1rem; margin-top: 3rem;">
+                        <button class="btn-secondary" onclick="nextPrelimPage(2)" style="background: transparent; color: #b8d78f; border: 2px solid #b8d78f; padding: 1rem 2rem; border-radius: 32px; cursor: pointer;">Back</button>
+                        <button class="btn-primary" id="btn-continue-validation" onclick="checkValidationResults()" disabled style="background: #eaffc4; color: #2d2828; padding: 1rem 2rem; border-radius: 32px; border: none; font-weight: 600; cursor: pointer;">Continue</button>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = pageHTML;
+
+            // Update total pages (2 main pages + 1 validation page)
+            prelimData.totalPages = 3;
             prelimData.validationAnswers = new Array(questions.length).fill(null);
 
-            // Show first validation page
-            nextPrelimPage(4);
+            // Show validation page
+            nextPrelimPage(3);
         }
 
         // Select validation answer
         function selectValidationAnswer(questionIndex, answer, element) {
             prelimData.validationAnswers[questionIndex] = answer;
 
-            // Visual feedback
+            // Visual feedback - only for this question's options
             const parent = element.parentElement;
             parent.querySelectorAll('.option-card').forEach(card => {
                 card.style.background = 'rgba(245, 245, 220, 0.05)';
@@ -3057,8 +3064,11 @@
             element.style.background = 'rgba(234, 255, 196, 0.1)';
             element.style.borderColor = '#eaffc4';
 
-            // Enable continue button
-            document.getElementById(`btn-continue-validation-${questionIndex}`).disabled = false;
+            // Enable continue button if all questions answered
+            const allAnswered = prelimData.validationAnswers.every(a => a !== null);
+            if (allAnswered) {
+                document.getElementById('btn-continue-validation').disabled = false;
+            }
         }
 
         // Check validation results and recommend stage
