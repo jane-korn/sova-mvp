@@ -2295,12 +2295,25 @@
             }
 
             #sova-model text.stage-desc {
-                font-size: 24px !important;
+                font-size: 18px !important;
             }
 
             /* Make inactive elements more visible on mobile */
             #sova-model text[opacity="0.3"] {
                 opacity: 0.6 !important;
+            }
+
+            /* Reduce sidebar tab width on mobile */
+            #webChartSidebar, #reportSidebar, #actionSidebar {
+                width: 45px !important;
+                font-size: 11px !important;
+            }
+
+            /* Reduce element badge text for mobile */
+            .element-badge {
+                font-size: 10px !important;
+                padding: 4px 10px !important;
+                white-space: nowrap !important;
             }
 
             .question-container {
