@@ -6,7 +6,28 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
-## Recent Updates (2025-11-21)
+## Recent Updates (2025-11-24)
+
+### Branding & Marketing Updates
+- ✅ Applied Montserrat font across all pages (index.html, assessment-tool.html, research.html, about.html)
+- ✅ Updated logo styling: 90px height, vertical layout with "Startup Sidekick" underneath
+- ✅ Fixed "Startup Sidekick" alignment: left-aligned with 100% width to match logo
+- ✅ Added bird icon (45px) in bottom-right corner of all pages with 40% opacity
+- ✅ Created separate favicon.png with brown border around bird shape
+- ✅ Updated hero stat from "10%" to "90%" on landing page
+
+### Instagram Templates
+- ✅ Created 4 Instagram post templates (1080x1080px) in PowerPoint format
+- ✅ Template 1: Dark background with full logo & decorative lines
+- ✅ Template 2: Light background with brown logo & decorative lines
+- ✅ Template 3: Dark background with large movable green bird watermark
+- ✅ Template 4: Light background with large movable brown bird watermark
+- ✅ PowerPoint: 10"x10" slides that export perfectly to 1080x1080px
+- ✅ Bird watermarks positioned left-center, 3.0"x3.9", 25% opacity, fully movable
+- ✅ Created brown bird icon asset: `sova-logo-icon-brown-transparent.png`
+- ✅ Export instructions included in PowerPoint slide notes
+
+### Previous Updates (2025-11-21)
 
 ### Mobile Fixes
 - ✅ Fixed modal text wrapping on mobile (overflow-wrap: anywhere, reduced to 280px width)
@@ -26,9 +47,28 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 ## Key Files
 
 ### Core Files
-- **index.html** - Main assessment interface (v6.34)
+- **index.html** - Main assessment interface (v6.35)
 - **questions-data.js** - Generated from Excel, contains all 115 questions
 - **regenerate-from-excel.py** - Automated Excel → interface sync
+- **assessment-tool.html** - Assessment tool page
+- **research.html** - Research and statistics page
+- **about.html** - About/founder page
+
+### Brand Assets
+- **sova-logo-main-transparent.png** - Main logo (green text)
+- **sova-logo-icon-transparent.png** - Bird icon (green)
+- **sova-logo-icon-brown-transparent.png** - Bird icon (brown)
+- **favicon.png** - Favicon with brown border around bird shape
+
+### Instagram Templates Directory
+**Location:** `/home/janek/sova-mvp/instagram-templates/`
+- **sova-instagram-templates.pptx** - 4 template slides (10"x10")
+- **blank_template_dark.png** - Dark background with full logo & lines
+- **blank_template_light.png** - Light background with brown logo & lines
+- **blank_template_dark_watermark.png** - Dark with green bird watermark (deprecated)
+- **blank_template_light_watermark.png** - Light with brown bird watermark (deprecated)
+- **blank_template_light_large_bird.png** - Light with large brown bird (static)
+- **pptx-workspace/create-instagram-slides-v2.js** - PowerPoint generation script
 
 ### Excel Source
 - **Location:** `/home/janek/inbox/Allivate/assessment-tool-rebuild/Self Assessment Structure.xlsx`
@@ -73,6 +113,33 @@ git push
 - Priority action checklist
 - VC requirements mapping
 
+## Brand Guidelines
+
+### Colors (Australian English spelling: colours)
+- **Light green:** #eaffc4 (primary brand color, for dark backgrounds)
+- **Brown:** #2d2828 (primary text, logos on light backgrounds)
+- **Cream:** #f5f5dc (light backgrounds)
+- **Sage:** #b8d78f (accent color)
+
+### Typography
+- **Primary font:** Montserrat (Google Fonts)
+- **Logo subtitle:** 0.7rem, sage color, left-aligned
+- **Logo height:** 90px across all pages
+
+### Logo Usage
+- Main logo includes "Sova" text + bird icon
+- "Startup Sidekick" appears underneath logo (100% width, left-aligned)
+- Bird icon used as standalone element (bottom-right, 45px, 40% opacity)
+- Favicon has brown border following bird shape (not circular)
+
+### Instagram Template Usage
+1. Open `sova-instagram-templates.pptx`
+2. Choose template (slides 1-4)
+3. Add text using Insert > Text Box
+4. Format with brand colors and Montserrat font
+5. Move bird watermark if needed (slides 3-4 only)
+6. Export: File > Export > PNG > "Just This One" → 1080x1080px
+
 ## Mobile Compatibility Notes
 
 ### iOS Chrome Issues & Solutions
@@ -86,6 +153,7 @@ git push
 - 4 pulses @ 1.2s each before launching assessment
 
 ## Version History
+- **v6.35** - Startup Sidekick alignment fix, Instagram templates, Montserrat font
 - **v6.34** - Mobile fixes, element label consistency
 - **v6.33** - Hidden state question
 - **v6.32** - Governance Efficiency question added, full Excel alignment

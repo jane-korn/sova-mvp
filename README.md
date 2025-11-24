@@ -61,13 +61,42 @@ git push
 - **COMPLETE_SOLUTION.md** - Overview of automated solution
 - **CLAUDE.md** - Technical context and recent changes
 
+## Branding & Marketing
+
+**Brand Colors:**
+- Light green: #eaffc4
+- Brown: #2d2828
+- Cream: #f5f5dc
+- Sage: #b8d78f
+
+**Typography:** Montserrat (Google Fonts)
+
+**Instagram Templates:**
+Located in `/instagram-templates/` directory:
+- 4 PowerPoint templates (10"x10" slides for 1080x1080px export)
+- 2 with decorative lines + logo (dark/light)
+- 2 with large movable bird watermark (dark/light)
+- Export instructions in slide notes
+
+**Assets:**
+- `sova-logo-main-transparent.png` - Main logo (green text)
+- `sova-logo-icon-transparent.png` - Bird icon (green)
+- `sova-logo-icon-brown-transparent.png` - Bird icon (brown)
+- `favicon.png` - Favicon with brown border
+
 ## Version
 
-Current: v6.34 (2025-11-21)
+Current: v6.35 (2025-11-24)
+- Fixed Startup Sidekick alignment and width
+- Created Instagram post templates (PowerPoint)
+- Applied Montserrat font across all pages
+- Updated logo styling and positioning
+
+Previous: v6.34 (2025-11-21)
 - Mobile animation fixes
 - Element label consistency
 - Updated tool links
 
 ---
 
-**© 2025 Sova** - Democratizing business excellence for Australian startups
+**© 2025 Sova** - Democratising business excellence for Australian startups
