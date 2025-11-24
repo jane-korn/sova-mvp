@@ -2394,9 +2394,8 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header" style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem; padding-bottom: 1rem;">
+        <div class="header" style="display: flex; align-items: flex-start; padding-bottom: 1rem;">
             <img src="sova-logo-main-transparent.png" alt="Sova" style="height: 90px;">
-            <span style="font-size: 0.7rem; color: #b8d78f; font-weight: 300; width: 90px; text-align: left; white-space: nowrap; letter-spacing: 0.3px;">Startup Sidekick</span>
         </div>
 
         <!-- New One-Per-Page Preliminary Flow -->
@@ -2788,18 +2787,18 @@
                 </div>
 
                 <!-- Sticky Web Chart Sidebar (above Report on right) - Hidden until pictorial shown -->
-                <div id="webChartSidebar" style="display: none; position: fixed; right: 0; bottom: 260px; width: 60px; background: #b8d78f; border-radius: 12px 0 0 12px; padding: 20px 16px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1);" onclick="scrollToWebChart()" onmouseover="this.style.width='75px'; this.style.paddingLeft='28px'; this.style.boxShadow='-8px 0 20px rgba(197,217,82,0.4)'; this.style.background='#D0E366';" onmouseout="this.style.width='60px'; this.style.paddingLeft='16px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#b8d78f';">
-                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px;">WEB CHART</div>
+                <div id="webChartSidebar" style="display: none; position: fixed; right: 0; bottom: 320px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); text-align: center; line-height: 100px; border: 2px solid transparent;" onclick="scrollToWebChart()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
+                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; vertical-align: middle; line-height: normal; color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease; white-space: nowrap;">WEBCHART</div>
                 </div>
 
                 <!-- Sticky Report Sidebar (above Actions on right) - Hidden until pictorial shown -->
-                <div id="reportSidebar" style="display: none; position: fixed; right: 0; bottom: 140px; width: 60px; background: #b8d78f; border-radius: 12px 0 0 12px; padding: 20px 16px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1);" onclick="scrollToReport()" onmouseover="this.style.width='75px'; this.style.paddingLeft='28px'; this.style.boxShadow='-8px 0 20px rgba(232,197,71,0.4)'; this.style.background='#EDD066';" onmouseout="this.style.width='60px'; this.style.paddingLeft='16px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#b8d78f';">
-                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px;">REPORT</div>
+                <div id="reportSidebar" style="display: none; position: fixed; right: 0; bottom: 200px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); text-align: center; line-height: 100px; border: 2px solid transparent;" onclick="scrollToReport()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
+                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; vertical-align: middle; line-height: normal; color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;">REPORT</div>
                 </div>
 
                 <!-- Sticky Action Sidebar (at bottom on right) -->
-                <div id="actionSidebar" style="position: fixed; right: 0; bottom: 20px; width: 60px; background: #eaffc4; border-radius: 12px 0 0 12px; padding: 20px 16px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1);" onclick="toggleActionPanel()" onmouseover="this.style.width='75px'; this.style.paddingLeft='28px'; this.style.boxShadow='-8px 0 20px rgba(196,255,0,0.4)'; this.style.background='#D4FF33';" onmouseout="this.style.width='60px'; this.style.paddingLeft='16px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4';">
-                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px;">ACTIONS</div>
+                <div id="actionSidebar" style="position: fixed; right: 0; bottom: 80px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); text-align: center; line-height: 100px; border: 2px solid transparent;" onclick="toggleActionPanel()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
+                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; vertical-align: middle; line-height: normal; color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;">ACTIONS</div>
                 </div>
 
                 <!-- Slide-out Action Panel -->
@@ -3211,11 +3210,14 @@
             };
             localStorage.removeItem('sovaMultiElementProgress');
 
+            // Save userData to localStorage
+            localStorage.setItem('sovaUserData', JSON.stringify(userData));
+
             // Hide preliminary flow
             document.getElementById('prelimFlow').style.display = 'none';
 
-            // Show assessment
-            showModel();
+            // Redirect to choose-path page
+            window.location.href = 'choose-path.html';
         }
 
         // Update progress bar
@@ -3347,7 +3349,7 @@
                 userData.assessmentStartStage = stage;
 
                 buttonsDiv.innerHTML = `
-                    <button class="btn-primary" onclick="showModel()">Continue to Assessment</button>
+                    <button class="btn-primary" onclick="window.location.href='choose-path.html'">Continue</button>
                 `;
             } else {
                 // Failed - recommend previous stage
@@ -3410,6 +3412,34 @@
             setTimeout(() => {
                 startDemoAnimation();
             }, 500);
+        }
+
+        // Show model WITHOUT auto-pulse animation (for Zoom In mode)
+        function showModelManual() {
+            // Preliminary flow is already hidden by finalizePrelimAndStart()
+            document.getElementById('modelSection').classList.add('active');
+
+            // Show sidebars and report section now that we're on pictorial
+            document.getElementById('reportSection').style.display = 'block';
+            document.getElementById('webChartSidebar').style.display = 'block';
+            document.getElementById('reportSidebar').style.display = 'block';
+
+            // Store data in localStorage
+            localStorage.setItem('sovaUserData', JSON.stringify(userData));
+
+            console.log('User data stored (manual mode):', userData);
+
+            // Update web chart with any completed assessments
+            updateWebChart();
+
+            // Scroll to top of page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Load completion status
+            loadCompletionStatus();
+
+            // NO auto-pulse animation - user manually selects elements
+            console.log('🔍 Manual mode: Ready for user to select elements');
         }
 
         // Demo animation: glow the next element and gracefully zoom into assessment
@@ -4121,7 +4151,7 @@
             // Update progress
             document.getElementById('questionProgress').textContent =
                 `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
-            document.getElementById('elementBadge').textContent = currentElement.toUpperCase();
+            document.getElementById('elementBadge').textContent = `${currentElement} at ${currentStage} Stage`;
 
             const progressPercent = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
             document.getElementById('progressFill').style.width = progressPercent + '%';
@@ -4275,20 +4305,16 @@
                 contentContainer.appendChild(contentDiv);
             });
 
-            // Handle Resource button separately - on its own line with lime green border
+            // Handle Resource button - same row as other buttons
             const resourceData = references['Resources'];
             const resourceLink = references['ResourcesLink'];
 
             if (resourceLink) {
-                // Create line break for Resource button
-                buttonsContainer.appendChild(document.createElement('br'));
-
-                // Create button - exactly like Definition but opens link and has lime border
+                // Create button - exactly like other buttons but with green outline and opens link
                 const button = document.createElement('button');
                 button.className = 'info-btn';
                 button.textContent = 'Resource';
-                button.style.borderColor = '#eaffc4';
-                button.style.marginTop = '8px';
+                button.style.border = '2px solid #eaffc4';
                 button.onclick = () => {
                     window.open(resourceLink, '_blank');
                 };
@@ -4964,10 +4990,15 @@
             updateWebChart(); // Update with new element data
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // After a brief moment showing the completed element, auto-start next
-            setTimeout(() => {
-                startDemoAnimation();
-            }, 1000); // Show pictorial for 1 second before continuing
+            // Only auto-start next element if in Complete mode, not Zoom In mode
+            if (userData.assessmentMode === 'complete') {
+                // After a brief moment showing the completed element, auto-start next
+                setTimeout(() => {
+                    startDemoAnimation();
+                }, 1000); // Show pictorial for 1 second before continuing
+            } else {
+                console.log('🔍 Zoom In mode: User chooses next element manually');
+            }
         }
 
         // Save Multi-Element Progress
@@ -6243,6 +6274,36 @@
 
         // Initialize on page load - restore report visibility if progress exists
         function initializeAssessment() {
+            // Check for mode parameter from choose-path.html
+            const urlParams = new URLSearchParams(window.location.search);
+            const mode = urlParams.get('mode');
+
+            if (mode) {
+                console.log('🎯 Assessment mode detected:', mode);
+
+                // Store mode in localStorage and userData
+                userData.assessmentMode = mode;
+                localStorage.setItem('sovaUserData', JSON.stringify(userData));
+
+                // Hide preliminary flow
+                document.getElementById('prelimFlow').style.display = 'none';
+
+                // Show the pictorial based on mode
+                if (mode === 'complete') {
+                    // Complete assessment: show model with auto-pulse animation
+                    console.log('🎬 Starting complete assessment with auto-pulse');
+                    showModel();
+                } else if (mode === 'zoomin') {
+                    // Zoom in: show model WITHOUT auto-pulse animation
+                    console.log('🔍 Starting zoom-in mode - no auto-pulse');
+                    showModelManual();
+                }
+
+                // Clean up URL to remove mode parameter
+                window.history.replaceState({}, document.title, window.location.pathname);
+                return;
+            }
+
             // Check if user has started assessment (has multi-element progress)
             if (multiElementProgress && Object.keys(multiElementProgress.results).length > 0) {
                 console.log('📦 Existing progress found, restoring report...');

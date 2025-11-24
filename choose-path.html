@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Path - Sova Assessment</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sova-green: #eaffc4;
+            --sova-brown: #2d2828;
+            --sova-cream: #f5f5dc;
+            --sova-sage: #b8d78f;
+            --sova-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            background: var(--sova-brown);
+            color: var(--sova-cream);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 90px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--sova-green);
+        }
+
+        .bird-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            height: 45px;
+            width: auto;
+            opacity: 0.4;
+            z-index: 1000;
+        }
+
+        /* Hero Section - Jeton-inspired bold typography */
+        .hero {
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: var(--sova-green);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .intro-text {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        /* MVP Note - Phamily-inspired card */
+        .mvp-note {
+            background: rgba(234, 255, 196, 0.05);
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            padding: 1.5rem;
+            margin: 0 auto 3rem;
+            border-radius: 8px;
+            max-width: 800px;
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        .mvp-note strong {
+            color: var(--sova-green);
+            font-weight: 600;
+        }
+
+        /* Path Cards - Osmo-inspired clean modules */
+        .paths-section {
+            padding: 2rem 0 5rem;
+        }
+
+        .paths {
+            display: grid;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .path-card {
+            background: rgba(245, 245, 220, 0.02);
+            border: 2px solid rgba(234, 255, 196, 0.15);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--sova-green);
+            transition: height 0.3s ease;
+        }
+
+        .path-card:hover:not(.coming-soon)::before {
+            height: 100%;
+        }
+
+        .path-card:hover:not(.coming-soon) {
+            background: rgba(245, 245, 220, 0.04);
+            border-color: var(--sova-green);
+            transform: translateX(4px);
+        }
+
+        .path-card.coming-soon {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .path-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 6rem;
+            font-weight: 700;
+            color: rgba(234, 255, 196, 0.05);
+            line-height: 1;
+        }
+
+        .path-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            color: var(--sova-white);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .path-desc {
+            font-size: 1.0625rem;
+            color: var(--sova-sage);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .path-meta {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.9375rem;
+            color: var(--sova-sage);
+            position: relative;
+            z-index: 1;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .meta-label {
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: rgba(184, 215, 143, 0.15);
+            color: var(--sova-sage);
+            padding: 0.375rem 1rem;
+            border-radius: 24px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            margin-left: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 0 2rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 3rem 0 2rem;
+            }
+
+            .mvp-note {
+                padding: 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            .paths-section {
+                padding: 1.5rem 0 3rem;
+            }
+
+            .path-card {
+                padding: 1.5rem;
+            }
+
+            .path-number {
+                font-size: 4rem;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .path-meta {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bird Icon -->
+    <img src="sova-logo-icon-transparent.png" alt="" class="bird-icon">
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="sova-logo-main-transparent.png" alt="Sova">
+                </a>
+                <nav>
+                    <a href="research.html">Research</a>
+                    <a href="about.html">About</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Choose Your Flight Path</h1>
+            <p class="intro-text">
+                You're about to gain clarity on your business foundations across the elements that determine startup success.
+            </p>
+
+            <div class="mvp-note">
+                <strong>Testing note:</strong> This version covers 4 core elements—Governance, Purpose, Strategy, and Marketing. The full Sova system includes 9 elements total. We're starting with the foundations that matter most in early stages.
+            </div>
+        </section>
+
+        <!-- Path Options -->
+        <section class="paths-section">
+            <div class="paths">
+                <!-- Path 1: Full Assessment -->
+                <div class="path-card" onclick="continueAssessment('complete')">
+                    <span class="path-number">1</span>
+                    <h2 class="path-title">Complete Assessment</h2>
+                    <p class="path-desc">
+                        Answer questions across all 4 elements to get a bird's-eye view of your business health. Best for seeing the full picture and identifying priorities.
+                    </p>
+                    <div class="path-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Time:</span>
+                            <span>15-20 minutes</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Output:</span>
+                            <span>Full report with action plan</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Path 2: Pick an Element -->
+                <div class="path-card" onclick="continueAssessment('zoomin')">
+                    <span class="path-number">2</span>
+                    <h2 class="path-title">Zoom In on One Element</h2>
+                    <p class="path-desc">
+                        Not ready for the full assessment? Hone in on one element to work on first. You can always come back and complete the others later.
+                    </p>
+                    <div class="path-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Time:</span>
+                            <span>5-7 minutes</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Output:</span>
+                            <span>Targeted insights</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Path 3: Chatbot (Coming Soon) -->
+                <div class="path-card coming-soon">
+                    <span class="path-number">3</span>
+                    <h2 class="path-title">
+                        Work with Your Guide
+                        <span class="coming-soon-badge">Coming Soon</span>
+                    </h2>
+                    <p class="path-desc">
+                        Have a specific issue you're working through? Chat with Sova to explore solutions and frameworks tailored to your situation.
+                    </p>
+                    <div class="path-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Time:</span>
+                            <span>Your pace</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Output:</span>
+                            <span>Conversational support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function continueAssessment(mode) {
+            // Store the chosen mode in localStorage
+            const userData = JSON.parse(localStorage.getItem('sovaUserData') || '{}');
+            userData.assessmentMode = mode;
+            localStorage.setItem('sovaUserData', JSON.stringify(userData));
+
+            // Return to assessment tool with mode parameter
+            window.location.href = `assessment-tool.html?mode=${mode}`;
+        }
+    </script>
+</body>
+</html>
