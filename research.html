@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Research - Why Startups Fail | Sova</title>
+    <meta name="description" content="Comprehensive research on why startups fail and how to avoid common pitfalls. Evidence-based insights from HBR, CB Insights, and 150+ founder interviews.">
+    <link rel="icon" type="image/png" href="sova-logo-icon-transparent.png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sova-green: #eaffc4;
+            --sova-brown: #2d2828;
+            --sova-cream: #f5f5dc;
+            --sova-sage: #b8d78f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--sova-brown);
+            color: var(--sova-cream);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            margin-bottom: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .logo-subtitle {
+            color: var(--sova-sage);
+            font-size: 0.875rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--sova-green);
+            margin: 3rem 0 1rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            color: var(--sova-white);
+            margin: 3rem 0 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--sova-green);
+            margin: 2rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+        }
+
+        .intro {
+            font-size: 1.375rem;
+            color: var(--sova-sage);
+            margin-bottom: 3rem;
+        }
+
+        .stat-box {
+            background: rgba(234, 255, 196, 0.08);
+            border-left: 4px solid var(--sova-green);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .stat-box strong {
+            color: var(--sova-green);
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .quote {
+            background: rgba(245, 245, 220, 0.05);
+            border-left: 4px solid var(--sova-sage);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        .quote cite {
+            display: block;
+            margin-top: 1rem;
+            font-style: normal;
+            color: var(--sova-sage);
+            font-size: 0.95rem;
+        }
+
+        .quote cite a {
+            color: var(--sova-sage);
+            text-decoration: none;
+        }
+
+        .quote cite a:hover {
+            text-decoration: underline;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .reason-card {
+            background: rgba(245, 245, 220, 0.05);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .reason-card h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+
+        .reason-card p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .sources {
+            margin: 4rem 0;
+            padding: 2rem;
+            background: rgba(245, 245, 220, 0.03);
+            border-radius: 16px;
+        }
+
+        .sources h3 {
+            margin-top: 0;
+        }
+
+        .sources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sources li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .sources li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--sova-green);
+        }
+
+        .sources a {
+            color: var(--sova-cream);
+            text-decoration: none;
+        }
+
+        .sources a:hover {
+            color: var(--sova-green);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background: var(--sova-green);
+            color: var(--sova-brown);
+            text-decoration: none;
+            border-radius: 32px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background: var(--sova-sage);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="index.html" class="logo">
+                    <img src="sova-logo-main-transparent.png" alt="Sova">
+                    <span class="logo-subtitle">Startup Sidekick</span>
+                </a>
+                <nav style="display: flex; gap: 2rem;">
+                    <a href="research.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Research</a>
+                    <a href="about.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">About Us</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>The Research: Why Startups Fail</h1>
+        <p class="intro">We've analysed hundreds of studies and distilled research from Harvard Business Review, CB Insights, Exploding Topics, and leading startup experts. Here's what we found.</p>
+
+        <div class="stat-box">
+            <strong>90%</strong>
+            <p>of startups fail globally, with 10% failing in year one and 70% failing in years 2-5.</p>
+            <cite>— Startup Genome, 2025 | Exploding Topics, 2025</cite>
+        </div>
+
+        <div class="stat-box">
+            <strong>2/3</strong>
+            <p>of startups never show a positive return on investment.</p>
+            <cite>— Harvard Business Review, 2021</cite>
+        </div>
+
+        <h2>The Top 10 Reasons Startups Fail</h2>
+
+        <div class="reasons-grid">
+            <div class="reason-card">
+                <h3>1. Lack of Product-Market Fit (42%)</h3>
+                <p>Building something nobody wants. Not solving a real problem people will pay for.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>2. Running Out of Cash (29%)</h3>
+                <p>38% run out of capital or fail to raise funding due to weak foundations.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>3. Wrong Team (23%)</h3>
+                <p>Shareholder disagreements, unclear roles, no founders' agreement with vesting. 73% of conflicts stem from unclear ownership.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>4. Overwhelming Competition (19%)</h3>
+                <p>Inability to differentiate or keep pace with innovators. 76% of consumers prefer brands with clear differentiation.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>5. Pricing/Cost Issues (18%)</h3>
+                <p>Wrong pricing model, unsustainable unit economics, or underestimating costs.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>6. Poor Product (17%)</h3>
+                <p>User-unfriendly, bad timing, or failing to iterate based on feedback.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>7. Business Model Failure (17%)</h3>
+                <p>No clear path to profitability or sustainable revenue model.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>8. Weak Marketing (14%)</h3>
+                <p>Great product, but nobody knows about it. Ineffective customer acquisition.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>9. Ignoring Customers (14%)</h3>
+                <p>70% of startups ask wrong questions to wrong people. Skip customer discovery = false starts.</p>
+            </div>
+
+            <div class="reason-card">
+                <h3>10. Scaling Prematurely (13%)</h3>
+                <p>74% scale without adequate systems or processes in place.</p>
+            </div>
+        </div>
+
+        <h2>The Good News</h2>
+
+        <div class="stat-box">
+            <p><strong>With the right approach, you can increase your chances of success despite the odds.</strong></p>
+            <p>By understanding common pitfalls and having a plan in place for how to mitigate them, entrepreneurs can increase their chances of creating successful businesses and reaching their goals.</p>
+            <cite>— HubSpot, 2023</cite>
+        </div>
+
+        <h2>What This Means for You</h2>
+
+        <p>Most startup failures are <strong>preventable</strong>. The issues aren't mysterious—they're well-documented and researched. The problem is that this information is scattered and overwhelming.</p>
+
+        <p><strong>Sova consolidates it all.</strong> We've distilled the evidence and unified it into one holistic system matched to your specific situation.</p>
+
+        <p>You don't need to spend $150-$450/hour on consultants or give up 5-15% equity to an accelerator. You need a clear diagnosis and evidence-based roadmap.</p>
+
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+</body>
+</html>

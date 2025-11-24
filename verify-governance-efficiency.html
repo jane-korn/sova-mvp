@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Governance Efficiency Questions</title>
+    <script src="questions-data.js?v=20251121-083400"></script>
+</head>
+<body>
+    <h1>Governance > Efficiency Questions Verification</h1>
+    <div id="output"></div>
+
+    <script>
+        const output = document.getElementById('output');
+
+        // Check if data loaded
+        if (typeof allQuestionsData === 'undefined') {
+            output.innerHTML = '<p style="color: red;">ERROR: allQuestionsData not loaded!</p>';
+        } else {
+            const govEff = allQuestionsData['Governance']['Efficiency'];
+
+            let html = `<h2>Total Questions: ${govEff.length}</h2>`;
+
+            govEff.forEach((q, idx) => {
+                html += `
+                    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+                        <h3>Question ${idx + 1}</h3>
+                        <p><strong>Solo:</strong> ${q.Solo || 'MISSING'}</p>
+                        <p><strong>Team:</strong> ${q.Team || 'MISSING'}</p>
+                        <p><strong>Key Terms:</strong> ${q['Key Terms Defined'] ? q['Key Terms Defined'].substring(0, 100) + '...' : 'MISSING'}</p>
+                    </div>
+                `;
+            });
+
+            output.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

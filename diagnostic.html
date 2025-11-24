@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diagnostic Check</title>
+    <script src="questions-data.js?v=20251121-083400"></script>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+        .result { background: #2d2d2d; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .pass { border-left: 4px solid #4ec9b0; }
+        .fail { border-left: 4px solid #f48771; }
+        h2 { color: #4ec9b0; }
+        pre { background: #1e1e1e; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Questions Data Diagnostic</h1>
+    <div id="output"></div>
+
+    <script>
+        let html = '';
+
+        // Test 1: Check if data loaded
+        if (typeof allQuestionsData === 'undefined') {
+            html += '<div class="result fail"><h2>❌ FAIL: allQuestionsData not loaded</h2></div>';
+        } else {
+            html += '<div class="result pass"><h2>✅ PASS: allQuestionsData loaded</h2></div>';
+
+            // Test 2: Check Governance exists
+            if (allQuestionsData.Governance) {
+                html += '<div class="result pass"><h2>✅ PASS: Governance element exists</h2></div>';
+
+                // Test 3: Check Efficiency exists
+                if (allQuestionsData.Governance.Efficiency) {
+                    const govEff = allQuestionsData.Governance.Efficiency;
+                    html += `<div class="result pass"><h2>✅ PASS: Governance.Efficiency exists</h2><p>Total questions: ${govEff.length}</p></div>`;
+
+                    // Test 4: List all questions
+                    html += '<div class="result"><h2>📋 All Governance > Efficiency Questions:</h2>';
+                    govEff.forEach((q, i) => {
+                        const solo = q.Solo || 'NO SOLO';
+                        html += `<pre>${i + 1}. ${solo.substring(0, 100)}${solo.length > 100 ? '...' : ''}</pre>`;
+                    });
+                    html += '</div>';
+
+                    // Test 5: Check first question specifically
+                    const firstQ = govEff[0].Solo;
+                    if (firstQ && firstQ.includes('implemented the legal requirements')) {
+                        html += '<div class="result pass"><h2>✅ PASS: New question IS present</h2><pre>' + firstQ + '</pre></div>';
+                    } else {
+                        html += '<div class="result fail"><h2>❌ FAIL: New question NOT found</h2><p>First question is: ' + firstQ + '</p></div>';
+                    }
+
+                } else {
+                    html += '<div class="result fail"><h2>❌ FAIL: Governance.Efficiency does not exist</h2></div>';
+                }
+            } else {
+                html += '<div class="result fail"><h2>❌ FAIL: Governance element does not exist</h2></div>';
+            }
+        }
+
+        document.getElementById('output').innerHTML = html;
+    </script>
+</body>
+</html>

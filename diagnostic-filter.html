@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter Diagnostic</title>
+    <script src="questions-data.js?v=20251121-083400"></script>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+        .result { background: #2d2d2d; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .pass { border-left: 4px solid #4ec9b0; }
+        .warn { border-left: 4px solid #f1fa8c; }
+        h2 { color: #4ec9b0; }
+        pre { background: #1e1e1e; padding: 10px; overflow-x: auto; white-space: pre-wrap; }
+        table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+        th, td { border: 1px solid #444; padding: 8px; text-align: left; }
+        th { background: #3d3d3d; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Filter Diagnostic - Governance Efficiency</h1>
+    <div id="output"></div>
+
+    <script>
+        let html = '';
+
+        const govEff = allQuestionsData.Governance.Efficiency;
+        const isSolo = true; // Testing Solo filter
+
+        html += `<div class="result pass"><h2>Raw Data: ${govEff.length} questions loaded</h2></div>`;
+
+        // Show each question and its Solo/Team status
+        html += '<div class="result"><h2>📊 Question Analysis:</h2><table>';
+        html += '<tr><th>#</th><th>Has Solo?</th><th>Solo Text (first 80 chars)</th><th>Will Pass Filter?</th></tr>';
+
+        govEff.forEach((q, i) => {
+            const hasSolo = q.Solo !== null && q.Solo !== undefined && q.Solo !== '' && q.Solo !== 'NA';
+            const soloText = q.Solo || 'NULL/EMPTY';
+            const willPass = hasSolo ? '✅ YES' : '❌ NO';
+            const rowClass = hasSolo ? 'pass' : 'warn';
+
+            html += `<tr class="${rowClass}">
+                <td>${i + 1}</td>
+                <td>${hasSolo ? '✅' : '❌'}</td>
+                <td>${soloText.substring(0, 80)}...</td>
+                <td>${willPass}</td>
+            </tr>`;
+        });
+
+        html += '</table></div>';
+
+        // Now apply the actual filter
+        let filteredQuestions = govEff.filter(q => {
+            const soloText = q.Solo || q.solo;
+            return soloText !== null && soloText !== undefined && soloText !== '' && soloText !== 'NA';
+        });
+
+        html += `<div class="result ${filteredQuestions.length === 5 ? 'pass' : 'warn'}">
+            <h2>After Solo Filter: ${filteredQuestions.length} questions</h2>
+            <p>Expected: 5 questions</p>
+            ${filteredQuestions.length !== 5 ? '<p style="color: #f48771;">⚠️ MISMATCH! One question was filtered out!</p>' : ''}
+        </div>`;
+
+        // Show which questions passed
+        html += '<div class="result"><h2>✅ Questions That PASSED Filter:</h2>';
+        filteredQuestions.forEach((q, i) => {
+            html += `<pre>${i + 1}. ${q.Solo.substring(0, 100)}...</pre>`;
+        });
+        html += '</div>';
+
+        document.getElementById('output').innerHTML = html;
+    </script>
+</body>
+</html>

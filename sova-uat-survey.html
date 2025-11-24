@@ -519,21 +519,45 @@
             // Add timestamp
             data.timestamp = new Date().toISOString();
 
-            // Here you would normally send to your backend
-            // For now, we'll log it and show success message
-            console.log('Survey Response:', data);
+            // ***********************************************
+            // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+            // After deploying the Apps Script, paste the URL here
+            // ***********************************************
+            const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
 
-            // You can integrate with Google Forms by:
-            // 1. Getting the form action URL from your Google Form
-            // 2. Mapping field names to Google Form entry IDs
-            // 3. Submitting via fetch() or creating a hidden iframe
+            // Disable submit button
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
 
-            // Show success message
-            document.querySelector('.container form').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
+            // Send data to Google Sheets via Apps Script
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Required for Google Apps Script
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                // With no-cors mode, we won't get a readable response
+                // So we assume success if no error is thrown
+                console.log('Survey Response:', data);
 
-            // Optional: Send email notification
-            // sendEmailNotification(data);
+                // Show success message
+                document.querySelector('.container form').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error submitting survey:', error);
+
+                // Show error to user
+                alert('There was a problem submitting your response. Please try again or contact support.');
+
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Feedback';
+            });
         });
     </script>
 </body>
