@@ -2352,104 +2352,98 @@
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
-            <div class="logo-text">SOVA</div>
+        <div class="header" style="display: flex; align-items: center; gap: 1rem; padding-bottom: 1rem;">
+            <img src="sova-logo-main-transparent.png" alt="Sova" style="height: 50px;">
+            <span style="font-size: 0.875rem; color: #b8d78f; font-weight: 300;">Startup Sidekick</span>
         </div>
 
-        <!-- STEP 1: Preliminary Questions Section -->
-        <div class="prelim-section" id="step1Section">
-            <!-- MVP Thank You - Minimal Treatment -->
-                <div style="border-left: 3px solid #eaffc4; padding-left: 24px; margin-bottom: 64px;">
-                    <p style="color: #2d2828; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 12px 0; opacity: 0.6;">Thanks for being an early adopter</p>
-                    <p style="color: #2d2828; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.75;">
-                        You're part of our user acceptance group of our product hopefully launching February 2026. Your feedback will directly shape how Sova evolves and in return, you'll get 50% off when we launch, should you wish to use it. Please have a go at using Sova and provide feedback via the survey sent to you. Thank you kindly in advance.
-                    </p>
+        <!-- New One-Per-Page Preliminary Flow -->
+        <div class="prelim-section" id="prelimFlow" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+            <div style="max-width: 800px; width: 100%; padding: 2rem;">
+
+                <!-- Progress Bar -->
+                <div style="width: 100%; height: 4px; background: rgba(234, 255, 196, 0.2); border-radius: 2px; margin-bottom: 3rem;">
+                    <div id="prelimProgress" style="height: 100%; background: #eaffc4; transition: width 0.3s ease; width: 0%;"></div>
                 </div>
-            </div>
 
-            <h2>Let's get started</h2>
-
-            <!-- MVP Start Fresh Button -->
-            <button onclick="startFresh()" style="margin-top: 12px; margin-bottom: 24px; padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Start Fresh</button>
-
-            <!-- Q1: Team Size (CRITICAL) -->
-            <div class="question-group">
-                <label class="question-label">1. Are you Solo or Team?</label>
-                <small style="display: block; margin-bottom: 12px; color: #5a4a3a;">We'll tailor the questions to match whether you're working alone or with others.</small>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div class="radio-option">
-                        <input type="radio" name="teamSize" value="Solo" id="team-solo">
-                        <label for="team-solo">Solo (just me)</label>
+                <!-- Page 1: Welcome + Thank You -->
+                <div id="prelim-page-1" class="prelim-page">
+                    <div style="border-left: 3px solid #eaffc4; padding-left: 24px; margin-bottom: 3rem;">
+                        <p style="color: #2d2828; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 12px 0; opacity: 0.6;">Thanks for being an early adopter</p>
+                        <p style="color: #2d2828; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.75;">
+                            You're part of our user acceptance group of our product hopefully launching February 2026. Your feedback will directly shape how Sova evolves and in return, you'll get 50% off when we launch, should you wish to use it. Please have a go at using Sova and provide feedback via the survey sent to you. Thank you kindly in advance.
+                        </p>
                     </div>
-                    <div class="radio-option">
-                        <input type="radio" name="teamSize" value="Team" id="team-team">
-                        <label for="team-team">Team (2+ people)</label>
+
+                    <h1 style="color: #2d2828; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1.5rem;">Business Health Assessment</h1>
+                    <p style="color: #2d2828; font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.8;">Let's understand where you are in your startup journey.</p>
+
+                    <button onclick="startFresh()" style="margin-bottom: 1.5rem; padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Start Fresh</button>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button class="btn-primary" onclick="nextPrelimPage(2)">Begin Assessment</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Q2: Startup Stage (CRITICAL) -->
-            <div class="question-group">
-                <label class="question-label">2. What stage do you think you're at?</label>
-                <small style="display: block; margin-bottom: 12px; color: #5a4a3a;">This helps us focus on what matters most for where you are now.</small>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div class="radio-option">
-                        <input type="radio" name="stage" value="Discovery" id="stage-discovery">
-                        <label for="stage-discovery">Discovery (finding a problem to solve and developing a solution)</label>
+                <!-- Page 2: Team Size -->
+                <div id="prelim-page-2" class="prelim-page" style="display: none;">
+                    <h1 style="color: #2d2828; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem;">Are you flying solo or with a team?</h1>
+                    <p style="color: #2d2828; font-size: 1.125rem; margin-bottom: 3rem; opacity: 0.8;">This helps us tailor questions to your situation.</p>
+
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+                        <div class="option-card" onclick="selectPrelimOption('teamSize', 'Solo', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Solo</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">Just me for now</div>
+                        </div>
+                        <div class="option-card" onclick="selectPrelimOption('teamSize', 'Team', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Team</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">2 or more people</div>
+                        </div>
                     </div>
-                    <div class="radio-option">
-                        <input type="radio" name="stage" value="Validation" id="stage-validation">
-                        <label for="stage-validation">Validation (proving customers will pay for the solution)</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" name="stage" value="Efficiency" id="stage-efficiency">
-                        <label for="stage-efficiency">Efficiency (refining the business model and processes)</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" name="stage" value="Scale" id="stage-scale">
-                        <label for="stage-scale">Scale (growing rapidly by expanding market share)</label>
-                    </div>
-                    <div class="radio-option">
-                        <input type="radio" name="stage" value="Unsure" id="stage-unsure">
-                        <label for="stage-unsure">Unsure</label>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-secondary" onclick="nextPrelimPage(1)" style="background: transparent; color: #2d2828; border: 2px solid #b8d78f;">Back</button>
+                        <button class="btn-primary" id="btn-continue-2" onclick="nextPrelimPage(3)" disabled>Continue</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Q3: Location (CRITICAL) -->
-            <div class="question-group" style="display: none;">
-                <label class="question-label">3. Which state or territory are you in?</label>
-                <small style="display: block; margin-bottom: 12px; color: #5a4a3a;">We'll connect you with local resources and support specific to your region.</small>
-                <select id="location">
-                    <option value="">-- Select a state or territory --</option>
-                    <option value="ACT">ACT</option>
-                    <option value="NSW">NSW</option>
-                    <option value="NT">NT</option>
-                    <option value="QLD">QLD</option>
-                    <option value="SA">SA</option>
-                    <option value="TAS">TAS</option>
-                    <option value="VIC">VIC</option>
-                    <option value="WA">WA</option>
-                </select>
-            </div>
+                <!-- Page 3: Stage Selection -->
+                <div id="prelim-page-3" class="prelim-page" style="display: none;">
+                    <h1 style="color: #2d2828; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem;">Where are you in your startup journey?</h1>
+                    <p style="color: #2d2828; font-size: 1.125rem; margin-bottom: 3rem; opacity: 0.8;">No wrong answer. We'll meet you where you are.</p>
 
-            <button class="btn-primary" onclick="continueToValidation()" style="margin-top: 24px;">Continue</button>
-        </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Discovery', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Discovery</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">Exploring problems and testing solution ideas</div>
+                        </div>
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Validation', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Validation</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">Got early customers, proving the model works</div>
+                        </div>
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Efficiency', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Efficiency</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">It works! Streamlining to scale sustainably</div>
+                        </div>
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Scale', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Scale</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">Growing fast, need systems for expansion</div>
+                        </div>
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Unsure', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                            <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828; margin-bottom: 0.5rem;">Unsure</div>
+                            <div style="font-size: 1rem; color: #2d2828; opacity: 0.7;">Help me figure this out</div>
+                        </div>
+                    </div>
 
-        <!-- STEP 2: Stage Validation Section - Compressed for one-page fit -->
-        <div class="prelim-section" id="step2Section" style="display: none; max-height: 90vh; overflow-y: auto; padding: 20px;">
-            <h2 id="validationHeading" style="font-size: 22px; margin-bottom: 16px; color: #2d2828;"></h2>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-secondary" onclick="nextPrelimPage(2)" style="background: transparent; color: #2d2828; border: 2px solid #b8d78f;">Back</button>
+                        <button class="btn-primary" id="btn-continue-3" onclick="checkStageAndContinue()" disabled>Continue</button>
+                    </div>
+                </div>
 
-            <div id="validationQuestions" style="margin-bottom: 16px;">
-                <!-- Will be populated by JavaScript based on selected stage -->
-            </div>
+                <!-- Validation Pages (Dynamic) -->
+                <div id="validation-pages-container"></div>
 
-            <div id="validationResult" style="display: none; margin-bottom: 16px;">
-                <!-- Will show recommendation -->
-            </div>
-
-            <div id="validationButtons" style="display: flex; gap: 12px;">
-                <!-- Will be populated by JavaScript -->
             </div>
         </div>
 
@@ -2878,31 +2872,68 @@
         };
 
         // Validation questions by stage (based on Self Assessment Structure.xlsx)
+        // Simplified validation questions - one per page
         const validationQuestions = {
             'Validation': {
-                heading: "Let's quickly check you've completed Discovery foundations",
+                heading: "Let's check you've completed Discovery foundations",
                 questions: [
-                    "Do you understand the minimum legal requirements to start testing your business idea safely (e.g., ABN, basic insurance)?",
-                    "Have you documented your business plan using a simple framework (Business Model Canvas, Lean Canvas, or one-page plan) explaining who you serve, what problem you solve, and how you will make money?",
-                    "Have you defined your core business hypothesis (who you serve, what problem you solve, how you'll solve it, how you'll make money) and your plan to test it in the next 3-6 months?"
+                    {
+                        q: "Do you understand the basic legal requirements to start testing your idea?",
+                        hint: "Things like ABN, basic insurance"
+                    },
+                    {
+                        q: "Have you documented a simple business plan?",
+                        hint: "Who you serve, what problem you solve, how you'll make money"
+                    },
+                    {
+                        q: "Do you have a plan to test your idea in the next 3-6 months?",
+                        hint: "Your core hypothesis and how you'll validate it"
+                    }
                 ]
             },
             'Efficiency': {
-                heading: "Let's quickly check you've completed Validation foundations",
+                heading: "Let's check you've completed Validation foundations",
                 questions: [
-                    "Have you documented who does what, and your current strategic hypotheses (aligned to your business planning framework)?",
-                    "Do you solve a real problem that mainstream customers (not just early supporters) will pay for?",
-                    "Have you researched your market by talking to potential customers (not just guessing), analysing competitors, and testing assumptions with real behaviour (not just surveys)?"
+                    {
+                        q: "Have you documented who does what in your team?",
+                        hint: "Clear roles and responsibilities"
+                    },
+                    {
+                        q: "Do customers actually pay for your solution?",
+                        hint: "Mainstream customers, not just early supporters"
+                    },
+                    {
+                        q: "Have you researched your market?",
+                        hint: "Talked to customers, analysed competitors"
+                    }
                 ]
             },
             'Scale': {
-                heading: "Let's quickly check you've completed Efficiency foundations",
+                heading: "Let's check you've completed Efficiency foundations",
                 questions: [
-                    "Have you implemented the legal requirements to establish the business (e.g., business name registration, ABN, insurance, GST etc)?",
-                    "Do you have written policies that guide daily decisions and your business governance?",
-                    "Do you change your approach when the market shifts (you're flexible, not stubborn)?"
+                    {
+                        q: "Have you set up the legal requirements for your business?",
+                        hint: "Business registration, ABN, insurance, GST"
+                    },
+                    {
+                        q: "Do you have written policies in place?",
+                        hint: "Guidelines for daily decisions and governance"
+                    },
+                    {
+                        q: "Do you adapt when the market shifts?",
+                        hint: "You're flexible, not stubborn"
+                    }
                 ]
             }
+        };
+
+        // Store preliminary flow state
+        let prelimData = {
+            teamSize: null,
+            stage: null,
+            currentPage: 1,
+            totalPages: 3, // Will be updated based on validation questions
+            validationAnswers: []
         };
 
         // Start Fresh - Clear all progress
@@ -2921,7 +2952,186 @@
             }
         }
 
-        // STEP 1: Continue to validation
+        // Navigate between preliminary pages
+        function nextPrelimPage(pageNum) {
+            // Hide all pages
+            document.querySelectorAll('.prelim-page').forEach(p => p.style.display = 'none');
+
+            // Show target page
+            const targetPage = document.getElementById(`prelim-page-${pageNum}`);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+            }
+
+            // Update progress (3 main pages + validation pages)
+            prelimData.currentPage = pageNum;
+            updatePrelimProgress();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Select option in preliminary flow
+        function selectPrelimOption(field, value, element) {
+            // Store selection
+            prelimData[field] = value;
+
+            // Visual feedback - remove all selected classes
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option-card').forEach(card => {
+                card.style.background = 'rgba(245, 245, 220, 0.05)';
+                card.style.borderColor = 'rgba(234, 255, 196, 0.1)';
+            });
+
+            // Add selected style
+            element.style.background = 'rgba(234, 255, 196, 0.1)';
+            element.style.borderColor = '#eaffc4';
+
+            // Enable continue button
+            if (field === 'teamSize') {
+                document.getElementById('btn-continue-2').disabled = false;
+            } else if (field === 'stage') {
+                document.getElementById('btn-continue-3').disabled = false;
+            }
+        }
+
+        // Check stage and show validation if needed
+        function checkStageAndContinue() {
+            const stage = prelimData.stage;
+
+            if (stage === 'Discovery' || stage === 'Unsure') {
+                // No validation needed, go straight to assessment
+                finalizePrelimAndStart('Discovery');
+            } else {
+                // Show validation questions for this stage
+                showValidationFlow(stage);
+            }
+        }
+
+        // Show validation questions one per page
+        function showValidationFlow(stage) {
+            const questions = validationQuestions[stage].questions;
+            const container = document.getElementById('validation-pages-container');
+            container.innerHTML = '';
+
+            // Create a page for each validation question
+            questions.forEach((qData, index) => {
+                const pageNum = 4 + index; // Pages 4, 5, 6 for validation
+                const isLast = index === questions.length - 1;
+
+                const pageHTML = `
+                    <div id="prelim-page-${pageNum}" class="prelim-page" style="display: none;">
+                        <h1 style="color: #2d2828; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem;">${qData.q}</h1>
+                        <p style="color: #2d2828; font-size: 1rem; margin-bottom: 3rem; opacity: 0.7;">${qData.hint}</p>
+
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+                            <div class="option-card" onclick="selectValidationAnswer(${index}, 'Yes', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer;">
+                                <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828;">Yes</div>
+                            </div>
+                            <div class="option-card" onclick="selectValidationAnswer(${index}, 'No', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer;">
+                                <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828;">No</div>
+                            </div>
+                            <div class="option-card" onclick="selectValidationAnswer(${index}, 'Partially', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer;">
+                                <div style="font-size: 1.25rem; font-weight: 600; color: #2d2828;">Partially</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn-secondary" onclick="nextPrelimPage(${pageNum - 1})" style="background: transparent; color: #2d2828; border: 2px solid #b8d78f;">Back</button>
+                            <button class="btn-primary" id="btn-continue-validation-${index}" onclick="${isLast ? 'checkValidationResults()' : `nextPrelimPage(${pageNum + 1})`}" disabled>Continue</button>
+                        </div>
+                    </div>
+                `;
+
+                container.innerHTML += pageHTML;
+            });
+
+            // Update total pages
+            prelimData.totalPages = 3 + questions.length;
+            prelimData.validationAnswers = new Array(questions.length).fill(null);
+
+            // Show first validation page
+            nextPrelimPage(4);
+        }
+
+        // Select validation answer
+        function selectValidationAnswer(questionIndex, answer, element) {
+            prelimData.validationAnswers[questionIndex] = answer;
+
+            // Visual feedback
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option-card').forEach(card => {
+                card.style.background = 'rgba(245, 245, 220, 0.05)';
+                card.style.borderColor = 'rgba(234, 255, 196, 0.1)';
+            });
+
+            element.style.background = 'rgba(234, 255, 196, 0.1)';
+            element.style.borderColor = '#eaffc4';
+
+            // Enable continue button
+            document.getElementById(`btn-continue-validation-${questionIndex}`).disabled = false;
+        }
+
+        // Check validation results and recommend stage
+        function checkValidationResults() {
+            const yesCount = prelimData.validationAnswers.filter(a => a === 'Yes').length;
+            const totalQuestions = prelimData.validationAnswers.length;
+            const selectedStage = prelimData.stage;
+
+            // Determine if user should start at selected stage or go back
+            let recommendedStage;
+            let message;
+
+            if (yesCount >= Math.ceil(totalQuestions * 0.67)) { // 2/3 or more Yes
+                recommendedStage = selectedStage;
+                message = `Great! You've completed the ${getPreviousStage(selectedStage)} foundations. Let's assess your ${selectedStage} stage.`;
+            } else {
+                recommendedStage = getPreviousStage(selectedStage);
+                message = `It looks like you're still building your ${getPreviousStage(selectedStage)} foundations. Let's start there.`;
+            }
+
+            finalizePrelimAndStart(recommendedStage);
+        }
+
+        // Get previous stage
+        function getPreviousStage(stage) {
+            const stages = ['Discovery', 'Validation', 'Efficiency', 'Scale'];
+            const index = stages.indexOf(stage);
+            return index > 0 ? stages[index - 1] : 'Discovery';
+        }
+
+        // Finalize preliminary data and start assessment
+        function finalizePrelimAndStart(assessmentStage) {
+            // Store user data
+            userData.teamSize = prelimData.teamSize;
+            userData.selectedStage = prelimData.stage;
+            userData.assessmentStartStage = assessmentStage;
+            userData.location = 'Not specified';
+            userData.aimingForVC = true;
+
+            // Clear old assessment data
+            multiElementProgress = {
+                elementsCompleted: [],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+                allComplete: false,
+                results: {}
+            };
+            localStorage.removeItem('sovaMultiElementProgress');
+
+            // Hide preliminary flow
+            document.getElementById('prelimFlow').style.display = 'none';
+
+            // Show assessment
+            showModel();
+        }
+
+        // Update progress bar
+        function updatePrelimProgress() {
+            const progress = (prelimData.currentPage / prelimData.totalPages) * 100;
+            document.getElementById('prelimProgress').style.width = progress + '%';
+        }
+
+        // OLD FUNCTIONS - Keep for compatibility but not used
         function continueToValidation() {
             console.log('Continue button clicked');
 
