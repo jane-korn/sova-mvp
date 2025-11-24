@@ -2140,11 +2140,26 @@
                 width: calc(100vw - 32px) !important;
                 max-width: 360px !important;
                 min-width: unset !important;
+                padding: 16px !important;
             }
 
             .tooltip-popover::after {
                 left: 50% !important;
                 transform: translateX(-50%) !important;
+            }
+
+            /* Fix text overflow inside tooltip */
+            .tooltip-popover-content {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                white-space: normal !important;
+                max-width: 100% !important;
+            }
+
+            .tooltip-popover-content div {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                white-space: normal !important;
             }
 
             /* FIX 6: Element heading container same margins as Startup Health */
@@ -2250,6 +2265,19 @@
             .btn-primary {
                 padding: 16px 24px;
                 font-size: 15px;
+            }
+
+            /* Fix stage option cards text overflow */
+            .option-card {
+                padding: 1rem !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+
+            .option-card div {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                max-width: 100% !important;
             }
 
             .model-wrapper {
