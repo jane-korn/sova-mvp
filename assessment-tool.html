@@ -2856,6 +2856,41 @@
                     }
                 }
 
+                // Task completion functions
+                function toggleTaskExpand(taskId) {
+                    const content = document.getElementById(`task-content-${taskId}`);
+                    const arrow = document.getElementById(`task-arrow-${taskId}`);
+                    if (content && arrow) {
+                        const isExpanded = content.style.display !== 'none';
+                        content.style.display = isExpanded ? 'none' : 'block';
+                        arrow.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(90deg)';
+                    }
+                }
+
+                function completeTask(taskId, satisfaction) {
+                    const notes = document.getElementById(`task-notes-${taskId}`).value;
+
+                    // Save to userData
+                    userData.completedTasks[taskId] = {
+                        completed: true,
+                        satisfaction: satisfaction,
+                        notes: notes,
+                        completedAt: new Date().toISOString()
+                    };
+
+                    // Save to localStorage
+                    localStorage.setItem('sovaUserData', JSON.stringify(userData));
+
+                    // Re-render the todo list to show completion
+                    updateReportLive();
+                }
+
+                function uncompleteTask(taskId) {
+                    delete userData.completedTasks[taskId];
+                    localStorage.setItem('sovaUserData', JSON.stringify(userData));
+                    updateReportLive();
+                }
+
                 // Track currently filtered element for gaps section
                 let currentFilterElement = null;
 
@@ -2912,7 +2947,8 @@
             location: '',
             aimingForVC: true, // Always show VC considerations
             validationPassed: false,
-            assessmentStartStage: ''
+            assessmentStartStage: '',
+            completedTasks: {} // { taskId: { completed: true, satisfaction: 'up'|'down', notes: 'text' } }
         };
 
         // Validation questions by stage (based on Self Assessment Structure.xlsx)
@@ -3815,6 +3851,12 @@
         let currentStage = '';  // Track current stage being assessed
         let answers = {};
         let assessmentProgress = JSON.parse(localStorage.getItem('sovaAssessmentProgress')) || {};
+
+        // Load completed tasks from localStorage
+        const savedUserData = JSON.parse(localStorage.getItem('sovaUserData'));
+        if (savedUserData && savedUserData.completedTasks) {
+            userData.completedTasks = savedUserData.completedTasks;
+        }
 
         // Multi-Element Assessment Tracking
         let multiElementProgress = JSON.parse(localStorage.getItem('sovaMultiElementProgress')) || {
@@ -5701,16 +5743,54 @@
                     return aIndex - bIndex;
                 });
 
+                // Group gaps by element for progress tracking
+                const gapsByElement = {};
+                allGaps.forEach(gap => {
+                    if (!gapsByElement[gap.element]) {
+                        gapsByElement[gap.element] = [];
+                    }
+                    gapsByElement[gap.element].push(gap);
+                });
+
+                // Determine first task to auto-expand
+                const assessmentMode = userData.assessmentMode || 'complete';
+                let firstTaskId = null;
+                if (assessmentMode === 'complete' && allGaps.length > 0) {
+                    firstTaskId = `task-${0}`; // First task overall
+                } else if (assessmentMode === 'zoomin') {
+                    // Find first task of the element user chose (we'll need to track this)
+                    firstTaskId = `task-${0}`;
+                }
+
                 let todoHTML = `
                     <p style="color: #2d2828; font-size: 15px; line-height: 1.7; margin: 0 0 24px 0;">
-                        <strong>Start by addressing these gaps.</strong> Once you've completed them, come back to move to the next stage of your assessment.
+                        <strong>Start by addressing these gaps.</strong> Mark tasks complete as you finish them.
                     </p>
                 `;
 
-                allGaps.forEach((gap, index) => {
-                    const questionText = isSolo ? (gap.question.Solo || gap.question.solo) : (gap.question.Team || gap.question.team);
+                // Add element progress indicators
+                Object.keys(gapsByElement).forEach(element => {
+                    const elementGaps = gapsByElement[element];
+                    const completedCount = elementGaps.filter((gap, idx) => {
+                        const taskId = `task-${allGaps.indexOf(gap)}`;
+                        return userData.completedTasks[taskId];
+                    }).length;
 
-                    // Transform to conversational action - make it action-oriented, not just restating the question
+                    todoHTML += `
+                        <div style="background: #eaffc4; border-radius: 6px; padding: 8px 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: #2d2828; font-size: 13px; font-weight: 700;">${element}</span>
+                            <span style="color: #2d2828; font-size: 12px; font-weight: 600;">${completedCount} of ${elementGaps.length} completed</span>
+                        </div>
+                    `;
+                });
+
+                allGaps.forEach((gap, index) => {
+                    const taskId = `task-${index}`;
+                    const questionText = isSolo ? (gap.question.Solo || gap.question.solo) : (gap.question.Team || gap.question.team);
+                    const isCompleted = userData.completedTasks[taskId];
+                    const isFirstTask = taskId === firstTaskId;
+
+                    // Transform to conversational action
                     let actionText = questionText
                         .replace(/^I\/We have /i, 'Create ')
                         .replace(/^I have /i, 'Create ')
@@ -5721,29 +5801,67 @@
                         .replace(/defined /i, 'define ')
                         .replace(/established /i, 'establish ')
                         .replace(/identified /i, 'identify ');
-
-                    // Capitalize first letter
                     actionText = actionText.charAt(0).toUpperCase() + actionText.slice(1);
 
+                    // Task card with completion state
                     todoHTML += `
-                        <div style="background: #f5f5dc; border: 1px solid #b8d78f; border-radius: 8px; padding: 16px; margin-bottom: 12px; display: flex; align-items: start; gap: 12px;">
-                            <input type="checkbox" style="margin-top: 4px; width: 20px; height: 20px; cursor: pointer;">
-                            <div style="flex: 1;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                                    <span style="background: #eaffc4; color: #2d2828; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">${index + 1}</span>
-                                    <span style="color: #2d2828; font-size: 12px; font-weight: 600; opacity: 0.7;">${gap.element} / ${gap.stage}</span>
+                        <div style="background: ${isCompleted ? '#f5f5dc' : '#ffffff'}; border: 2px solid ${isCompleted ? '#eaffc4' : '#b8d78f'}; border-radius: 8px; padding: 12px; margin-bottom: 12px; transition: all 0.3s ease;">
+                            <!-- Task Header (always visible) -->
+                            <div onclick="toggleTaskExpand('${taskId}')" style="cursor: pointer; display: flex; align-items: center; gap: 12px;">
+                                ${isCompleted ? `
+                                    <svg width="24" height="24" viewBox="0 0 24 24" style="min-width: 24px;">
+                                        <circle cx="12" cy="12" r="10" fill="#eaffc4" stroke="#2d2828" stroke-width="2"/>
+                                        <path d="M7 12l3 3 7-7" stroke="#2d2828" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                ` : `
+                                    <svg id="task-arrow-${taskId}" width="24" height="24" viewBox="0 0 24 24" style="min-width: 24px; transition: transform 0.3s ease; transform: ${isFirstTask ? 'rotate(90deg)' : 'rotate(0deg)'};">
+                                        <path d="M9 6l6 6-6 6" stroke="#2d2828" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                `}
+                                <div style="flex: 1;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                        <span style="background: #eaffc4; color: #2d2828; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">${index + 1}</span>
+                                        <span style="color: #2d2828; font-size: 12px; font-weight: 600; opacity: 0.7;">${gap.element} / ${gap.stage}</span>
+                                    </div>
+                                    <p style="color: #2d2828; font-size: 15px; line-height: 1.5; margin: 0; font-weight: 600; ${isCompleted ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${actionText}</p>
                                 </div>
-                                <p style="color: #2d2828; font-size: 15px; line-height: 1.5; margin: 0; font-weight: 600;">${actionText}</p>
+                            </div>
+
+                            <!-- Expandable Content -->
+                            <div id="task-content-${taskId}" style="display: ${isFirstTask && !isCompleted ? 'block' : 'none'}; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(45, 40, 40, 0.1);">
+                                ${isCompleted ? `
+                                    <!-- Completed State -->
+                                    <div style="background: #f5f5dc; padding: 12px; border-radius: 6px; margin-bottom: 12px;">
+                                        <p style="color: #2d2828; font-size: 13px; margin: 0 0 8px 0;"><strong>Completed:</strong> ${new Date(userData.completedTasks[taskId].completedAt).toLocaleDateString('en-AU')}</p>
+                                        <p style="color: #2d2828; font-size: 13px; margin: 0 0 8px 0;"><strong>Satisfaction:</strong> ${userData.completedTasks[taskId].satisfaction === 'up' ? '👍 Satisfied' : '👎 Needs improvement'}</p>
+                                        ${userData.completedTasks[taskId].notes ? `<p style="color: #2d2828; font-size: 13px; margin: 0;"><strong>Notes:</strong> ${userData.completedTasks[taskId].notes}</p>` : ''}
+                                    </div>
+                                    <button onclick="uncompleteTask('${taskId}')" style="background: #b8d78f; border: none; color: #2d2828; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">
+                                        Mark as Not Complete
+                                    </button>
+                                ` : `
+                                    <!-- Active State -->
+                                    <p style="color: #2d2828; font-size: 13px; margin: 0 0 12px 0;">How did you go with this task?</p>
+                                    <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                        <button onclick="completeTask('${taskId}', 'up')" style="flex: 1; background: #eaffc4; border: 2px solid #2d2828; color: #2d2828; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 24px; transition: all 0.2s ease;" onmouseover="this.style.background='#b8d78f'" onmouseout="this.style.background='#eaffc4'">
+                                            👍
+                                        </button>
+                                        <button onclick="completeTask('${taskId}', 'down')" style="flex: 1; background: #f5f5dc; border: 2px solid #2d2828; color: #2d2828; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 24px; transition: all 0.2s ease;" onmouseover="this.style.background='#e5e5cc'" onmouseout="this.style.background='#f5f5dc'">
+                                            👎
+                                        </button>
+                                    </div>
+                                    <textarea id="task-notes-${taskId}" placeholder="Add notes (optional)..." style="width: 100%; padding: 8px; border: 1px solid #b8d78f; border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 13px; resize: vertical; min-height: 60px;"></textarea>
+                                `}
                             </div>
                         </div>
                     `;
                 });
 
-                // Add final message about coming back
+                // Add final message
                 todoHTML += `
                     <div style="background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); border-radius: 8px; padding: 20px; margin-top: 24px; text-align: center;">
                         <p style="color: #2d2828; font-size: 16px; font-weight: 700; margin: 0;">
-                            Once you've addressed these gaps, come back to continue your assessment and move to the next stage
+                            Track your progress as you address these gaps
                         </p>
                     </div>
                 `;
