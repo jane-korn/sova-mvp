@@ -692,16 +692,16 @@
         }
 
         .tooltip-popover {
-            position: absolute;
-            bottom: calc(100% + 12px);
+            position: fixed;
+            bottom: auto;
             left: 50%;
-            margin-left: -200px;
+            transform: translateX(-50%);
             background: #ffffff;
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(61, 37, 23, 0.1);
             min-width: 300px;
-            max-width: 400px;
+            max-width: 90vw;
             width: 400px;
             opacity: 0;
             visibility: hidden;
@@ -721,7 +721,7 @@
             content: '';
             position: absolute;
             top: 100%;
-            left: 50%;
+            left: var(--arrow-offset, 50%);
             transform: translateX(-50%);
             width: 0;
             height: 0;
@@ -1020,9 +1020,22 @@
         .info-buttons-row {
             display: flex;
             justify-content: flex-end;
-            gap: 12px;
-            margin-top: 8px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
             margin-bottom: 16px;
+        }
+
+        /* Resource button styling */
+        .info-btn[style*="border: 2px solid #eaffc4"] {
+            flex-basis: 100%;
+            order: 2;
+        }
+
+        /* Other buttons stay on first line */
+        .info-btn:not([style*="border: 2px solid #eaffc4"]) {
+            order: 1;
         }
 
         .info-btn {
@@ -1648,6 +1661,12 @@
                 font-size: 12px;
                 padding: 8px 12px;
                 flex-shrink: 1;
+            }
+
+            /* Resource button inline on desktop */
+            .info-btn[style*="border: 2px solid #eaffc4"] {
+                flex-basis: auto !important;
+                order: 1;
             }
         }
 
@@ -6903,6 +6922,35 @@
                     }
                 }
             }
+        });
+
+        // Position tooltip popovers centered on page with arrow pointing to button
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
+
+            tooltipTriggers.forEach(trigger => {
+                const popover = trigger.querySelector('.tooltip-popover');
+                if (!popover) return;
+
+                trigger.addEventListener('mouseenter', () => {
+                    // Get trigger button position
+                    const triggerRect = trigger.getBoundingClientRect();
+                    const triggerCenterX = triggerRect.left + triggerRect.width / 2;
+                    const triggerTop = triggerRect.top;
+
+                    // Position tooltip above button
+                    popover.style.top = (triggerTop - 20) + 'px';
+
+                    // Position arrow to point at button
+                    const arrow = popover.querySelector('::after') || popover;
+                    const popoverRect = popover.getBoundingClientRect();
+                    const popoverLeft = popoverRect.left;
+                    const arrowOffset = triggerCenterX - popoverLeft;
+
+                    // Update arrow position via CSS variable
+                    popover.style.setProperty('--arrow-offset', arrowOffset + 'px');
+                });
+            });
         });
     </script>
 
