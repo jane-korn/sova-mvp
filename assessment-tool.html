@@ -5726,43 +5726,24 @@
                                                                     </button>
                                                                 </div>
                                                             ` : `
-                                                                <!-- Incomplete: Simple checkbox -->
-                                                                <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 16px 0;">
-                                                                    <!-- Empty checkbox (14px) -->
-                                                                    <svg width="16" height="16" viewBox="0 0 16 16" style="min-width: 16px;">
-                                                                        <rect x="1" y="1" width="14" height="14" rx="2" fill="none" stroke="rgba(45, 40, 40, 0.2)" stroke-width="1.5"/>
-                                                                    </svg>
+                                                                <!-- Incomplete: Single seamless line with thumbs right-justified -->
+                                                                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0;">
                                                                     <span style="color: #2d2828; font-size: 13px; font-weight: 500; opacity: 0.6;">Mark as complete</span>
-                                                                    <!-- Subtle chevron -->
-                                                                    <svg width="14" height="14" viewBox="0 0 14 14" style="margin-left: auto; opacity: 0.3;">
-                                                                        <path d="M4 5l3 3 3-3" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    </svg>
-                                                                </div>
 
-                                                                <!-- Completion form (within cream background, collapsed by default) -->
-                                                                <div id="gap-completion-${taskId}" style="display: none; padding: 16px 0; margin-left: 28px;">
-                                                                    <p style="color: #2d2828; font-size: 13px; font-weight: 600; margin: 0 0 12px 0;">How did it go?</p>
-
-                                                                    <!-- Inline thumbs (tiny, 14px) -->
-                                                                    <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'up')" style="background: none; border: 1px solid rgba(234, 255, 196, 0.3); padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.borderColor='#eaffc4'; this.style.background='rgba(234, 255, 196, 0.06)'" onmouseout="this.style.borderColor='rgba(234, 255, 196, 0.3)'; this.style.background='none'">
-                                                                            <!-- Tiny thumb up (14px) -->
-                                                                            <svg width="14" height="14" viewBox="0 0 24 24">
-                                                                                <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
-                                                                            </svg>
-                                                                            <span style="color: #2d2828; font-size: 12px; font-weight: 500;">Satisfied</span>
+                                                                    <!-- Thumbs (watermark style) -->
+                                                                    <div style="display: flex; gap: 8px; align-items: center;">
+                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'up')" style="background: none; border: none; padding: 4px; cursor: pointer; opacity: 0.15; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.4'" onmouseout="this.style.opacity='0.15'" title="Satisfied">
+                                                                            <img src="thumb up and down.png" style="width: 24px; height: 24px; filter: grayscale(1);">
                                                                         </button>
-                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'down')" style="background: none; border: 1px solid rgba(45, 40, 40, 0.15); padding: 8px 16px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;" onmouseover="this.style.borderColor='rgba(45, 40, 40, 0.3)'" onmouseout="this.style.borderColor='rgba(45, 40, 40, 0.15)'">
-                                                                            <!-- Tiny thumb down (14px) -->
-                                                                            <svg width="14" height="14" viewBox="0 0 24 24" style="transform: scaleY(-1);">
-                                                                                <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
-                                                                            </svg>
-                                                                            <span style="color: #2d2828; font-size: 12px; font-weight: 500;">Needs work</span>
+                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'down')" style="background: none; border: none; padding: 4px; cursor: pointer; opacity: 0.15; transition: opacity 0.2s; transform: scaleY(-1);" onmouseover="this.style.opacity='0.4'" onmouseout="this.style.opacity='0.15'" title="Needs work">
+                                                                            <img src="thumb up and down.png" style="width: 24px; height: 24px; filter: grayscale(1);">
                                                                         </button>
                                                                     </div>
+                                                                </div>
 
-                                                                    <!-- Optional notes -->
-                                                                    <textarea id="gap-notes-${taskId}" placeholder="Add notes (optional)..." style="width: 100%; padding: 10px; border: 1px solid rgba(45, 40, 40, 0.15); border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 12px; resize: vertical; min-height: 60px; transition: border-color 0.2s;" onfocus="this.style.borderColor='#eaffc4'" onblur="this.style.borderColor='rgba(45, 40, 40, 0.15)'"></textarea>
+                                                                <!-- Completion form (optional notes only, collapsed by default) -->
+                                                                <div id="gap-completion-${taskId}" style="display: none; padding: 8px 0 0 0;">
+                                                                    <textarea id="gap-notes-${taskId}" placeholder="Please tell us more..." style="width: 100%; padding: 10px; border: 1px solid rgba(45, 40, 40, 0.08); background: rgba(245, 245, 220, 0.3); border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #2d2828; resize: vertical; min-height: 60px; transition: all 0.2s;" onfocus="this.style.borderColor='rgba(234, 255, 196, 0.4)'; this.style.background='rgba(245, 245, 220, 0.5)'" onblur="this.style.borderColor='rgba(45, 40, 40, 0.08)'; this.style.background='rgba(245, 245, 220, 0.3)'"></textarea>
                                                                 </div>
                                                             `}
                                                         </div>
