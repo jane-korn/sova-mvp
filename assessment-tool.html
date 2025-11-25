@@ -5690,64 +5690,10 @@
                                                         </div>
                                                     ` : ''}
 
-                                                <!-- INTEGRATED COMPLETION (subtle footer within cream card) -->
+                                                <!-- COMPLETION UI - HIDDEN FOR NOW (WORK IN PROGRESS) -->
                                                 ${(() => {
-                                                    const taskId = `task-${allGaps.findIndex(g => g.element === elementName && g.stage === gap.stage && g.question === gap.question)}`;
-                                                    const isCompleted = userData.completedTasks[taskId];
-
-                                                    return `
-                                                        <!-- Subtle divider -->
-                                                        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(45, 40, 40, 0.06);">
-                                                            ${isCompleted ? `
-                                                                <!-- Completed: Minimal inline indicator -->
-                                                                <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 16px 0;">
-                                                                    <!-- Tiny checkmark (14px) -->
-                                                                    <svg width="16" height="16" viewBox="0 0 16 16" style="min-width: 16px;">
-                                                                        <circle cx="8" cy="8" r="7" fill="#eaffc4" opacity="0.2"/>
-                                                                        <path d="M5 8l2 2 4-4" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    </svg>
-                                                                    <span style="color: #2d2828; font-size: 13px; font-weight: 500;">Completed ${new Date(userData.completedTasks[taskId].completedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}</span>
-                                                                    ${userData.completedTasks[taskId].satisfaction ? `
-                                                                        <span style="color: #2d2828; font-size: 12px; opacity: 0.5;">· ${userData.completedTasks[taskId].satisfaction === 'up' ? 'Satisfied' : 'Needs work'}</span>
-                                                                    ` : ''}
-                                                                    <!-- Subtle chevron -->
-                                                                    <svg width="14" height="14" viewBox="0 0 14 14" style="margin-left: auto; opacity: 0.3;">
-                                                                        <path d="M4 5l3 3 3-3" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    </svg>
-                                                                </div>
-
-                                                                <!-- Expanded details (within cream background) -->
-                                                                <div id="gap-completion-${taskId}" style="display: none; padding: 16px 0 8px 0;">
-                                                                    ${userData.completedTasks[taskId].notes ? `
-                                                                        <p style="color: #2d2828; font-size: 13px; line-height: 1.6; margin: 0 0 12px 28px; font-style: italic; opacity: 0.8;">"${userData.completedTasks[taskId].notes}"</p>
-                                                                    ` : ''}
-                                                                    <button onclick="event.stopPropagation(); uncompleteGap('${taskId}')" style="background: transparent; border: none; color: #2d2828; padding: 0; cursor: pointer; font-size: 12px; font-weight: 500; text-decoration: underline; opacity: 0.5; margin-left: 28px;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
-                                                                        Mark as incomplete
-                                                                    </button>
-                                                                </div>
-                                                            ` : `
-                                                                <!-- Incomplete: Single seamless line with thumbs right-justified -->
-                                                                <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0;">
-                                                                    <span style="color: #2d2828; font-size: 13px; font-weight: 500; opacity: 0.6;">Mark as complete</span>
-
-                                                                    <!-- Thumbs (watermark style) -->
-                                                                    <div style="display: flex; gap: 8px; align-items: center;">
-                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'up')" style="background: none; border: none; padding: 4px; cursor: pointer; opacity: 0.15; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.4'" onmouseout="this.style.opacity='0.15'" title="Satisfied">
-                                                                            <img src="thumb up and down.png" style="width: 24px; height: 24px; filter: grayscale(1);">
-                                                                        </button>
-                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'down')" style="background: none; border: none; padding: 4px; cursor: pointer; opacity: 0.15; transition: opacity 0.2s; transform: scaleY(-1);" onmouseover="this.style.opacity='0.4'" onmouseout="this.style.opacity='0.15'" title="Needs work">
-                                                                            <img src="thumb up and down.png" style="width: 24px; height: 24px; filter: grayscale(1);">
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- Completion form (optional notes only, collapsed by default) -->
-                                                                <div id="gap-completion-${taskId}" style="display: none; padding: 8px 0 0 0;">
-                                                                    <textarea id="gap-notes-${taskId}" placeholder="Please tell us more..." style="width: 100%; padding: 10px; border: 1px solid rgba(45, 40, 40, 0.08); background: rgba(245, 245, 220, 0.3); border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 12px; color: #2d2828; resize: vertical; min-height: 60px; transition: all 0.2s;" onfocus="this.style.borderColor='rgba(234, 255, 196, 0.4)'; this.style.background='rgba(245, 245, 220, 0.5)'" onblur="this.style.borderColor='rgba(45, 40, 40, 0.08)'; this.style.background='rgba(245, 245, 220, 0.3)'"></textarea>
-                                                                </div>
-                                                            `}
-                                                        </div>
-                                                    `;
+                                                    // Temporarily disabled while redesigning
+                                                    return '';
                                                 })()}
                                             </div>
                                         </div>
