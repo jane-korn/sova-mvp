@@ -5683,99 +5683,110 @@
                                                         </div>
                                                     ` : ''}
 
-                                                <!-- COMPLETION UI -->
+                                                <!-- COMPLETION UI (Jeton/Phamily/Osmo Principles Applied) -->
                                                 ${(() => {
                                                     const taskId = `task-${allGaps.findIndex(g => g.element === elementName && g.stage === gap.stage && g.question === gap.question)}`;
                                                     const isCompleted = userData.completedTasks[taskId];
                                                     const isFirstGap = idx === 0;
 
                                                     return `
-                                                        <div style="margin-top: 32px; padding-top: 24px; border-top: 2px solid rgba(45, 40, 40, 0.06);">
-                                                            <!-- Completion Toggle Button -->
-                                                            <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 16px; background: ${isCompleted ? 'linear-gradient(135deg, #eaffc4 0%, #d4f1a8 100%)' : '#ffffff'}; border: 2px solid ${isCompleted ? '#eaffc4' : 'rgba(45, 40, 40, 0.1)'}; border-radius: 12px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(45,40,40,0.08)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
-                                                                ${isCompleted ? `
-                                                                    <!-- Elegant Checkmark SVG -->
-                                                                    <svg width="28" height="28" viewBox="0 0 28 28" style="min-width: 28px;">
-                                                                        <circle cx="14" cy="14" r="13" fill="#eaffc4" opacity="0.3"/>
-                                                                        <circle cx="14" cy="14" r="13" fill="none" stroke="#2d2828" stroke-width="1.5"/>
-                                                                        <path d="M8 14l5 5 7-10" stroke="#2d2828" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    </svg>
-                                                                    <div style="flex: 1;">
-                                                                        <p style="color: #2d2828; font-size: 14px; font-weight: 700; margin: 0;">Completed</p>
-                                                                        <p style="color: #2d2828; font-size: 12px; opacity: 0.7; margin: 4px 0 0 0;">${new Date(userData.completedTasks[taskId].completedAt).toLocaleDateString('en-AU')}</p>
-                                                                    </div>
-                                                                ` : `
-                                                                    <!-- Empty Circle Outline -->
-                                                                    <svg width="28" height="28" viewBox="0 0 28 28" style="min-width: 28px;">
-                                                                        <circle cx="14" cy="14" r="13" fill="none" stroke="rgba(45, 40, 40, 0.2)" stroke-width="1.5" stroke-dasharray="3 3"/>
-                                                                    </svg>
-                                                                    <div style="flex: 1;">
-                                                                        <p style="color: #2d2828; font-size: 14px; font-weight: 700; margin: 0;">Mark as complete</p>
-                                                                        <p style="color: #2d2828; font-size: 12px; opacity: 0.5; margin: 4px 0 0 0;">Click to add completion details</p>
-                                                                    </div>
-                                                                `}
-                                                            </div>
+                                                        <!-- Generous vertical spacing (Jeton pattern: py-36) -->
+                                                        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(45, 40, 40, 0.08);">
 
-                                                            <!-- Expandable Completion Form -->
-                                                            <div id="gap-completion-${taskId}" style="display: ${isFirstGap && !isCompleted ? 'block' : 'none'}; margin-top: 16px;">
-                                                                ${isCompleted ? `
-                                                                    <!-- Completed Details -->
-                                                                    <div style="background: rgba(234, 255, 196, 0.15); border-radius: 12px; padding: 20px; border-left: 4px solid #eaffc4;">
-                                                                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                                                                            <p style="color: #2d2828; font-size: 13px; margin: 0;"><strong>How it went:</strong></p>
-                                                                            ${userData.completedTasks[taskId].satisfaction === 'up' ? `
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" style="opacity: 0.8;">
-                                                                                    <path d="M7 16h3v6H7z" fill="#2d2828" opacity="0.1"/>
-                                                                                    <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
-                                                                                </svg>
-                                                                                <span style="color: #2d2828; font-size: 13px; font-weight: 600;">Satisfied</span>
-                                                                            ` : `
-                                                                                <svg width="24" height="24" viewBox="0 0 24 24" style="opacity: 0.8; transform: scaleY(-1);">
-                                                                                    <path d="M7 16h3v6H7z" fill="#2d2828" opacity="0.1"/>
-                                                                                    <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
-                                                                                </svg>
-                                                                                <span style="color: #2d2828; font-size: 13px; font-weight: 600;">Needs improvement</span>
-                                                                            `}
-                                                                        </div>
-                                                                        ${userData.completedTasks[taskId].notes ? `
-                                                                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(45, 40, 40, 0.1);">
-                                                                                <p style="color: #2d2828; font-size: 12px; font-weight: 600; margin: 0 0 6px 0;">Notes:</p>
-                                                                                <p style="color: #2d2828; font-size: 13px; margin: 0; line-height: 1.5;">${userData.completedTasks[taskId].notes}</p>
+                                                            ${isCompleted ? `
+                                                                <!-- COMPLETED STATE: Minimal, confident (Osmo: show don't tell) -->
+                                                                <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: start; gap: 16px; padding: 24px; background: rgba(234, 255, 196, 0.06); border: 1px solid rgba(234, 255, 196, 0.2); border-radius: 8px; transition: all 0.3s ease;">
+                                                                    <!-- Restrained checkmark icon -->
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" style="min-width: 24px; margin-top: 2px;">
+                                                                        <circle cx="12" cy="12" r="11" fill="none" stroke="#eaffc4" stroke-width="1.5"/>
+                                                                        <path d="M7 12l4 4 6-8" stroke="#eaffc4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                    <div style="flex: 1;">
+                                                                        <p style="color: #2d2828; font-size: 15px; font-weight: 600; margin: 0 0 4px 0;">Completed</p>
+                                                                        <p style="color: #2d2828; font-size: 13px; opacity: 0.6; margin: 0;">${new Date(userData.completedTasks[taskId].completedAt).toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+                                                                    </div>
+                                                                    <!-- Subtle expand indicator -->
+                                                                    <svg width="20" height="20" viewBox="0 0 20 20" style="opacity: 0.3; transition: transform 0.3s;">
+                                                                        <path d="M5 7l5 5 5-5" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                </div>
+
+                                                                <!-- Expanded completion details -->
+                                                                <div id="gap-completion-${taskId}" style="display: none; margin-top: 20px; padding: 24px; background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.08); border-radius: 8px;">
+                                                                    ${userData.completedTasks[taskId].satisfaction ? `
+                                                                        <div style="margin-bottom: 20px;">
+                                                                            <p style="color: #2d2828; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; opacity: 0.7;">Outcome</p>
+                                                                            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: ${userData.completedTasks[taskId].satisfaction === 'up' ? 'rgba(234, 255, 196, 0.15)' : 'rgba(184, 215, 143, 0.1)'}; border-radius: 24px;">
+                                                                                ${userData.completedTasks[taskId].satisfaction === 'up' ? `
+                                                                                    <svg width="16" height="16" viewBox="0 0 24 24">
+                                                                                        <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                                    </svg>
+                                                                                    <span style="color: #2d2828; font-size: 13px; font-weight: 500;">Satisfied</span>
+                                                                                ` : `
+                                                                                    <svg width="16" height="16" viewBox="0 0 24 24" style="transform: scaleY(-1);">
+                                                                                        <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                                    </svg>
+                                                                                    <span style="color: #2d2828; font-size: 13px; font-weight: 500;">Needs improvement</span>
+                                                                                `}
                                                                             </div>
-                                                                        ` : ''}
-                                                                        <button onclick="event.stopPropagation(); uncompleteGap('${taskId}')" style="margin-top: 16px; background: transparent; border: 2px solid #2d2828; color: #2d2828; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s;" onmouseover="this.style.background='#2d2828'; this.style.color='#eaffc4'" onmouseout="this.style.background='transparent'; this.style.color='#2d2828'">
-                                                                            Mark as Not Complete
+                                                                        </div>
+                                                                    ` : ''}
+                                                                    ${userData.completedTasks[taskId].notes ? `
+                                                                        <div style="margin-bottom: 20px;">
+                                                                            <p style="color: #2d2828; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; opacity: 0.7;">Notes</p>
+                                                                            <p style="color: #2d2828; font-size: 14px; margin: 0; line-height: 1.6;">${userData.completedTasks[taskId].notes}</p>
+                                                                        </div>
+                                                                    ` : ''}
+                                                                    <!-- Clear hierarchy: secondary action -->
+                                                                    <button onclick="event.stopPropagation(); uncompleteGap('${taskId}')" style="background: transparent; border: 1px solid rgba(45, 40, 40, 0.2); color: #2d2828; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor='#2d2828'" onmouseout="this.style.borderColor='rgba(45, 40, 40, 0.2)'">
+                                                                        Mark as incomplete
+                                                                    </button>
+                                                                </div>
+                                                            ` : `
+                                                                <!-- INCOMPLETE STATE: Clear call-to-action (Phamily: human-centered) -->
+                                                                <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: start; gap: 16px; padding: 24px; background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.1); border-radius: 8px; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(45, 40, 40, 0.25)'" onmouseout="this.style.borderColor='rgba(45, 40, 40, 0.1)'">
+                                                                    <!-- Minimal circle outline (restrained) -->
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" style="min-width: 24px; margin-top: 2px;">
+                                                                        <circle cx="12" cy="12" r="11" fill="none" stroke="rgba(45, 40, 40, 0.2)" stroke-width="1.5"/>
+                                                                    </svg>
+                                                                    <div style="flex: 1;">
+                                                                        <p style="color: #2d2828; font-size: 15px; font-weight: 600; margin: 0 0 4px 0;">Mark as complete</p>
+                                                                        <p style="color: #2d2828; font-size: 13px; opacity: 0.5; margin: 0;">Track your progress</p>
+                                                                    </div>
+                                                                    <svg width="20" height="20" viewBox="0 0 20 20" style="opacity: 0.3; transition: transform 0.3s;">
+                                                                        <path d="M5 7l5 5 5-5" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                </div>
+
+                                                                <!-- Completion form (Jeton: modular, self-contained) -->
+                                                                <div id="gap-completion-${taskId}" style="display: ${isFirstGap ? 'block' : 'none'}; margin-top: 20px; padding: 32px; background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.08); border-radius: 8px;">
+                                                                    <!-- Clear visual hierarchy -->
+                                                                    <p style="color: #2d2828; font-size: 15px; font-weight: 600; margin: 0 0 24px 0;">How did it go?</p>
+
+                                                                    <!-- Restrained two-option layout (Osmo: functional clarity) -->
+                                                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'up')" style="background: #ffffff; border: 1px solid rgba(234, 255, 196, 0.4); padding: 24px 20px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(234, 255, 196, 0.08)'; this.style.borderColor='#eaffc4'" onmouseout="this.style.background='#ffffff'; this.style.borderColor='rgba(234, 255, 196, 0.4)'">
+                                                                            <!-- Simple, elegant icon -->
+                                                                            <svg width="28" height="28" viewBox="0 0 24 24">
+                                                                                <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                            </svg>
+                                                                            <span style="color: #2d2828; font-size: 14px; font-weight: 500;">Satisfied</span>
+                                                                        </button>
+                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'down')" style="background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.15); padding: 24px 20px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(45, 40, 40, 0.02)'; this.style.borderColor='rgba(45, 40, 40, 0.25)'" onmouseout="this.style.background='#ffffff'; this.style.borderColor='rgba(45, 40, 40, 0.15)'">
+                                                                            <svg width="28" height="28" viewBox="0 0 24 24" style="transform: scaleY(-1);">
+                                                                                <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                            </svg>
+                                                                            <span style="color: #2d2828; font-size: 14px; font-weight: 500;">Needs work</span>
                                                                         </button>
                                                                     </div>
-                                                                ` : `
-                                                                    <!-- Active Completion Form -->
-                                                                    <div style="background: #ffffff; border: 2px solid rgba(45, 40, 40, 0.08); border-radius: 12px; padding: 24px;">
-                                                                        <p style="color: #2d2828; font-size: 14px; font-weight: 600; margin: 0 0 16px 0;">How did addressing this gap go?</p>
 
-                                                                        <!-- Minimalist Thumbs Up/Down -->
-                                                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
-                                                                            <button onclick="event.stopPropagation(); completeGap('${taskId}', 'up')" style="background: #ffffff; border: 2px solid #eaffc4; padding: 20px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: all 0.3s ease;" onmouseover="this.style.background='#eaffc4'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'">
-                                                                                <!-- Elegant Thumbs Up SVG -->
-                                                                                <svg width="32" height="32" viewBox="0 0 24 24">
-                                                                                    <path d="M7 16h3v6H7z" fill="#2d2828" opacity="0.1"/>
-                                                                                    <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
-                                                                                </svg>
-                                                                                <span style="color: #2d2828; font-size: 13px; font-weight: 600;">Satisfied</span>
-                                                                            </button>
-                                                                            <button onclick="event.stopPropagation(); completeGap('${taskId}', 'down')" style="background: #ffffff; border: 2px solid rgba(45, 40, 40, 0.15); padding: 20px; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: all 0.3s ease;" onmouseover="this.style.background='#f5f5dc'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#ffffff'; this.style.transform='translateY(0)'">
-                                                                                <!-- Elegant Thumbs Down SVG (flipped) -->
-                                                                                <svg width="32" height="32" viewBox="0 0 24 24" style="transform: scaleY(-1);">
-                                                                                    <path d="M7 16h3v6H7z" fill="#2d2828" opacity="0.1"/>
-                                                                                    <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
-                                                                                </svg>
-                                                                                <span style="color: #2d2828; font-size: 13px; font-weight: 600;">Needs work</span>
-                                                                            </button>
-                                                                        </div>
-
-                                                                        <textarea id="gap-notes-${taskId}" placeholder="Add notes (optional)..." style="width: 100%; padding: 12px; border: 1.5px solid rgba(45, 40, 40, 0.15); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: 13px; resize: vertical; min-height: 80px; transition: border-color 0.2s;" onfocus="this.style.borderColor='#eaffc4'" onblur="this.style.borderColor='rgba(45, 40, 40, 0.15)'"></textarea>
+                                                                    <!-- Optional notes (progressive disclosure) -->
+                                                                    <div>
+                                                                        <label style="color: #2d2828; font-size: 13px; font-weight: 600; display: block; margin-bottom: 8px; opacity: 0.7;">Notes (optional)</label>
+                                                                        <textarea id="gap-notes-${taskId}" placeholder="Add context about what worked or what to improve..." style="width: 100%; padding: 14px; border: 1px solid rgba(45, 40, 40, 0.15); border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 14px; resize: vertical; min-height: 100px; transition: border-color 0.2s; line-height: 1.5;" onfocus="this.style.borderColor='#eaffc4'" onblur="this.style.borderColor='rgba(45, 40, 40, 0.15)'"></textarea>
                                                                     </div>
-                                                                `}
-                                                            </div>
+                                                                </div>
+                                                            `}
                                                         </div>
                                                     `;
                                                 })()}
@@ -5874,7 +5885,7 @@
             }
 
             // ======================
-            // 7. TO DO LIST (Simple checkbox list - details in Report section)
+            // 7. ACTIONS (Sova-refined: restrained, functional, clear hierarchy)
             // ======================
             const todoContent = document.getElementById('todoContent');
             if (todoContent && allGaps.length > 0) {
@@ -5886,9 +5897,10 @@
                     return aIndex - bIndex;
                 });
 
+                // Generous spacing at top (Jeton principle)
                 let todoHTML = `
-                    <p style="color: #2d2828; font-size: 15px; line-height: 1.7; margin: 0 0 20px 0;">
-                        <strong>Quick actions:</strong> Check off tasks as you complete them. See full details in the Report section.
+                    <p style="color: #2d2828; font-size: 14px; line-height: 1.6; margin: 0 0 24px 0; opacity: 0.7;">
+                        Quick completion tracking. See full details in Report section.
                     </p>
                 `;
 
@@ -5910,35 +5922,43 @@
                         .replace(/identified /i, 'identify ');
                     actionText = actionText.charAt(0).toUpperCase() + actionText.slice(1);
 
+                    // Restrained design (Osmo: functional, minimal color)
                     todoHTML += `
-                        <div style="background: ${isCompleted ? '#f5f5dc' : '#ffffff'}; border: 1px solid ${isCompleted ? '#eaffc4' : '#e0e0e0'}; border-radius: 8px; padding: 12px; margin-bottom: 10px; display: flex; align-items: start; gap: 12px; transition: all 0.2s ease;">
+                        <label for="action-check-${taskId}" style="display: flex; align-items: start; gap: 12px; padding: 16px; margin-bottom: 8px; background: ${isCompleted ? 'rgba(234, 255, 196, 0.06)' : '#ffffff'}; border: 1px solid ${isCompleted ? 'rgba(234, 255, 196, 0.3)' : 'rgba(45, 40, 40, 0.08)'}; border-radius: 6px; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.borderColor='${isCompleted ? 'rgba(234, 255, 196, 0.4)' : 'rgba(45, 40, 40, 0.15)'}'" onmouseout="this.style.borderColor='${isCompleted ? 'rgba(234, 255, 196, 0.3)' : 'rgba(45, 40, 40, 0.08)'}'">
+                            <!-- Clean checkbox (no excessive styling) -->
                             <input type="checkbox"
                                    id="action-check-${taskId}"
                                    ${isCompleted ? 'checked' : ''}
                                    onchange="completeTaskFromActions('${taskId}', this.checked)"
-                                   style="margin-top: 4px; width: 18px; height: 18px; cursor: pointer; accent-color: #eaffc4;">
-                            <div style="flex: 1;">
-                                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                                    <span style="background: #eaffc4; color: #2d2828; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700;">${index + 1}</span>
-                                    <span style="color: #2d2828; font-size: 11px; font-weight: 600; opacity: 0.6;">${gap.element} / ${gap.stage}</span>
+                                   style="margin-top: 2px; width: 18px; height: 18px; cursor: pointer; accent-color: #eaffc4; flex-shrink: 0;">
+                            <div style="flex: 1; min-width: 0;">
+                                <!-- Clear hierarchy: metadata then content -->
+                                <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                                    <span style="color: #2d2828; font-size: 12px; font-weight: 600; opacity: 0.4;">${index + 1}</span>
+                                    <span style="color: #2d2828; font-size: 11px; font-weight: 500; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.3px;">${gap.element} · ${gap.stage}</span>
                                 </div>
-                                <label for="action-check-${taskId}" style="color: #2d2828; font-size: 14px; line-height: 1.4; cursor: pointer; ${isCompleted ? 'text-decoration: line-through; opacity: 0.5;' : ''}">${actionText}</label>
+                                <!-- Action text (primary focus) -->
+                                <div style="color: #2d2828; font-size: 14px; line-height: 1.5; font-weight: 400; ${isCompleted ? 'opacity: 0.4; text-decoration: line-through;' : ''}">${actionText}</div>
                             </div>
-                        </div>
+                        </label>
                     `;
                 });
 
                 todoContent.innerHTML = todoHTML;
             } else if (todoContent && totalAnswered > 0) {
+                // No emojis, restrained messaging (Sova brand)
                 todoContent.innerHTML = `
-                    <div style="background: #f5f5dc; border: 2px solid #eaffc4; border-radius: 8px; padding: 24px; text-align: center;">
-                        <p style="color: #2d2828; font-size: 16px; font-weight: 600; margin: 0;">
-                            🎉 Excellent! No gaps identified. You're ready to progress to the next stage.
+                    <div style="background: rgba(234, 255, 196, 0.06); border: 1px solid rgba(234, 255, 196, 0.2); border-radius: 6px; padding: 24px; text-align: center;">
+                        <p style="color: #2d2828; font-size: 15px; font-weight: 500; margin: 0 0 6px 0;">
+                            No gaps identified
+                        </p>
+                        <p style="color: #2d2828; font-size: 13px; margin: 0; opacity: 0.6;">
+                            You're ready to progress
                         </p>
                     </div>
                 `;
             } else if (todoContent) {
-                todoContent.innerHTML = '<p class="placeholder-text">Your action checklist will appear here...</p>';
+                todoContent.innerHTML = '<p class="placeholder-text" style="opacity: 0.5;">Your actions will appear here</p>';
             }
         }
 
