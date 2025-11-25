@@ -2274,16 +2274,25 @@
             }
 
             /* Fix stage option cards text overflow */
+            /* FIX 7: Stage buttons - prevent text overflow */
             .option-card {
                 padding: 1rem !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
+                white-space: normal !important;
             }
 
             .option-card div {
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
+                white-space: normal !important;
                 max-width: 100% !important;
+                font-size: 0.95rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .option-card div:first-child {
+                font-size: 1.1rem !important;
             }
 
             .model-wrapper {
