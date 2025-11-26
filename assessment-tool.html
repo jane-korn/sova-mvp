@@ -3361,7 +3361,7 @@
                         content.style.opacity = '0';
                         content.style.maxHeight = '0';
                         content.style.overflow = 'hidden';
-                        content.style.transition = 'opacity 0.4s ease, max-height 0.5s ease';
+                        content.style.transition = 'opacity 0.8s ease-out, max-height 1s ease-out';
                         // Trigger reflow then animate
                         requestAnimationFrame(() => {
                             content.style.opacity = '1';
@@ -3369,7 +3369,7 @@
                         });
                     }
                     if (chevron) {
-                        chevron.style.transition = 'transform 0.3s ease';
+                        chevron.style.transition = 'transform 0.5s ease';
                         chevron.style.transform = 'rotate(180deg)';
                     }
                 }
@@ -3379,17 +3379,17 @@
                     const content = document.getElementById(`gap-content-${taskId}`);
                     const chevron = document.getElementById(`gap-chevron-${taskId}`);
                     if (content) {
-                        content.style.transition = 'opacity 0.3s ease, max-height 0.4s ease';
+                        content.style.transition = 'opacity 0.6s ease-out, max-height 0.8s ease-out';
                         content.style.opacity = '0';
                         content.style.maxHeight = '0';
                         content.style.overflow = 'hidden';
                         // Hide after animation completes
                         setTimeout(() => {
                             content.style.display = 'none';
-                        }, 400);
+                        }, 800);
                     }
                     if (chevron) {
-                        chevron.style.transition = 'transform 0.3s ease';
+                        chevron.style.transition = 'transform 0.5s ease';
                         chevron.style.transform = 'rotate(0deg)';
                     }
                 }
@@ -3419,28 +3419,31 @@
                     if (nextGapId) {
                         const nextCard = document.getElementById(`gap-card-${nextGapId}`);
                         if (nextCard) {
-                            // Step 1: Wait for collapse animation to complete
+                            // Step 1: Wait for collapse animation to fully complete
                             setTimeout(() => {
                                 // Step 2: Scroll the next gap into view (center it for visibility)
                                 nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                                // Step 3: After scroll, add highlight effect and expand
+                                // Step 3: After scroll completes, add highlight effect and expand
                                 setTimeout(() => {
                                     // Add a subtle highlight pulse to draw attention
-                                    nextCard.style.transition = 'box-shadow 0.4s ease, background-color 0.4s ease';
-                                    nextCard.style.boxShadow = '0 0 0 3px rgba(234, 255, 196, 0.5)';
-                                    nextCard.style.backgroundColor = 'rgba(234, 255, 196, 0.08)';
+                                    nextCard.style.transition = 'box-shadow 0.8s ease-out, background-color 0.8s ease-out';
+                                    nextCard.style.boxShadow = '0 0 0 4px rgba(234, 255, 196, 0.6)';
+                                    nextCard.style.backgroundColor = 'rgba(234, 255, 196, 0.1)';
 
-                                    // Expand the gap card
-                                    expandGapCard(nextGapId);
-
-                                    // Step 4: Remove highlight after it's served its purpose
+                                    // Expand the gap card after highlight appears
                                     setTimeout(() => {
+                                        expandGapCard(nextGapId);
+                                    }, 400);
+
+                                    // Step 4: Slowly fade out highlight
+                                    setTimeout(() => {
+                                        nextCard.style.transition = 'box-shadow 1.5s ease-out, background-color 1.5s ease-out';
                                         nextCard.style.boxShadow = 'none';
                                         nextCard.style.backgroundColor = '';
-                                    }, 1200);
-                                }, 700);
-                            }, 600);
+                                    }, 2000);
+                                }, 1000);
+                            }, 1000);
                         }
                     }
                 }
