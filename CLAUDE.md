@@ -6,7 +6,33 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
-## Recent Updates (2025-11-24)
+## Recent Updates (2025-11-26)
+
+### Gap Completion UI
+- ✅ Redesigned completion UI following Jeton/Phamily/Osmo minimalist principles
+- ✅ "Mark complete" text with watermark thumbs (12% opacity) right-justified
+- ✅ Progressive disclosure: collapsed by default, expands to show notes textarea
+- ✅ Expanded state: borderless textarea, "Cancel" link, "Stuck"/"Done" buttons
+- ✅ Completed state: checkmark, date, satisfaction (Helpful/Needs work), notes in italic
+- ✅ Two-way sync working: Report ↔ Actions sidebar checkbox updates in both directions
+- ✅ Undo functionality: reverses completion in both views
+- ✅ Helper functions: `expandCompletion()`, `collapseCompletion()` added
+
+### Preliminary Questionnaire Streamlined
+- ✅ Removed container/border from Solo/Team and Stage pages (matches website margins)
+- ✅ Removed progress bar from prelim flow
+- ✅ Removed Continue and Back buttons
+- ✅ Options now auto-advance: clicking an option moves to next page after 300ms delay
+- ✅ New functions: `selectPrelimOptionAndAdvance()`, `selectStageAndContinue()`
+
+### Design Principles Applied
+- Restraint: minimal UI elements, no extra containers
+- Seamless integration: matches existing cream card visual language
+- Watermark-style thumbs: very subtle presence (12% opacity, 50% on hover)
+- Functional clarity: clear affordance without visual noise
+- 8-point spacing: consistent with rest of interface
+
+## Previous Updates (2025-11-24)
 
 ### Branding & Marketing Updates
 - ✅ Applied Montserrat font across all pages (index.html, assessment-tool.html, research.html, about.html)
