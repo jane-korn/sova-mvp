@@ -843,7 +843,7 @@
             pointer-events: auto;
         }
 
-        /* Popover arrow - points DOWN to the button */
+        /* Popover arrow - points DOWN to the button (default, above position) */
         .tooltip-popover::after {
             content: '';
             position: absolute;
@@ -855,6 +855,15 @@
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
             border-top: 10px solid #ffffff;
+            border-bottom: none;
+        }
+
+        /* Arrow points UP when tooltip is below the button */
+        .tooltip-popover.below::after {
+            bottom: auto;
+            top: -10px;
+            border-top: none;
+            border-bottom: 10px solid #ffffff;
         }
 
         .tooltip-popover-label {
@@ -7428,21 +7437,55 @@
                     const triggerRect = trigger.getBoundingClientRect();
                     const triggerCenterX = triggerRect.left + triggerRect.width / 2;
                     const triggerTop = triggerRect.top;
+                    const triggerBottom = triggerRect.bottom;
 
                     // Get viewport dimensions
                     const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
 
-                    // Measure popover dimensions (it's hidden but we can still measure)
-                    const popoverRect = popover.getBoundingClientRect();
-                    const popoverHeight = popover.offsetHeight || 200; // fallback
-                    const popoverWidth = popover.offsetWidth || 400; // fallback
+                    // Temporarily show popover to measure it (off-screen)
+                    popover.style.visibility = 'hidden';
+                    popover.style.opacity = '0';
+                    popover.style.display = 'block';
 
-                    // Position tooltip ABOVE the button with 12px gap
-                    const tooltipTop = triggerTop - popoverHeight - 12;
+                    const popoverHeight = popover.offsetHeight || 200;
+                    const popoverWidth = popover.offsetWidth || 400;
 
-                    // Ensure tooltip doesn't go above viewport (minimum 8px from top)
-                    const finalTop = Math.max(8, tooltipTop);
+                    // Reset display (will be controlled by CSS hover/active)
+                    popover.style.display = '';
+                    popover.style.visibility = '';
+                    popover.style.opacity = '';
+
+                    // Check if there's enough space above the button (need popoverHeight + 12px gap + 8px margin)
+                    const spaceAbove = triggerTop;
+                    const spaceBelow = viewportHeight - triggerBottom;
+                    const neededSpace = popoverHeight + 20; // 12px gap + 8px margin
+
+                    let finalTop;
+                    let showBelow = false;
+
+                    if (spaceAbove >= neededSpace) {
+                        // Position ABOVE the button
+                        finalTop = triggerTop - popoverHeight - 12;
+                        showBelow = false;
+                    } else if (spaceBelow >= neededSpace) {
+                        // Position BELOW the button
+                        finalTop = triggerBottom + 12;
+                        showBelow = true;
+                    } else {
+                        // Not enough space either way - prefer above but clamp
+                        finalTop = Math.max(8, triggerTop - popoverHeight - 12);
+                        showBelow = false;
+                    }
+
                     popover.style.top = finalTop + 'px';
+
+                    // Add or remove 'below' class for arrow direction
+                    if (showBelow) {
+                        popover.classList.add('below');
+                    } else {
+                        popover.classList.remove('below');
+                    }
 
                     // Calculate where the popover will be positioned (centered on viewport)
                     const popoverLeft = (viewportWidth - popoverWidth) / 2;
