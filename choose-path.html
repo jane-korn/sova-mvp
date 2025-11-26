@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Path - Sova Assessment</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Redirect to integrated assessment tool -->
+    <meta http-equiv="refresh" content="0;url=assessment-tool.html">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <style>
@@ -107,23 +109,6 @@
             margin-left: auto;
             margin-right: auto;
             font-weight: 300;
-        }
-
-        /* MVP Note - Phamily-inspired card */
-        .mvp-note {
-            background: rgba(234, 255, 196, 0.05);
-            border: 1px solid rgba(234, 255, 196, 0.15);
-            padding: 1.5rem;
-            margin: 0 auto 3rem;
-            border-radius: 8px;
-            max-width: 800px;
-            font-size: 0.9375rem;
-            line-height: 1.7;
-        }
-
-        .mvp-note strong {
-            color: var(--sova-green);
-            font-weight: 600;
         }
 
         /* Path Cards - Osmo-inspired clean modules */
@@ -276,20 +261,18 @@
     <!-- Bird Icon -->
     <img src="sova-logo-icon-transparent.png" alt="" class="bird-icon">
 
-    <div class="container">
-        <!-- Header -->
-        <header>
+    <!-- Header (outside container to match other pages) -->
+    <header>
+        <div class="container">
             <div class="header-content">
                 <a href="index.html" class="logo">
                     <img src="sova-logo-main-transparent.png" alt="Sova">
                 </a>
-                <nav>
-                    <a href="research.html">Research</a>
-                    <a href="about.html">About</a>
-                </nav>
             </div>
-        </header>
+        </div>
+    </header>
 
+    <div class="container">
         <!-- Hero Section -->
         <section class="hero">
             <h1>Choose Your Flight Path</h1>
@@ -297,8 +280,9 @@
                 You're about to gain clarity on your business foundations across the elements that determine startup success.
             </p>
 
-            <div class="mvp-note">
-                <strong>Testing note:</strong> This version covers 4 core elements—Governance, Purpose, Strategy, and Marketing. The full Sova system includes 9 elements total. We're starting with the foundations that matter most in early stages.
+            <div style="border-left: 3px solid #eaffc4; padding: 1.5rem; padding-left: 24px; margin: 0 auto 3rem; background: rgba(234, 255, 196, 0.05); border-radius: 8px; max-width: 800px; text-align: left;">
+                <p style="color: #f5f5dc; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 12px 0; opacity: 0.8;">Testing note</p>
+                <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.9;">This version covers 4 core elements—Governance, Purpose, Strategy, and Marketing. The full Sova system includes 9 elements total. We're starting with the foundations that matter most in early stages.</p>
             </div>
         </section>
 
@@ -369,15 +353,8 @@
     </div>
 
     <script>
-        function continueAssessment(mode) {
-            // Store the chosen mode in localStorage
-            const userData = JSON.parse(localStorage.getItem('sovaUserData') || '{}');
-            userData.assessmentMode = mode;
-            localStorage.setItem('sovaUserData', JSON.stringify(userData));
-
-            // Return to assessment tool with mode parameter
-            window.location.href = `assessment-tool.html?mode=${mode}`;
-        }
+        // Redirect to integrated assessment tool
+        window.location.href = 'assessment-tool.html';
     </script>
 </body>
 </html>
