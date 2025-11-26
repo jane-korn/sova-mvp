@@ -7465,17 +7465,37 @@
                     let showBelow = false;
 
                     if (spaceAbove >= neededSpace) {
-                        // Position ABOVE the button
+                        // Position ABOVE the button - plenty of room
                         finalTop = triggerTop - popoverHeight - 12;
                         showBelow = false;
                     } else if (spaceBelow >= neededSpace) {
-                        // Position BELOW the button
+                        // Position BELOW the button - plenty of room
                         finalTop = triggerBottom + 12;
                         showBelow = true;
                     } else {
-                        // Not enough space either way - prefer above but clamp
-                        finalTop = Math.max(8, triggerTop - popoverHeight - 12);
-                        showBelow = false;
+                        // Not enough space either way - check which causes less overlap
+                        // If we clamp above to 8px, would the popover bottom overlap the button?
+                        const clampedAboveTop = Math.max(8, triggerTop - popoverHeight - 12);
+                        const clampedAboveBottom = clampedAboveTop + popoverHeight;
+                        const wouldOverlapAbove = clampedAboveBottom > triggerTop - 8;
+
+                        // If we show below, would the popover bottom go off screen?
+                        const belowTop = triggerBottom + 12;
+                        const belowBottom = belowTop + popoverHeight;
+                        const wouldOverflowBelow = belowBottom > viewportHeight - 8;
+
+                        // Prefer below if above would overlap, or if below fits better
+                        if (wouldOverlapAbove && !wouldOverflowBelow) {
+                            finalTop = belowTop;
+                            showBelow = true;
+                        } else if (!wouldOverlapAbove) {
+                            finalTop = clampedAboveTop;
+                            showBelow = false;
+                        } else {
+                            // Both would have issues - prefer below as it's more natural reading direction
+                            finalTop = belowTop;
+                            showBelow = true;
+                        }
                     }
 
                     popover.style.top = finalTop + 'px';
