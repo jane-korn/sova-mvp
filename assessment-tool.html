@@ -1783,6 +1783,50 @@
         }
 
         /* ========================================
+           STANDARDISED LINK STYLES
+           View Source and Read More/Less links
+           ======================================== */
+
+        .source-link,
+        .read-more-link {
+            background: none;
+            border: none;
+            color: #2d2828;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            font-style: normal;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s ease;
+        }
+
+        .source-link:hover,
+        .read-more-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Arrow icons */
+        .source-link::after {
+            content: '→';
+            font-size: 12px;
+        }
+
+        .read-more-link.expand::after {
+            content: '↓';
+            font-size: 12px;
+        }
+
+        .read-more-link.collapse::after {
+            content: '↑';
+            font-size: 12px;
+        }
+
+        /* ========================================
            MOBILE RESPONSIVE STYLES
            ======================================== */
 
@@ -5063,10 +5107,10 @@
                     const vcLink = references['VC requirements mappingLink'] || '';
                     contentHTML += `<p>${simplified}</p>`;
                     if (vcLink) {
-                        contentHTML += `<a href="${vcLink}" target="_blank" style="color: #2d2828; font-weight: 600; text-decoration: underline; font-size: 14px; margin-top: 8px; display: inline-block;">View Source</a>`;
+                        contentHTML += `<a href="${vcLink}" target="_blank" class="source-link" style="margin-top: 8px; display: inline-flex;">View Source</a>`;
                     }
                 }
-                // References - now shows quotes with "Read source" button
+                // References - now shows quotes with "View Source" link
                 else if (config.key === 'articles') {
                     contentHTML += formatReferences(references);
                 }
@@ -5148,7 +5192,7 @@
             if (question['Quote (startup failure)']) {
                 html += `
                     <p style="color: #2d2828; font-size: 14px; line-height: 1.7; margin: 0 0 10px 0;">${question['Quote (startup failure)'].replace(/^[""]|[""]$/g, '')}</p>
-                    ${question['Quote (startup failure)Link'] ? `<a href="${question['Quote (startup failure)Link']}" target="_blank" style="color: #2d2828; font-size: 14px; font-weight: 600; text-decoration: underline; display: inline-block; margin-top: 8px;">View Source</a>` : ''}
+                    ${question['Quote (startup failure)Link'] ? `<a href="${question['Quote (startup failure)Link']}" target="_blank" class="source-link" style="margin-top: 8px; display: inline-flex;">View Source</a>` : ''}
                 `;
             }
 
@@ -5788,12 +5832,21 @@
             const full = elem.getAttribute('data-full-text');
             const short = elem.getAttribute('data-short-text');
 
-            if (buttonElement.textContent.trim() === 'Read more') {
+            // Check current state by looking at class or text content
+            const isExpanded = buttonElement.classList.contains('collapse');
+
+            if (!isExpanded) {
+                // Expand: show full text
                 elem.textContent = full;
-                buttonElement.textContent = 'Show less';
+                buttonElement.textContent = 'Read Less';
+                buttonElement.classList.remove('expand');
+                buttonElement.classList.add('collapse');
             } else {
+                // Collapse: show short text
                 elem.textContent = short + '...';
-                buttonElement.textContent = 'Read more';
+                buttonElement.textContent = 'Read More';
+                buttonElement.classList.remove('collapse');
+                buttonElement.classList.add('expand');
             }
         }
 
@@ -6129,7 +6182,7 @@
                                                     <div class="tooltip-corner lime"></div>
                                                     <div class="tooltip-popover-label">${elementName} Definition</div>
                                                     <div class="tooltip-popover-content">${definition.text}</div>
-                                                    ${definition.link ? `<a href="${definition.link}" target="_blank" class="tooltip-popover-link">Read source</a>` : ''}
+                                                    ${definition.link ? `<a href="${definition.link}" target="_blank" class="tooltip-popover-link source-link">View Source</a>` : ''}
                                                 </div>
                                             </div>
                                         ` : ''}
@@ -6148,8 +6201,8 @@
                                                                     <div style="flex: 1;">
                                                                         <p id="why_quote_${elementName}_${quoteIdx}" data-full-text="${quote.text.replace(/"/g, '&quot;')}" data-short-text="${quote.text.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quote.text.substring(0, 120)}${quote.text.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
-                                                                            ${quote.text.length > 120 ? `<button onclick="toggleQuote('why_quote_${elementName}_${quoteIdx}', this)" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quote.link ? `<a href="${quote.link}" target="_blank" style="color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer;">View source →</a>` : ''}
+                                                                            ${quote.text.length > 120 ? `<button onclick="toggleQuote('why_quote_${elementName}_${quoteIdx}', this)" class="read-more-link expand">Read More</button>` : ''}
+                                                                            ${quote.link ? `<a href="${quote.link}" target="_blank" class="source-link">View Source</a>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -6321,8 +6374,8 @@
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_failure_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteFailure.replace(/"/g, '&quot;')}" data-short-text="${quoteFailure.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteFailure.substring(0, 120)}${quoteFailure.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
-                                                                            ${quoteFailure.length > 120 ? `<button onclick="toggleQuote('quote_failure_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteFailureLink ? `<button onclick="window.open('${quoteFailureLink}', '_blank')" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
+                                                                            ${quoteFailure.length > 120 ? `<button onclick="toggleQuote('quote_failure_${elementName}_${gap.stage}_${idx}', this)" class="read-more-link expand">Read More</button>` : ''}
+                                                                            ${quoteFailureLink ? `<button onclick="window.open('${quoteFailureLink}', '_blank')" class="source-link">View Source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -6331,8 +6384,8 @@
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_failure2_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteFailure2.replace(/"/g, '&quot;')}" data-short-text="${quoteFailure2.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteFailure2.substring(0, 120)}${quoteFailure2.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
-                                                                            ${quoteFailure2.length > 120 ? `<button onclick="toggleQuote('quote_failure2_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteFailure2Link ? `<button onclick="window.open('${quoteFailure2Link}', '_blank')" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
+                                                                            ${quoteFailure2.length > 120 ? `<button onclick="toggleQuote('quote_failure2_${elementName}_${gap.stage}_${idx}', this)" class="read-more-link expand">Read More</button>` : ''}
+                                                                            ${quoteFailure2Link ? `<button onclick="window.open('${quoteFailure2Link}', '_blank')" class="source-link">View Source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -6341,8 +6394,8 @@
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_best_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteBestPractice.replace(/"/g, '&quot;')}" data-short-text="${quoteBestPractice.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteBestPractice.substring(0, 120)}${quoteBestPractice.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
-                                                                            ${quoteBestPractice.length > 120 ? `<button onclick="toggleQuote('quote_best_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteBestPracticeLink ? `<button onclick="window.open('${quoteBestPracticeLink}', '_blank')" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
+                                                                            ${quoteBestPractice.length > 120 ? `<button onclick="toggleQuote('quote_best_${elementName}_${gap.stage}_${idx}', this)" class="read-more-link expand">Read More</button>` : ''}
+                                                                            ${quoteBestPracticeLink ? `<button onclick="window.open('${quoteBestPracticeLink}', '_blank')" class="source-link">View Source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -6351,8 +6404,8 @@
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_best2_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteBestPractice2.replace(/"/g, '&quot;')}" data-short-text="${quoteBestPractice2.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteBestPractice2.substring(0, 120)}${quoteBestPractice2.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
-                                                                            ${quoteBestPractice2.length > 120 ? `<button onclick="toggleQuote('quote_best2_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${quoteBestPractice2Link ? `<button onclick="window.open('${quoteBestPractice2Link}', '_blank')" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
+                                                                            ${quoteBestPractice2.length > 120 ? `<button onclick="toggleQuote('quote_best2_${elementName}_${gap.stage}_${idx}', this)" class="read-more-link expand">Read More</button>` : ''}
+                                                                            ${quoteBestPractice2Link ? `<button onclick="window.open('${quoteBestPractice2Link}', '_blank')" class="source-link">View Source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
@@ -6361,8 +6414,8 @@
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_vc_${elementName}_${gap.stage}_${idx}" data-full-text="${vcRequirements.replace(/"/g, '&quot;')}" data-short-text="${vcRequirements.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0;">${vcRequirements.substring(0, 120)}${vcRequirements.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
-                                                                            ${vcRequirements.length > 120 ? `<button onclick="toggleQuote('quote_vc_${elementName}_${gap.stage}_${idx}', this)" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">Read more</button>` : ''}
-                                                                            ${vcRequirementsLink ? `<button onclick="window.open('${vcRequirementsLink}', '_blank')" style="background: none; border: none; color: #2d2828; font-size: 10px; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">View source</button>` : ''}
+                                                                            ${vcRequirements.length > 120 ? `<button onclick="toggleQuote('quote_vc_${elementName}_${gap.stage}_${idx}', this)" class="read-more-link expand">Read More</button>` : ''}
+                                                                            ${vcRequirementsLink ? `<button onclick="window.open('${vcRequirementsLink}', '_blank')" class="source-link">View Source</button>` : ''}
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
