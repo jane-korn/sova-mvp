@@ -10,9 +10,9 @@
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/variables.css">
-    <script src="questions-data.js?v=20251126"></script>
-    <script src="article-urls.js?v=20251126"></script>
-    <script src="content-data.js?v=20251126"></script>
+    <script src="questions-data.js?v=20251121-101217"></script>
+    <script src="article-urls.js?v=20251121"></script>
+    <script src="content-data.js?v=20251121"></script>
     <style>
         * {
             margin: 0;
@@ -64,13 +64,29 @@
             text-shadow: 0 0 20px rgba(234, 255, 196, 0.3);
         }
 
-        /* Preliminary Questions Section */
+        /* Preliminary Questions Section - Premium Redesign */
         .prelim-section {
+            background: #2d2828;
+            padding: 60px 48px;
+            border-radius: 32px;
+            border: 1px solid rgba(234, 255, 196, 0.1);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(0, 0, 0, 0.15);
+            margin-bottom: 40px;
             animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
         }
 
         .prelim-section::before {
-            display: none; /* Remove top gradient line */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #eaffc4 0%, #b8d78f 100%);
             opacity: 0.8;
         }
 
@@ -180,147 +196,6 @@
             border-color: #eaffc4;
             background: linear-gradient(135deg, rgba(196, 255, 0, 0.08) 0%, #ffffff 100%);
             box-shadow: 0 6px 20px rgba(196, 255, 0, 0.2);
-        }
-
-        /* Option Cards - Prelim & Validation (path-card inspired hover) */
-        .option-card {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .option-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: #eaffc4;
-            transition: height 0.3s ease;
-            border-radius: 2px 0 0 2px;
-        }
-
-        .option-card:hover::before {
-            height: 100%;
-        }
-
-        .option-card:hover {
-            background: rgba(245, 245, 220, 0.08) !important;
-            border-color: #eaffc4 !important;
-            transform: translateX(4px);
-        }
-
-        .option-card.selected {
-            border-color: #eaffc4 !important;
-            background: rgba(234, 255, 196, 0.1) !important;
-        }
-
-        .option-card.selected::before {
-            height: 100%;
-        }
-
-        /* Validation option cards - smaller padding adjustment */
-        .validation-option:hover {
-            transform: translateX(2px);
-        }
-
-        /* Path Cards - Choose Your Flight Path */
-        .path-card {
-            background: rgba(245, 245, 220, 0.02);
-            border: 2px solid rgba(234, 255, 196, 0.15);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .path-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: #eaffc4;
-            transition: height 0.3s ease;
-        }
-
-        .path-card:hover:not(.coming-soon)::before {
-            height: 100%;
-        }
-
-        .path-card:hover:not(.coming-soon) {
-            background: rgba(245, 245, 220, 0.04);
-            border-color: #eaffc4;
-            transform: translateX(4px);
-        }
-
-        .path-card.coming-soon {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .path-number {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 6rem;
-            font-weight: 700;
-            color: rgba(234, 255, 196, 0.05);
-            line-height: 1;
-        }
-
-        .path-title {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .path-desc {
-            font-size: 1.0625rem;
-            color: #b8d78f;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
-        }
-
-        .path-meta {
-            display: flex;
-            gap: 2rem;
-            font-size: 0.9375rem;
-            color: #b8d78f;
-            position: relative;
-            z-index: 1;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-        }
-
-        .meta-label {
-            font-weight: 400;
-            opacity: 0.7;
-        }
-
-        .coming-soon-badge {
-            display: inline-block;
-            background: rgba(184, 215, 143, 0.15);
-            color: #b8d78f;
-            padding: 0.375rem 1rem;
-            border-radius: 24px;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            margin-left: 0.75rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
         }
 
         /* Input Fields - Premium Redesign */
@@ -802,7 +677,7 @@
         }
 
         .tooltip-trigger:hover {
-            /* Note: transform breaks position:fixed on child elements, so we use box-shadow only */
+            transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
@@ -817,53 +692,42 @@
         }
 
         .tooltip-popover {
-            position: fixed;
-            top: 50px;
-            bottom: auto;
+            position: absolute;
+            bottom: calc(100% + 12px);
             left: 50%;
-            transform: translateX(-50%);
+            margin-left: -200px;
             background: #ffffff;
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(61, 37, 23, 0.1);
-            min-width: 280px;
-            max-width: min(400px, calc(100vw - 32px));
+            min-width: 300px;
+            max-width: 400px;
             width: 400px;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             z-index: 999999 !important;
         }
 
-        .tooltip-trigger:hover .tooltip-popover,
-        .tooltip-trigger.active .tooltip-popover {
+        .tooltip-trigger:hover .tooltip-popover {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
         }
 
-        /* Popover arrow - points DOWN to the button (default, above position) */
+        /* Popover arrow */
         .tooltip-popover::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: var(--arrow-offset, 50%);
+            top: 100%;
+            left: 50%;
             transform: translateX(-50%);
             width: 0;
             height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
             border-top: 10px solid #ffffff;
-            border-bottom: none;
-        }
-
-        /* Arrow points UP when tooltip is below the button */
-        .tooltip-popover.below::after {
-            bottom: auto;
-            top: -10px;
-            border-top: none;
-            border-bottom: 10px solid #ffffff;
         }
 
         .tooltip-popover-label {
@@ -1063,7 +927,7 @@
 
         .questionnaire-container {
             background: #f5f5dc;
-            padding: 48px;
+            padding: 40px;
             border-radius: 24px;
             border: 1px solid rgba(196, 255, 0, 0.3);
             box-shadow: 0 8px 32px rgba(196, 255, 0, 0.2);
@@ -1156,31 +1020,18 @@
         .info-buttons-row {
             display: flex;
             justify-content: flex-end;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 4px;
+            gap: 12px;
+            margin-top: 8px;
             margin-bottom: 16px;
         }
 
-        /* Resource button styling */
-        .info-btn[style*="border: 2px solid #eaffc4"] {
-            flex-basis: 100%;
-            order: 2;
-        }
-
-        /* Other buttons stay on first line */
-        .info-btn:not([style*="border: 2px solid #eaffc4"]) {
-            order: 1;
-        }
-
         .info-btn {
-            padding: 8px 14px;
+            padding: 8px 16px;
             border: 2px solid rgba(61, 37, 23, 0.2);
             border-radius: 6px;
             background: white;
             color: #2d2828;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1786,26 +1637,6 @@
            MOBILE RESPONSIVE STYLES
            ======================================== */
 
-        /* Desktop - ensure info buttons fit on one line */
-        @media screen and (min-width: 769px) {
-            .info-buttons-row {
-                flex-wrap: nowrap !important;
-                gap: 10px !important;
-            }
-
-            .info-btn {
-                font-size: 12px;
-                padding: 8px 12px;
-                flex-shrink: 1;
-            }
-
-            /* Resource button inline on desktop */
-            .info-btn[style*="border: 2px solid #eaffc4"] {
-                flex-basis: auto !important;
-                order: 1;
-            }
-        }
-
         /* Tablets and below (< 1024px) */
         @media screen and (max-width: 1024px) {
             .container {
@@ -1844,6 +1675,10 @@
 
             /* Preliminary Section - Mobile */
             .prelim-section {
+                padding: 40px 16px;
+                border-radius: 0;
+                margin: 0;
+                margin-bottom: 24px;
                 max-width: 100% !important;
             }
 
@@ -1934,22 +1769,6 @@
 
             .tooltip-desc {
                 font-size: 12px;
-            }
-
-            /* Path Cards - Mobile */
-            .path-card {
-                padding: 1.5rem;
-            }
-
-            .path-number {
-                font-size: 4rem;
-                top: 1.5rem;
-                right: 1.5rem;
-            }
-
-            .path-meta {
-                flex-direction: column;
-                gap: 0.75rem;
             }
 
             /* Questionnaire - Mobile */
@@ -2170,52 +1989,17 @@
                 white-space: nowrap !important;
             }
 
-            /* FIX: Assessment tooltip buttons - ONE LINE on mobile */
+            /* FIX: Assessment tooltip buttons - prevent overflow */
             .info-buttons-row {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                gap: 6px !important;
-                width: 100%;
-                margin: 8px 0 12px 0 !important;
                 justify-content: flex-start !important;
+                flex-wrap: wrap !important;
+                gap: 8px !important;
+                margin: 0 0 16px 0 !important;
             }
 
             .info-btn {
-                font-size: 9px !important;
-                padding: 6px 8px !important;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                flex: 0 1 auto;
-                letter-spacing: -0.3px;
-            }
-
-            /* FIX: Answer buttons (YES/NO) - same width and aligned */
-            .answer-buttons {
-                display: flex !important;
-                gap: 12px !important;
-                margin-bottom: 20px !important;
-            }
-
-            .answer-btn {
-                flex: 1 !important;
-                min-width: 0 !important;
-                padding: 14px 16px !important;
-                font-size: 14px !important;
-            }
-
-            /* FIX: Navigation buttons (Previous, Save & Exit) - same width */
-            .navigation-buttons {
-                display: flex !important;
-                gap: 12px !important;
-            }
-
-            .nav-btn {
-                flex: 1 !important;
-                min-width: 0 !important;
-                padding: 14px 16px !important;
-                font-size: 13px !important;
-                text-align: center !important;
+                font-size: 11px !important;
+                padding: 6px 10px !important;
             }
 
             /* STANDARDIZE ALL SECTION PADDING TO 16PX */
@@ -2340,18 +2124,11 @@
                 white-space: nowrap !important;
             }
 
-            /* FIX: Report element header tooltip buttons - ONE LINE, smaller text */
+            /* Ensure button container doesn't overflow */
             [style*="display: flex"][style*="gap: 12px"][style*="z-index: 1000000"] {
                 gap: 4px !important;
-                flex-wrap: nowrap !important;
+                flex-wrap: wrap !important;
                 max-width: 100% !important;
-            }
-
-            /* FIX: Make tooltip buttons fit on one line */
-            [style*="z-index: 1000000"] .tooltip-trigger {
-                font-size: 8px !important;
-                padding: 4px 6px !important;
-                white-space: nowrap !important;
             }
 
             /* FIX: Tooltip popovers centered on page and within margins */
@@ -2361,12 +2138,15 @@
                 margin-left: 0 !important;
                 transform: translateX(-50%) !important;
                 width: calc(100vw - 32px) !important;
-                max-width: 340px !important;
+                max-width: 360px !important;
                 min-width: unset !important;
                 padding: 16px !important;
             }
 
-            /* Arrow position will be set by JavaScript */
+            .tooltip-popover::after {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+            }
 
             /* Fix text overflow inside tooltip */
             .tooltip-popover-content {
@@ -2389,24 +2169,24 @@
                 margin: 0 !important;
             }
 
-            /* FIX 7: Gap statement containers - more breathing room */
+            /* FIX 7: Gap statement containers same margins as Element heading */
             .gap-item,
             [class*="gap-card"],
             [style*="border-radius: 16px"][style*="margin-bottom: 32px"] {
-                padding: 20px !important;
-                margin: 0 0 20px 0 !important;
+                padding: 16px !important;
+                margin: 0 0 16px 0 !important;
                 max-width: 100% !important;
             }
 
-            /* FIX: Gap details - more padding for readability */
+            /* FIX: Gap details two-column to ensure tools visible */
             .gap-details {
-                padding: 12px 0 !important;
+                padding: 0 !important;
                 margin: 0 !important;
             }
 
             .gap-column {
                 width: 100% !important;
-                padding: 12px 0 !important;
+                padding: 8px 0 !important;
             }
 
             /* FIX: Shorten "How to address this" heading on mobile */
@@ -2453,7 +2233,8 @@
             }
 
             .prelim-section {
-                /* Removed container styles */
+                padding: 32px 20px;
+                border-radius: 20px;
             }
 
             .prelim-section h2 {
@@ -2487,25 +2268,16 @@
             }
 
             /* Fix stage option cards text overflow */
-            /* FIX 7: Stage buttons - prevent text overflow */
             .option-card {
                 padding: 1rem !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
-                white-space: normal !important;
             }
 
             .option-card div {
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
-                white-space: normal !important;
                 max-width: 100% !important;
-                font-size: 0.95rem !important;
-                line-height: 1.4 !important;
-            }
-
-            .option-card div:first-child {
-                font-size: 1.1rem !important;
             }
 
             .model-wrapper {
@@ -2537,28 +2309,11 @@
                 font-size: 11px !important;
             }
 
-            /* FIX 1: Progress info layout - stack vertically */
-            .progress-info {
-                display: flex;
-                flex-direction: column !important;
-                gap: 8px !important;
-                align-items: flex-start !important;
-            }
-
-            /* Reduce element badge text for mobile - allow wrapping */
+            /* Reduce element badge text for mobile */
             .element-badge {
-                font-size: 11px !important;
-                padding: 5px 12px !important;
-                white-space: normal !important;
-                max-width: 100%;
-                word-wrap: break-word;
-                line-height: 1.3;
-            }
-
-            /* Question progress full width on own line */
-            .progress-info #questionProgress {
-                font-size: 12px !important;
-                width: 100%;
+                font-size: 10px !important;
+                padding: 4px 10px !important;
+                white-space: nowrap !important;
             }
 
             .question-container {
@@ -2572,78 +2327,6 @@
             .answer-option {
                 padding: 14px 16px;
                 font-size: 14px;
-            }
-
-            /* FIX 2: Read more / View source parent container alignment */
-            [style*="margin-top: 4px"][style*="display: flex"][style*="gap: 12px"] {
-                display: flex !important;
-                align-items: center !important;
-                gap: 12px !important;
-                flex-wrap: nowrap !important;
-            }
-
-            [style*="margin-top: 4px"][style*="display: flex"] button,
-            [style*="margin-top: 4px"][style*="display: flex"] a {
-                display: inline-flex !important;
-                align-items: center !important;
-                white-space: nowrap !important;
-            }
-
-            /* FIX 3: Sidebar tabs - prevent overflow and center text */
-            #webChartSidebar,
-            #reportSidebar,
-            #actionSidebar {
-                width: 50px !important;
-            }
-
-            #webChartSidebar div,
-            #reportSidebar div,
-            #actionSidebar div {
-                writing-mode: vertical-rl !important;
-                transform: rotate(180deg) !important;
-                font-size: 11px !important;
-                letter-spacing: 1.2px !important;
-                padding: 8px 0 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                white-space: nowrap !important;
-                overflow: visible !important;
-                line-height: 1.2 !important;
-            }
-
-            /* FIX 4: Tool names - prevent overflow */
-            [style*="Recommended Tools"] + div,
-            [style*="grid-template-columns"][style*="minmax(200px"] {
-                grid-template-columns: 1fr !important;
-                gap: 12px !important;
-            }
-
-            [style*="Recommended Tools"] + div a,
-            [style*="Recommended Tools"] + div div {
-                word-wrap: break-word !important;
-                overflow-wrap: break-word !important;
-                white-space: normal !important;
-                max-width: 100% !important;
-                padding: 12px 16px !important;
-                font-size: 13px !important;
-                line-height: 1.4 !important;
-            }
-
-            /* FIX 5 & 6: Removed - conflicted with existing better solution above */
-
-            /* Coming Soon tooltips */
-            [style*="COMING SOON"] {
-                position: fixed !important;
-                left: 50% !important;
-                top: 50% !important;
-                transform: translate(-50%, -50%) !important;
-                max-width: 85vw !important;
-                width: auto !important;
-                word-wrap: break-word !important;
-                overflow-wrap: break-word !important;
-                white-space: normal !important;
-                text-align: center !important;
             }
 
             .results-header h1 {
@@ -2678,7 +2361,7 @@
         /* Landscape mobile orientation fixes */
         @media screen and (max-height: 500px) and (orientation: landscape) {
             .prelim-section {
-                /* Removed container styles */
+                padding: 24px 20px;
             }
 
             .model-wrapper {
@@ -2736,8 +2419,13 @@
     <div class="container">
 
         <!-- New One-Per-Page Preliminary Flow -->
-        <div class="prelim-section" id="prelimFlow" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
-            <div style="max-width: 800px; width: 100%;">
+        <div class="prelim-section" id="prelimFlow" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #2d2828 !important; border: 1px solid rgba(234, 255, 196, 0.1); border-radius: 32px; padding: 60px 48px;">
+            <div style="max-width: 800px; width: 100%; padding: 2rem;">
+
+                <!-- Progress Bar - Only shown on page 1 -->
+                <div id="progressBar" style="width: 100%; height: 4px; background: rgba(234, 255, 196, 0.2); border-radius: 2px; margin-bottom: 3rem;">
+                    <div id="prelimProgress" style="height: 100%; background: #eaffc4; transition: width 0.3s ease; width: 0%;"></div>
+                </div>
 
                 <!-- Page 1: Team Size -->
                 <div id="prelim-page-1" class="prelim-page">
@@ -2751,129 +2439,61 @@
 
                     <button onclick="startFresh()" style="margin-bottom: 2rem; padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Start Fresh</button>
 
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Are you flying solo or with a team?</h1>
+                    <h1 style="color: #f5f5dc; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem;">Are you flying solo or with a team?</h1>
                     <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 3rem;">This helps us tailor questions to your situation.</p>
 
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="option-card" onclick="selectPrelimOptionAndAdvance('teamSize', 'Solo', this, 2)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+                        <div class="option-card" onclick="selectPrelimOption('teamSize', 'Solo', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Solo</div>
                             <div style="font-size: 1rem; color: #b8d78f;">Just me for now</div>
                         </div>
-                        <div class="option-card" onclick="selectPrelimOptionAndAdvance('teamSize', 'Team', this, 2)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                        <div class="option-card" onclick="selectPrelimOption('teamSize', 'Team', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Team</div>
                             <div style="font-size: 1rem; color: #b8d78f;">2 or more people</div>
                         </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-primary" id="btn-continue-1" onclick="nextPrelimPage(2)" disabled style="background: #eaffc4; color: #2d2828; padding: 1rem 2rem; border-radius: 32px; border: none; font-weight: 600; cursor: pointer;">Continue</button>
                     </div>
                 </div>
 
                 <!-- Page 2: Stage Selection -->
                 <div id="prelim-page-2" class="prelim-page" style="display: none;">
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Where are you in your startup journey?</h1>
+                    <h1 style="color: #f5f5dc; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 1rem;">Where are you in your startup journey?</h1>
                     <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 3rem;">No wrong answer. We'll meet you where you are.</p>
 
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="option-card" onclick="selectStageAndContinue('Discovery', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Discovery', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Discovery</div>
                             <div style="font-size: 1rem; color: #b8d78f;">Exploring problems and testing solution ideas</div>
                         </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Validation', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Validation', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Validation</div>
                             <div style="font-size: 1rem; color: #b8d78f;">Got early customers, proving the model works</div>
                         </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Efficiency', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Efficiency', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Efficiency</div>
                             <div style="font-size: 1rem; color: #b8d78f;">It works! Streamlining to scale sustainably</div>
                         </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Scale', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Scale', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Scale</div>
                             <div style="font-size: 1rem; color: #b8d78f;">Growing fast, need systems for expansion</div>
                         </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Unsure', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
+                        <div class="option-card" onclick="selectPrelimOption('stage', 'Unsure', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Unsure</div>
                             <div style="font-size: 1rem; color: #b8d78f;">Help me figure this out</div>
                         </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn-secondary" onclick="nextPrelimPage(1)" style="background: transparent; color: #b8d78f; border: 2px solid #b8d78f; padding: 1rem 2rem; border-radius: 32px; cursor: pointer;">Back</button>
+                        <button class="btn-primary" id="btn-continue-2" onclick="checkStageAndContinue()" disabled style="background: #eaffc4; color: #2d2828; padding: 1rem 2rem; border-radius: 32px; border: none; font-weight: 600; cursor: pointer;">Continue</button>
                     </div>
                 </div>
 
                 <!-- Validation Pages (Dynamic) -->
                 <div id="validation-pages-container"></div>
-
-                <!-- Page 4: Choose Your Path -->
-                <div id="prelim-page-4" class="prelim-page" style="display: none;">
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Choose Your Flight Path</h1>
-                    <p style="color: #f5f5dc; font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300;">
-                        You're about to gain clarity on your business foundations across the elements that determine startup success.
-                    </p>
-
-                    <!-- Testing Note -->
-                    <div style="border-left: 3px solid #eaffc4; padding: 1.5rem; padding-left: 24px; margin-bottom: 3rem; background: rgba(234, 255, 196, 0.05); border-radius: 8px; text-align: left;">
-                        <p style="color: #f5f5dc; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 12px 0; opacity: 0.8;">Testing note</p>
-                        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.9;">This version covers 4 core elements—Governance, Purpose, Strategy, and Marketing. The full Sova system includes 9 elements total. We're starting with the foundations that matter most in early stages.</p>
-                    </div>
-
-                    <!-- Path Options -->
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <!-- Path 1: Complete Assessment -->
-                        <div class="path-card" onclick="selectPathAndContinue('complete')">
-                            <span class="path-number">1</span>
-                            <h2 class="path-title">Complete Assessment</h2>
-                            <p class="path-desc">
-                                Answer questions across all 4 elements to get a bird's-eye view of your business health. Best for seeing the full picture and identifying priorities.
-                            </p>
-                            <div class="path-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Time:</span>
-                                    <span>15-20 minutes</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Output:</span>
-                                    <span>Full report with action plan</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Path 2: Zoom In -->
-                        <div class="path-card" onclick="selectPathAndContinue('zoomin')">
-                            <span class="path-number">2</span>
-                            <h2 class="path-title">Zoom In on One Element</h2>
-                            <p class="path-desc">
-                                Not ready for the full assessment? Hone in on one element to work on first. You can always come back and complete the others later.
-                            </p>
-                            <div class="path-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Time:</span>
-                                    <span>5-7 minutes</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Output:</span>
-                                    <span>Targeted insights</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Path 3: Chatbot (Coming Soon) -->
-                        <div class="path-card coming-soon">
-                            <span class="path-number">3</span>
-                            <h2 class="path-title">
-                                Work with Your Guide
-                                <span class="coming-soon-badge">Coming Soon</span>
-                            </h2>
-                            <p class="path-desc">
-                                Have a specific issue you're working through? Chat with Sova to explore solutions and frameworks tailored to your situation.
-                            </p>
-                            <div class="path-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Time:</span>
-                                    <span>Your pace</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Output:</span>
-                                    <span>Conversational support</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -3281,7 +2901,7 @@
 
                 // 3. Complete gap from Report (with thumbs up/down)
                 function completeGap(taskId, satisfaction) {
-                    const notesField = document.getElementById(`notes-${taskId}`);
+                    const notesField = document.getElementById(`gap-notes-${taskId}`);
                     const notes = notesField ? notesField.value : '';
 
                     // Save to userData
@@ -3306,220 +2926,6 @@
                     updateReportLive();
                 }
 
-                // Helper: Expand completion input
-                function expandCompletion(taskId) {
-                    const defaultEl = document.getElementById(`completion-default-${taskId}`);
-                    const expandedEl = document.getElementById(`completion-expanded-${taskId}`);
-                    if (defaultEl) defaultEl.style.display = 'none';
-                    if (expandedEl) expandedEl.style.display = 'block';
-                }
-
-                // Helper: Collapse completion input
-                function collapseCompletion(taskId) {
-                    const defaultEl = document.getElementById(`completion-default-${taskId}`);
-                    const expandedEl = document.getElementById(`completion-expanded-${taskId}`);
-                    if (defaultEl) defaultEl.style.display = 'flex';
-                    if (expandedEl) expandedEl.style.display = 'none';
-                    // Reset rating selection
-                    const thumbUp = document.getElementById(`thumb-up-${taskId}`);
-                    const thumbDown = document.getElementById(`thumb-down-${taskId}`);
-                    if (thumbUp) { thumbUp.style.opacity = '0.25'; thumbUp.classList.remove('selected'); }
-                    if (thumbDown) { thumbDown.style.opacity = '0.25'; thumbDown.classList.remove('selected'); }
-                    // Reset submit button
-                    const submitBtn = document.getElementById(`submit-${taskId}`);
-                    if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.4'; }
-                    // Clear any pending rating
-                    if (window.pendingRatings) delete window.pendingRatings[taskId];
-                }
-
-                // Helper: Select rating (thumb up/down)
-                function selectRating(taskId, rating) {
-                    const thumbUp = document.getElementById(`thumb-up-${taskId}`);
-                    const thumbDown = document.getElementById(`thumb-down-${taskId}`);
-                    const submitBtn = document.getElementById(`submit-${taskId}`);
-
-                    // Reset both
-                    if (thumbUp) { thumbUp.style.opacity = '0.25'; thumbUp.classList.remove('selected'); }
-                    if (thumbDown) { thumbDown.style.opacity = '0.25'; thumbDown.classList.remove('selected'); }
-
-                    // Highlight selected
-                    if (rating === 'up' && thumbUp) {
-                        thumbUp.style.opacity = '1';
-                        thumbUp.classList.add('selected');
-                    } else if (rating === 'down' && thumbDown) {
-                        thumbDown.style.opacity = '1';
-                        thumbDown.classList.add('selected');
-                    }
-
-                    // Enable submit button
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.style.opacity = '1';
-                    }
-
-                    // Store rating temporarily
-                    if (!window.pendingRatings) window.pendingRatings = {};
-                    window.pendingRatings[taskId] = rating;
-                }
-
-                // Helper: Submit completion with rating
-                function submitCompletion(taskId) {
-                    const rating = window.pendingRatings?.[taskId];
-                    if (rating) {
-                        completeGap(taskId, rating);
-                        delete window.pendingRatings[taskId];
-
-                        // Show completed badge in header
-                        const badge = document.getElementById(`gap-completed-badge-${taskId}`);
-                        if (badge) badge.style.display = 'flex';
-
-                        // Collapse current gap card
-                        collapseGapCard(taskId);
-
-                        // Find and expand next uncompleted gap
-                        setTimeout(() => {
-                            expandNextGap(taskId);
-                        }, 300);
-                    }
-                }
-
-                // Toggle gap card expand/collapse
-                function toggleGapCard(taskId) {
-                    const content = document.getElementById(`gap-content-${taskId}`);
-                    const chevron = document.getElementById(`gap-chevron-${taskId}`);
-                    if (!content) return;
-
-                    const isExpanded = content.style.display !== 'none';
-                    if (isExpanded) {
-                        collapseGapCard(taskId);
-                    } else {
-                        expandGapCard(taskId);
-                    }
-                }
-
-                // Expand a gap card with smooth animation
-                function expandGapCard(taskId) {
-                    const content = document.getElementById(`gap-content-${taskId}`);
-                    const chevron = document.getElementById(`gap-chevron-${taskId}`);
-                    if (content) {
-                        content.style.display = 'block';
-                        content.style.opacity = '0';
-                        content.style.maxHeight = '0';
-                        content.style.overflow = 'hidden';
-                        content.style.transition = 'opacity 0.8s ease-out, max-height 1s ease-out';
-                        // Trigger reflow then animate
-                        requestAnimationFrame(() => {
-                            content.style.opacity = '1';
-                            content.style.maxHeight = '2000px';
-                        });
-                    }
-                    if (chevron) {
-                        chevron.style.transition = 'transform 0.5s ease';
-                        chevron.style.transform = 'rotate(180deg)';
-                    }
-                }
-
-                // Collapse a gap card with smooth animation
-                function collapseGapCard(taskId) {
-                    const content = document.getElementById(`gap-content-${taskId}`);
-                    const chevron = document.getElementById(`gap-chevron-${taskId}`);
-                    if (content) {
-                        content.style.transition = 'opacity 0.6s ease-out, max-height 0.8s ease-out';
-                        content.style.opacity = '0';
-                        content.style.maxHeight = '0';
-                        content.style.overflow = 'hidden';
-                        // Hide after animation completes
-                        setTimeout(() => {
-                            content.style.display = 'none';
-                        }, 800);
-                    }
-                    if (chevron) {
-                        chevron.style.transition = 'transform 0.5s ease';
-                        chevron.style.transform = 'rotate(0deg)';
-                    }
-                }
-
-                // Expand next uncompleted gap after current one
-                function expandNextGap(currentTaskId) {
-                    const allGapCards = document.querySelectorAll('.gap-card-wrapper');
-                    let foundCurrent = false;
-                    let nextGapId = null;
-
-                    for (const card of allGapCards) {
-                        const cardId = card.id.replace('gap-card-', '');
-
-                        if (foundCurrent) {
-                            // Check if this gap is not completed
-                            if (!(userData.completedTasks[cardId] && userData.completedTasks[cardId].completed)) {
-                                nextGapId = cardId;
-                                break;
-                            }
-                        }
-
-                        if (cardId === currentTaskId) {
-                            foundCurrent = true;
-                        }
-                    }
-
-                    if (nextGapId) {
-                        const nextCard = document.getElementById(`gap-card-${nextGapId}`);
-                        if (nextCard) {
-                            // Step 1: Wait for collapse animation to fully complete
-                            setTimeout(() => {
-                                // Step 2: Scroll the next gap into view (center it for visibility)
-                                nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                                // Step 3: After scroll completes, add highlight effect and expand
-                                setTimeout(() => {
-                                    // Add a subtle highlight pulse to draw attention
-                                    nextCard.style.transition = 'box-shadow 0.8s ease-out, background-color 0.8s ease-out';
-                                    nextCard.style.boxShadow = '0 0 0 4px rgba(234, 255, 196, 0.6)';
-                                    nextCard.style.backgroundColor = 'rgba(234, 255, 196, 0.1)';
-
-                                    // Expand the gap card after highlight appears
-                                    setTimeout(() => {
-                                        expandGapCard(nextGapId);
-                                    }, 400);
-
-                                    // Step 4: Slowly fade out highlight
-                                    setTimeout(() => {
-                                        nextCard.style.transition = 'box-shadow 1.5s ease-out, background-color 1.5s ease-out';
-                                        nextCard.style.boxShadow = 'none';
-                                        nextCard.style.backgroundColor = '';
-                                    }, 2000);
-                                }, 1000);
-                            }, 1000);
-                        }
-                    }
-                }
-
-                // Initialize gap cards - expand first uncompleted, collapse others
-                function initializeGapCards() {
-                    const allGapCards = document.querySelectorAll('.gap-card-wrapper');
-                    let firstUncompletedExpanded = false;
-
-                    for (const card of allGapCards) {
-                        const cardId = card.id.replace('gap-card-', '');
-                        const isCompleted = userData.completedTasks[cardId] && userData.completedTasks[cardId].completed;
-
-                        if (!isCompleted && !firstUncompletedExpanded) {
-                            // Expand first uncompleted gap card
-                            expandGapCard(cardId);
-                            // Keep completion UI collapsed - user must click "Mark complete" to expand
-                            firstUncompletedExpanded = true;
-                        } else {
-                            // Collapse all others
-                            collapseGapCard(cardId);
-                        }
-
-                        // Show completed badge if needed
-                        if (isCompleted) {
-                            const badge = document.getElementById(`gap-completed-badge-${cardId}`);
-                            if (badge) badge.style.display = 'flex';
-                        }
-                    }
-                }
-
                 // 4. Uncomplete gap from Report
                 function uncompleteGap(taskId) {
                     // Remove from userData
@@ -3533,10 +2939,6 @@
                     if (actionCheckbox) {
                         actionCheckbox.checked = false;
                     }
-
-                    // Hide completed badge
-                    const badge = document.getElementById(`gap-completed-badge-${taskId}`);
-                    if (badge) badge.style.display = 'none';
 
                     // Re-render both Actions and Report
                     updateReportLive();
@@ -3694,8 +3096,17 @@
                 targetPage.style.display = 'block';
             }
 
+            // Hide progress bar on pages 2 and 3
+            const progressBar = document.getElementById('progressBar');
+            if (pageNum >= 2) {
+                progressBar.style.display = 'none';
+            } else {
+                progressBar.style.display = 'block';
+            }
+
             // Update progress (3 main pages + validation pages)
             prelimData.currentPage = pageNum;
+            updatePrelimProgress();
 
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -3706,42 +3117,31 @@
             // Store selection
             prelimData[field] = value;
 
-            // Visual feedback - remove selected class from siblings
+            // Visual feedback - remove all selected classes
             const parent = element.parentElement;
             parent.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
+                card.style.background = 'rgba(245, 245, 220, 0.05)';
+                card.style.borderColor = 'rgba(234, 255, 196, 0.1)';
             });
 
-            // Add selected class to clicked element
-            element.classList.add('selected');
-        }
+            // Add selected style
+            element.style.background = 'rgba(234, 255, 196, 0.1)';
+            element.style.borderColor = '#eaffc4';
 
-        // Select option and auto-advance to next page
-        function selectPrelimOptionAndAdvance(field, value, element, nextPage) {
-            // Store selection and show visual feedback
-            selectPrelimOption(field, value, element);
-
-            // Brief delay to show selection, then advance
-            setTimeout(() => {
-                nextPrelimPage(nextPage);
-            }, 300);
-        }
-
-        // Select stage and continue (handles validation flow)
-        function selectStageAndContinue(stage, element) {
-            // Store selection and show visual feedback
-            selectPrelimOption('stage', stage, element);
-
-            // Brief delay to show selection, then continue
-            setTimeout(() => {
-                if (stage === 'Discovery' || stage === 'Unsure') {
-                    // No validation needed, go straight to assessment
-                    finalizePrelimAndStart('Discovery');
-                } else {
-                    // Show validation questions for this stage
-                    showValidationFlow(stage);
-                }
-            }, 300);
+            // Enable continue button and scroll to it
+            if (field === 'teamSize') {
+                const btn = document.getElementById('btn-continue-1');
+                btn.disabled = false;
+                setTimeout(() => {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            } else if (field === 'stage') {
+                const btn = document.getElementById('btn-continue-2');
+                btn.disabled = false;
+                setTimeout(() => {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
         }
 
         // Check stage and show validation if needed
@@ -3788,10 +3188,15 @@
 
             const pageHTML = `
                 <div id="prelim-page-3" class="prelim-page" style="display: none;">
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2;">${heading}</h1>
+                    <h1 style="color: #f5f5dc; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.5rem;">${heading}</h1>
                     <p style="color: #b8d78f; font-size: 1rem; margin-bottom: 3rem;">To double check you are ready for ${stage}</p>
 
                     ${questionsHTML}
+
+                    <div style="display: flex; gap: 1rem; margin-top: 3rem;">
+                        <button class="btn-secondary" onclick="nextPrelimPage(2)" style="background: transparent; color: #b8d78f; border: 2px solid #b8d78f; padding: 1rem 2rem; border-radius: 32px; cursor: pointer;">Back</button>
+                        <button class="btn-primary" id="btn-continue-validation" onclick="checkValidationResults()" disabled style="background: #eaffc4; color: #2d2828; padding: 1rem 2rem; border-radius: 32px; border: none; font-weight: 600; cursor: pointer;">Continue</button>
+                    </div>
                 </div>
             `;
 
@@ -3809,21 +3214,25 @@
         function selectValidationAnswer(questionIndex, answer, element) {
             prelimData.validationAnswers[questionIndex] = answer;
 
-            // Visual feedback - remove selected class from this question's options
+            // Visual feedback - only for this question's options
             const parent = element.parentElement;
             parent.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
+                card.style.background = 'rgba(245, 245, 220, 0.05)';
+                card.style.borderColor = 'rgba(234, 255, 196, 0.1)';
             });
 
-            // Add selected class to clicked element
-            element.classList.add('selected');
+            element.style.background = 'rgba(234, 255, 196, 0.1)';
+            element.style.borderColor = '#eaffc4';
 
-            // Auto-advance when all questions answered
+            // Enable continue button if all questions answered
             const allAnswered = prelimData.validationAnswers.every(a => a !== null);
             if (allAnswered) {
+                const btn = document.getElementById('btn-continue-validation');
+                btn.disabled = false;
+                btn.textContent = 'Check My Stage';
                 setTimeout(() => {
-                    checkValidationResults();
-                }, 300);
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
             }
         }
 
@@ -3855,7 +3264,7 @@
             // Create recommendation page
             const recommendationHTML = `
                 <div id="prelim-page-recommendation" class="prelim-page" style="display: block;">
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Here's what we recommend</h1>
+                    <h1 style="color: #f5f5dc; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem;">Here's what we recommend</h1>
                     <p style="color: #b8d78f; font-size: 1.25rem; margin-bottom: 3rem;">${message}</p>
 
                     <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;">
@@ -3885,7 +3294,7 @@
             return index > 0 ? stages[index - 1] : 'Discovery';
         }
 
-        // Finalize preliminary data and show path selection
+        // Finalize preliminary data and start assessment
         function finalizePrelimAndStart(assessmentStage) {
             // Store user data
             userData.teamSize = prelimData.teamSize;
@@ -3906,29 +3315,11 @@
             // Save userData to localStorage
             localStorage.setItem('sovaUserData', JSON.stringify(userData));
 
-            // Show path selection page (page 4)
-            nextPrelimPage(4);
-        }
-
-        // Select path and continue to assessment
-        function selectPathAndContinue(mode) {
-            // Store the chosen mode
-            userData.assessmentMode = mode;
-            localStorage.setItem('sovaUserData', JSON.stringify(userData));
-
             // Hide preliminary flow
             document.getElementById('prelimFlow').style.display = 'none';
 
-            // Show the pictorial based on mode
-            if (mode === 'complete') {
-                // Complete assessment: show model with auto-pulse animation
-                console.log('🎬 Starting complete assessment with auto-pulse');
-                showModel();
-            } else if (mode === 'zoomin') {
-                // Zoom in: show model WITHOUT auto-pulse animation
-                console.log('🔍 Starting zoom-in mode - no auto-pulse');
-                showModelManual();
-            }
+            // Redirect to choose-path page
+            window.location.href = 'choose-path.html';
         }
 
         // Update progress bar
@@ -6061,10 +5452,10 @@
                     gapsHTML += `
                         <div style="margin-bottom: 80px; position: relative; z-index: 100;">
                             <!-- Element header - Extreme scale with brand colors -->
-                            <div style="background: #2d2828; padding: 32px 40px; border-radius: 12px; margin-bottom: 0; position: relative; z-index: 100;">
+                            <div style="background: #2d2828; padding: 32px 40px; border-radius: 12px; margin-bottom: 24px; position: relative; z-index: 100;">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <h3 style="color: #eaffc4; font-size: clamp(28px, 3vw, 42px); font-weight: 700; margin: 0; letter-spacing: -1.5px;">${elementName}</h3>
-                                    <div style="display: flex; gap: 12px; position: relative; z-index: 1000000; flex-wrap: nowrap;">
+                                    <div style="display: flex; gap: 12px; position: relative; z-index: 1000000;">
                                         ${definition ? `
                                             <div class="tooltip-trigger lime">
                                                 Definition
@@ -6114,8 +5505,6 @@
                                 </div>
                             </div>
 
-                            <!-- Gaps container with visual connection to header -->
-                            <div style="border-left: 3px solid rgba(45, 40, 40, 0.25); margin-left: 12px; padding-left: 20px; padding-top: 12px; padding-bottom: 8px;">
                             <!-- Gaps for this element -->
                             ${elementGaps.map((gap, idx) => {
                                 // Get question text, falling back to Team if Solo is NA
@@ -6183,39 +5572,27 @@
 
                                 const bookRec = gap.question.Book || '';
 
-                                // Generate unique task ID for this gap using global index for consistency with Actions sidebar
-                                const globalIdx = allGaps.findIndex(g => g.element === elementName && g.stage === gap.stage && g.question === gap.question);
-                                const taskId = `${elementName.toLowerCase()}-${gap.stage.toLowerCase()}-${globalIdx}`;
-
                                 return `
-                                    <div id="gap-card-${taskId}" class="gap-card-wrapper" style="position: relative; margin-bottom: 32px; z-index: 1;">
+                                    <div style="position: relative; margin-bottom: 32px; z-index: 1;">
                                         <!-- Stacked shadow effect -->
                                         <div style="position: absolute; top: 6px; left: 6px; right: -6px; bottom: -6px; background: linear-gradient(135deg, rgba(196, 255, 0, 0.12) 0%, rgba(196, 255, 0, 0.06) 100%); border-radius: 20px; z-index: 1;"></div>
 
                                         <div style="position: relative; background: #f5f5dc; border-radius: 20px; overflow: hidden; z-index: 2; box-shadow: 0 2px 20px rgba(61, 37, 23, 0.08);">
 
-                                            <!-- Header: Stage badge + Question (clickable to expand/collapse) -->
-                                            <div onclick="toggleGapCard('${taskId}')" style="background: linear-gradient(135deg, #2d2828 0%, #5a4228 100%); padding: 28px 36px; cursor: pointer; transition: all 0.2s;">
+                                            <!-- Header: Stage badge + Question -->
+                                            <div style="background: linear-gradient(135deg, #2d2828 0%, #5a4228 100%); padding: 28px 36px;">
                                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                                                     <div style="display: inline-block; background: #eaffc4; color: #2d2828; font-size: 11px; font-weight: 800; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1.2px;">Stage - ${gap.stage}</div>
-                                                    <div style="display: flex; align-items: center; gap: 12px;">
-                                                        <!-- Completed checkmark (hidden by default) - just checkmark, no text -->
-                                                        <div id="gap-completed-badge-${taskId}" style="display: ${(userData.completedTasks[taskId] && userData.completedTasks[taskId].completed) ? 'flex' : 'none'}; align-items: center; justify-content: center; background: rgba(234, 255, 196, 0.25); padding: 6px; border-radius: 50%; width: 28px; height: 28px;">
-                                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#eaffc4" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                                        </div>
-                                                        <!-- Expand/collapse chevron -->
-                                                        <svg id="gap-chevron-${taskId}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#eaffc4" stroke-width="2" style="transition: transform 0.3s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                    </div>
                                                 </div>
                                                 <h4 style="color: #eaffc4; font-size: clamp(18px, 2.2vw, 24px); font-weight: 700; margin: 0; line-height: 1.3; letter-spacing: -0.5px;">${questionText}</h4>
                                             </div>
 
-                                            <!-- Full Width Layout: Advice, Research References, then Tools (collapsible) -->
-                                            <div id="gap-content-${taskId}" style="padding: 36px; display: none;">
+                                            <!-- Full Width Layout: Advice, Research References, then Tools -->
+                                            <div style="padding: 36px;">
                                                 <!-- Advice section with subtle label -->
                                                 <div style="margin-bottom: 28px;">
                                                     <div style="color: #2d2828; opacity: 0.5; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;">How to Address This</div>
-                                                    <p style="color: #2d2828; font-size: 14px; line-height: 1.7; margin: 0; font-weight: 400; white-space: pre-line;">${advice}</p>
+                                                    <p style="color: #2d2828; font-size: 14px; line-height: 1.7; margin: 0; font-weight: 400;">${advice}</p>
                                                 </div>
 
                                                 <!-- Recommended Tools (between Advice and Research References) -->
@@ -6313,58 +5690,118 @@
                                                         </div>
                                                     ` : ''}
 
-                                                <!-- COMPLETION UI - Minimalist design following Jeton/Phamily/Osmo principles -->
+                                                <!-- COMPLETION UI (Jeton/Phamily/Osmo Principles Applied) -->
                                                 ${(() => {
-                                                    // Use same taskId format as gap card wrapper for consistency (using globalIdx)
-                                                    const completionTaskId = `${elementName.toLowerCase()}-${gap.stage.toLowerCase()}-${globalIdx}`;
-                                                    const completion = userData.completedTasks[completionTaskId];
-                                                    const isCompleted = completion && completion.completed;
+                                                    const taskId = `task-${allGaps.findIndex(g => g.element === elementName && g.stage === gap.stage && g.question === gap.question)}`;
+                                                    const isCompleted = userData.completedTasks[taskId];
+                                                    const isFirstGap = idx === 0;
 
-                                                    if (isCompleted) {
-                                                        // COMPLETED STATE - Right-justified, minimal
-                                                        const completedDate = completion.completedAt ? new Date(completion.completedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' }) : '';
-                                                        return `
-                                                            <div style="margin-top: 28px; display: flex; flex-direction: column; align-items: flex-end;">
-                                                                <div style="display: flex; align-items: center; gap: 8px;">
-                                                                    <span style="color: #2d2828; font-size: 12px; opacity: 0.4;">Done${completedDate ? ' · ' + completedDate : ''}${completion.satisfaction === 'up' ? ' · Helpful' : completion.satisfaction === 'down' ? ' · Needs work' : ''}</span>
-                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d2828" stroke-width="2" style="opacity: 0.4;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                                                </div>
-                                                                ${completion.notes ? `<p style="color: #2d2828; font-size: 11px; opacity: 0.35; margin: 6px 0 0 0; font-style: italic; text-align: right;">"${completion.notes}"</p>` : ''}
-                                                                <button onclick="uncompleteGap('${completionTaskId}')" style="background: none; border: none; color: #2d2828; font-size: 11px; opacity: 0.3; cursor: pointer; padding: 0; margin-top: 4px;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='0.3'">Undo</button>
-                                                            </div>
-                                                        `;
-                                                    } else {
-                                                        // NOT COMPLETED - Right-justified with checkmark button
-                                                        return `
-                                                            <div id="completion-${completionTaskId}" style="margin-top: 28px; display: flex; flex-direction: column; align-items: flex-end;">
-                                                                <!-- Default: Mark complete with checkmark -->
-                                                                <div id="completion-default-${completionTaskId}" onclick="expandCompletion('${completionTaskId}')" style="display: flex; align-items: center; gap: 6px; cursor: pointer; opacity: 0.35; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.6'" onmouseout="this.style.opacity='0.35'">
-                                                                    <span style="color: #2d2828; font-size: 12px;">Mark complete</span>
-                                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d2828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                                                </div>
-                                                                <!-- Expanded: Rating + optional notes on one line -->
-                                                                <div id="completion-expanded-${completionTaskId}" style="display: none; text-align: right; width: 100%;">
-                                                                    <p style="color: #2d2828; font-size: 12px; margin: 0 0 12px 0; opacity: 0.6;">How would you rate this action?</p>
-                                                                    <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-bottom: 12px;">
-                                                                        <svg id="thumb-up-${completionTaskId}" onclick="selectRating('${completionTaskId}', 'up')" width="22" height="22" viewBox="0 0 24 24" fill="#2d2828" style="opacity: 0.25; cursor: pointer; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.opacity='0.6'" onmouseout="if(!this.classList.contains('selected'))this.style.opacity='0.25'"><path d="M2 20h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1H2v11zm19.83-7.12c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2 7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.84C7 18.95 8.05 20 9.34 20h8.11c.7 0 1.36-.37 1.72-.97l2.66-6.15z"/></svg>
-                                                                        <svg id="thumb-down-${completionTaskId}" onclick="selectRating('${completionTaskId}', 'down')" width="22" height="22" viewBox="0 0 24 24" fill="#2d2828" style="opacity: 0.25; cursor: pointer; transition: all 0.2s; flex-shrink: 0;" onmouseover="this.style.opacity='0.6'" onmouseout="if(!this.classList.contains('selected'))this.style.opacity='0.25'"><path d="M22 4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1h2V4zM2.17 11.12c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15z"/></svg>
-                                                                        <input id="notes-${completionTaskId}" type="text" placeholder="Please tell us more (optional)" style="flex: 1; max-width: 240px; padding: 8px 12px; border: none; border-radius: 6px; font-size: 11px; font-family: inherit; background: rgba(45, 40, 40, 0.04); color: #2d2828; outline: none;" onfocus="this.style.background='rgba(45, 40, 40, 0.06)'" onblur="this.style.background='rgba(45, 40, 40, 0.04)'">
+                                                    return `
+                                                        <!-- Generous vertical spacing (Jeton pattern: py-36) -->
+                                                        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid rgba(45, 40, 40, 0.08);">
+
+                                                            ${isCompleted ? `
+                                                                <!-- COMPLETED STATE: Minimal, confident (Osmo: show don't tell) -->
+                                                                <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: start; gap: 16px; padding: 24px; background: rgba(234, 255, 196, 0.06); border: 1px solid rgba(234, 255, 196, 0.2); border-radius: 8px; transition: all 0.3s ease;">
+                                                                    <!-- Restrained checkmark icon -->
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" style="min-width: 24px; margin-top: 2px;">
+                                                                        <circle cx="12" cy="12" r="11" fill="none" stroke="#eaffc4" stroke-width="1.5"/>
+                                                                        <path d="M7 12l4 4 6-8" stroke="#eaffc4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                    <div style="flex: 1;">
+                                                                        <p style="color: #2d2828; font-size: 15px; font-weight: 600; margin: 0 0 4px 0;">Completed</p>
+                                                                        <p style="color: #2d2828; font-size: 13px; opacity: 0.6; margin: 0;">${new Date(userData.completedTasks[taskId].completedAt).toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
                                                                     </div>
-                                                                    <div style="display: flex; justify-content: flex-end; gap: 12px; align-items: center;">
-                                                                        <span onclick="collapseCompletion('${completionTaskId}')" style="color: #2d2828; font-size: 11px; opacity: 0.3; cursor: pointer;">Cancel</span>
-                                                                        <button id="submit-${completionTaskId}" onclick="submitCompletion('${completionTaskId}')" style="background: #2d2828; border: none; padding: 8px 16px; border-radius: 6px; font-size: 11px; color: #eaffc4; cursor: pointer; opacity: 0.4; transition: all 0.2s;" disabled>Submit</button>
+                                                                    <!-- Subtle expand indicator -->
+                                                                    <svg width="20" height="20" viewBox="0 0 20 20" style="opacity: 0.3; transition: transform 0.3s;">
+                                                                        <path d="M5 7l5 5 5-5" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                </div>
+
+                                                                <!-- Expanded completion details -->
+                                                                <div id="gap-completion-${taskId}" style="display: none; margin-top: 20px; padding: 24px; background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.08); border-radius: 8px;">
+                                                                    ${userData.completedTasks[taskId].satisfaction ? `
+                                                                        <div style="margin-bottom: 20px;">
+                                                                            <p style="color: #2d2828; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; opacity: 0.7;">Outcome</p>
+                                                                            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: ${userData.completedTasks[taskId].satisfaction === 'up' ? 'rgba(234, 255, 196, 0.15)' : 'rgba(184, 215, 143, 0.1)'}; border-radius: 24px;">
+                                                                                ${userData.completedTasks[taskId].satisfaction === 'up' ? `
+                                                                                    <svg width="16" height="16" viewBox="0 0 24 24">
+                                                                                        <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                                    </svg>
+                                                                                    <span style="color: #2d2828; font-size: 13px; font-weight: 500;">Satisfied</span>
+                                                                                ` : `
+                                                                                    <svg width="16" height="16" viewBox="0 0 24 24" style="transform: scaleY(-1);">
+                                                                                        <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                                    </svg>
+                                                                                    <span style="color: #2d2828; font-size: 13px; font-weight: 500;">Needs improvement</span>
+                                                                                `}
+                                                                            </div>
+                                                                        </div>
+                                                                    ` : ''}
+                                                                    ${userData.completedTasks[taskId].notes ? `
+                                                                        <div style="margin-bottom: 20px;">
+                                                                            <p style="color: #2d2828; font-size: 13px; font-weight: 600; margin: 0 0 8px 0; opacity: 0.7;">Notes</p>
+                                                                            <p style="color: #2d2828; font-size: 14px; margin: 0; line-height: 1.6;">${userData.completedTasks[taskId].notes}</p>
+                                                                        </div>
+                                                                    ` : ''}
+                                                                    <!-- Clear hierarchy: secondary action -->
+                                                                    <button onclick="event.stopPropagation(); uncompleteGap('${taskId}')" style="background: transparent; border: 1px solid rgba(45, 40, 40, 0.2); color: #2d2828; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s;" onmouseover="this.style.borderColor='#2d2828'" onmouseout="this.style.borderColor='rgba(45, 40, 40, 0.2)'">
+                                                                        Mark as incomplete
+                                                                    </button>
+                                                                </div>
+                                                            ` : `
+                                                                <!-- INCOMPLETE STATE: Clear call-to-action (Phamily: human-centered) -->
+                                                                <div onclick="toggleGapCompletion('${taskId}')" style="cursor: pointer; display: flex; align-items: start; gap: 16px; padding: 24px; background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.1); border-radius: 8px; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(45, 40, 40, 0.25)'" onmouseout="this.style.borderColor='rgba(45, 40, 40, 0.1)'">
+                                                                    <!-- Minimal circle outline (restrained) -->
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" style="min-width: 24px; margin-top: 2px;">
+                                                                        <circle cx="12" cy="12" r="11" fill="none" stroke="rgba(45, 40, 40, 0.2)" stroke-width="1.5"/>
+                                                                    </svg>
+                                                                    <div style="flex: 1;">
+                                                                        <p style="color: #2d2828; font-size: 15px; font-weight: 600; margin: 0 0 4px 0;">Mark as complete</p>
+                                                                        <p style="color: #2d2828; font-size: 13px; opacity: 0.5; margin: 0;">Track your progress</p>
+                                                                    </div>
+                                                                    <svg width="20" height="20" viewBox="0 0 20 20" style="opacity: 0.3; transition: transform 0.3s;">
+                                                                        <path d="M5 7l5 5 5-5" stroke="#2d2828" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                                                </div>
+
+                                                                <!-- Completion form (Jeton: modular, self-contained) -->
+                                                                <div id="gap-completion-${taskId}" style="display: ${isFirstGap ? 'block' : 'none'}; margin-top: 20px; padding: 32px; background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.08); border-radius: 8px;">
+                                                                    <!-- Clear visual hierarchy -->
+                                                                    <p style="color: #2d2828; font-size: 15px; font-weight: 600; margin: 0 0 24px 0;">How did it go?</p>
+
+                                                                    <!-- Restrained two-option layout (Osmo: functional clarity) -->
+                                                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'up')" style="background: #ffffff; border: 1px solid rgba(234, 255, 196, 0.4); padding: 24px 20px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(234, 255, 196, 0.08)'; this.style.borderColor='#eaffc4'" onmouseout="this.style.background='#ffffff'; this.style.borderColor='rgba(234, 255, 196, 0.4)'">
+                                                                            <!-- Simple, elegant icon -->
+                                                                            <svg width="28" height="28" viewBox="0 0 24 24">
+                                                                                <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                            </svg>
+                                                                            <span style="color: #2d2828; font-size: 14px; font-weight: 500;">Satisfied</span>
+                                                                        </button>
+                                                                        <button onclick="event.stopPropagation(); completeGap('${taskId}', 'down')" style="background: #ffffff; border: 1px solid rgba(45, 40, 40, 0.15); padding: 24px 20px; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 12px; transition: all 0.3s ease;" onmouseover="this.style.background='rgba(45, 40, 40, 0.02)'; this.style.borderColor='rgba(45, 40, 40, 0.25)'" onmouseout="this.style.background='#ffffff'; this.style.borderColor='rgba(45, 40, 40, 0.15)'">
+                                                                            <svg width="28" height="28" viewBox="0 0 24 24" style="transform: scaleY(-1);">
+                                                                                <path d="M11 12c0-1.5 1.5-3 3-3s2 1 2 2v3h5c1 0 1.5 0.5 1.5 1.5v0.5c0 0.8-0.5 1.5-1.5 1.5h-3l0.8 4c0 0.8-0.5 1.5-1.3 1.5s-1.5-0.7-1.5-1.5l-1.5-4.5H11V12z" fill="none" stroke="#2d2828" stroke-width="1.5" stroke-linecap="round"/>
+                                                                            </svg>
+                                                                            <span style="color: #2d2828; font-size: 14px; font-weight: 500;">Needs work</span>
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <!-- Optional notes (progressive disclosure) -->
+                                                                    <div>
+                                                                        <label style="color: #2d2828; font-size: 13px; font-weight: 600; display: block; margin-bottom: 8px; opacity: 0.7;">Notes (optional)</label>
+                                                                        <textarea id="gap-notes-${taskId}" placeholder="Add context about what worked or what to improve..." style="width: 100%; padding: 14px; border: 1px solid rgba(45, 40, 40, 0.15); border-radius: 6px; font-family: 'Montserrat', sans-serif; font-size: 14px; resize: vertical; min-height: 100px; transition: border-color 0.2s; line-height: 1.5;" onfocus="this.style.borderColor='#eaffc4'" onblur="this.style.borderColor='rgba(45, 40, 40, 0.15)'"></textarea>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        `;
-                                                    }
+                                                            `}
+                                                        </div>
+                                                    `;
                                                 })()}
                                             </div>
                                         </div>
                                     </div>
                                 `;
                             }).join('')}
-                            </div><!-- Close gaps container -->
                         </div>
                     `;
                 });
@@ -6372,12 +5809,6 @@
                 gapsHTML += '</div>'; // Close max-width container
 
                 gapsContent.innerHTML = gapsHTML;
-
-                // Initialize gap card expand/collapse states and tooltips
-                setTimeout(() => {
-                    initializeGapCards();
-                    initializeTooltips(); // Re-initialize for dynamically added tooltips
-                }, 100);
             } else if (totalAnswered > 0) {
                 gapsContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">No gaps identified. You\'re doing great!</p>';
             } else {
@@ -6481,8 +5912,7 @@
                 `;
 
                 allGaps.forEach((gap, index) => {
-                    // Use consistent taskId format matching gap cards
-                    const taskId = `${gap.element.toLowerCase()}-${gap.stage.toLowerCase()}-${index}`;
+                    const taskId = `task-${index}`;
                     const questionText = isSolo ? (gap.question.Solo || gap.question.solo) : (gap.question.Team || gap.question.team);
                     const isCompleted = userData.completedTasks[taskId];
 
@@ -7172,6 +6602,9 @@
                 const prelimSection = document.querySelector('.prelim-section');
                 if (prelimSection) {
                     prelimSection.style.maxWidth = '100%';
+                    prelimSection.style.margin = '0 0 24px 0';
+                    prelimSection.style.borderRadius = '0';
+                    prelimSection.style.padding = '40px 16px';
                     console.log('✅ Prelim section fixed');
                 }
 
@@ -7453,169 +6886,6 @@
                     }
                 }
             }
-        });
-
-        // Initialize tooltip popovers - can be called multiple times for dynamically added tooltips
-        function initializeTooltips() {
-            const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
-
-            tooltipTriggers.forEach(trigger => {
-                // Skip if already initialized
-                if (trigger.dataset.tooltipInitialized) return;
-                trigger.dataset.tooltipInitialized = 'true';
-
-                const popover = trigger.querySelector('.tooltip-popover');
-                if (!popover) return;
-
-                function positionTooltip() {
-                    // Get trigger button position
-                    const triggerRect = trigger.getBoundingClientRect();
-                    const triggerCenterX = triggerRect.left + triggerRect.width / 2;
-                    const triggerTop = triggerRect.top;
-                    const triggerBottom = triggerRect.bottom;
-
-                    // Get viewport dimensions
-                    const viewportWidth = window.innerWidth;
-                    const viewportHeight = window.innerHeight;
-
-                    // Temporarily show popover to measure it (off-screen)
-                    popover.style.visibility = 'hidden';
-                    popover.style.opacity = '0';
-                    popover.style.display = 'block';
-
-                    const popoverHeight = popover.offsetHeight || 200;
-                    const popoverWidth = popover.offsetWidth || 400;
-
-                    // Reset display (will be controlled by CSS hover/active)
-                    popover.style.display = '';
-                    popover.style.visibility = '';
-                    popover.style.opacity = '';
-
-                    // Check if there's enough space above the button (need popoverHeight + 12px gap + 8px margin)
-                    const spaceAbove = triggerTop;
-                    const spaceBelow = viewportHeight - triggerBottom;
-                    const neededSpace = popoverHeight + 20; // 12px gap + 8px margin
-
-                    let finalTop;
-                    let showBelow = false;
-
-                    if (spaceAbove >= neededSpace) {
-                        // Position ABOVE the button - plenty of room
-                        finalTop = triggerTop - popoverHeight - 12;
-                        showBelow = false;
-                    } else if (spaceBelow >= neededSpace) {
-                        // Position BELOW the button - plenty of room
-                        finalTop = triggerBottom + 12;
-                        showBelow = true;
-                    } else {
-                        // Not enough space either way - check which causes less overlap
-                        // If we clamp above to 8px, would the popover bottom overlap the button?
-                        const clampedAboveTop = Math.max(8, triggerTop - popoverHeight - 12);
-                        const clampedAboveBottom = clampedAboveTop + popoverHeight;
-                        const wouldOverlapAbove = clampedAboveBottom > triggerTop - 8;
-
-                        // If we show below, would the popover bottom go off screen?
-                        const belowTop = triggerBottom + 12;
-                        const belowBottom = belowTop + popoverHeight;
-                        const wouldOverflowBelow = belowBottom > viewportHeight - 8;
-
-                        // Prefer below if above would overlap, or if below fits better
-                        if (wouldOverlapAbove && !wouldOverflowBelow) {
-                            finalTop = belowTop;
-                            showBelow = true;
-                        } else if (!wouldOverlapAbove) {
-                            finalTop = clampedAboveTop;
-                            showBelow = false;
-                        } else {
-                            // Both would have issues - prefer below as it's more natural reading direction
-                            finalTop = belowTop;
-                            showBelow = true;
-                        }
-                    }
-
-                    popover.style.top = finalTop + 'px';
-
-                    // Add or remove 'below' class for arrow direction
-                    if (showBelow) {
-                        popover.classList.add('below');
-                    } else {
-                        popover.classList.remove('below');
-                    }
-
-                    // Calculate ideal centered position
-                    let popoverLeft = (viewportWidth - popoverWidth) / 2;
-
-                    // Calculate arrow offset: distance from popover left edge to button center
-                    let arrowOffset = triggerCenterX - popoverLeft;
-
-                    // Arrow bounds (with padding from edges)
-                    const minArrowOffset = 24;
-                    const maxArrowOffset = popoverWidth - 24;
-
-                    // If arrow would be clamped, shift the tooltip instead
-                    if (arrowOffset > maxArrowOffset) {
-                        // Button is to the right - shift tooltip right
-                        const shiftAmount = arrowOffset - maxArrowOffset;
-                        popoverLeft = Math.min(popoverLeft + shiftAmount, viewportWidth - popoverWidth - 8);
-                        arrowOffset = triggerCenterX - popoverLeft;
-                    } else if (arrowOffset < minArrowOffset) {
-                        // Button is to the left - shift tooltip left
-                        const shiftAmount = minArrowOffset - arrowOffset;
-                        popoverLeft = Math.max(popoverLeft - shiftAmount, 8);
-                        arrowOffset = triggerCenterX - popoverLeft;
-                    }
-
-                    // Final clamp of arrow (safety)
-                    const clampedArrowOffset = Math.max(minArrowOffset, Math.min(maxArrowOffset, arrowOffset));
-
-                    // Apply horizontal position
-                    popover.style.left = popoverLeft + 'px';
-                    popover.style.transform = 'none';
-                    popover.style.setProperty('--arrow-offset', clampedArrowOffset + 'px');
-                }
-
-                // Position immediately and on hover (desktop)
-                positionTooltip();
-                trigger.addEventListener('mouseenter', positionTooltip);
-
-                // Reposition on scroll (since position is fixed and button moves)
-                window.addEventListener('scroll', () => {
-                    if (trigger.matches(':hover') || trigger.classList.contains('active')) {
-                        positionTooltip();
-                    }
-                }, { passive: true });
-
-                // Position on click/touch (mobile) - toggle active class
-                trigger.addEventListener('click', (e) => {
-                    e.stopPropagation();
-
-                    // Close any other open tooltips
-                    document.querySelectorAll('.tooltip-trigger').forEach(t => {
-                        if (t !== trigger) t.classList.remove('active');
-                    });
-
-                    // Toggle this tooltip
-                    const isActive = trigger.classList.contains('active');
-                    if (!isActive) {
-                        positionTooltip();
-                        trigger.classList.add('active');
-                    } else {
-                        trigger.classList.remove('active');
-                    }
-                });
-            });
-        }
-
-        // Initialize on page load and set up global click handler
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeTooltips();
-
-            // Close tooltips when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.tooltip-trigger')) {
-                    document.querySelectorAll('.tooltip-trigger').forEach(t => t.classList.remove('active'));
-                }
-            });
         });
     </script>
 
