@@ -6328,9 +6328,10 @@
 
                 gapsContent.innerHTML = gapsHTML;
 
-                // Initialize gap card expand/collapse states
+                // Initialize gap card expand/collapse states and tooltips
                 setTimeout(() => {
                     initializeGapCards();
+                    initializeTooltips(); // Re-initialize for dynamically added tooltips
                 }, 100);
             } else if (totalAnswered > 0) {
                 gapsContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">No gaps identified. You\'re doing great!</p>';
@@ -7409,11 +7410,15 @@
             }
         });
 
-        // Position tooltip popovers centered on page with arrow pointing to button
-        document.addEventListener('DOMContentLoaded', () => {
+        // Initialize tooltip popovers - can be called multiple times for dynamically added tooltips
+        function initializeTooltips() {
             const tooltipTriggers = document.querySelectorAll('.tooltip-trigger');
 
             tooltipTriggers.forEach(trigger => {
+                // Skip if already initialized
+                if (trigger.dataset.tooltipInitialized) return;
+                trigger.dataset.tooltipInitialized = 'true';
+
                 const popover = trigger.querySelector('.tooltip-popover');
                 if (!popover) return;
 
@@ -7472,7 +7477,7 @@
                     e.stopPropagation();
 
                     // Close any other open tooltips
-                    tooltipTriggers.forEach(t => {
+                    document.querySelectorAll('.tooltip-trigger').forEach(t => {
                         if (t !== trigger) t.classList.remove('active');
                     });
 
@@ -7486,11 +7491,16 @@
                     }
                 });
             });
+        }
+
+        // Initialize on page load and set up global click handler
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTooltips();
 
             // Close tooltips when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.tooltip-trigger')) {
-                    tooltipTriggers.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tooltip-trigger').forEach(t => t.classList.remove('active'));
                 }
             });
         });
