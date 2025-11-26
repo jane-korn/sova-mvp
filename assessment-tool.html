@@ -7507,17 +7507,35 @@
                         popover.classList.remove('below');
                     }
 
-                    // Calculate where the popover will be positioned (centered on viewport)
-                    const popoverLeft = (viewportWidth - popoverWidth) / 2;
+                    // Calculate ideal centered position
+                    let popoverLeft = (viewportWidth - popoverWidth) / 2;
 
                     // Calculate arrow offset: distance from popover left edge to button center
-                    const arrowOffset = triggerCenterX - popoverLeft;
+                    let arrowOffset = triggerCenterX - popoverLeft;
 
-                    // Clamp arrow position to stay within popover bounds (with padding)
+                    // Arrow bounds (with padding from edges)
                     const minArrowOffset = 24;
                     const maxArrowOffset = popoverWidth - 24;
+
+                    // If arrow would be clamped, shift the tooltip instead
+                    if (arrowOffset > maxArrowOffset) {
+                        // Button is to the right - shift tooltip right
+                        const shiftAmount = arrowOffset - maxArrowOffset;
+                        popoverLeft = Math.min(popoverLeft + shiftAmount, viewportWidth - popoverWidth - 8);
+                        arrowOffset = triggerCenterX - popoverLeft;
+                    } else if (arrowOffset < minArrowOffset) {
+                        // Button is to the left - shift tooltip left
+                        const shiftAmount = minArrowOffset - arrowOffset;
+                        popoverLeft = Math.max(popoverLeft - shiftAmount, 8);
+                        arrowOffset = triggerCenterX - popoverLeft;
+                    }
+
+                    // Final clamp of arrow (safety)
                     const clampedArrowOffset = Math.max(minArrowOffset, Math.min(maxArrowOffset, arrowOffset));
 
+                    // Apply horizontal position
+                    popover.style.left = popoverLeft + 'px';
+                    popover.style.transform = 'none';
                     popover.style.setProperty('--arrow-offset', clampedArrowOffset + 'px');
                 }
 
