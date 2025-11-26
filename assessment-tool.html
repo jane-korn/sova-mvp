@@ -818,6 +818,7 @@
 
         .tooltip-popover {
             position: fixed;
+            top: 50px;
             bottom: auto;
             left: 50%;
             transform: translateX(-50%);
@@ -831,7 +832,7 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease, top 0.3s ease;
             z-index: 999999 !important;
         }
 
@@ -7431,22 +7432,10 @@
                     // Get viewport dimensions
                     const viewportWidth = window.innerWidth;
 
-                    // Temporarily make popover visible to measure it
-                    const originalDisplay = popover.style.display;
-                    const originalVisibility = popover.style.visibility;
-                    const originalOpacity = popover.style.opacity;
-                    popover.style.visibility = 'hidden';
-                    popover.style.opacity = '0';
-                    popover.style.display = 'block';
-                    popover.style.top = '0px'; // Reset to get accurate height
-
-                    const popoverHeight = popover.offsetHeight;
-                    const popoverWidth = popover.offsetWidth;
-
-                    // Restore original styles
-                    popover.style.display = originalDisplay;
-                    popover.style.visibility = originalVisibility;
-                    popover.style.opacity = originalOpacity;
+                    // Measure popover dimensions (it's hidden but we can still measure)
+                    const popoverRect = popover.getBoundingClientRect();
+                    const popoverHeight = popover.offsetHeight || 200; // fallback
+                    const popoverWidth = popover.offsetWidth || 400; // fallback
 
                     // Position tooltip ABOVE the button with 12px gap
                     const tooltipTop = triggerTop - popoverHeight - 12;
@@ -7469,8 +7458,16 @@
                     popover.style.setProperty('--arrow-offset', clampedArrowOffset + 'px');
                 }
 
-                // Position on hover (desktop)
+                // Position immediately and on hover (desktop)
+                positionTooltip();
                 trigger.addEventListener('mouseenter', positionTooltip);
+
+                // Reposition on scroll (since position is fixed and button moves)
+                window.addEventListener('scroll', () => {
+                    if (trigger.matches(':hover') || trigger.classList.contains('active')) {
+                        positionTooltip();
+                    }
+                }, { passive: true });
 
                 // Position on click/touch (mobile) - toggle active class
                 trigger.addEventListener('click', (e) => {
