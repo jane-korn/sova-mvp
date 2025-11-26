@@ -8,7 +8,28 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 ## Recent Updates (2025-11-26)
 
-### Gap Completion UI
+### Link Standardisation
+- ✅ Standardised all "View Source" and "Read More/Less" links across assessment tool
+- ✅ Consistent styling: Montserrat font, 11px, bold (700), no underline, no italic
+- ✅ Triangle arrow icons: ▸ (View Source), ▾ (Read More), ▴ (Read Less)
+- ✅ CSS classes: `.source-link`, `.read-more-link.expand`, `.read-more-link.collapse`
+- ✅ Updated `toggleQuote()` function for expand/collapse state management
+
+### Gap Card Mobile Layout
+- ✅ Reduced header padding: 28px 36px → 20px 16px on mobile
+- ✅ Reduced content padding: 36px → 20px 16px on mobile
+- ✅ Fixed Research References box overflow
+- ✅ Tool cards: single column layout on mobile
+- ✅ Proper word-wrap for all text content to prevent spillover
+
+### Excel Tool Mapping (Self Assessment Structure.xlsx)
+- ✅ Identified 22 broken links in Tool/Framework columns (marked red)
+- ✅ Added 3 new columns: Missing tool 1, Missing tool 2, Missing tool 3
+- ✅ Mapped 222 tools from Tools and methodologies.xlsx
+- ✅ Added 46 hyperlinks to tools with URLs
+- ✅ Backup created: Self Assessment Structure_backup_20251126_170321.xlsx
+
+### Gap Completion UI (Earlier)
 - ✅ Redesigned completion UI following Jeton/Phamily/Osmo minimalist principles
 - ✅ "Mark complete" text with watermark thumbs (12% opacity) right-justified
 - ✅ Progressive disclosure: collapsed by default, expands to show notes textarea
@@ -179,6 +200,7 @@ git push
 - 4 pulses @ 1.2s each before launching assessment
 
 ## Version History
+- **v6.36** - Standardised View Source/Read More links, gap card mobile layout fixes, triangle arrows
 - **v6.35** - Startup Sidekick alignment fix, Instagram templates, Montserrat font
 - **v6.34** - Mobile fixes, element label consistency
 - **v6.33** - Hidden state question
