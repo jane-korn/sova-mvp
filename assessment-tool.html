@@ -3424,13 +3424,14 @@
                 function completeGap(taskId, satisfaction) {
                     const notesField = document.getElementById(`notes-${taskId}`);
                     const notes = notesField ? notesField.value : '';
+                    const completedAt = new Date().toISOString();
 
                     // Save to userData
                     userData.completedTasks[taskId] = {
                         completed: true,
                         satisfaction: satisfaction,
                         notes: notes,
-                        completedAt: new Date().toISOString(),
+                        completedAt: completedAt,
                         source: 'report'
                     };
 
@@ -3443,8 +3444,73 @@
                         actionCheckbox.checked = true;
                     }
 
+                    // Submit feedback to Google Form
+                    submitGapFeedback(taskId, satisfaction, notes, completedAt);
+
                     // Re-render both Actions and Report
                     updateReportLive();
+                }
+
+                // Submit gap feedback to Google Form
+                function submitGapFeedback(taskId, satisfaction, notes, completedAt) {
+                    // Get gap details from taskId (format: task-0, task-1, etc.)
+                    const gapIndex = parseInt(taskId.replace('task-', ''));
+                    const gapData = window.currentAllGaps ? window.currentAllGaps[gapIndex] : null;
+
+                    if (!gapData) {
+                        console.warn('Gap data not found for', taskId);
+                        return;
+                    }
+
+                    // Get question text
+                    const questionText = userData.teamSize === 'Solo'
+                        ? (gapData.question.Solo || gapData.question.Team)
+                        : (gapData.question.Team || gapData.question.Solo);
+
+                    // Get or create session ID
+                    let sessionId = localStorage.getItem('sovaSessionId');
+                    if (!sessionId) {
+                        sessionId = 'session-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                        localStorage.setItem('sovaSessionId', sessionId);
+                    }
+
+                    // Google Form entry IDs
+                    const formId = '1FAIpQLSdTOWZGqVoKqIFkO4OHDHESNTPDlua9InbfHPkZYJqQ9el9eg';
+                    const entryIds = {
+                        sessionId: '692417882',
+                        element: '1977777150',
+                        stage: '1690374263',
+                        question: '1219793943',
+                        rating: '2045483238',
+                        feedback: '62288543',
+                        assessmentMode: '415723265',
+                        completedAt: '1029134294'
+                    };
+
+                    // Build form data
+                    const formData = new URLSearchParams();
+                    formData.append(`entry.${entryIds.sessionId}`, sessionId);
+                    formData.append(`entry.${entryIds.element}`, gapData.element);
+                    formData.append(`entry.${entryIds.stage}`, gapData.stage);
+                    formData.append(`entry.${entryIds.question}`, questionText || 'Unknown question');
+                    formData.append(`entry.${entryIds.rating}`, satisfaction === 'up' ? 'Helpful' : 'Needs work');
+                    formData.append(`entry.${entryIds.feedback}`, notes || '');
+                    formData.append(`entry.${entryIds.assessmentMode}`, userData.assessmentMode || 'complete');
+                    formData.append(`entry.${entryIds.completedAt}`, completedAt);
+
+                    // Submit via fetch (fire and forget - no CORS issues with Google Forms)
+                    fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: formData.toString()
+                    }).then(() => {
+                        console.log('Feedback submitted to Google Form');
+                    }).catch(err => {
+                        console.warn('Feedback submission failed (may still have succeeded):', err);
+                    });
                 }
 
                 // Helper: Expand completion input
@@ -5988,6 +6054,9 @@
                 if (stageOrder[a.stage] !== stageOrder[b.stage]) return stageOrder[a.stage] - stageOrder[b.stage];
                 return a.questionIndex - b.questionIndex;
             });
+
+            // Store allGaps globally for feedback submission
+            window.currentAllGaps = allGaps;
 
             // ======================
             // 1. OVERALL PROGRESS
