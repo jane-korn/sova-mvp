@@ -2886,12 +2886,14 @@
                 width: 100% !important;
             }
 
-            /* FIX: Stage badge - smaller on mobile */
+            /* FIX: Stage badge - smaller on mobile, left-aligned */
             .gap-card-wrapper div[onclick] > div:first-child > div:first-child {
                 font-size: 9px !important;
                 padding: 4px 8px !important;
                 letter-spacing: 0.8px !important;
                 white-space: nowrap !important;
+                margin-right: auto !important;
+                flex-shrink: 0 !important;
             }
 
             /* FIX: Chevron and checkmark container - no changes needed, space-between handles it */
@@ -2922,6 +2924,8 @@
                 box-sizing: border-box !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
+                overflow: hidden !important;
+                white-space: normal !important;
             }
 
             /* FIX: All content inside gap cards - prevent overflow */
@@ -6572,8 +6576,8 @@
 
                                                             <!-- Compact list of all references -->
                                                             <div style="display: flex; flex-direction: column; gap: 8px;">
-                                                                ${quoteFailure ? `<div style="display: flex; align-items: flex-start; gap: 8px;">
-                                                                    <span style="flex-shrink: 0; width: 32px; padding: 4px 0; border-radius: 4px; background: #b8d78f; font-size: 9px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding-left: 6px;">Risk</span>
+                                                                ${quoteFailure ? `<div style="display: flex; align-items: flex-start; gap: 6px;">
+                                                                    <span style="flex-shrink: 0; width: 28px; padding: 3px 0; border-radius: 4px; background: #c9b896; font-size: 8px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.3px; text-align: center;">Risk</span>
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_failure_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteFailure.replace(/"/g, '&quot;')}" data-short-text="${quoteFailure.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteFailure.substring(0, 120)}${quoteFailure.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
@@ -6582,8 +6586,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
-                                                                ${quoteFailure2 ? `<div style="display: flex; align-items: flex-start; gap: 8px;">
-                                                                    <span style="flex-shrink: 0; width: 32px; padding: 4px 0; border-radius: 4px; background: #b8d78f; font-size: 9px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding-left: 6px;">Risk</span>
+                                                                ${quoteFailure2 ? `<div style="display: flex; align-items: flex-start; gap: 6px;">
+                                                                    <span style="flex-shrink: 0; width: 28px; padding: 3px 0; border-radius: 4px; background: #c9b896; font-size: 8px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.3px; text-align: center;">Risk</span>
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_failure2_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteFailure2.replace(/"/g, '&quot;')}" data-short-text="${quoteFailure2.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteFailure2.substring(0, 120)}${quoteFailure2.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
@@ -6592,8 +6596,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
-                                                                ${quoteBestPractice ? `<div style="display: flex; align-items: flex-start; gap: 8px;">
-                                                                    <span style="flex-shrink: 0; width: 32px; padding: 4px 0; border-radius: 4px; background: #eaffc4; font-size: 9px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding-left: 6px;">Best</span>
+                                                                ${quoteBestPractice ? `<div style="display: flex; align-items: flex-start; gap: 6px;">
+                                                                    <span style="flex-shrink: 0; width: 28px; padding: 3px 0; border-radius: 4px; background: #eaffc4; font-size: 8px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.3px; text-align: center;">Best</span>
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_best_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteBestPractice.replace(/"/g, '&quot;')}" data-short-text="${quoteBestPractice.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteBestPractice.substring(0, 120)}${quoteBestPractice.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
@@ -6602,8 +6606,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
-                                                                ${quoteBestPractice2 ? `<div style="display: flex; align-items: flex-start; gap: 8px;">
-                                                                    <span style="flex-shrink: 0; width: 32px; padding: 4px 0; border-radius: 4px; background: #eaffc4; font-size: 9px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding-left: 6px;">Best</span>
+                                                                ${quoteBestPractice2 ? `<div style="display: flex; align-items: flex-start; gap: 6px;">
+                                                                    <span style="flex-shrink: 0; width: 28px; padding: 3px 0; border-radius: 4px; background: #eaffc4; font-size: 8px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.3px; text-align: center;">Best</span>
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_best2_${elementName}_${gap.stage}_${idx}" data-full-text="${quoteBestPractice2.replace(/"/g, '&quot;')}" data-short-text="${quoteBestPractice2.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0; font-style: italic;">${quoteBestPractice2.substring(0, 120)}${quoteBestPractice2.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
@@ -6612,8 +6616,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>` : ''}
-                                                                ${vcRequirements ? `<div style="display: flex; align-items: flex-start; gap: 8px;">
-                                                                    <span style="flex-shrink: 0; width: 32px; padding: 4px 0; border-radius: 4px; background: #b8d78f; font-size: 9px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; padding-left: 6px;">VC</span>
+                                                                ${vcRequirements ? `<div style="display: flex; align-items: flex-start; gap: 6px;">
+                                                                    <span style="flex-shrink: 0; width: 28px; padding: 3px 0; border-radius: 4px; background: #b8d78f; font-size: 8px; font-weight: 700; color: #2d2828; text-transform: uppercase; letter-spacing: 0.3px; text-align: center;">VC</span>
                                                                     <div style="flex: 1;">
                                                                         <p id="quote_vc_${elementName}_${gap.stage}_${idx}" data-full-text="${vcRequirements.replace(/"/g, '&quot;')}" data-short-text="${vcRequirements.substring(0, 120).replace(/"/g, '&quot;')}" style="color: #2d2828; font-size: 11px; line-height: 1.4; margin: 0;">${vcRequirements.substring(0, 120)}${vcRequirements.length > 120 ? '...' : ''}</p>
                                                                         <div style="margin-top: 4px; display: flex; gap: 12px;">
@@ -7936,4 +7940,4 @@
     <img src="favicon.png" alt="Sova" class="bird-icon">
 </body>
 </html>
-<!-- Cache bust: v6.34 - Modal and Glow Updates - 2025-11-21 -->
+<!-- Cache bust: v6.40 - Research Reference labels + mobile fixes - 2025-11-27 -->
