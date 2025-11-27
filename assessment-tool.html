@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-27 - Version 6.38 - Fix mobile chevron alignment and tool overflow with proper selectors -->
+<!-- UPDATED: 2025-11-27 - Version 6.39 - Fix stage badge left, chevron right alignment -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -2879,10 +2879,11 @@
             .gap-card-wrapper div[onclick] > div:first-child {
                 display: flex !important;
                 flex-wrap: nowrap !important;
+                flex-direction: row !important;
                 align-items: center !important;
                 justify-content: space-between !important;
-                gap: 8px !important;
                 margin-bottom: 12px !important;
+                width: 100% !important;
             }
 
             /* FIX: Stage badge - smaller on mobile */
@@ -2891,13 +2892,9 @@
                 padding: 4px 8px !important;
                 letter-spacing: 0.8px !important;
                 white-space: nowrap !important;
-                flex-shrink: 0 !important;
             }
 
-            /* FIX: Chevron container - don't shrink */
-            .gap-card-wrapper div[onclick] > div:first-child > div:last-child {
-                flex-shrink: 0 !important;
-            }
+            /* FIX: Chevron and checkmark container - no changes needed, space-between handles it */
 
             /* FIX: Gap card content - reduce padding */
             .gap-card-wrapper div[id^="gap-content-"] {
