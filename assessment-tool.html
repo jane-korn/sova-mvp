@@ -2886,14 +2886,17 @@
                 width: 100% !important;
             }
 
-            /* FIX: Stage badge - smaller on mobile, left-aligned */
+            /* FIX: Stage badge - smaller on mobile, left-aligned with question text */
             .gap-card-wrapper div[onclick] > div:first-child > div:first-child {
                 font-size: 9px !important;
-                padding: 4px 8px !important;
+                padding: 4px 8px 4px 0 !important;
                 letter-spacing: 0.8px !important;
                 white-space: nowrap !important;
                 margin-right: auto !important;
+                margin-left: 0 !important;
                 flex-shrink: 0 !important;
+                background: transparent !important;
+                color: #eaffc4 !important;
             }
 
             /* FIX: Chevron and checkmark container - no changes needed, space-between handles it */
@@ -7940,4 +7943,4 @@
     <img src="favicon.png" alt="Sova" class="bird-icon">
 </body>
 </html>
-<!-- Cache bust: v6.40 - Research Reference labels + mobile fixes - 2025-11-27 -->
+<!-- Cache bust: v6.41 - Stage badge alignment fix - 2025-11-27 -->
