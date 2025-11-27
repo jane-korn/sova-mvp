@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-27 - Version 6.37 - Fix mobile gap card header alignment and tool overflow -->
+<!-- UPDATED: 2025-11-27 - Version 6.38 - Fix mobile chevron alignment and tool overflow with proper selectors -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -2856,50 +2856,84 @@
                 overflow-wrap: break-word !important;
             }
 
-            /* FIX: Gap card wrapper - tighter margins */
+            /* FIX: Gap card wrapper - tighter margins and overflow control */
             .gap-card-wrapper {
                 margin-left: 0 !important;
                 margin-right: 0 !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
             }
 
-            /* FIX: Gap card header - reduce padding, keep chevron on same line */
-            .gap-card-wrapper [style*="padding: 28px 36px"] {
+            /* FIX: Gap card inner container - control overflow */
+            .gap-card-wrapper > div {
+                max-width: 100% !important;
+                overflow: hidden !important;
+            }
+
+            /* FIX: Gap card header - reduce padding */
+            .gap-card-wrapper div[onclick] {
                 padding: 16px 12px !important;
             }
 
-            /* FIX: Keep stage badge and chevron on same line */
-            .gap-card-wrapper [style*="justify-content: space-between"][style*="align-items: center"] {
+            /* FIX: Stage badge row - keep on same line with chevron */
+            .gap-card-wrapper div[onclick] > div:first-child {
+                display: flex !important;
                 flex-wrap: nowrap !important;
+                align-items: center !important;
+                justify-content: space-between !important;
                 gap: 8px !important;
+                margin-bottom: 12px !important;
             }
 
-            /* FIX: Stage badge smaller on mobile */
-            .gap-card-wrapper [style*="Stage -"] {
+            /* FIX: Stage badge - smaller on mobile */
+            .gap-card-wrapper div[onclick] > div:first-child > div:first-child {
                 font-size: 9px !important;
-                padding: 4px 10px !important;
+                padding: 4px 8px !important;
+                letter-spacing: 0.8px !important;
+                white-space: nowrap !important;
+                flex-shrink: 0 !important;
+            }
+
+            /* FIX: Chevron container - don't shrink */
+            .gap-card-wrapper div[onclick] > div:first-child > div:last-child {
+                flex-shrink: 0 !important;
             }
 
             /* FIX: Gap card content - reduce padding */
-            .gap-card-wrapper [style*="padding: 36px"] {
+            .gap-card-wrapper div[id^="gap-content-"] {
                 padding: 16px 12px !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
+                box-sizing: border-box !important;
             }
 
-            /* FIX: Tool grid - single column with proper margins */
-            .gap-card-wrapper [style*="grid-template-columns: repeat(auto-fit"] {
-                grid-template-columns: 1fr !important;
+            /* FIX: Tool grid - single column */
+            .gap-card-wrapper div[style*="display: grid"] {
+                display: flex !important;
+                flex-direction: column !important;
                 gap: 8px !important;
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+                max-width: 100% !important;
             }
 
             /* FIX: Tool cards - proper sizing and no overflow */
-            .gap-card-wrapper [style*="grid-template-columns"] a,
-            .gap-card-wrapper [style*="grid-template-columns"] > div {
+            .gap-card-wrapper div[style*="display: grid"] a,
+            .gap-card-wrapper div[style*="display: grid"] > div {
                 padding: 12px !important;
                 font-size: 13px !important;
-                max-width: calc(100% - 4px) !important;
-                margin-right: 4px !important;
+                max-width: 100% !important;
+                width: 100% !important;
                 box-sizing: border-box !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+
+            /* FIX: All content inside gap cards - prevent overflow */
+            .gap-card-wrapper p,
+            .gap-card-wrapper a,
+            .gap-card-wrapper div {
+                max-width: 100% !important;
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
             }
         }
 
