@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-27 - Version 6.33 - Shared config.js for chatbot integration -->
+<!-- UPDATED: 2025-11-27 - Version 6.34 - Mobile gap container spacing fix -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -2814,6 +2814,23 @@
                 box-sizing: border-box !important;
                 word-wrap: break-word !important;
                 overflow-wrap: break-word !important;
+            }
+
+            /* FIX: Element header padding - reduce on mobile */
+            #gapsContent [style*="padding: 32px 40px"] {
+                padding: 20px 16px !important;
+            }
+
+            /* FIX: Gaps container border/margin - reduce on mobile */
+            #gapsContent [style*="margin-left: 12px"] {
+                margin-left: 4px !important;
+                padding-left: 12px !important;
+            }
+
+            /* FIX: Max-width container - full width on mobile */
+            #gapsContent [style*="max-width: 1200px"] {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
             }
         }
 
