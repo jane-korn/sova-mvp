@@ -1,8 +1,8 @@
 // Assessment questions data - Generated from Self Assessment Structure.xlsx
 // Organized by Element and Stage for efficient lookups
 // Total questions: 113
-// Last updated: 2025-11-27 13:34:22
-// Hyperlinks extracted: 495
+// Last updated: 2025-11-27 13:49:59
+// Hyperlinks extracted: 496
 
 var allQuestionsData = {
   "Governance": {
@@ -552,7 +552,7 @@ var allQuestionsData = {
         "Tool/Framework 1": "SWOT",
         "Tool/Framework 2": "Competitive Analysis Template",
         "Tool/Framework 3": "Value Proposition Canvas",
-        "Tool/Framework 4": "Jobs To Be Done Framework",
+        "Tool/Framework 4": "Jobs To Be Done",
         "Tool/Framework 5": "Unique Selling Proposition (USP)",
         "Tool/Framework 6": null,
         "Advice": "Startups that can't articulate their difference get lost in the noise. If you can't explain why you're better, neither can your customers.\n\nSome recommended tools for you to consider and complete:\n→ SWOT: honestly assess your unique position.\n→ Competitive Analysis Template: a structured approach to understanding your competitors' strengths and weaknesses.\n→ Value Proposition Canvas: maps customer needs against your offering to find product-market fit.\n→ Jobs To Be Done Framework: helps you understand what job customers are hiring your product to do.\n→ Unique Selling Proposition (USP): guides you to define the one thing that makes you different.\n\nComplete a competitive analysis and articulate your difference in one sentence. Test it with potential customers.",
@@ -877,10 +877,10 @@ var allQuestionsData = {
         "Tool/Framework 1": "Concierge MVP",
         "Tool/Framework 2": "Wizard of Oz MVP",
         "Tool/Framework 3": "Landing Page MVP",
-        "Tool/Framework 4": "Pilot Program Framework",
+        "Tool/Framework 4": "Pilot Program",
         "Tool/Framework 5": null,
         "Tool/Framework 6": null,
-        "Advice": "Startups waste months building features nobody wants. Test your idea with real customers before you invest heavily, using a small Minimum Viable Product (MVP).\n\nSome recommended tools for you to consider and complete:\n→ Concierge MVP: deliver your service manually to test demand before building automation.\n→ Wizard of Oz MVP: create the illusion of a working product while you operate it behind the scenes.\n→ Landing Page MVP: test interest with a simple page before building the actual product.\n→ Pivot Framework: a structured approach to knowing when and how to change direction from your MVP efforts. \n\nPick the simplest way to test demand, launch it within days, and learn from real customer behaviour.",
+        "Advice": "Startups waste months building features nobody wants. Test your idea with real customers before you invest heavily, using a small Minimum Viable Product (MVP).\n\nSome recommended tools for you to consider and complete:\n→ Concierge MVP: deliver your service manually to test demand before building automation.\n→ Wizard of Oz MVP: create the illusion of a working product while you operate it behind the scenes.\n→ Landing Page MVP: test interest with a simple page before building the actual product.\n→ Pilot Program Framework: a structured approach to running pilots that prove product-market fit.\n\nPick the simplest way to test demand, launch it within days, and learn from real customer behaviour.",
         "Article References": "How to Build an MVP (Y Combinator)",
         "Other Articles": null,
         "VC requirements mapping": "Proof of Concept and Validation are significant factors that VCs consider when assessing startups. VCs want to see evidence that the startup's product or service has been tested or proven in the market. This validation shows that there is demand for the offering and reduces the risk of failure. It can be demonstrated through metrics such as user adoption, revenue growth, or partnerships.",
@@ -892,7 +892,7 @@ var allQuestionsData = {
         "Tool/Framework 1Link": "https://www.rabitsolutions.com/blog/examples-of-mvp/",
         "Tool/Framework 2Link": "https://www.interaction-design.org/literature/topics/wizard-of-oz-prototypes?srsltid=AfmBOopFYfzfhHDS858nF1ys4jRnqyz5ZMUipialRssBfH6P5ML5GWfZ",
         "Tool/Framework 3Link": "https://medium.com/@joelgascoigne/how-to-successfully-validate-your-idea-with-a-landing-page-mvp-ef3c2d02dc51",
-        "Tool/Framework 4Link": null,
+        "Tool/Framework 4Link": "https://www.productled.org/blog/framework-driving-product-market-fit-pilots",
         "Tool/Framework 5Link": null,
         "Tool/Framework 6Link": null,
         "ResourcesLink": null,
@@ -1018,7 +1018,7 @@ var allQuestionsData = {
         "Resources": null,
         "Tool/Framework 1": "Pre-sales Validation",
         "Tool/Framework 2": "LOI Templates",
-        "Tool/Framework 3": "Pilot Program Framework",
+        "Tool/Framework 3": "Pilot Program",
         "Tool/Framework 4": null,
         "Tool/Framework 5": null,
         "Tool/Framework 6": null,
@@ -1288,7 +1288,7 @@ var allQuestionsData = {
         "Tool/Framework 2Link": "https://medium.com/@arpit-mishra/a-step-by-step-guide-to-creating-an-ideal-customer-profile-icp-1f30723925e1",
         "Tool/Framework 3Link": "https://www.strategyzer.com/library/8-tips-for-conducting-interviews-that-deliver-relevant-customer-insights",
         "Tool/Framework 4Link": "https://www.productfocus.com/the-mom-test/",
-        "Tool/Framework 5Link": "../inbox/Allivate/_archives/assessment-tool-rebuild/jobs-to-be-done.com/jobs-to-be-done-a-framework-for-customer-needs-c883cbf61c90",
+        "Tool/Framework 5Link": "https://jtbd.info/2-what-is-jobs-to-be-done-jtbd-796b82081cca",
         "Tool/Framework 6Link": null,
         "ResourcesLink": null,
         "VC requirements mappingLink": "https://www.pitchdrive.com/academy/what-vc-look-for-in-startups",
@@ -1323,7 +1323,7 @@ var allQuestionsData = {
         "Tool/Framework 2Link": "https://blog.startupstash.com/customer-journey-mapping-in-10-steps-a-practical-guide-46b43ec14cdb",
         "Tool/Framework 3Link": "https://www.interaction-design.org/literature/topics/design-thinking",
         "Tool/Framework 4Link": "https://www.hubspot.com/make-my-persona/persona-examples",
-        "Tool/Framework 5Link": "https://jtbd.info/",
+        "Tool/Framework 5Link": "https://www.strategyzer.com/library/the-value-proposition-canvas",
         "Tool/Framework 6Link": "https://www.momtestbook.com/",
         "ResourcesLink": null,
         "VC requirements mappingLink": "https://www.pitchdrive.com/academy/what-vc-look-for-in-startups",
