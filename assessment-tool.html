@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-21 - Version 6.32 - FINAL: All 115 questions + Scale validation updated -->
+<!-- UPDATED: 2025-11-27 - Version 6.33 - Shared config.js for chatbot integration -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
     <title>Sova Business Assessment v3.0 - Multi-Element</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/variables.css">
+    <script src="config.js?v=20251127"></script>
     <script src="questions-data.js?v=20251126"></script>
     <script src="article-urls.js?v=20251126"></script>
     <script src="content-data.js?v=20251126"></script>
@@ -2992,12 +2993,11 @@
                             </div>
                         </div>
 
-                        <!-- Path 3: Chatbot (Coming Soon) -->
-                        <div class="path-card coming-soon">
+                        <!-- Path 3: Chatbot -->
+                        <div class="path-card" onclick="goToChatbot()">
                             <span class="path-number">3</span>
                             <h2 class="path-title">
                                 Work with Your Guide
-                                <span class="coming-soon-badge">Coming Soon</span>
                             </h2>
                             <p class="path-desc">
                                 Have a specific issue you're working through? Chat with Sova to explore solutions and frameworks tailored to your situation.
@@ -3809,61 +3809,9 @@
             completedTasks: {} // { taskId: { completed: true, satisfaction: 'up'|'down', notes: 'text' } }
         };
 
-        // Validation questions by stage (based on Self Assessment Structure.xlsx)
-        // Simplified validation questions - one per page
-        const validationQuestions = {
-            'Validation': {
-                heading: "Let's check you've completed Discovery foundations",
-                questions: [
-                    {
-                        q: "Do you understand the basic legal requirements to start testing your idea?",
-                        hint: "Things like ABN, basic insurance"
-                    },
-                    {
-                        q: "Have you documented a simple business plan?",
-                        hint: "Who you serve, what problem you solve, how you'll make money"
-                    },
-                    {
-                        q: "Do you have a plan to test your idea in the next 3-6 months?",
-                        hint: "Your core hypothesis and how you'll validate it"
-                    }
-                ]
-            },
-            'Efficiency': {
-                heading: "Let's check you've completed Validation foundations",
-                questions: [
-                    {
-                        q: "Have you documented who does what in your team?",
-                        hint: "Clear roles and responsibilities"
-                    },
-                    {
-                        q: "Do customers actually pay for your solution?",
-                        hint: "Mainstream customers, not just early supporters"
-                    },
-                    {
-                        q: "Have you researched your market?",
-                        hint: "Talked to customers, analysed competitors"
-                    }
-                ]
-            },
-            'Scale': {
-                heading: "Let's check you've completed Efficiency foundations",
-                questions: [
-                    {
-                        q: "Have you set up the legal requirements for your business?",
-                        hint: "Business registration, ABN, insurance, GST"
-                    },
-                    {
-                        q: "Do you have written policies in place?",
-                        hint: "Guidelines for daily decisions and governance"
-                    },
-                    {
-                        q: "Do you adapt when the market shifts?",
-                        hint: "You're flexible, not stubborn"
-                    }
-                ]
-            }
-        };
+        // Validation questions by stage - now loaded from shared config.js
+        // This ensures chatbot and assessment-tool use the same data
+        const validationQuestions = sovaConfig.validationQuestions;
 
         // Store preliminary flow state
         let prelimData = {
@@ -4115,6 +4063,20 @@
 
             // Show path selection page (page 4)
             nextPrelimPage(4);
+        }
+
+        // Go to chatbot page with context
+        function goToChatbot() {
+            // Build URL with context parameters
+            const params = new URLSearchParams();
+            params.set('from', 'assessment');
+            params.set('stage', prelimData.stage || 'Discovery');
+            if (prelimData.teamSize) {
+                params.set('team', prelimData.teamSize);
+            }
+
+            // Navigate to chatbot
+            window.location.href = 'chatbot.html?' + params.toString();
         }
 
         // Select path and continue to assessment

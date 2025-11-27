@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<!-- CREATED: 2025-11-27 - Version 3.0 - Sova AI Chatbot with Gemini, Full Knowledge Base, Funnel Technique -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Sova - Chat with Your Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            background: #2d2828;
+            color: #f5f5dc;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
+
+        /* Header */
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+            background: #2d2828;
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .header-content a { display: flex; text-decoration: none; }
+        .header-content img { height: 90px; }
+
+        /* Bird Icon */
+        .bird-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            height: 45px;
+            opacity: 0.4;
+            z-index: 1000;
+            transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+        .bird-icon:hover { opacity: 0.7; }
+
+        /* Chat Layout */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: calc(100vh - 122px);
+            padding: 2rem 0 10rem 0;
+        }
+        .chat-wrapper { max-width: 700px; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+        .messages-area { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Messages */
+        .message { animation: fadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.sova .message-content { color: #f5f5dc; font-size: 1.125rem; line-height: 1.7; }
+        .message.user { align-self: flex-end; max-width: 80%; }
+        .message.user .message-content {
+            background: rgba(234, 255, 196, 0.08);
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+        }
+        .message-content p { margin-bottom: 1rem; }
+        .message-content p:last-child { margin-bottom: 0; }
+        .message-content ul, .message-content ol { margin: 1rem 0; padding-left: 1.5rem; }
+        .message-content li { margin-bottom: 0.5rem; color: rgba(245, 245, 220, 0.9); }
+        .message-content strong { font-weight: 600; color: #eaffc4; }
+        .message-content em { font-style: italic; opacity: 0.85; }
+        .message-content a { color: #eaffc4; text-decoration: none; border-bottom: 1px solid rgba(234, 255, 196, 0.3); }
+        .message-content a:hover { border-bottom-color: #eaffc4; }
+
+        /* Typing indicator */
+        .typing-indicator { display: flex; gap: 6px; padding: 1rem 0; }
+        .typing-indicator span {
+            width: 8px; height: 8px;
+            background: rgba(234, 255, 196, 0.5);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Element Buttons */
+        .element-buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+        .element-btn {
+            background: transparent;
+            border: 1px solid rgba(234, 255, 196, 0.25);
+            color: #eaffc4;
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            font-family: inherit;
+        }
+        .element-btn:hover {
+            background: rgba(234, 255, 196, 0.1);
+            border-color: rgba(234, 255, 196, 0.5);
+            transform: translateY(-1px);
+        }
+
+        /* Input Area */
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2d2828;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+            padding: 1rem 2rem;
+            z-index: 100;
+        }
+        .input-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .input-row { display: flex; gap: 0.75rem; align-items: flex-end; }
+        .input-field {
+            flex: 1;
+            background: rgba(245, 245, 220, 0.03);
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: #f5f5dc;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 300;
+            resize: none;
+            min-height: 56px;
+            max-height: 150px;
+            transition: all 0.3s;
+        }
+        .input-field:focus { outline: none; border-color: rgba(234, 255, 196, 0.4); background: rgba(245, 245, 220, 0.05); }
+        .input-field::placeholder { color: rgba(245, 245, 220, 0.35); }
+        .input-field:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .send-btn {
+            background: #eaffc4;
+            border: none;
+            color: #2d2828;
+            padding: 1rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .send-btn:hover:not(:disabled) { background: #d4f0a8; transform: translateY(-2px); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Context Options */
+        .context-options {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+        }
+        .context-btn {
+            background: transparent;
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            color: rgba(245, 245, 220, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .context-btn:hover { border-color: rgba(234, 255, 196, 0.5); color: #f5f5dc; }
+        .context-btn.active { border-color: #eaffc4; color: #eaffc4; background: rgba(234, 255, 196, 0.1); }
+        .context-btn svg { width: 16px; height: 16px; }
+
+        /* File Upload */
+        .file-input { display: none; }
+        .file-preview {
+            background: rgba(234, 255, 196, 0.05);
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .file-preview span { font-size: 0.875rem; color: #b8d78f; }
+        .file-remove {
+            background: none;
+            border: none;
+            color: rgba(245, 245, 220, 0.5);
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        .file-remove:hover { color: #f5f5dc; }
+
+        /* Tool Card */
+        .tool-card {
+            background: rgba(234, 255, 196, 0.05);
+            border: 1px solid rgba(234, 255, 196, 0.12);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        .tool-card h4 { color: #eaffc4; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .tool-card p { color: #b8d78f; font-size: 0.875rem; margin-bottom: 0.75rem; opacity: 0.9; }
+        .tool-card a {
+            display: inline-block;
+            color: #eaffc4;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.3);
+        }
+
+        /* Referral Card */
+        .referral-card {
+            background: rgba(234, 255, 196, 0.05);
+            border: 1px solid rgba(234, 255, 196, 0.12);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .referral-card h4 { color: #eaffc4; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .referral-card p { color: #b8d78f; font-size: 0.9375rem; margin-bottom: 1.25rem; opacity: 0.8; }
+        .referral-btn {
+            display: inline-block;
+            background: transparent;
+            border: 2px solid #eaffc4;
+            color: #eaffc4;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .referral-btn:hover { background: rgba(234, 255, 196, 0.1); transform: translateY(-2px); }
+
+        /* Coming Soon Overlay */
+        .coming-soon-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(45, 40, 40, 0.97);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .coming-soon-content { text-align: center; max-width: 480px; padding: 3rem 2rem; }
+        .coming-soon-content h2 { color: #eaffc4; font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; margin-bottom: 1rem; }
+        .coming-soon-content p { color: #b8d78f; font-size: 1.125rem; margin-bottom: 2.5rem; line-height: 1.7; opacity: 0.8; }
+        .coming-soon-content .back-btn {
+            display: inline-block;
+            background: #eaffc4;
+            color: #2d2828;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container { padding: 0 1.25rem; }
+            .chat-section { padding: 1.5rem 0 12rem 0; }
+            .message.sova .message-content { font-size: 1rem; }
+            .element-btn { padding: 0.625rem 1.25rem; font-size: 0.875rem; }
+            .input-area { padding: 1rem 1.25rem; }
+            .input-row { flex-direction: column; }
+            .send-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html"><img src="sova-logo-main-transparent.png" alt="Sova"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="coming-soon-overlay" id="comingSoonOverlay">
+        <div class="coming-soon-content">
+            <h2>Coming Soon</h2>
+            <p>Sova's AI guide is currently being trained. In the meantime, try our assessment tool.</p>
+            <a href="assessment-tool.html" class="back-btn">Take the Assessment</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="chat-section">
+            <div class="chat-wrapper">
+                <div class="messages-area" id="messagesArea"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="input-area">
+        <div class="input-wrapper">
+            <div id="filePreview" style="display: none;" class="file-preview">
+                <span id="fileName"></span>
+                <button class="file-remove" onclick="removeFile()">✕</button>
+            </div>
+            <div class="input-row">
+                <textarea class="input-field" id="userInput" placeholder="Describe your challenge..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+            </div>
+            <div class="context-options">
+                <button class="context-btn" onclick="triggerUrlInput()" title="Share a website URL">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Add website URL
+                </button>
+                <button class="context-btn" onclick="triggerFileUpload()" title="Upload a document">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Upload document
+                </button>
+            </div>
+            <input type="file" id="fileInput" class="file-input" accept=".pdf,.doc,.docx,.txt" onchange="handleFileSelect(event)">
+        </div>
+    </div>
+
+    <a href="assessment-tool.html" title="Take the Assessment">
+        <img src="sova-logo-icon-transparent.png" alt="Sova" class="bird-icon">
+    </a>
+
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const GEMINI_API_KEY = 'AIzaSyBgXewHcqq78OgbQSvJ0fZS7jZgwVKLoBk';
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+
+        // State
+        let conversationHistory = [];
+        let knowledgeBase = null;
+        let uploadedFileContent = null;
+        let uploadedFileName = null;
+        let conversationTurns = 0;
+
+        // ============================================
+        // LOAD KNOWLEDGE BASE
+        // ============================================
+        async function loadKnowledgeBase() {
+            try {
+                const response = await fetch('sova-knowledge-base.json');
+                knowledgeBase = await response.json();
+                console.log('Knowledge base loaded:', {
+                    tools: knowledgeBase.tools.length,
+                    questions: knowledgeBase.questions.length,
+                    failureQuotes: knowledgeBase.failureQuotes.length
+                });
+            } catch (error) {
+                console.error('Failed to load knowledge base:', error);
+            }
+        }
+
+        // ============================================
+        // BUILD SYSTEM PROMPT
+        // ============================================
+        function buildSystemPrompt() {
+            // Get relevant tools for MVP elements
+            const mvpElements = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            const relevantTools = knowledgeBase?.tools?.filter(t => mvpElements.includes(t.element)) || [];
+
+            // Get failure quotes for context
+            const failureQuotes = knowledgeBase?.failureQuotes?.slice(0, 20) || [];
+
+            // Get element definitions
+            const elementDefs = knowledgeBase?.elementDefinitions || [];
+
+            return `You are Sova, a friendly and knowledgeable startup guide for Australian entrepreneurs. Your goal is to diagnose challenges and provide specific, actionable recommendations.
+
+## YOUR CONVERSATION APPROACH (Funnel Technique)
+
+Use these 4 stages to efficiently reach a recommendation:
+
+**STAGE 1 - EXPLORE (1-2 questions)**
+Start broad to understand context:
+- "What's happening in your business right now?"
+- "Tell me about your startup and what's on your mind."
+
+**STAGE 2 - PROBE (1-2 questions)**
+Narrow down to specifics:
+- "When did this become a problem?"
+- "What have you already tried?"
+- "Who's affected by this?"
+
+**STAGE 3 - CONFIRM**
+Summarise and validate:
+- "So if I understand correctly, you're dealing with [X] which is affecting [Y]. Is that right?"
+
+**STAGE 4 - RECOMMEND**
+Provide specific advice with tools:
+- Name specific tools/frameworks with links
+- Include relevant failure research or best practice evidence
+- Offer the assessment for deeper analysis
+
+## CRITICAL RULES
+
+1. **Australian English**: organisation, analyse, prioritise, colour
+2. **No emojis**
+3. **Concise responses**: 2-4 short paragraphs max
+4. **Be goal-oriented**: Push toward a recommendation once you have enough context
+5. **MVP elements only**: Governance, Purpose, Strategy, Marketing. If asked about Finance, People, Process, Performance, Technology - acknowledge but say "coming February 2026"
+
+## ELEMENT DEFINITIONS
+${elementDefs.map(e => `- **${e.element}**: ${e.definition}`).join('\n')}
+
+## TOOLS YOU CAN RECOMMEND (with links)
+${relevantTools.slice(0, 40).map(t => `- **${t.name}** (${t.element}): ${t.sovaContext || t.description}${t.url ? ` [Link](${t.url})` : ''}`).join('\n')}
+
+## STARTUP FAILURE EVIDENCE
+Use these to support your advice:
+${failureQuotes.slice(0, 10).map(q => `- ${q.element}: "${q.quote}"`).join('\n')}
+
+## RECOMMENDATION FORMAT (Golden Circle)
+
+When giving your final recommendation, structure it as:
+
+**WHY** (Purpose - why this matters)
+Start with why this is important. Connect to startup failure research or best practice evidence. Example: "Startups without clear role definitions are 3x more likely to experience co-founder conflict..."
+
+**HOW** (Process - how to approach it)
+Explain the approach or methodology. Reference specific frameworks. Example: "The RACI matrix helps you map out who is Responsible, Accountable, Consulted, and Informed for each key decision..."
+
+**WHAT** (Action - specific tools and next steps)
+Give concrete tools and actions:
+
+<div class="tool-card">
+<h4>[Tool Name]</h4>
+<p>[Why this tool helps their specific situation]</p>
+<a href="[URL]" target="_blank">Learn more →</a>
+</div>
+
+## WHEN REFERRING TO ASSESSMENT
+
+After the WHY-HOW-WHAT recommendation, if deeper analysis would help:
+<div class="referral-card">
+<h4>Take the [Element] Assessment</h4>
+<p>Get a structured view of your [element] foundations with prioritised actions.</p>
+<a href="assessment-tool.html?from=chatbot&mode=zoomin&element=[Element]" class="referral-btn">Start Assessment</a>
+</div>
+
+## IF USER PROVIDES A WEBSITE OR DOCUMENT
+
+When they share context (website URL or uploaded document), acknowledge it specifically:
+- Reference specific details from their content
+- Tailor your questions to their actual business
+- Make recommendations relevant to their specific situation
+
+Remember: Be helpful first, recommend tools/assessment second. Every response should move toward solving their problem.`;
+        }
+
+        // ============================================
+        // GEMINI API CALL
+        // ============================================
+        async function callGemini(userMessage, additionalContext = '') {
+            conversationTurns++;
+
+            // Build full message with any additional context
+            let fullMessage = userMessage;
+            if (additionalContext) {
+                fullMessage = `${userMessage}\n\n[Additional context provided by user]:\n${additionalContext}`;
+            }
+
+            // Add conversation guidance based on turns
+            if (conversationTurns >= 4) {
+                fullMessage += '\n\n[System note: You have gathered enough context. Move toward a specific recommendation with tools and/or assessment referral.]';
+            }
+
+            conversationHistory.push({
+                role: 'user',
+                parts: [{ text: fullMessage }]
+            });
+
+            const requestBody = {
+                contents: [
+                    { role: 'user', parts: [{ text: buildSystemPrompt() }] },
+                    { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
+                    ...conversationHistory
+                ],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 1500,
+                }
+            };
+
+            try {
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+                const data = await response.json();
+                const aiResponse = data.candidates[0].content.parts[0].text;
+
+                conversationHistory.push({
+                    role: 'model',
+                    parts: [{ text: aiResponse }]
+                });
+
+                return aiResponse;
+            } catch (error) {
+                console.error('Gemini error:', error);
+                return "I'm having trouble connecting. Please try again, or explore the assessment tool directly.";
+            }
+        }
+
+        // ============================================
+        // URL HANDLING
+        // ============================================
+        function triggerUrlInput() {
+            const url = prompt('Enter the website URL you\'d like me to review:');
+            if (url && url.trim()) {
+                const input = document.getElementById('userInput');
+                input.value = `Please review this website and help me based on what you find: ${url.trim()}`;
+                input.focus();
+            }
+        }
+
+        // ============================================
+        // FILE HANDLING
+        // ============================================
+        function triggerFileUpload() {
+            document.getElementById('fileInput').click();
+        }
+
+        async function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            uploadedFileName = file.name;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('filePreview').style.display = 'flex';
+
+            // Read file content
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                if (file.type === 'application/pdf') {
+                    uploadedFileContent = `[PDF Document: ${file.name}] - Note: I can see you've uploaded a PDF. Please tell me what this document is about and what you'd like help with.`;
+                } else {
+                    uploadedFileContent = e.target.result;
+                    // Truncate if too long
+                    if (uploadedFileContent.length > 10000) {
+                        uploadedFileContent = uploadedFileContent.substring(0, 10000) + '\n\n[Document truncated for length]';
+                    }
+                }
+            };
+
+            if (file.type === 'application/pdf') {
+                reader.readAsArrayBuffer(file);
+            } else {
+                reader.readAsText(file);
+            }
+        }
+
+        function removeFile() {
+            uploadedFileContent = null;
+            uploadedFileName = null;
+            document.getElementById('filePreview').style.display = 'none';
+            document.getElementById('fileInput').value = '';
+        }
+
+        // ============================================
+        // UI FUNCTIONS
+        // ============================================
+        function startConversation() {
+            const greeting = `
+                <p>G'day! I'm Sova, your startup guide. I'm here to help you work through challenges and find practical solutions.</p>
+                <p>I can help with:</p>
+                <ul>
+                    <li><strong>Governance</strong> — Structure, roles, accountability, compliance</li>
+                    <li><strong>Purpose</strong> — Mission, values, why you exist</li>
+                    <li><strong>Strategy</strong> — Positioning, planning, competitive edge</li>
+                    <li><strong>Marketing</strong> — Customers, messaging, growth</li>
+                </ul>
+                <p>More elements coming February 2026.</p>
+                <p style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(184, 215, 143, 0.15);"><strong>What's the biggest challenge you're facing right now?</strong></p>
+                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">You can also share a website URL or upload a business plan to give me more context.</p>
+            `;
+            addSovaMessage(greeting, getElementButtons());
+        }
+
+        function getElementButtons() {
+            return `
+                <div class="element-buttons">
+                    <button class="element-btn" onclick="quickSelect('Governance')">Governance</button>
+                    <button class="element-btn" onclick="quickSelect('Purpose')">Purpose</button>
+                    <button class="element-btn" onclick="quickSelect('Strategy')">Strategy</button>
+                    <button class="element-btn" onclick="quickSelect('Marketing')">Marketing</button>
+                </div>
+            `;
+        }
+
+        function quickSelect(element) {
+            addUserMessage(`I'd like to discuss ${element}`);
+            processMessage(`I'd like to discuss ${element}`);
+        }
+
+        function addSovaMessage(content, buttons = '') {
+            const messagesArea = document.getElementById('messagesArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message sova';
+            messageDiv.innerHTML = `<div class="message-content">${formatMessage(content)}</div>${buttons}`;
+            messagesArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addUserMessage(content) {
+            const messagesArea = document.getElementById('messagesArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+
+            let displayContent = escapeHtml(content);
+            if (uploadedFileName) {
+                displayContent += `<br><span style="font-size: 0.875rem; opacity: 0.7;">📎 ${uploadedFileName}</span>`;
+            }
+
+            messageDiv.innerHTML = `<div class="message-content"><p>${displayContent}</p></div>`;
+            messagesArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addTypingIndicator() {
+            const messagesArea = document.getElementById('messagesArea');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message sova';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+            messagesArea.appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function formatMessage(text) {
+            if (text.includes('<p>') || text.includes('<div class=')) return text;
+
+            text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+            const paragraphs = text.split(/\n\n+/);
+            let html = '';
+
+            paragraphs.forEach(para => {
+                para = para.trim();
+                if (!para) return;
+
+                if (para.includes('<div class=')) {
+                    html += para;
+                } else if (para.match(/^[-•]\s/m)) {
+                    const items = para.split(/\n/).filter(l => l.trim());
+                    html += '<ul>' + items.map(i => `<li>${i.replace(/^[-•]\s*/, '')}</li>`).join('') + '</ul>';
+                } else if (para.match(/^\d+\.\s/m)) {
+                    const items = para.split(/\n/).filter(l => l.trim());
+                    html += '<ol>' + items.map(i => `<li>${i.replace(/^\d+\.\s*/, '')}</li>`).join('') + '</ol>';
+                } else {
+                    html += `<p>${para.split(/\n/).map(l => l.trim()).filter(l => l).join(' ')}</p>`;
+                }
+            });
+
+            return html || `<p>${text}</p>`;
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        async function processMessage(message) {
+            setInputEnabled(false);
+            addTypingIndicator();
+
+            // Include file content if uploaded
+            let additionalContext = '';
+            if (uploadedFileContent) {
+                additionalContext = `Document uploaded (${uploadedFileName}):\n${uploadedFileContent}`;
+                removeFile(); // Clear after sending
+            }
+
+            const response = await callGemini(message, additionalContext);
+            removeTypingIndicator();
+            addSovaMessage(response);
+            setInputEnabled(true);
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addUserMessage(message);
+            input.value = '';
+            input.style.height = 'auto';
+
+            await processMessage(message);
+        }
+
+        function setInputEnabled(enabled) {
+            document.getElementById('userInput').disabled = !enabled;
+            document.getElementById('sendBtn').disabled = !enabled;
+            if (enabled) document.getElementById('userInput').focus();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Auto-resize textarea
+        document.getElementById('userInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        // Check overlay
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('preview') === 'true' || params.get('from') === 'assessment') {
+            document.getElementById('comingSoonOverlay').style.display = 'none';
+        }
+
+        // Initialize
+        loadKnowledgeBase().then(() => {
+            startConversation();
+        });
+    </script>
+</body>
+</html>

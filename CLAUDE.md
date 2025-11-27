@@ -6,7 +6,70 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
-## Recent Updates (2025-11-26)
+## Recent Updates (2025-11-27)
+
+### Chatbot v3.0 - Gemini AI Integration
+- ✅ **Gemini 2.5 Flash API** integrated for intelligent conversations
+- ✅ **Knowledge base** loaded: 281 tools, 115 questions, 140 failure quotes, 87 best practice quotes, 114 VC requirements
+- ✅ **Funnel Technique** implemented for goal-oriented questioning:
+  - Explore: Open questions to understand context
+  - Probe: Follow-up questions to dig deeper
+  - Confirm: Summarise understanding back to user
+  - Recommend: Provide actionable advice with tools
+- ✅ **Golden Circle format** for recommendations (WHY → HOW → WHAT)
+- ✅ **Tool recommendation cards** with hyperlinks from knowledge base
+- ✅ **Assessment referral cards** link to specific element assessments
+- ✅ **URL input** - Users can share website for context
+- ✅ **File upload** - Users can upload business plans (txt, doc, docx, pdf)
+- ✅ **Conversation turn tracking** - Moves toward recommendation after ~4 exchanges
+
+### Knowledge Base (sova-knowledge-base.json)
+- 281 tools with URLs and element mappings
+- 115 assessment questions
+- 140 startup failure quotes with citations
+- 87 best practice quotes with citations
+- 114 VC requirements with sources
+- 9 element definitions
+- Startup failure research, funding opportunities, business establishment guides
+
+### Chatbot Integration & Shared Configuration
+- ✅ Created **config.js** - Shared configuration for assessment-tool.html and chatbot.html
+- ✅ Contains stages, elements, validation questions, prelim questions, path options, referral params
+- ✅ Updated assessment-tool.html to import and use config.js (v6.33)
+- ✅ Created **chatbot.html** - AI chatbot interface (Path 3)
+- ✅ Chatbot accessible via Path 3 "Work with Your Guide" in assessment flow
+- ✅ "Coming Soon" overlay (bypassed with ?from=assessment or ?preview=true)
+
+### Design System Documentation
+- ✅ Added **Jeton · Phamily · Osmo Design Principles** to CLAUDE.md
+- ✅ Core philosophy: Sophistication through subtraction
+- ✅ Visual restraint: Opacity-based hierarchy, minimal shadows, backdrop blur
+- ✅ Typography: Bold headlines, restrained body (300-400 weight), generous line-height
+- ✅ Spacing: 8-point grid, generous whitespace as design element
+- ✅ Animations: 0.3-0.5s duration, cubic-bezier(0.23, 1, 0.32, 1) easing
+- ✅ Interactive elements: Clear focus states, subtle hover feedback
+
+### Chatbot Styling (Jeton/Phamily/Osmo Applied)
+- ✅ Exact header match to assessment-tool.html (90px logo)
+- ✅ Same bird icon placement (bottom-right, 45px, 40% opacity)
+- ✅ Clean pill buttons for element selection
+- ✅ Subtle referral cards with rgba backgrounds
+- ✅ Backdrop blur on Coming Soon overlay
+- ✅ Mobile responsive with stacked buttons
+
+### Files Created/Modified
+- **config.js** - Shared configuration
+- **chatbot.html** - AI chatbot interface v3.0 (Gemini AI)
+- **sova-knowledge-base.json** (NEW) - Full knowledge base (399 KB)
+- **assessment-tool.html** - v6.33, imports config.js, Path 3 links to chatbot
+- **CLAUDE.md** - Added design system, chatbot docs, shared config docs
+
+### Backup Created
+- **assessment-tool_BACKUP_20251127_150057.html** - Full backup before changes
+
+---
+
+## Previous Updates (2025-11-26)
 
 ### Link Standardisation
 - ✅ Standardised all "View Source" and "Read More/Less" links across assessment tool
@@ -94,10 +157,12 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 ## Key Files
 
 ### Core Files
-- **index.html** - Main assessment interface (v6.35)
-- **questions-data.js** - Generated from Excel, contains all 115 questions
+- **index.html** - Main landing page
+- **assessment-tool.html** - Assessment tool page (v6.33)
+- **chatbot.html** - AI chatbot interface (v1.2)
+- **config.js** - Shared configuration for assessment + chatbot
+- **questions-data.js** - Generated from Excel, contains all 113 questions
 - **regenerate-from-excel.py** - Automated Excel → interface sync
-- **assessment-tool.html** - Assessment tool page
 - **research.html** - Research and statistics page
 - **about.html** - About/founder page
 
@@ -200,13 +265,139 @@ git push
 - 4 pulses @ 1.2s each before launching assessment
 
 ## Version History
-- **v6.36** - Standardised View Source/Read More links, gap card mobile layout fixes, triangle arrows
-- **v6.35** - Startup Sidekick alignment fix, Instagram templates, Montserrat font
-- **v6.34** - Mobile fixes, element label consistency
-- **v6.33** - Hidden state question
-- **v6.32** - Governance Efficiency question added, full Excel alignment
+
+### assessment-tool.html
+- **v6.33** - Shared config.js integration, Path 3 chatbot link active
+- **v6.32** - Standardised View Source/Read More links, gap card mobile layout fixes
+- **v6.31** - Startup Sidekick alignment fix, Instagram templates, Montserrat font
+- **v6.30** - Mobile fixes, element label consistency
+
+### chatbot.html
+- **v1.2** - Jeton/Phamily/Osmo design principles applied, proper Sova styling
+- **v1.1** - Guided conversation flow with diagnostic questions
+- **v1.0** - Initial creation with placeholder responses
 
 ## Known Considerations
 - Stage validation questions require manual updates in index.html if adding to Discovery/Validation/Efficiency stages
 - GitHub Pages rebuild takes 2-3 minutes after push
 - Mobile browsers may aggressively cache - recommend hard refresh for users
+
+---
+
+## Design System: Jeton · Phamily · Osmo Principles
+
+**ALWAYS apply these principles when building ANY Sova interface.**
+
+### Core Philosophy
+Sophistication through subtraction. Every element must earn its place. Premium feel comes from restraint, not decoration.
+
+### Visual Restraint
+- **No visual clutter** - Remove anything that doesn't serve a purpose
+- **Opacity-based hierarchy** - Use opacity (0.4-0.8) instead of heavy colour contrasts
+- **Minimal shadows** - Only subtle shadows (rgba with 0.1 opacity) on dropdowns/cards
+- **No gratuitous gradients** - Gradients only for functional purposes (fade masks)
+- **Backdrop blur** - Use `backdrop-filter: blur(20px)` for premium overlay feel
+
+### Typography
+- **Bold headlines** - Large, confident headings create visual anchors
+- **Restrained body** - Light weight (300-400) for body text
+- **Clear hierarchy** - Distinct size/weight difference between heading levels
+- **Generous line-height** - 1.5-1.6 for comfortable reading
+- **Letter-spacing** - Slight tracking on uppercase labels (1-2px)
+
+### Spacing & Layout
+- **Generous whitespace** - Let content breathe, whitespace is a design element
+- **Consistent rhythm** - Use 8-point grid (8px, 16px, 24px, 32px, 48px, 64px)
+- **Full-width sections** - Alternate with contained content for visual rhythm
+- **Ample padding** - Don't cramp content (min 1.5rem padding on containers)
+
+### Animations & Motion
+- **Subtle transitions** - 0.3-0.5s duration, never jarring
+- **Cubic-bezier curves** - Use `cubic-bezier(0.23, 1, 0.32, 1)` for smooth easing
+- **Purpose-driven** - Animations support interaction, not distract
+- **Staggered reveals** - Fade-in with slight delays for progressive disclosure
+- **Hover states** - Subtle transform/opacity changes, not dramatic shifts
+
+### Colour Application (Sova Palette)
+- **Primary green (#eaffc4)** - CTAs, highlights on dark backgrounds
+- **Brown (#2d2828)** - Text, backgrounds
+- **Cream (#f5f5dc)** - Light text on dark, light backgrounds
+- **Sage (#b8d78f)** - Accents, secondary text, hints
+- **Use rgba()** - For overlays and subtle tints (e.g., rgba(234, 255, 196, 0.1))
+
+### Interactive Elements
+- **Clear focus states** - Visible ring on focus for accessibility
+- **Hover feedback** - Subtle border/background changes
+- **Touch targets** - Minimum 44x44px for mobile
+- **Button hierarchy** - Primary (filled), Secondary (outline), Tertiary (text)
+
+### UX Patterns
+- **Progressive disclosure** - Show info when needed, not all at once
+- **Clear CTAs** - One primary action per screen/section
+- **Immediate feedback** - Visual confirmation on all interactions
+- **Easy recovery** - Users can always go back or undo
+- **Celebration moments** - Mark completions with subtle animations
+
+### What NOT to Do
+- ❌ Multiple competing colours
+- ❌ Heavy borders or shadows
+- ❌ Cramped layouts with no breathing room
+- ❌ Flashy animations that distract
+- ❌ Decorative elements that serve no purpose
+- ❌ Inconsistent spacing or alignment
+
+---
+
+## Shared Configuration (config.js)
+
+**Purpose:** Single source of truth for data shared between pages.
+
+**Used by:**
+- assessment-tool.html
+- chatbot.html
+
+**Contains:**
+- Stages and stage descriptions
+- Elements (all 9, MVP 4)
+- Preliminary questions
+- Validation questions
+- Path options
+- Referral parameters
+
+**Update process:** Edit config.js → changes propagate to all pages automatically.
+
+---
+
+## Chatbot Development
+
+### Current State (v3.0)
+- **chatbot.html** - AI-powered chatbot using Gemini 2.5 Flash
+- **sova-knowledge-base.json** - Full knowledge base (399 KB)
+- Shares config.js with assessment-tool.html
+- Links from Path 3 in assessment flow
+- "Coming Soon" overlay (bypassed with ?from=assessment)
+
+### AI Integration
+- **API:** Google Gemini 2.5 Flash (free tier)
+- **API Key:** Stored in chatbot.html (AIzaSyBgXewHcqq78OgbQSvJ0fZS7jZgwVKLoBk)
+- **Knowledge base loaded on startup:** 281 tools, 115 questions, 140 failure quotes
+
+### Conversation Flow (Funnel Technique)
+1. **Explore:** Open question to understand context
+2. **Probe:** Follow-up questions to dig deeper into root causes
+3. **Confirm:** Summarise understanding back to user
+4. **Recommend:** Golden Circle format (WHY → HOW → WHAT) with tool links
+
+### Features
+- **URL input:** Users can share website for context
+- **File upload:** Business plans (txt, doc, docx, pdf)
+- **Tool recommendations:** Hyperlinked cards from knowledge base
+- **Assessment referrals:** Cards linking to specific element assessments
+- **Turn tracking:** Moves toward recommendation after ~4 exchanges
+
+### Styling (Jeton/Phamily/Osmo Applied)
+- Exact header match to assessment-tool.html (90px logo)
+- Same bird icon placement (bottom-right, 45px, 40% opacity)
+- Same colour palette and typography
+- Same animation curves and timing
+- Clean pill buttons, subtle referral cards
