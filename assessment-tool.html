@@ -6381,7 +6381,7 @@
                                 const vcRequirements = gap.question['VC requirements mapping'] || '';
                                 const vcRequirementsLink = gap.question['VC requirements mappingLink'] || '';
 
-                                // Collect ALL 4 tools WITH their hyperlinks
+                                // Collect ALL 6 tools WITH their hyperlinks
                                 const tools = [];
                                 const tool1 = gap.question['Tool/Framework 1'];
                                 const tool1Link = gap.question['Tool/Framework 1Link'];
@@ -6402,6 +6402,16 @@
                                 const tool4Link = gap.question['Tool/Framework 4Link'];
                                 if (tool4 && tool4 !== 'None' && tool4.trim() !== '') {
                                     tools.push({ name: tool4, link: tool4Link || '' });
+                                }
+                                const tool5 = gap.question['Tool/Framework 5'];
+                                const tool5Link = gap.question['Tool/Framework 5Link'];
+                                if (tool5 && tool5 !== 'None' && tool5.trim() !== '') {
+                                    tools.push({ name: tool5, link: tool5Link || '' });
+                                }
+                                const tool6 = gap.question['Tool/Framework 6'];
+                                const tool6Link = gap.question['Tool/Framework 6Link'];
+                                if (tool6 && tool6 !== 'None' && tool6.trim() !== '') {
+                                    tools.push({ name: tool6, link: tool6Link || '' });
                                 }
 
                                 const bookRec = gap.question.Book || '';

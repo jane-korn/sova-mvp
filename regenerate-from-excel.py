@@ -28,9 +28,10 @@ from datetime import datetime
 from pathlib import Path
 
 # Configuration
-EXCEL_PATH = '/home/janek/inbox/Allivate/assessment-tool-rebuild/Self Assessment Structure.xlsx'
+EXCEL_PATH = '/home/janek/sova-mvp/Self Assessment Structure - Master.xlsx'
 OUTPUT_PATH = 'questions-data.js'
 BACKUP_DIR = 'backups'
+EXPECTED_QUESTIONS = 113  # Updated from 115 after row removals
 
 def main():
     print("=" * 80)
@@ -103,6 +104,8 @@ def main():
             'Tool/Framework 2': row_data['Tool/Framework 2']['value'] if row_data['Tool/Framework 2']['value'] else None,
             'Tool/Framework 3': row_data['Tool/Framework 3']['value'] if row_data['Tool/Framework 3']['value'] else None,
             'Tool/Framework 4': row_data['Tool/Framework 4']['value'] if row_data['Tool/Framework 4']['value'] else None,
+            'Tool/Framework 5': row_data['Tool/Framework 5']['value'] if row_data.get('Tool/Framework 5') and row_data['Tool/Framework 5']['value'] else None,
+            'Tool/Framework 6': row_data['Tool/Framework 6']['value'] if row_data.get('Tool/Framework 6') and row_data['Tool/Framework 6']['value'] else None,
             'Advice': row_data['Advice']['value'] if row_data['Advice']['value'] else None,
             'Article References': row_data['Article References']['value'] if row_data['Article References']['value'] else None,
             'Other Articles': row_data['Other Articles']['value'] if row_data['Other Articles']['value'] else None,
@@ -119,6 +122,8 @@ def main():
         question['Tool/Framework 2Link'] = row_data['Tool/Framework 2']['hyperlink']
         question['Tool/Framework 3Link'] = row_data['Tool/Framework 3']['hyperlink']
         question['Tool/Framework 4Link'] = row_data['Tool/Framework 4']['hyperlink']
+        question['Tool/Framework 5Link'] = row_data['Tool/Framework 5']['hyperlink'] if row_data.get('Tool/Framework 5') else None
+        question['Tool/Framework 6Link'] = row_data['Tool/Framework 6']['hyperlink'] if row_data.get('Tool/Framework 6') else None
         question['ResourcesLink'] = row_data['Resources']['hyperlink']
         question['VC requirements mappingLink'] = row_data['VC requirements mapping']['hyperlink']
         question['Quote (startup failure)Link'] = row_data['Quote (startup failure)']['hyperlink']
@@ -157,10 +162,10 @@ var allQuestionsData = {json.dumps(questions_by_element, indent=2, ensure_ascii=
 
     # Validation
     print(f"\n🔍 VALIDATION:")
-    if question_count == 115:
-        print(f"   ✅ Question count matches expected (115)")
+    if question_count == EXPECTED_QUESTIONS:
+        print(f"   ✅ Question count matches expected ({EXPECTED_QUESTIONS})")
     else:
-        print(f"   ⚠️  WARNING: Expected 115 questions, found {question_count}")
+        print(f"   ⚠️  WARNING: Expected {EXPECTED_QUESTIONS} questions, found {question_count}")
 
     if hyperlink_count > 400:
         print(f"   ✅ Hyperlinks extracted ({hyperlink_count} total)")
