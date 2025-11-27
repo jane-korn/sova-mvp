@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-27 - Version 6.36 - Path 3 greyed out with Coming Soon, mobile tool overflow fix -->
+<!-- UPDATED: 2025-11-27 - Version 6.37 - Fix mobile gap card header alignment and tool overflow -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -2860,6 +2860,46 @@
             .gap-card-wrapper {
                 margin-left: 0 !important;
                 margin-right: 0 !important;
+            }
+
+            /* FIX: Gap card header - reduce padding, keep chevron on same line */
+            .gap-card-wrapper [style*="padding: 28px 36px"] {
+                padding: 16px 12px !important;
+            }
+
+            /* FIX: Keep stage badge and chevron on same line */
+            .gap-card-wrapper [style*="justify-content: space-between"][style*="align-items: center"] {
+                flex-wrap: nowrap !important;
+                gap: 8px !important;
+            }
+
+            /* FIX: Stage badge smaller on mobile */
+            .gap-card-wrapper [style*="Stage -"] {
+                font-size: 9px !important;
+                padding: 4px 10px !important;
+            }
+
+            /* FIX: Gap card content - reduce padding */
+            .gap-card-wrapper [style*="padding: 36px"] {
+                padding: 16px 12px !important;
+            }
+
+            /* FIX: Tool grid - single column with proper margins */
+            .gap-card-wrapper [style*="grid-template-columns: repeat(auto-fit"] {
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            /* FIX: Tool cards - proper sizing and no overflow */
+            .gap-card-wrapper [style*="grid-template-columns"] a,
+            .gap-card-wrapper [style*="grid-template-columns"] > div {
+                padding: 12px !important;
+                font-size: 13px !important;
+                max-width: calc(100% - 4px) !important;
+                margin-right: 4px !important;
+                box-sizing: border-box !important;
             }
         }
 
