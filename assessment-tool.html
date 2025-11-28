@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-27 - Version 6.39 - Fix stage badge left, chevron right alignment -->
+<!-- UPDATED: 2025-11-28 - Version 6.44 - Fixed scroll to target diagram wrapper, not welcome section -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -455,8 +455,9 @@
             max-width: 1000px;
             width: 100%;
             margin: 0 auto;
-            margin-top: -40px;
+            margin-top: -60px;
             padding: 40px;
+            padding-top: 20px;
             box-sizing: border-box;
             z-index: 1;
         }
@@ -529,6 +530,39 @@
             fill: #2d2828 !important;
             opacity: 0.15 !important;
             filter: none !important;
+        }
+
+        /* Pulse animation for active clickable elements - beaming glow effect */
+        @keyframes elementPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(234, 255, 196, 0.5)) drop-shadow(0 0 4px rgba(234, 255, 196, 0.3));
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                filter: drop-shadow(0 0 25px rgba(234, 255, 196, 1)) drop-shadow(0 0 12px rgba(234, 255, 196, 0.9)) drop-shadow(0 0 40px rgba(234, 255, 196, 0.6));
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Hint text pulse animation */
+        @keyframes hintPulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .element-dot.active:not(.completed):not(.in-progress) {
+            animation: elementPulse 2s ease-in-out infinite;
+            transform-origin: center;
+            transform-box: fill-box;
+        }
+
+        /* Pause animation on hover for clear feedback */
+        .element-dot.active:not(.completed):not(.in-progress):hover {
+            animation-play-state: paused;
+            transform: scale(1.15) !important;
+            filter: drop-shadow(0 0 20px #eaffc4) brightness(1.2) !important;
         }
 
         .element-spoke {
@@ -3011,15 +3045,17 @@
 
                 <!-- Page 1: Team Size -->
                 <div id="prelim-page-1" class="prelim-page">
-                    <!-- UAT Thank You Banner -->
-                    <div style="border-left: 3px solid #eaffc4; padding-left: 24px; margin-bottom: 2rem; background: rgba(234, 255, 196, 0.05); padding: 1.5rem; border-radius: 8px;">
-                        <p style="color: #f5f5dc; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 12px 0; opacity: 0.8;">Thanks for being an early adopter</p>
-                        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.9;">
-                            You're part of our user acceptance group of our product hopefully launching February 2026. Your feedback will directly shape how Sova evolves and in return, you'll get 50% off when we launch, should you wish to use it. Please have a go at using Sova and provide feedback via the survey sent to you. Thank you kindly in advance.
-                        </p>
+                    <!-- Start Fresh - right justified, explanation then button -->
+                    <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-bottom: 1.5rem;">
+                        <span style="color: #f5f5dc; font-size: 13px; opacity: 0.6;">Testing only: clears all answers</span>
+                        <button onclick="startFresh()" style="padding: 6px 14px; background: rgba(255, 107, 107, 0.8); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; transition: background 0.2s ease;" onmouseover="this.style.background='#ff6b6b'" onmouseout="this.style.background='rgba(255, 107, 107, 0.8)'">Start Fresh</button>
                     </div>
 
-                    <button onclick="startFresh()" style="margin-bottom: 2rem; padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">Start Fresh</button>
+                    <!-- Prelim Step Indicator - matches assessment page layout -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Getting to know you</div>
+                        <div style="color: #b8d78f; font-size: 14px; opacity: 0.7;">Question 1 of 3</div>
+                    </div>
 
                     <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Are you flying solo or with a team?</h1>
                     <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 3rem;">This helps us tailor questions to your situation.</p>
@@ -3038,29 +3074,35 @@
 
                 <!-- Page 2: Stage Selection -->
                 <div id="prelim-page-2" class="prelim-page" style="display: none;">
+                    <!-- Prelim Step Indicator - matches assessment page layout -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Getting to know you</div>
+                        <div style="color: #b8d78f; font-size: 14px; opacity: 0.7;">Question 2 of 3</div>
+                    </div>
+
                     <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Where are you in your startup journey?</h1>
-                    <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 3rem;">No wrong answer. We'll meet you where you are.</p>
+                    <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 2.5rem;">Pick the closest match. You may sit between stages, and that's normal.</p>
 
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         <div class="option-card" onclick="selectStageAndContinue('Discovery', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Discovery</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Exploring problems and testing solution ideas</div>
+                            <div style="font-size: 1rem; color: #b8d78f;">Still exploring the problem, testing ideas, no paying customers yet</div>
                         </div>
                         <div class="option-card" onclick="selectStageAndContinue('Validation', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Validation</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Got early customers, proving the model works</div>
+                            <div style="font-size: 1rem; color: #b8d78f;">Have a product and some customers, testing if the model is repeatable</div>
                         </div>
                         <div class="option-card" onclick="selectStageAndContinue('Efficiency', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Efficiency</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">It works! Streamlining to scale sustainably</div>
+                            <div style="font-size: 1rem; color: #b8d78f;">Model works, now optimising operations and unit economics</div>
                         </div>
                         <div class="option-card" onclick="selectStageAndContinue('Scale', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Scale</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Growing fast, need systems for expansion</div>
+                            <div style="font-size: 1rem; color: #b8d78f;">Proven model, focused on growth, expansion, and building systems</div>
                         </div>
                         <div class="option-card" onclick="selectStageAndContinue('Unsure', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
                             <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Unsure</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Help me figure this out</div>
+                            <div style="font-size: 1rem; color: #b8d78f;">Not sure where I fit. Help me figure it out.</div>
                         </div>
                     </div>
                 </div>
@@ -3070,6 +3112,12 @@
 
                 <!-- Page 4: Choose Your Path -->
                 <div id="prelim-page-4" class="prelim-page" style="display: none;">
+                    <!-- Prelim Step Indicator - matches assessment page layout -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Getting to know you</div>
+                        <div style="color: #b8d78f; font-size: 14px; opacity: 0.7;">Question 3 of 3</div>
+                    </div>
+
                     <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Choose Your Flight Path</h1>
                     <p style="color: #f5f5dc; font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300;">
                         You're about to gain clarity on your business foundations across the elements that determine startup success.
@@ -3078,17 +3126,17 @@
                     <!-- Testing Note -->
                     <div style="border-left: 3px solid #eaffc4; padding: 1.5rem; padding-left: 24px; margin-bottom: 3rem; background: rgba(234, 255, 196, 0.05); border-radius: 8px; text-align: left;">
                         <p style="color: #f5f5dc; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 12px 0; opacity: 0.8;">Testing note</p>
-                        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.9;">This version covers 4 core elements—Governance, Purpose, Strategy, and Marketing. The full Sova system includes 9 elements total. We're starting with the foundations that matter most in early stages.</p>
+                        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0; opacity: 0.9;">This version covers 4 core elements: Governance, Purpose, Strategy, and Marketing. The full Sova system includes 9 elements total. We're starting with the foundations that matter most in early stages.</p>
                     </div>
 
                     <!-- Path Options -->
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <!-- Path 1: Complete Assessment -->
+                        <!-- Path 1: Full Health Check -->
                         <div class="path-card" onclick="selectPathAndContinue('complete')">
                             <span class="path-number">1</span>
-                            <h2 class="path-title">Complete Assessment</h2>
+                            <h2 class="path-title">Full Health Check</h2>
                             <p class="path-desc">
-                                Answer questions across all 4 elements to get a bird's-eye view of your business health. Best for seeing the full picture and identifying priorities.
+                                Assess your startup across all 4 elements. Get a complete picture of your business foundations and where to focus.
                             </p>
                             <div class="path-meta">
                                 <div class="meta-item">
@@ -3102,12 +3150,12 @@
                             </div>
                         </div>
 
-                        <!-- Path 2: Zoom In -->
+                        <!-- Path 2: Quick Start -->
                         <div class="path-card" onclick="selectPathAndContinue('zoomin')">
                             <span class="path-number">2</span>
-                            <h2 class="path-title">Zoom In on One Element</h2>
+                            <h2 class="path-title">Quick Start</h2>
                             <p class="path-desc">
-                                Not ready for the full assessment? Hone in on one element to work on first. You can always come back and complete the others later.
+                                Pick one area to focus on first. Great if you're short on time or already know where you need help. You can always complete the others later.
                             </p>
                             <div class="path-meta">
                                 <div class="meta-item">
@@ -3125,11 +3173,11 @@
                         <div class="path-card coming-soon">
                             <span class="path-number">3</span>
                             <h2 class="path-title">
-                                Work with Your Guide
+                                Chat with Sova
                                 <span style="display: block; font-size: 12px; font-weight: 400; opacity: 0.7; margin-top: 4px;">Coming Soon</span>
                             </h2>
                             <p class="path-desc">
-                                Have a specific issue you're working through? Chat with Sova to explore solutions and frameworks tailored to your situation.
+                                Have a specific question or issue? Talk it through with Sova and get tailored advice and resources.
                             </p>
                             <div class="path-meta">
                                 <div class="meta-item">
@@ -3237,6 +3285,29 @@
 
         <!-- Model Section -->
         <div class="model-section" id="modelSection">
+            <!-- Welcome section - orientation for the assessment -->
+            <div id="modelIntro" style="max-width: 750px; margin: 0 auto; padding: 2rem 2rem 2.5rem; text-align: center;">
+                <h1 id="modelHeading" style="color: #eaffc4; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 2rem; line-height: 1.2;">Welcome to the Sova Assessment</h1>
+
+                <!-- How it works - step by step -->
+                <div id="modelGuidance" style="background: rgba(234, 255, 196, 0.08); border: 1px solid rgba(234, 255, 196, 0.15); border-radius: 16px; padding: 1.5rem 2rem; text-align: left;">
+                    <p style="color: #eaffc4; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 1rem 0;">How it works</p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">1.</span>
+                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">Click a glowing element on the diagram to start</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">2.</span>
+                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">Answer 3 to 5 yes/no questions honestly based on where you are today</span>
+                        </div>
+                        <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                            <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">3.</span>
+                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">Your results are plotted on the webchart below and the report builds below this as you go, showing strengths and areas to improve</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="model-wrapper">
                 <svg id="sova-model" viewBox="-100 -100 1500 1500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                     <!-- Define curved paths for text -->
@@ -3339,7 +3410,7 @@
                     <!-- Individual element wedges (filled from center to score) -->
                     <g id="webChartWedges"></g>
                     <!-- Connecting polygon (when 3+ elements completed) -->
-                    <polygon id="webChart" points="" fill="rgba(196, 255, 0, 0.15)" stroke="#eaffc4" stroke-width="4" stroke-linejoin="round" style="display: none;"/>
+                    <polygon id="webChart" points="" fill="rgba(234, 255, 196, 0.25)" stroke="#eaffc4" stroke-width="4" stroke-linejoin="round" style="display: none; filter: drop-shadow(0 0 8px rgba(234, 255, 196, 0.4));"/>
 
                     <!-- Center Circle - Premium Styling (INCREASED SIZE) -->
                     <g id="sova-center-circle" style="cursor: help;">
@@ -3353,47 +3424,56 @@
                     <!-- Lines start at r=50 (edge of center circle), dots at r=510 -->
 
                     <!-- GOVERNANCE (0° / 12 o'clock) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="650" y1="600" x2="650" y2="140" stroke="#b8d78f" stroke-width="2.5" opacity="0.7" class="element-spoke"/>
-                    <circle cx="650" cy="140" r="24" fill="#b8d78f" class="element-dot active" id="governance-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Governance')"/>
+                    <!-- Line stops 40 units before dot centre (y=180 instead of y=140) -->
+                    <line x1="650" y1="600" x2="650" y2="180" stroke="#b8d78f" stroke-width="2.5" opacity="0.7" class="element-spoke"/>
+                    <circle cx="650" cy="140" r="24" fill="#b8d78f" class="element-dot active" id="governance-dot" style="cursor: pointer;" onclick="startElementAssessment('Governance')"/>
                     <text x="650" y="108" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Governance')">GOVERNANCE</text>
 
                     <!-- PURPOSE (40°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="682" y1="612" x2="978" y2="259" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
-                    <circle cx="978" cy="259" r="24" fill="#b8d78f" class="element-dot active" id="purpose-dot" style="filter: drop-shadow(0 2px 8px rgba(232, 197, 71, 0.5)); cursor: pointer;" onclick="startElementAssessment('Purpose')"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="682" y1="612" x2="951" y2="278" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
+                    <circle cx="978" cy="259" r="24" fill="#b8d78f" class="element-dot active" id="purpose-dot" style="cursor: pointer;" onclick="startElementAssessment('Purpose')"/>
                     <text x="1020" y="245" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#b8d78f" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Purpose')">PURPOSE</text>
 
                     <!-- STRATEGY (80°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="699" y1="641" x2="1152" y2="561" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
-                    <circle cx="1152" cy="561" r="24" fill="#b8d78f" class="element-dot active" id="strategy-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Strategy')"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="699" y1="641" x2="1115" y2="568" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
+                    <circle cx="1152" cy="561" r="24" fill="#b8d78f" class="element-dot active" id="strategy-dot" style="cursor: pointer;" onclick="startElementAssessment('Strategy')"/>
                     <text x="1188" y="569" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Strategy')">STRATEGY</text>
 
                     <!-- PERFORMANCE (120°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="693" y1="675" x2="1092" y2="905" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="693" y1="675" x2="1058" y2="882" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="1092" cy="905" r="24" fill="#b8d78f" class="element-dot locked" id="performance-dot" opacity="0.4"/>
                     <text x="1133" y="925" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="start" opacity="0.3" letter-spacing="0.5">PERFORMANCE</text>
 
                     <!-- MARKETING (160°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="667" y1="697" x2="824" y2="1129" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
-                    <circle cx="824" cy="1129" r="24" fill="#b8d78f" class="element-dot active" id="marketing-dot" style="filter: drop-shadow(0 2px 8px rgba(197, 217, 82, 0.5)); cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="667" y1="697" x2="811" y2="1091" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
+                    <circle cx="824" cy="1129" r="24" fill="#b8d78f" class="element-dot active" id="marketing-dot" style="cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
                     <text x="824" y="1175" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
 
                     <!-- FINANCE (200°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="633" y1="697" x2="476" y2="1129" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="633" y1="697" x2="489" y2="1091" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="476" cy="1129" r="24" fill="#b8d78f" class="element-dot locked" id="finance-dot" opacity="0.4"/>
                     <text x="476" y="1168" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="middle" opacity="0.3" letter-spacing="0.5">FINANCE</text>
 
                     <!-- PEOPLE (240°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="607" y1="675" x2="208" y2="905" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="607" y1="675" x2="242" y2="882" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="208" cy="905" r="24" fill="#b8d78f" class="element-dot locked" id="people-dot" opacity="0.4"/>
                     <text x="167" y="925" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="end" opacity="0.3" letter-spacing="0.5">PEOPLE</text>
 
                     <!-- PROCESS (280°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="601" y1="641" x2="148" y2="561" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="601" y1="641" x2="185" y2="568" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="148" cy="561" r="24" fill="#b8d78f" class="element-dot locked" id="process-dot" opacity="0.4"/>
                     <text x="112" y="569" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="end" opacity="0.3" letter-spacing="0.5">PROCESS</text>
 
                     <!-- TECHNOLOGY (320°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
-                    <line x1="618" y1="612" x2="322" y2="259" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
+                    <!-- Line stops 40 units before dot centre -->
+                    <line x1="618" y1="612" x2="349" y2="278" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
                     <circle cx="322" cy="259" r="24" fill="#b8d78f" class="element-dot locked" id="technology-dot" opacity="0.4"/>
                     <text x="280" y="245" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="end" opacity="0.3" letter-spacing="0.5">TECHNOLOGY</text>
                 </svg>
@@ -3403,6 +3483,7 @@
                     <div class="tooltip-title"></div>
                     <div class="tooltip-desc"></div>
                 </div>
+
             </div>
         </div>
 
@@ -3443,15 +3524,15 @@
                     </div>
                 </div>
 
-                <!-- Expandable Gaps Section -->
+                <!-- Expandable Areas for Improvement Section -->
                 <div style="background: #f5f5dc; padding: 60px;">
                     <div style="max-width: 1200px; margin: 0 auto;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-                            <h2 style="color: #2d2828; font-size: 32px; font-weight: 700; margin: 0; letter-spacing: -1px;">Your Gaps</h2>
+                            <h2 style="color: #2d2828; font-size: 32px; font-weight: 700; margin: 0; letter-spacing: -1px;">Areas for Improvement</h2>
                             <p style="color: #2d2828; opacity: 0.5; margin: 0; font-size: 14px;">Click an element above to filter</p>
                         </div>
                         <div id="gapsContent">
-                            <p class="placeholder-text">Your gaps will appear here...</p>
+                            <p class="placeholder-text">Your areas for improvement will appear here...</p>
                         </div>
                     </div>
                 </div>
@@ -4041,19 +4122,57 @@
             }
         }
 
-        // Show validation questions - all on one page
+        // Show validation questions - all on one page with Definition, Why it matters, VC Perspective
         function showValidationFlow(stage) {
             const questions = validationQuestions[stage].questions;
             const heading = validationQuestions[stage].heading;
             const container = document.getElementById('validation-pages-container');
 
-            // Build all questions on one page
+            // Build all questions on one page with info buttons
             let questionsHTML = '';
             questions.forEach((qData, index) => {
+                const definition = qData.definition || '';
+                const whyMatters = qData.whyMatters || '';
+                const vcPerspective = qData.vcPerspective || '';
+
+                // Combine hint into definition
+                const fullDefinition = qData.hint ? `${qData.hint}. ${definition}` : definition;
+
                 questionsHTML += `
-                    <div style="margin-bottom: 2.5rem;">
-                        <h3 style="color: #f5f5dc; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">${qData.q}</h3>
-                        <p style="color: #b8d78f; font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.8;">${qData.hint}</p>
+                    <div class="validation-question-block" data-question-index="${index}" style="margin-bottom: 2.5rem;">
+                        <!-- Info buttons row - right justified, above question -->
+                        ${(fullDefinition || whyMatters || vcPerspective) ? `
+                            <div style="display: flex; gap: 8px; margin-bottom: 0.75rem; flex-wrap: wrap; justify-content: flex-end;">
+                                ${fullDefinition ? `
+                                    <button type="button" onclick="toggleValidationInfo('def-${index}')" style="background: rgba(234, 255, 196, 0.1); border: 1px solid rgba(234, 255, 196, 0.25); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #eaffc4; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(234, 255, 196, 0.2)'" onmouseout="this.style.background='rgba(234, 255, 196, 0.1)'">Definition</button>
+                                ` : ''}
+                                ${whyMatters ? `
+                                    <button type="button" onclick="toggleValidationInfo('why-${index}')" style="background: rgba(234, 255, 196, 0.1); border: 1px solid rgba(234, 255, 196, 0.25); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #eaffc4; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(234, 255, 196, 0.2)'" onmouseout="this.style.background='rgba(234, 255, 196, 0.1)'">Why it matters</button>
+                                ` : ''}
+                                ${vcPerspective ? `
+                                    <button type="button" onclick="toggleValidationInfo('vc-${index}')" style="background: rgba(234, 255, 196, 0.1); border: 1px solid rgba(234, 255, 196, 0.25); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #eaffc4; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(234, 255, 196, 0.2)'" onmouseout="this.style.background='rgba(234, 255, 196, 0.1)'">VC Perspective</button>
+                                ` : ''}
+                            </div>
+                        ` : ''}
+
+                        <h3 style="color: #f5f5dc; font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; line-height: 1.4;">${qData.q}</h3>
+
+                        <!-- Info content panels (hidden by default) -->
+                        ${fullDefinition ? `
+                            <div id="val-info-def-${index}" style="display: none; background: rgba(234, 255, 196, 0.08); border-left: 3px solid #eaffc4; padding: 12px 16px; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                                <p style="font-size: 13px; color: #f5f5dc; line-height: 1.6; margin: 0;">${fullDefinition}</p>
+                            </div>
+                        ` : ''}
+                        ${whyMatters ? `
+                            <div id="val-info-why-${index}" style="display: none; background: rgba(234, 255, 196, 0.08); border-left: 3px solid #eaffc4; padding: 12px 16px; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                                <p style="font-size: 13px; color: #f5f5dc; line-height: 1.6; margin: 0;">${whyMatters}</p>
+                            </div>
+                        ` : ''}
+                        ${vcPerspective ? `
+                            <div id="val-info-vc-${index}" style="display: none; background: rgba(234, 255, 196, 0.08); border-left: 3px solid #eaffc4; padding: 12px 16px; margin-bottom: 1rem; border-radius: 0 8px 8px 0;">
+                                <p style="font-size: 13px; color: #f5f5dc; line-height: 1.6; margin: 0;">${vcPerspective}</p>
+                            </div>
+                        ` : ''}
 
                         <div style="display: flex; gap: 0.75rem;">
                             <div class="option-card validation-option" onclick="selectValidationAnswer(${index}, 'Yes', this)" style="background: rgba(245, 245, 220, 0.05); padding: 0.75rem 1.5rem; border-radius: 12px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; flex: 1; text-align: center;">
@@ -4108,6 +4227,17 @@
                 setTimeout(() => {
                     checkValidationResults();
                 }, 300);
+            } else {
+                // Scroll to next unanswered question
+                const nextUnansweredIndex = prelimData.validationAnswers.findIndex(a => a === null);
+                if (nextUnansweredIndex !== -1) {
+                    setTimeout(() => {
+                        const nextQuestion = document.querySelector(`.validation-question-block[data-question-index="${nextUnansweredIndex}"]`);
+                        if (nextQuestion) {
+                            nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 200);
+                }
             }
         }
 
@@ -4217,13 +4347,17 @@
             // Hide preliminary flow
             document.getElementById('prelimFlow').style.display = 'none';
 
+            // Update intro text on pictorial page
+            const headingEl = document.getElementById('modelHeading');
+            if (headingEl) {
+                headingEl.textContent = "Welcome to the Sova Assessment";
+            }
+
             // Show the pictorial based on mode
             if (mode === 'complete') {
-                // Complete assessment: show model with auto-pulse animation
                 console.log('🎬 Starting complete assessment with auto-pulse');
                 showModel();
             } else if (mode === 'zoomin') {
-                // Zoom in: show model WITHOUT auto-pulse animation
                 console.log('🔍 Starting zoom-in mode - no auto-pulse');
                 showModelManual();
             }
@@ -4293,18 +4427,58 @@
             // Set heading
             document.getElementById('validationHeading').textContent = validationData.heading;
 
-            // Build validation questions HTML - compressed for one-page fit
-            let questionsHTML = '<div style="display: flex; flex-direction: column; gap: 8px;">';
-            validationData.questions.forEach((q, index) => {
+            // Build validation questions HTML with info buttons (Definition, Why it matters, VC Perspective)
+            let questionsHTML = '<div style="display: flex; flex-direction: column; gap: 16px;">';
+            validationData.questions.forEach((qData, index) => {
+                const question = typeof qData === 'string' ? qData : qData.q;
+                const hint = qData.hint || '';
+                const definition = qData.definition || '';
+                const whyMatters = qData.whyMatters || '';
+                const vcPerspective = qData.vcPerspective || '';
+
                 questionsHTML += `
-                    <div style="margin-bottom: 12px;">
-                        <label style="display: block; font-size: 15px; font-weight: 500; color: #2d2828; margin-bottom: 10px; line-height: 1.4;">${q}</label>
+                    <div style="margin-bottom: 8px; padding: 20px; background: white; border-radius: 12px; border: 1px solid rgba(61, 37, 23, 0.1);">
+                        <label style="display: block; font-size: 16px; font-weight: 600; color: #2d2828; margin-bottom: 8px; line-height: 1.4;">${question}</label>
+                        ${hint ? `<p style="font-size: 13px; color: #2d2828; opacity: 0.6; margin: 0 0 12px 0;">${hint}</p>` : ''}
+
+                        <!-- Info buttons row -->
+                        ${(definition || whyMatters || vcPerspective) ? `
+                            <div style="display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;">
+                                ${definition ? `
+                                    <button type="button" onclick="toggleValidationInfo('def-${index}')" style="background: rgba(61, 37, 23, 0.05); border: 1px solid rgba(61, 37, 23, 0.15); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #2d2828; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(61, 37, 23, 0.1)'" onmouseout="this.style.background='rgba(61, 37, 23, 0.05)'">Definition</button>
+                                ` : ''}
+                                ${whyMatters ? `
+                                    <button type="button" onclick="toggleValidationInfo('why-${index}')" style="background: rgba(61, 37, 23, 0.05); border: 1px solid rgba(61, 37, 23, 0.15); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #2d2828; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(61, 37, 23, 0.1)'" onmouseout="this.style.background='rgba(61, 37, 23, 0.05)'">Why it matters</button>
+                                ` : ''}
+                                ${vcPerspective ? `
+                                    <button type="button" onclick="toggleValidationInfo('vc-${index}')" style="background: rgba(61, 37, 23, 0.05); border: 1px solid rgba(61, 37, 23, 0.15); border-radius: 6px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: #2d2828; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='rgba(61, 37, 23, 0.1)'" onmouseout="this.style.background='rgba(61, 37, 23, 0.05)'">VC Perspective</button>
+                                ` : ''}
+                            </div>
+
+                            <!-- Info content panels (hidden by default) -->
+                            ${definition ? `
+                                <div id="val-info-def-${index}" style="display: none; background: rgba(234, 255, 196, 0.15); border-left: 3px solid #b8d78f; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 8px 8px 0;">
+                                    <p style="font-size: 13px; color: #2d2828; line-height: 1.6; margin: 0;">${definition}</p>
+                                </div>
+                            ` : ''}
+                            ${whyMatters ? `
+                                <div id="val-info-why-${index}" style="display: none; background: rgba(234, 255, 196, 0.15); border-left: 3px solid #b8d78f; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 8px 8px 0;">
+                                    <p style="font-size: 13px; color: #2d2828; line-height: 1.6; margin: 0;">${whyMatters}</p>
+                                </div>
+                            ` : ''}
+                            ${vcPerspective ? `
+                                <div id="val-info-vc-${index}" style="display: none; background: rgba(234, 255, 196, 0.15); border-left: 3px solid #b8d78f; padding: 12px 16px; margin-bottom: 12px; border-radius: 0 8px 8px 0;">
+                                    <p style="font-size: 13px; color: #2d2828; line-height: 1.6; margin: 0;">${vcPerspective}</p>
+                                </div>
+                            ` : ''}
+                        ` : ''}
+
                         <div style="display: flex; gap: 16px;">
-                            <label style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 2px solid rgba(61, 37, 23, 0.3); border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 600; color: #2d2828; transition: all 0.2s ease;">
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #f5f5dc; border: 2px solid rgba(61, 37, 23, 0.2); border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 600; color: #2d2828; transition: all 0.2s ease;">
                                 <input type="radio" name="val${index}" value="yes" id="val${index}-yes" style="margin: 0;">
                                 <span>Yes</span>
                             </label>
-                            <label style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 2px solid rgba(61, 37, 23, 0.3); border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 600; color: #2d2828; transition: all 0.2s ease;">
+                            <label style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #f5f5dc; border: 2px solid rgba(61, 37, 23, 0.2); border-radius: 8px; cursor: pointer; font-size: 15px; font-weight: 600; color: #2d2828; transition: all 0.2s ease;">
                                 <input type="radio" name="val${index}" value="no" id="val${index}-no" style="margin: 0;">
                                 <span>No</span>
                             </label>
@@ -4323,6 +4497,22 @@
 
             // Show Step 2
             document.getElementById('step2Section').style.display = 'block';
+        }
+
+        // Toggle validation info panels (Definition, Why it matters, VC Perspective)
+        function toggleValidationInfo(panelId) {
+            const panel = document.getElementById('val-info-' + panelId);
+            if (panel) {
+                const isVisible = panel.style.display !== 'none';
+                // Hide all panels for this question first
+                const questionIndex = panelId.split('-')[1];
+                ['def', 'why', 'vc'].forEach(type => {
+                    const otherPanel = document.getElementById('val-info-' + type + '-' + questionIndex);
+                    if (otherPanel) otherPanel.style.display = 'none';
+                });
+                // Toggle the clicked panel
+                panel.style.display = isVisible ? 'none' : 'block';
+            }
         }
 
         // Check validation answers
@@ -5975,6 +6165,12 @@
         function startElementAssessment(elementName) {
             console.log(`🎯 Starting assessment for ${elementName}`);
 
+            // Hide the click hint when user starts an assessment
+            const clickHint = document.getElementById('elementClickHint');
+            if (clickHint) {
+                clickHint.style.display = 'none';
+            }
+
             // Check if element result exists (re-assessment) or new assessment
             const elementResult = multiElementProgress.results[elementName];
             const isReassessment = elementResult && elementResult.questionsAnswered > 0;
@@ -6007,16 +6203,49 @@
             document.getElementById('reportSidebar').style.display = 'block';  // Show report sidebar
             document.getElementById('actionSidebar').style.display = 'block';  // Show actions sidebar
             updateWebChart(); // Update with new element data
-            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Only auto-start next element if in Complete mode, not Zoom In mode
+            // Scroll behaviour depends on mode
             if (userData.assessmentMode === 'complete') {
-                // After a brief moment showing the completed element, auto-start next
-                setTimeout(() => {
-                    startDemoAnimation();
-                }, 1000); // Show pictorial for 1 second before continuing
+                // Complete mode: scroll so diagram is visible with next element shown
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+                const nextElement = elementOrder.find(el => !multiElementProgress.elementsCompleted.includes(el));
+
+                if (nextElement) {
+                    const modelSection = document.getElementById('modelSection');
+                    const modelWrapper = modelSection ? modelSection.querySelector('.model-wrapper') : null;
+
+                    if (modelWrapper) {
+                        // Get position of the diagram wrapper (not the welcome text above it)
+                        const wrapperRect = modelWrapper.getBoundingClientRect();
+                        const wrapperTop = wrapperRect.top + window.scrollY;
+
+                        if (nextElement === 'Marketing') {
+                            // Marketing is at bottom of diagram - scroll so it's visible
+                            // Marketing dot is at cy=1129 out of 1500 viewBox
+                            const scrollTarget = wrapperTop + wrapperRect.height - window.innerHeight + 100;
+                            window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+                        } else {
+                            // Governance, Purpose, Strategy are at top - scroll to top of diagram
+                            // Offset slightly so Governance dot at top is visible with some padding
+                            window.scrollTo({ top: Math.max(0, wrapperTop - 20), behavior: 'smooth' });
+                        }
+                    }
+
+                    // After scrolling, auto-start next element
+                    setTimeout(() => {
+                        startDemoAnimation();
+                    }, 800);
+                }
             } else {
+                // Zoom mode: scroll to top of diagram
                 console.log('🔍 Zoom In mode: User chooses next element manually');
+                const modelSection = document.getElementById('modelSection');
+                const modelWrapper = modelSection ? modelSection.querySelector('.model-wrapper') : null;
+                if (modelWrapper) {
+                    const wrapperRect = modelWrapper.getBoundingClientRect();
+                    const wrapperTop = wrapperRect.top + window.scrollY;
+                    window.scrollTo({ top: Math.max(0, wrapperTop - 20), behavior: 'smooth' });
+                }
             }
         }
 
@@ -6172,7 +6401,7 @@
                         </div>
                         <div>
                             <div style="font-size: 32px; font-weight: 700; color: ${totalNo > 0 ? '#b8d78f' : '#2d2828'};">${totalNo}</div>
-                            <div style="font-size: 14px; color: #2d2828; opacity: 0.7;">Gaps Identified</div>
+                            <div style="font-size: 14px; color: #2d2828; opacity: 0.7;">Areas to Improve</div>
                         </div>
                     </div>
                 `;
@@ -6193,7 +6422,7 @@
                     const questionText = isSolo ? (gap.question.Solo || gap.question.Team) : gap.question.Team;
                     const tool1 = gap.question['Tool/Framework 1'] || '';
                     const tool2 = gap.question['Tool/Framework 2'] || '';
-                    const whyQuote = whyQuotes[gap.element] || 'Addressing this gap is critical for sustainable growth.';
+                    const whyQuote = whyQuotes[gap.element] || 'Addressing this area is critical for sustainable growth.';
 
                     priorityHTML += `
                         <div style="background: #f5f5dc; border: 2px solid #eaffc4; border-radius: 8px; padding: 24px; margin-bottom: 20px;">
@@ -6201,7 +6430,7 @@
                                 <div style="background: #eaffc4; color: #2d2828; font-weight: 700; font-size: 20px; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 16px;">${priorityNum}</div>
                                 <h4 style="color: #2d2828; font-size: 18px; font-weight: 700; margin: 0;">${gap.element} - ${gap.stage}</h4>
                             </div>
-                            <p style="color: #2d2828; font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;"><strong>Gap:</strong> ${questionText}</p>
+                            <p style="color: #2d2828; font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;"><strong>Focus:</strong> ${questionText}</p>
                             ${tool1 ? `<p style="margin: 8px 0; color: #2d2828;"><strong>Tool:</strong> ${tool1}</p>` : ''}
                             ${tool2 ? `<p style="margin: 8px 0; color: #2d2828;"><strong>Also consider:</strong> ${tool2}</p>` : ''}
                             <blockquote style="margin: 16px 0 0 0; padding: 12px 16px; background: #f5f5dc; border-left: 3px solid #b8d78f; font-style: italic; color: #2d2828; line-height: 1.6; font-size: 14px;">
@@ -6213,19 +6442,30 @@
 
                 priorityContent.innerHTML = priorityHTML;
             } else if (priorityContent && totalAnswered > 0) {
-                priorityContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">Excellent! No gaps identified yet. Your top priorities will appear here if any gaps are found.</p>';
+                priorityContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">Excellent! No areas for improvement identified yet. Your top priorities will appear here if any are found.</p>';
             } else if (priorityContent) {
                 priorityContent.innerHTML = '<p class="placeholder-text">Your top 3 priorities will appear here...</p>';
             }
 
             // ======================
-            // 3. CURRENT STATUS (Hero section)
+            // 3. CURRENT STATUS (Hero section) - Action-oriented messaging
             // ======================
             const statusContent = document.getElementById('statusContent');
             if (elementsStarted > 0) {
-                // Show web chart reference and gaps count
-                let statusHTML = '<p style="color: #f5f5dc; font-size: clamp(16px, 1.8vw, 20px); line-height: 1.6; margin: 0 0 12px 0; opacity: 0.8;">See web chart above for your results</p>';
-                statusHTML += '<p style="color: #f5f5dc; font-size: clamp(18px, 2vw, 24px); line-height: 1.6; margin: 0;">We\'ve identified <strong style="color: #eaffc4;">' + totalNo + ' gaps</strong> to address.</p>';
+                // Action-oriented messaging - encouraging, no timelines
+                let statusHTML = '';
+                if (totalNo === 0) {
+                    statusHTML = '<p style="color: #f5f5dc; font-size: clamp(18px, 2vw, 24px); line-height: 1.6; margin: 0;">You\'re in great shape. Keep building on these foundations.</p>';
+                } else if (totalNo === 1) {
+                    statusHTML = '<p style="color: #f5f5dc; font-size: clamp(18px, 2vw, 24px); line-height: 1.6; margin: 0 0 12px 0;">We\'ve identified <strong style="color: #eaffc4;">1 area</strong> to strengthen.</p>';
+                    statusHTML += '<p style="color: #f5f5dc; font-size: clamp(14px, 1.6vw, 16px); line-height: 1.6; margin: 0; opacity: 0.7;">You\'re almost there—one focus area to address.</p>';
+                } else if (totalNo <= 3) {
+                    statusHTML = '<p style="color: #f5f5dc; font-size: clamp(18px, 2vw, 24px); line-height: 1.6; margin: 0 0 12px 0;">We\'ve identified <strong style="color: #eaffc4;">' + totalNo + ' areas</strong> to strengthen.</p>';
+                    statusHTML += '<p style="color: #f5f5dc; font-size: clamp(14px, 1.6vw, 16px); line-height: 1.6; margin: 0; opacity: 0.7;">Start with #1, then work your way through.</p>';
+                } else {
+                    statusHTML = '<p style="color: #f5f5dc; font-size: clamp(18px, 2vw, 24px); line-height: 1.6; margin: 0 0 12px 0;">We\'ve identified <strong style="color: #eaffc4;">' + totalNo + ' areas</strong> to strengthen.</p>';
+                    statusHTML += '<p style="color: #f5f5dc; font-size: clamp(14px, 1.6vw, 16px); line-height: 1.6; margin: 0; opacity: 0.7;">Start with the top 3 priorities, then tackle the rest.</p>';
+                }
                 statusContent.innerHTML = statusHTML;
             } else {
                 statusContent.innerHTML = '<p style="color: #f5f5dc; font-size: clamp(18px, 2vw, 24px);">Complete the assessment to see your results</p>';
@@ -6272,17 +6512,17 @@
                                 <!-- Gaps count -->
                                 ${elementGapsCount > 0 ? `
                                     <div style="color: #2d2828; font-size: 11px; font-weight: 600; opacity: 0.7;">
-                                        ${elementGapsCount} gap${elementGapsCount !== 1 ? 's' : ''} to address
+                                        ${elementGapsCount} area${elementGapsCount !== 1 ? 's' : ''} to improve
                                     </div>
                                 ` : `
                                     <div style="color: #2d2828; font-size: 11px; font-weight: 600; opacity: 0.7;">
-                                        No gaps identified
+                                        No areas to improve
                                     </div>
                                 `}
 
                                 <!-- Click hint -->
                                 <div style="margin-top: 10px; padding-top: 10px; border-top: 2px solid #f5f5dc; color: #2d2828; opacity: 0.5; font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px;">
-                                    Click to view gaps
+                                    Click to view areas
                                 </div>
                             </div>
                         `;
@@ -6703,9 +6943,9 @@
                     initializeTooltips(); // Re-initialize for dynamically added tooltips
                 }, 100);
             } else if (totalAnswered > 0) {
-                gapsContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">No gaps identified. You\'re doing great!</p>';
+                gapsContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">No areas for improvement identified. You\'re doing great!</p>';
             } else {
-                gapsContent.innerHTML = '<p class="placeholder-text">Your gaps analysis will appear here...</p>';
+                gapsContent.innerHTML = '<p class="placeholder-text">Your areas for improvement will appear here...</p>';
             }
 
             // ======================
@@ -6757,7 +6997,7 @@
             // ======================
             const whyContent = document.getElementById('whyContent');
             if (whyContent && allGaps.length > 0) {
-                let whyHTML = '<p style="font-size: 16px; line-height: 1.7; margin-bottom: 20px;">Based on your answers, here\'s why addressing these gaps is critical for your business:</p>';
+                let whyHTML = '<p style="font-size: 16px; line-height: 1.7; margin-bottom: 20px;">Based on your answers, here\'s why these areas are critical for your business:</p>';
 
                 // Group gaps by element to avoid repetition
                 const elementsSeen = new Set();
@@ -6779,9 +7019,9 @@
 
                 whyContent.innerHTML = whyHTML;
             } else if (whyContent && totalAnswered > 0) {
-                whyContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">Excellent! No gaps identified. Context about critical business elements will appear here if any gaps are found.</p>';
+                whyContent.innerHTML = '<p style="color: #2d2828; font-size: 16px;">Excellent! No areas for improvement identified. Context about critical business elements will appear here if any are found.</p>';
             } else if (whyContent) {
-                whyContent.innerHTML = '<p class="placeholder-text">Context about why these gaps are critical will appear here...</p>';
+                whyContent.innerHTML = '<p class="placeholder-text">Context about why these areas are critical will appear here...</p>';
             }
 
             // ======================
@@ -6851,7 +7091,7 @@
                 todoContent.innerHTML = `
                     <div style="background: rgba(234, 255, 196, 0.06); border: 1px solid rgba(234, 255, 196, 0.2); border-radius: 6px; padding: 24px; text-align: center;">
                         <p style="color: #2d2828; font-size: 15px; font-weight: 500; margin: 0 0 6px 0;">
-                            No gaps identified
+                            No areas for improvement identified
                         </p>
                         <p style="color: #2d2828; font-size: 13px; margin: 0; opacity: 0.6;">
                             You're ready to progress
@@ -7090,8 +7330,8 @@
 
                 // HOW Section
                 html += '<div class="golden-circle-section how-section">';
-                html += `<h2>How to Fix Your Gaps</h2>`;
-                html += `<p>You have ${noAnswers.length} gap${noAnswers.length > 1 ? 's' : ''} to address. Start with #1.</p>`;
+                html += `<h2>How to Address Your Areas for Improvement</h2>`;
+                html += `<p>You have ${noAnswers.length} area${noAnswers.length > 1 ? 's' : ''} to address. Start with #1.</p>`;
 
                 noAnswers.forEach((item, idx) => {
                     const q = item.question;
@@ -7290,12 +7530,15 @@
                     const y = centerY + (pos.cy - centerY) * stageRatio;
                     points.push(`${x},${y}`);
 
-                    // Add circle dot at endpoint for visibility
+                    // Add glowing circle dot at endpoint for visibility
                     const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
                     dot.setAttribute('cx', x);
                     dot.setAttribute('cy', y);
-                    dot.setAttribute('r', '6');
+                    dot.setAttribute('r', '10');
                     dot.setAttribute('fill', '#eaffc4');
+                    dot.setAttribute('stroke', '#eaffc4');
+                    dot.setAttribute('stroke-width', '3');
+                    dot.style.filter = 'drop-shadow(0 0 12px rgba(234, 255, 196, 0.9)) drop-shadow(0 0 6px rgba(234, 255, 196, 0.7))';
                     wedgesContainer.appendChild(dot);
                     console.log(`✅ Circle dot added at (${x},${y})`);
                 } else {

@@ -6,7 +6,63 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
-## Recent Updates (2025-11-27)
+## Recent Updates (2025-11-28)
+
+### Circle Diagram UX Improvements (UAT Feedback)
+- ✅ **Fixed discoverability issue** - Users didn't realise element dots were clickable
+- ✅ **Added instructional text** above diagram: "Click a glowing element to begin your assessment"
+- ✅ **Added pulse animation** to all active element dots (2s ease-in-out, scale 1.0→1.08)
+- ✅ **Improved hover states** - Animation pauses, dot scales to 1.15 with bright glow
+- ✅ **Auto-hide hint** - Instructional text hides when user starts assessment
+- ✅ **UX terms applied**: Affordance (visual cues for interactivity), Discoverability (making clickable elements obvious)
+
+### Path Selection Renamed (Clearer UX)
+- ✅ **"Complete Assessment"** → **"Full Health Check"** - Self-explanatory, mentions the 4 elements
+- ✅ **"Zoom In on One Element"** → **"Quick Start"** - No prior knowledge of elements needed
+- ✅ **"Work with Your Guide"** → **"Chat with Sova"** - Simpler, friendlier
+- ✅ Updated descriptions to be more action-oriented and clear
+
+### Prelim/Model Transition Screen
+- ✅ **Added transition screen** between prelim flow and SOVA model
+- ✅ Shows selected mode (Full Health Check / Quick Start)
+- ✅ Shows friendly message: "Let's assess your startup health"
+- ✅ Shows starting stage with emphasis
+- ✅ Animated loading indicator with pulse
+- ✅ Smooth fade in/out (0.5s) with 1.5s display time
+- ✅ Creates clear "handoff" moment between understanding user → assessment
+
+### Fixed Broken Sova Resource Links
+- ✅ **Fixed PDF links** in questions-data.js - were pointing to local paths (`../inbox/Allivate/...`)
+- ✅ Updated to correct filenames in sova-mvp folder:
+  - `SOVA_AUSTRALIAN_STARTUP_SETUP_GUIDE_PROFESSIONAL.pdf`
+  - `Australian_Startup_Tax_Checklist_PROFESSIONAL.pdf`
+  - `Australian_Startup_Tax_Guide_PROFESSIONAL.pdf`
+  - `SOVA_EXPERTS_ECOSYSTEM_GUIDE_PROFESSIONAL.pdf`
+- ✅ Fixed tools-data.js with same PDF mappings
+
+### Journey-Focused UX Improvements (UAT Feedback)
+- ✅ **Renamed "Gaps" → "Areas for Improvement"** throughout interface
+  - Section headers, stat cards, placeholder texts, status messages
+  - Changed "X gaps to address" → "X areas to improve"
+  - Changed "Gap:" label → "Focus:" in priority cards
+  - Internal variable/function names kept for backwards compatibility
+- ✅ **Added implementation time estimates** to each Area for Improvement card
+  - Discovery stage: 1-2 hours (quick wins)
+  - Validation stage: 1-2 days (short projects)
+  - Efficiency stage: 1-2 weeks (medium projects)
+  - Scale stage: 2-4 weeks (ongoing efforts)
+  - Clock icon with time badge in card header
+- ✅ **Reframed report intro** with journey-focused messaging
+  - Dynamic messaging based on number of areas identified
+  - 0 areas: "You're in great shape. Keep building on these foundations."
+  - 1-3 areas: "Here's your roadmap... Take it one step at a time."
+  - 4-6 areas: "This is a journey, not a sprint."
+  - 7+ areas: "Don't feel overwhelmed—focus on your top 3 priorities first."
+  - Sets realistic expectations (1-3 months for most founders)
+
+---
+
+## Previous Updates (2025-11-27)
 
 ### Chatbot v3.0 - Gemini AI Integration
 - ✅ **Gemini 2.5 Flash API** integrated for intelligent conversations
