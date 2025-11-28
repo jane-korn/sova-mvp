@@ -1,7 +1,7 @@
 // Assessment questions data - Generated from Self Assessment Structure.xlsx
 // Organized by Element and Stage for efficient lookups
 // Total questions: 113
-// Last updated: 2025-11-28 14:50:57
+// Last updated: 2025-11-28 14:42:54
 // Hyperlinks extracted: 496
 
 var allQuestionsData = {
