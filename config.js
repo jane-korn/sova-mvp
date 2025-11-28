@@ -69,21 +69,31 @@ var sovaConfig = {
     // ===================
     // These are asked when user selects a stage beyond Discovery
     // to verify they've completed the foundations of prior stages
+    // Each question has: q (question), hint, definition, whyMatters, vcPerspective
     validationQuestions: {
         'Validation': {
             heading: "Let's check you've completed Discovery foundations",
             questions: [
                 {
                     q: "Do you understand the basic legal requirements to start testing your idea?",
-                    hint: "Things like ABN, basic insurance"
+                    hint: "Things like ABN, basic insurance",
+                    definition: "Legal requirements include obtaining an Australian Business Number (ABN), understanding your tax obligations, and having appropriate insurance to protect yourself while testing your idea.",
+                    whyMatters: "Getting the basics right from day one protects you personally and professionally. Many founders skip this and face costly problems later when they try to formalise or raise investment.",
+                    vcPerspective: "Investors expect founders to have their legal house in order. Messy or missing foundations create due diligence red flags and can delay or derail funding rounds."
                 },
                 {
                     q: "Have you documented a simple business plan?",
-                    hint: "Who you serve, what problem you solve, how you'll make money"
+                    hint: "Who you serve, what problem you solve, how you'll make money",
+                    definition: "A simple business plan captures your target customer, the problem you solve, your proposed solution, and how you intend to generate revenue. It doesn't need to be lengthy.",
+                    whyMatters: "Writing it down forces clarity. Founders who can't articulate their business simply often struggle to make focused decisions or communicate effectively with stakeholders.",
+                    vcPerspective: "VCs look for founders with clear thinking. A simple, well-articulated plan demonstrates you understand your market and have thought through the fundamentals."
                 },
                 {
                     q: "Do you have a plan to test your idea in the next 3-6 months?",
-                    hint: "Your core hypothesis and how you'll validate it"
+                    hint: "Your core hypothesis and how you'll validate it",
+                    definition: "A validation plan outlines the key assumptions you need to test, how you'll test them, and what success looks like. It focuses on learning, not building.",
+                    whyMatters: "Without a testing plan, founders often build too much before validating demand. This wastes time and money on features or products nobody wants.",
+                    vcPerspective: "Investors want to see evidence of customer discovery and validation. A clear testing plan shows you're methodical and focused on reducing risk."
                 }
             ]
         },
@@ -92,15 +102,24 @@ var sovaConfig = {
             questions: [
                 {
                     q: "Have you documented who does what in your team?",
-                    hint: "Clear roles and responsibilities"
+                    hint: "Clear roles and responsibilities",
+                    definition: "Documented roles means having written clarity on who is responsible for what areas of the business, including decision-making authority and accountability.",
+                    whyMatters: "Unclear roles lead to dropped balls, duplicated effort, and conflict. As you grow, this ambiguity becomes increasingly costly and frustrating for everyone.",
+                    vcPerspective: "Investors assess team dynamics closely. Clear roles signal maturity and reduce the risk of founder conflict, which is a leading cause of startup failure."
                 },
                 {
                     q: "Do customers actually pay for your solution?",
-                    hint: "Mainstream customers, not just early supporters"
+                    hint: "Mainstream customers, not just early supporters",
+                    definition: "Paying customers means people who weren't friends, family, or early supporters have exchanged money for your product or service based on its value to them.",
+                    whyMatters: "Revenue from real customers is the strongest validation that your solution solves a problem worth paying for. Everything else is just theory.",
+                    vcPerspective: "Traction with paying customers is often the single most important metric for investors. It proves product-market fit better than any pitch deck."
                 },
                 {
                     q: "Have you researched your market?",
-                    hint: "Talked to customers, analysed competitors"
+                    hint: "Talked to customers, analysed competitors",
+                    definition: "Market research includes understanding your target customers through direct conversations, analysing competitors, and sizing the opportunity you're pursuing.",
+                    whyMatters: "Founders who skip research often build for imaginary customers or miss obvious competitive threats. Good research saves you from expensive mistakes.",
+                    vcPerspective: "VCs expect founders to know their market deeply. Weak market knowledge suggests you haven't done the work and increases perceived investment risk."
                 }
             ]
         },
@@ -109,15 +128,24 @@ var sovaConfig = {
             questions: [
                 {
                     q: "Have you set up the legal requirements for your business?",
-                    hint: "Business registration, ABN, insurance, GST"
+                    hint: "Business registration, ABN, insurance, GST",
+                    definition: "Full legal setup includes company registration (if applicable), ABN, GST registration, appropriate insurance policies, and any industry-specific licences or permits.",
+                    whyMatters: "Scaling with incomplete legal foundations exposes you to significant risk. Issues that were minor when small become major problems at scale.",
+                    vcPerspective: "Institutional investors require clean legal structures. Gaps here can delay funding while you scramble to fix issues that should have been sorted earlier."
                 },
                 {
                     q: "Do you have written policies in place?",
-                    hint: "Guidelines for daily decisions and governance"
+                    hint: "Guidelines for daily decisions and governance",
+                    definition: "Written policies are documented guidelines that help your team make consistent decisions without needing to escalate everything. They cover areas like spending, hiring, and operations.",
+                    whyMatters: "Without policies, you become the bottleneck for every decision. Good policies let your team move fast while maintaining standards you care about.",
+                    vcPerspective: "Scalable businesses need systems, not just heroics. Investors look for evidence that the business can grow beyond the founders' direct involvement."
                 },
                 {
                     q: "Do you adapt when the market shifts?",
-                    hint: "You're flexible, not stubborn"
+                    hint: "You're flexible, not stubborn",
+                    definition: "Adaptability means you actively monitor market signals and adjust your strategy, product, or operations when evidence suggests change is needed.",
+                    whyMatters: "Markets change constantly. Startups that can't adapt get overtaken by competitors or disrupted by new entrants who better serve evolving customer needs.",
+                    vcPerspective: "VCs value founders who are conviction-driven but evidence-responsive. Stubbornness in the face of market feedback is a major red flag."
                 }
             ]
         }
