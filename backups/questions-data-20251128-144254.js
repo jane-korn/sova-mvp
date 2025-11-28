@@ -1,7 +1,7 @@
 // Assessment questions data - Generated from Self Assessment Structure.xlsx
 // Organized by Element and Stage for efficient lookups
 // Total questions: 113
-// Last updated: 2025-11-28 14:42:54
+// Last updated: 2025-11-27 13:49:59
 // Hyperlinks extracted: 496
 
 var allQuestionsData = {
@@ -29,13 +29,13 @@ var allQuestionsData = {
         "Quote (startup failure) 2": null,
         "Quote (best practice)": null,
         "Quote (best practice) 2": null,
-        "Tool/Framework 1Link": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
+        "Tool/Framework 1Link": "SOVA_AUSTRALIAN_STARTUP_SETUP_GUIDE_PROFESSIONAL.pdf",
         "Tool/Framework 2Link": "https://business.gov.au/-/media/business-information/templates-and-tools/starting-a-business-checklist.docx?sc_lang=en&hash=4F7A8FAF11CCE7CCC1D2A4D44111C30D",
         "Tool/Framework 3Link": "https://business.gov.au/",
         "Tool/Framework 4Link": null,
         "Tool/Framework 5Link": null,
         "Tool/Framework 6Link": null,
-        "ResourcesLink": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
+        "ResourcesLink": "SOVA_AUSTRALIAN_STARTUP_SETUP_GUIDE_PROFESSIONAL.pdf",
         "VC requirements mappingLink": "https://www.diligent.com/resources/blog/corporate-governance-for-startups-vc-investors",
         "Quote (startup failure)Link": "https://www.dilitrust.com/startup-corporate-governance/",
         "Quote (startup failure) 2Link": null,
@@ -172,12 +172,12 @@ var allQuestionsData = {
         "Quote (best practice)": null,
         "Quote (best practice) 2": null,
         "Tool/Framework 1Link": null,
-        "Tool/Framework 2Link": "Sova%20-%20Australian%20Startup%20Tax%20Checklist.pdf",
+        "Tool/Framework 2Link": "Australian_Startup_Tax_Checklist_PROFESSIONAL.pdf",
         "Tool/Framework 3Link": "https://www.linkedin.com/pulse/how-effectively-conduct-pestle-analysis-when-launching-saleh-zeer-5iy4f/",
         "Tool/Framework 4Link": "https://www.halladvisory.com/single-post/compliance-frameworks-getting-clarity-on-appropriate-structure-and-depth",
         "Tool/Framework 5Link": null,
         "Tool/Framework 6Link": null,
-        "ResourcesLink": "Sova%20-%20Australian%20Startup%20Tax%20Checklist.pdf",
+        "ResourcesLink": "Australian_Startup_Tax_Checklist_PROFESSIONAL.pdf",
         "VC requirements mappingLink": "https://www.thevccorner.com/p/what-venture-capitalists-look-for",
         "Quote (startup failure)Link": "https://www.auscorporate.com/business-advice-insights/ten-reasons-startups-fail",
         "Quote (startup failure) 2Link": "https://www.entrepreneur.com/starting-a-business/is-your-startup-all-show-and-no-substance/497762",
@@ -208,13 +208,13 @@ var allQuestionsData = {
         "Quote (startup failure) 2": null,
         "Quote (best practice)": null,
         "Quote (best practice) 2": null,
-        "Tool/Framework 1Link": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
+        "Tool/Framework 1Link": "SOVA_AUSTRALIAN_STARTUP_SETUP_GUIDE_PROFESSIONAL.pdf",
         "Tool/Framework 2Link": "https://business.gov.au/-/media/business-information/templates-and-tools/starting-a-business-checklist.docx?sc_lang=en&hash=4F7A8FAF11CCE7CCC1D2A4D44111C30D",
         "Tool/Framework 3Link": "https://business.gov.au/",
         "Tool/Framework 4Link": null,
         "Tool/Framework 5Link": null,
         "Tool/Framework 6Link": null,
-        "ResourcesLink": "Sova%20-%20Australian%20Startup%20Setup%20Guide.pdf",
+        "ResourcesLink": "SOVA_AUSTRALIAN_STARTUP_SETUP_GUIDE_PROFESSIONAL.pdf",
         "VC requirements mappingLink": "https://www.diligent.com/resources/blog/corporate-governance-for-startups-vc-investors",
         "Quote (startup failure)Link": "https://www.dilitrust.com/startup-corporate-governance/",
         "Quote (startup failure) 2Link": null,
