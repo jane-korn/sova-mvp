@@ -8,6 +8,28 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 ## Recent Updates (2025-11-28)
 
+### Session Updates - 28 Nov 2025 (Afternoon)
+- ✅ **Fixed mobile prelim layout** - "Getting to know you" badge and "Question X of 3" now properly spaced with space-between
+- ✅ **Fixed Start Fresh button alignment** - Right-aligned to edge on mobile
+- ✅ **Restored pull-to-refresh** - Removed overscroll-behavior: none that was blocking mobile refresh
+- ✅ **Different "How it works" guidance per path**:
+  - Full Health Check: 4 steps explaining guided flow + "Scroll down when ready..."
+  - Quick Start: 3 steps explaining self-directed flow
+- ✅ **Increased animation delay** - 3 seconds before auto-pulse starts (was 500ms) to allow reading instructions
+- ✅ **Fixed validation info buttons** - Definition, Why it matters, VC Perspective now all visible and right-aligned on mobile
+- ✅ **Updated Resources/Tools links** - Regenerated questions-data.js from Self Assessment Structure - Master.xlsx (496 hyperlinks)
+- ✅ **Sova Quick Start document** - Updated DOCX colours to new brand palette (brown #2d2828, green #eaffc4, cream #f5f5dc)
+
+### Version History (Today)
+- v6.44: Welcome heading, element dot glow, scroll fixes
+- v6.45: Mobile prelim layout fixes
+- v6.46: Prelim step indicator space-between alignment
+- v6.47: Restore pull-to-refresh
+- v6.48: Different How It Works guidance for Complete vs Zoom modes
+- v6.49: Validation info buttons left-align (later fixed to right)
+- v6.50: Validation info buttons right-align
+- v6.51: Fix validation info buttons right-alignment (CSS selector conflict)
+
 ### Circle Diagram UX Improvements (UAT Feedback)
 - ✅ **Fixed discoverability issue** - Users didn't realise element dots were clickable
 - ✅ **Added instructional text** above diagram: "Click a glowing element to begin your assessment"
