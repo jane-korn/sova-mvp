@@ -355,8 +355,8 @@
         // ============================================
         // CONFIGURATION
         // ============================================
-        const GEMINI_API_KEY = 'AIzaSyBgXewHcqq78OgbQSvJ0fZS7jZgwVKLoBk';
-        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+        // API calls go through Netlify Functions proxy (keeps API key server-side)
+        const CHAT_API_URL = '/.netlify/functions/chat';
 
         // State
         let conversationHistory = [];
@@ -516,7 +516,7 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
             };
 
             try {
-                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                const response = await fetch(CHAT_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
@@ -599,7 +599,7 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
         // ============================================
         function startConversation() {
             const greeting = `
-                <p>G'day! I'm Sova, your startup guide. I'm here to help you work through challenges and find practical solutions.</p>
+                <p>Welcome. I'm Sova, your startup guide. I'm here to help you work through challenges and find practical solutions.</p>
                 <p>I can help with:</p>
                 <ul>
                     <li><strong>Governance</strong> — Structure, roles, accountability, compliance</li>
