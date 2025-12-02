@@ -1,5 +1,19 @@
 <!DOCTYPE html>
-<!-- UPDATED: 2025-11-28 - Version 6.45 - Mobile prelim layout fixes: reduced top space, aligned badges, same-line header -->
+<!--
+================================================================================
+PROPRIETARY AND CONFIDENTIAL
+Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
+
+This software and its documentation are protected by copyright law and
+international treaties. Unauthorized reproduction, distribution, or use of
+this software, in whole or in part, is strictly prohibited and may result
+in severe civil and criminal penalties.
+
+Protected by Australian Copyright Act 1968
+Protected by Digital Millennium Copyright Act (DMCA)
+================================================================================
+-->
+<!-- UPDATED: 2025-12-02 - Version 6.54 - Security headers, copyright, anti-copy protection -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -3091,6 +3105,32 @@
     </style>
 </head>
 <body>
+    <!-- Anti-copy protection -->
+    <script>
+    (function(){
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+
+        // Disable keyboard shortcuts for view source/dev tools
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C')) { e.preventDefault(); return false; }
+        });
+
+        // Disable text selection on page (but allow in input fields)
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.userSelect = 'none';
+            document.body.style.webkitUserSelect = 'none';
+            // Re-enable for inputs
+            document.querySelectorAll('input, textarea').forEach(function(el) {
+                el.style.userSelect = 'text';
+                el.style.webkitUserSelect = 'text';
+            });
+        });
+    })();
+    </script>
+
     <!-- Header (outside container for full-width border) -->
     <header>
         <div class="container">
@@ -8288,6 +8328,10 @@
 
     <!-- Bird icon bottom right -->
     <img src="favicon.png" alt="Sova" class="bird-icon">
+
+    <footer style="text-align: center; padding: 1rem; font-size: 0.75rem; color: rgba(45, 40, 40, 0.4); border-top: 1px solid rgba(45, 40, 40, 0.1); margin-top: 2rem; background: #f5f5dc;">
+        &copy; 2025 Sova. All rights reserved. Assessment tool and content protected by copyright. <a href="terms.html" style="color: #b8d78f;">Terms of Service</a>
+    </footer>
 </body>
 </html>
-<!-- Cache bust: v6.53 - Mobile gaps section layout fixes (header, filter, element buttons) - 2025-11-28 -->
+<!-- Cache bust: v6.54 - Added security headers and copyright notices - 2025-12-02 -->
