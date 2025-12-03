@@ -1944,6 +1944,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 max-width: 100% !important;
             }
 
+            /* Fix pilot phase note on mobile */
+            #prelim-page-1 > div:first-child {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
             .prelim-section h2 {
                 font-size: 28px;
                 margin-bottom: 12px;
@@ -2635,6 +2641,14 @@ Protected by Digital Millennium Copyright Act (DMCA)
         @media screen and (max-width: 480px) {
             .container {
                 padding: 8px 12px;
+            }
+
+            /* Fix pilot phase note on mobile */
+            #prelim-page-1 > div:first-child {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                max-width: calc(100vw - 24px) !important;
+                box-sizing: border-box !important;
             }
 
             .logo-text {
