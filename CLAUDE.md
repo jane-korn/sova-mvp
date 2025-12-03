@@ -6,7 +6,46 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
-## Recent Updates (2025-11-28)
+## Recent Updates (2025-12-03)
+
+### Session Updates - 3 Dec 2025
+- ✅ **Netlify hosting configured** with custom domain getsova.com.au
+  - Connected GitHub repo to Netlify (auto-deploy on push to master)
+  - Configured GoDaddy DNS: A record → 75.2.60.5, CNAME www → imaginative-longma-709f5d.netlify.app
+  - SSL/TLS certificate provisioned via Let's Encrypt
+- ✅ **Pilot phase note added** to first prelim page (Solo/Team selection)
+  - Full green border, bright background for visibility
+  - Embedded survey link for feedback
+  - Start Fresh button with explanation integrated into paragraph
+- ✅ **Fixed mobile text wrapping** in pilot phase note
+  - Removed CSS `white-space: nowrap` that was breaking text
+  - Added explicit `white-space: normal` for pilot note paragraphs
+- ✅ **Fixed footer spacing** - Removed 100px body padding-bottom causing gap below footer
+- ✅ **Created outlined logo versions** with brown (#2d2828) borders:
+  - `sova-logo-main-transparent-outlined.png`
+  - `sova-logo-icon-transparent-outlined.png`
+- ✅ **Created brown logo version**: `sova-logo-main-brown-transparent.png`
+- ✅ **DL flyer for Fuckup Nights event**:
+  - `sova-dl-flyer.pdf` - Combined 1.png and 2.png at correct DL size (99mm x 210mm)
+  - `sova-dl-flyer-a4-print.pdf` - 2 DLs side by side on A4 for home printing (double-sided)
+
+### Hosting Configuration
+- **Domain:** getsova.com.au
+- **Hosting:** Netlify (free tier)
+- **Netlify Site:** imaginative-longma-709f5d.netlify.app
+- **DNS Provider:** GoDaddy
+- **SSL:** Let's Encrypt (auto-provisioned by Netlify)
+- **Deploy:** Auto-deploy on push to master branch
+
+### DNS Records (GoDaddy)
+| Type | Name | Value | TTL |
+|------|------|-------|-----|
+| A | @ | 75.2.60.5 | 1/2 Hour |
+| CNAME | www | imaginative-longma-709f5d.netlify.app | 1 Hour |
+
+---
+
+## Previous Updates (2025-11-28)
 
 ### Session Updates - 28 Nov 2025 (Afternoon)
 - ✅ **Fixed mobile prelim layout** - "Getting to know you" badge and "Question X of 3" now properly spaced with space-between

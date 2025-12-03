@@ -1,6 +1,7 @@
 # Sova MVP - Business Assessment Tool
 
-**Live Demo:** https://jane-korn.github.io/sova-mvp/
+**Live Site:** https://getsova.com.au
+**GitHub Pages:** https://jane-korn.github.io/sova-mvp/
 
 A mobile-responsive business assessment tool for Australian startups and scaleups.
 
@@ -84,18 +85,25 @@ Located in `/instagram-templates/` directory:
 - `sova-logo-icon-brown-transparent.png` - Bird icon (brown)
 - `favicon.png` - Favicon with brown border
 
+## Hosting
+
+- **Domain:** getsova.com.au (Netlify)
+- **DNS:** GoDaddy
+- **SSL:** Let's Encrypt (auto-provisioned)
+- **Deploy:** Auto-deploy on push to master
+
 ## Version
 
-Current: v6.35 (2025-11-24)
-- Fixed Startup Sidekick alignment and width
-- Created Instagram post templates (PowerPoint)
-- Applied Montserrat font across all pages
-- Updated logo styling and positioning
+Current: v6.52 (2025-12-03)
+- Netlify hosting with custom domain getsova.com.au
+- Pilot phase note with survey link on first prelim page
+- Fixed mobile text wrapping and footer spacing
+- Created outlined logo versions and DL flyer print layouts
 
-Previous: v6.34 (2025-11-21)
-- Mobile animation fixes
-- Element label consistency
-- Updated tool links
+Previous: v6.51 (2025-11-28)
+- Mobile prelim layout fixes
+- Validation info buttons right-aligned
+- Different How It Works guidance per path
 
 ---
 
