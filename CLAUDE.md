@@ -8,6 +8,22 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 ## Recent Updates (2025-12-03)
 
+### Session Updates - 3 Dec 2025 (Late Night) - Mobile Hamburger Menu
+- ✅ **Mobile hamburger menu** - All 4 pages (index, research, about, directory)
+  - 3-line icon transforms to X when active
+  - Right-justified in header on mobile (≤768px)
+  - Full-screen overlay with backdrop blur (20px)
+  - Staggered link animations (0.1s delays)
+  - All pages linked: Home, Research, Directory, About Us + "Start Assessment" CTA
+  - Escape key closes menu, body scroll locked when open
+- ✅ **Speech bubble animation improved**
+  - Starts hidden (opacity: 0, scale: 0)
+  - 2-second delay after page load before appearing
+  - Bird "speaking" animation - subtle 3deg rotation wobble
+  - Bounce effect using cubic-bezier easing
+  - Tail points to bird's beak via CSS triangle pseudo-element
+- ✅ **UX terms**: Hamburger menu, overlay, backdrop blur, staggered animation, transform origin
+
 ### Session Updates - 3 Dec 2025 (Evening) - Bold Design System
 - ✅ **Feature cards 2-column layout** - Changed from 4-column to 2-column grid
   - Horizontal layout with number badge on left, content on right
