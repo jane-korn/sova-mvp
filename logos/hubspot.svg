@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 30" width="110" height="30">
+  <style>
+    .hubspot-text { font-family: 'Lexend Deca', Arial, sans-serif; font-size: 22px; fill: #f5f5dc; font-weight: 600; }
+  </style>
+  <text x="0" y="23" class="hubspot-text">HubSpot</text>
+</svg>

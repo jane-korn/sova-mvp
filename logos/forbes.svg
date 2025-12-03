@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" width="100" height="30">
+  <style>
+    .forbes-text { font-family: 'Spectral', Georgia, serif; font-size: 26px; fill: #f5f5dc; font-weight: normal; font-style: italic; letter-spacing: 1px; }
+  </style>
+  <text x="0" y="24" class="forbes-text">Forbes</text>
+</svg>

@@ -29,6 +29,8 @@ Protected by Digital Millennium Copyright Act (DMCA)
             --sova-cream: #f5f5dc;
             --sova-sage: #b8d78f;
             --sova-white: #ffffff;
+            --gradient-green: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%);
+            --gradient-dark: linear-gradient(180deg, #2d2828 0%, #1a1717 100%);
         }
 
         * {
@@ -76,20 +78,6 @@ Protected by Digital Millennium Copyright Act (DMCA)
             height: 90px;
         }
 
-        .bird-icon {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            height: 45px;
-            width: auto;
-            opacity: 0.4;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
-        }
-
-        .bird-icon:hover {
-            opacity: 0.7;
-        }
 
         nav {
             display: flex;
@@ -177,14 +165,40 @@ Protected by Digital Millennium Copyright Act (DMCA)
         .hero {
             text-align: center;
             padding: 3rem 0 8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Giant decorative bird watermark in hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -15%;
+            width: 70%;
+            height: 140%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-stat {
-            font-size: clamp(6rem, 15vw, 12rem);
+            font-size: clamp(7rem, 18vw, 14rem);
             font-weight: 700;
-            color: var(--sova-green);
+            background: var(--gradient-green);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1;
             margin-bottom: 1rem;
+            letter-spacing: -0.04em;
         }
 
         .hero h1 {
@@ -208,20 +222,53 @@ Protected by Digital Millennium Copyright Act (DMCA)
             color: var(--sova-sage);
         }
 
+        /* Section Divider - Gradient Line */
+        .section-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--sova-green) 20%, var(--sova-sage) 80%, transparent 100%);
+            opacity: 0.4;
+            margin: 0;
+        }
+
         /* Problem Section */
         .problem {
-            background: linear-gradient(135deg, rgba(234, 255, 196, 0.03) 0%, var(--sova-brown) 100%);
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative bird on left side of problem section */
+        .problem::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 50%;
+            height: 100%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.02;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+
+        .problem .container {
+            position: relative;
+            z-index: 1;
         }
 
         .problem h2 {
-            max-width: 800px;
+            max-width: none;
+            text-align: left;
         }
 
         .problem-intro {
             font-size: 1.375rem;
-            max-width: 900px;
+            max-width: 700px;
             margin-bottom: 3rem;
             color: var(--sova-sage);
+            text-align: left;
         }
 
         .problem-grid {
@@ -231,11 +278,55 @@ Protected by Digital Millennium Copyright Act (DMCA)
             margin: 3rem 0;
         }
 
+        /* Standardised Card Style */
+        .sova-card {
+            background: rgba(245, 245, 220, 0.04);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 255, 196, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sova-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .sova-card:hover::before {
+            opacity: 1;
+        }
+
         .problem-card {
-            background: rgba(245, 245, 220, 0.05);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(234, 255, 196, 0.1);
+            background: rgba(245, 245, 220, 0.04);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 255, 196, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .problem-card:hover::before {
+            opacity: 1;
         }
 
         .problem-card h3 {
@@ -245,6 +336,24 @@ Protected by Digital Millennium Copyright Act (DMCA)
         .problem-card p {
             margin: 0;
             opacity: 0.9;
+        }
+
+        /* Bold statement styling */
+        .bold-statement {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            text-align: center;
+            margin: 5rem 0;
+            line-height: 1.4;
+            position: relative;
+            padding: 3rem;
+        }
+
+        .bold-statement span {
+            background: var(--gradient-green);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .callout {
@@ -264,47 +373,85 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         /* Solution Section */
         .solution {
-            background: linear-gradient(135deg, var(--sova-brown) 0%, #1a1717 100%);
+            background: #1a1717;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative bird on right side of solution section */
+        .solution::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -8%;
+            width: 45%;
+            height: 80%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.025;
+            pointer-events: none;
+            transform: rotate(10deg);
+        }
+
+        .solution .container {
+            position: relative;
+            z-index: 1;
         }
 
         .solution h2 {
-            max-width: 800px;
+            max-width: none;
+            text-align: right;
         }
 
         .solution-intro {
             font-size: 1.375rem;
-            max-width: 900px;
+            max-width: 700px;
+            margin-left: auto;
             margin-bottom: 4rem;
             color: var(--sova-sage);
+            text-align: right;
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
             margin: 4rem 0;
         }
 
         .feature {
             text-align: left;
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: rgba(245, 245, 220, 0.02);
+            border: 1px solid rgba(234, 255, 196, 0.05);
+            position: relative;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
         }
 
         .feature-number {
-            width: 50px;
-            height: 50px;
-            background: var(--sova-green);
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            background: var(--gradient-green);
             color: var(--sova-brown);
-            border-radius: 50%;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+        }
+
+        .feature-content {
+            flex: 1;
         }
 
         .feature h3 {
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
+            white-space: nowrap;
         }
 
         .feature p {
@@ -312,22 +459,161 @@ Protected by Digital Millennium Copyright Act (DMCA)
             opacity: 0.9;
         }
 
+        /* Testimonials Section */
+        .testimonials {
+            padding: 6rem 0;
+            background: var(--sova-brown);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative accent */
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--sova-green) 50%, transparent 100%);
+            opacity: 0.3;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(245, 245, 220, 0.04);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 255, 196, 0.08);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Large quote mark decoration */
+        .testimonial-card::after {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--sova-green);
+            opacity: 0.08;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .testimonial-quote {
+            font-size: 1.125rem;
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            color: var(--sova-cream);
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 2rem;
+            color: var(--sova-green);
+            opacity: 0.6;
+            line-height: 0;
+            margin-right: 0.25rem;
+        }
+
+        .testimonial-author {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--sova-sage);
+            opacity: 0.85;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .testimonial-card {
+                padding: 2rem;
+            }
+
+            .testimonial-quote {
+                font-size: 1rem;
+            }
+        }
+
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--sova-green) 0%, var(--sova-sage) 100%);
+            background: var(--gradient-green);
             color: var(--sova-brown);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative bird watermark in CTA */
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 120%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
         }
 
         .cta-section h2 {
             color: var(--sova-brown);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
         }
 
         .cta-section p {
             color: var(--sova-brown);
-            opacity: 0.9;
+            opacity: 0.85;
             max-width: 700px;
             margin: 0 auto 3rem;
+            font-size: 1.25rem;
         }
 
         .cta-section .btn {
@@ -335,10 +621,119 @@ Protected by Digital Millennium Copyright Act (DMCA)
             padding: 1.5rem 4rem;
             background: var(--sova-brown);
             color: var(--sova-green);
+            box-shadow: 0 8px 32px rgba(45, 40, 40, 0.3);
         }
 
         .cta-section .btn:hover {
             background: #1a1717;
+            box-shadow: 0 12px 40px rgba(45, 40, 40, 0.4);
+        }
+
+        /* Research Sources - Auto-scrolling Marquee */
+        .research-sources {
+            padding: 4rem 0;
+            background: rgba(234, 255, 196, 0.03);
+            border-top: 1px solid rgba(234, 255, 196, 0.08);
+            border-bottom: 1px solid rgba(234, 255, 196, 0.08);
+            overflow: hidden;
+        }
+
+        .research-sources .heading {
+            text-align: center;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--sova-sage);
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .marquee-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .marquee-container::before,
+        .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, var(--sova-brown) 0%, transparent 100%);
+        }
+
+        .marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, var(--sova-brown) 0%, transparent 100%);
+        }
+
+        .marquee-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            width: max-content;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .source-logo {
+            height: 32px;
+            width: auto;
+            padding: 0 2rem;
+            opacity: 0.6;
+            transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .source-logo:hover {
+            opacity: 0.9;
+        }
+
+        .sources-footer {
+            text-align: center;
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--sova-sage);
+            opacity: 0.7;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .research-sources .heading {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .marquee-container::before,
+            .marquee-container::after {
+                width: 50px;
+            }
+
+            .source-logo {
+                height: 26px;
+                padding: 0 1.25rem;
+            }
+
+            .marquee-track {
+                animation-duration: 25s;
+            }
         }
 
         /* Footer */
@@ -389,7 +784,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             }
 
             .features {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
         }
 
@@ -406,8 +801,413 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 padding: 5rem 0;
             }
 
+            .problem-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .problem-card {
+                padding: 1.75rem;
+            }
+
+            .feature {
+                padding: 1.75rem;
+                gap: 1.25rem;
+            }
+
+            .feature-number {
+                width: 48px;
+                height: 48px;
+                min-width: 48px;
+                font-size: 1.25rem;
+                border-radius: 12px;
+            }
+
+            .feature h3 {
+                white-space: normal;
+            }
+
+            /* Reset right-aligned sections to left on mobile */
+            .solution h2,
+            .solution-intro {
+                text-align: left;
+                margin-left: 0;
+            }
+
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLL ANIMATIONS & ENHANCED INTERACTIONS
+           Inspired by Jeton, Phamily, Osmo
+           ======================================== */
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade-in-up animation for scroll reveals */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered children animation */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0s; }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.2s; }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.3s; }
+
+        .stagger-children.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced card hover effects */
+        .problem-card,
+        .feature,
+        .testimonial-card {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .problem-card:hover,
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(234, 255, 196, 0.3);
+        }
+
+        .feature:hover .feature-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(234, 255, 196, 0.4);
+        }
+
+        .feature-number {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Hero text animation on load */
+        .hero h1 {
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-subheading {
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+
+        .big-stat {
+            animation: scaleIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Button hover enhancements */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Section heading animations */
+        .problem h2,
+        .solution h2,
+        .testimonials h2,
+        .cta-section h2 {
+            position: relative;
+        }
+
+        /* Subtle parallax effect on scroll */
+        .big-stat {
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Footer link hover effects */
+        .footer-section a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-section a:hover::after {
+            width: 100%;
+        }
+
+        /* Nav link hover effects */
+        nav a {
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ========================================
+           SPEECH BUBBLE - Holiday/Beta Message from Bird
+           ======================================== */
+        .speech-bubble-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .speech-bubble {
+            background: var(--sova-green);
+            color: var(--sova-brown);
+            padding: 1.5rem 1.75rem;
+            border-radius: 24px;
+            max-width: 340px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            position: relative;
+            animation: bubbleIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transform-origin: bottom right;
+        }
+
+        /* Speech bubble tail */
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            right: 24px;
+            width: 0;
+            height: 0;
+            border-left: 14px solid transparent;
+            border-right: 14px solid transparent;
+            border-top: 14px solid var(--sova-green);
+        }
+
+        .speech-bubble.hidden {
+            animation: bubbleOut 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            pointer-events: none;
+        }
+
+        @keyframes bubbleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes bubbleOut {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.8) translateY(10px);
+            }
+        }
+
+        .speech-bubble-close {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--sova-brown);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .speech-bubble-close:hover {
+            transform: scale(1.1);
+        }
+
+        .speech-bubble-close::before,
+        .speech-bubble-close::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background: var(--sova-green);
+        }
+
+        .speech-bubble-close::before {
+            transform: rotate(45deg);
+        }
+
+        .speech-bubble-close::after {
+            transform: rotate(-45deg);
+        }
+
+        .speech-bubble-headline {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .speech-bubble-message {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            font-weight: 400;
+        }
+
+        .speech-bubble-message:last-of-type {
+            margin-bottom: 1.25rem;
+        }
+
+        .speech-bubble-cta {
+            display: inline-block;
+            padding: 0.6rem 1.25rem;
+            background: var(--sova-brown);
+            color: var(--sova-green);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .speech-bubble-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .speech-bubble-bird {
+            height: 55px;
+            width: auto;
+            opacity: 0.9;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .speech-bubble-bird:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 480px) {
+            .speech-bubble-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+            }
+
+            .speech-bubble {
+                max-width: none;
+                border-radius: 16px;
+                border-bottom-right-radius: 4px;
+            }
+
+            .speech-bubble-bird {
+                height: 45px;
             }
         }
     </style>
@@ -429,6 +1229,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
     })();
     </script>
 
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -438,6 +1239,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 </a>
                 <nav>
                     <a href="research.html">Research</a>
+                    <a href="directory.html">Directory</a>
                     <a href="about.html">About Us</a>
                 </nav>
             </div>
@@ -447,10 +1249,10 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <div class="hero-stat">90%</div>
+            <div class="big-stat hero-stat">90%</div>
             <h1>We've heard it all before; startups are given only a 10% chance of succeeding</h1>
-            <p class="hero-subheading">Not from lack of effort. Not from bad ideas. From preventable issues hiding in plain sight.</p>
-            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;">
+            <p class="hero-subheading">Not from lack of effort. Not from bad ideas. From preventable issues lurking in blind spots.</p>
+            <div class="hero-buttons" style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;">
                 <a href="research.html" class="btn btn-secondary">Read the Research</a>
                 <a href="assessment-tool.html" class="btn btn-primary">Start Assessment</a>
             </div>
@@ -460,58 +1262,127 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- The Problem -->
     <section id="problem" class="problem">
         <div class="container">
-            <h2>The real problem? Fragmented information</h2>
-            <p class="problem-intro">You don't lack access to advice. You're drowning in scattered, overwhelming options that don't connect.</p>
+            <h2 class="fade-in-up">The real problem? Fragmented information</h2>
+            <p class="problem-intro fade-in-up">You don't lack access to advice. You're drowning in scattered, overwhelming options that don't connect.</p>
 
-            <div class="problem-grid">
+            <div class="problem-grid stagger-children">
                 <div class="problem-card">
-                    <h3>Government resources</h3>
+                    <h3>Government</h3>
                     <p>Focus on compliance and regulation, not holistic business strategy.</p>
                 </div>
                 <div class="problem-card">
-                    <h3>Incubators & accelerators</h3>
+                    <h3>Accelerators</h3>
                     <p>Competitive. Expensive. Equity trade-offs. Location-based limitations.</p>
                 </div>
                 <div class="problem-card">
-                    <h3>Boutique agencies</h3>
+                    <h3>Agencies</h3>
                     <p>Focus on one or two elements (strategy, systems, marketing) but never all business elements and how they interconnect.</p>
                 </div>
                 <div class="problem-card">
-                    <h3>Your own research</h3>
+                    <h3>DIY Research</h3>
                     <p>Fragmented. Overwhelming. Non-holistic. Nothing unified in one place.</p>
                 </div>
             </div>
 
-            <p style="font-size: 1.75rem; font-weight: 600; color: var(--sova-green); text-align: center; margin: 4rem 0; line-height: 1.4;">No approach empowers you to be self-sufficient.<br>Until Sova. Learn once, apply forever.</p>
+            <div class="bold-statement fade-in-up">
+                No approach empowers you to be self-sufficient.<br>
+                <span>Until Sova. Learn once, apply forever.</span>
+            </div>
         </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Research Sources - Auto-scrolling Marquee -->
+    <section class="research-sources">
+        <div class="container">
+            <p class="heading">All advice, tools, insights are distilled from:</p>
+        </div>
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <!-- First set of logos -->
+                <img src="logos/hbr.svg" alt="Harvard Business Review" class="source-logo">
+                <img src="logos/mckinsey.svg" alt="McKinsey" class="source-logo">
+                <img src="logos/cb-insights.svg" alt="CB Insights" class="source-logo">
+                <img src="logos/forbes.svg" alt="Forbes" class="source-logo">
+                <img src="logos/startup-genome.svg" alt="Startup Genome" class="source-logo">
+                <img src="logos/hubspot.svg" alt="HubSpot" class="source-logo">
+                <img src="logos/entrepreneur.svg" alt="Entrepreneur" class="source-logo">
+                <img src="logos/linkedin.svg" alt="LinkedIn" class="source-logo">
+                <img src="logos/growth-institute.svg" alt="Growth Institute" class="source-logo">
+                <img src="logos/lean-startup.svg" alt="Lean Startup" class="source-logo">
+                <!-- Duplicate set for seamless loop -->
+                <img src="logos/hbr.svg" alt="Harvard Business Review" class="source-logo">
+                <img src="logos/mckinsey.svg" alt="McKinsey" class="source-logo">
+                <img src="logos/cb-insights.svg" alt="CB Insights" class="source-logo">
+                <img src="logos/forbes.svg" alt="Forbes" class="source-logo">
+                <img src="logos/startup-genome.svg" alt="Startup Genome" class="source-logo">
+                <img src="logos/hubspot.svg" alt="HubSpot" class="source-logo">
+                <img src="logos/entrepreneur.svg" alt="Entrepreneur" class="source-logo">
+                <img src="logos/linkedin.svg" alt="LinkedIn" class="source-logo">
+                <img src="logos/growth-institute.svg" alt="Growth Institute" class="source-logo">
+                <img src="logos/lean-startup.svg" alt="Lean Startup" class="source-logo">
+            </div>
+        </div>
+        <p class="sources-footer">...and many more.</p>
     </section>
 
     <!-- The Solution -->
     <section id="solution" class="solution">
         <div class="container">
-            <h2>We've democratised startup information</h2>
-            <p class="solution-intro">We've researched why startups fail and distilled global best practice into one holistic system. It assesses where you are and matches evidence-based tools to your specific situation.</p>
+            <h2 class="fade-in-up">We've democratised startup information</h2>
+            <p class="solution-intro fade-in-up">We've researched why startups fail and distilled global best practice into one holistic system. It assesses where you are and matches evidence-based tools to your specific situation.</p>
 
-            <div class="features">
+            <div class="features stagger-children">
                 <div class="feature">
                     <div class="feature-number">1</div>
-                    <h3>Holistic assessment</h3>
-                    <p>See all essential business elements and how they are interconnected.</p>
+                    <div class="feature-content">
+                        <h3>Bird's-eye View</h3>
+                        <p>See all essential business elements and how they're interconnected.</p>
+                    </div>
                 </div>
                 <div class="feature">
                     <div class="feature-number">2</div>
-                    <h3>Curated best practice</h3>
-                    <p>Get everything that's relevant from HBR, McKinsey, Lean, Agile, and all the tools consultancies use worldwide.</p>
+                    <div class="feature-content">
+                        <h3>Best Practice</h3>
+                        <p>Get everything that's relevant from HBR, McKinsey, Lean, Agile, and all the tools consultancies use worldwide.</p>
+                    </div>
                 </div>
                 <div class="feature">
                     <div class="feature-number">3</div>
-                    <h3>Evidence-based roadmap</h3>
-                    <p>Personalised, prioritised steps matched to your stage. Simple actions you can implement today.</p>
+                    <div class="feature-content">
+                        <h3>Your Roadmap</h3>
+                        <p>Personalised, prioritised steps matched to your stage. Simple actions you can implement today.</p>
+                    </div>
                 </div>
                 <div class="feature">
                     <div class="feature-number">4</div>
-                    <h3>Empowerment</h3>
-                    <p>Most founders can implement 70% themselves with the right guidance. You don't need dependency; you need clarity.</p>
+                    <div class="feature-content">
+                        <h3>Empowerment</h3>
+                        <p>Most founders can implement 70% themselves with the right guidance. You don't need dependency; you need clarity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="fade-in-up">What founders are saying</h2>
+            <div class="testimonials-grid stagger-children">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">I really like what you're building and I see the value</p>
+                    <p class="testimonial-author">— Vestur Founder</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">Sova did hit all the right features for me and I can't wait to see more</p>
+                    <p class="testimonial-author">— KeywiX Founder</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">Elegant design, simple to use, all information is readily available but not in an overwhelming way</p>
+                    <p class="testimonial-author">— Sova tester</p>
                 </div>
             </div>
         </div>
@@ -520,9 +1391,9 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- CTA -->
     <section id="start" class="cta-section">
         <div class="container">
-            <h2>Let's beat the startup failure odds</h2>
+            <h2 class="fade-in-up">Spread your wings</h2>
             <p>Get clear diagnosis, evidence-based guidance, and a clear roadmap matched to your situation.</p>
-            <a href="assessment-tool.html" class="btn">Begin Now</a>
+            <a href="assessment-tool.html" class="btn">Take Flight</a>
         </div>
     </section>
 
@@ -532,12 +1403,13 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>Sova</h4>
-                    <p>Giving every founder access to world-class startup tools and best practice.</p>
+                    <p>Giving every founder the wings to fly with world-class startup tools and best practice.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Learn More</h4>
                     <a href="research.html">Our Research</a>
                     <a href="about.html">About Us</a>
+                    <a href="directory.html">Directory</a>
                     <a href="assessment-tool.html">Start Assessment</a>
                 </div>
                 <div class="footer-section">
@@ -553,7 +1425,92 @@ Protected by Digital Millennium Copyright Act (DMCA)
         </div>
     </footer>
 
-    <!-- Bird icon bottom right -->
-    <img src="sova-logo-icon-transparent.png" alt="Sova" class="bird-icon">
+    <!-- Speech Bubble from Bird -->
+    <div class="speech-bubble-container" id="speechBubbleContainer">
+        <div class="speech-bubble" id="speechBubble">
+            <button class="speech-bubble-close" id="speechBubbleClose" aria-label="Close"></button>
+            <p class="speech-bubble-headline">Launching in 2026!</p>
+            <p class="speech-bubble-message">Sova is currently being tested and we would love for you to participate and provide feedback.</p>
+            <p class="speech-bubble-message">We wish you a very silly season and as successful a New Year as we hope for Sova.</p>
+            <a href="assessment-tool.html" class="speech-bubble-cta">Test Sova</a>
+        </div>
+        <img src="sova-logo-icon-transparent.png" alt="Sova" class="speech-bubble-bird" id="speechBubbleBird">
+    </div>
+
+    <!-- Scroll Animation Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer for scroll-triggered animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Once visible, stop observing (animate once)
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in-up, .stagger-children').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Subtle parallax effect on big-stat
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const bigStat = document.querySelector('.big-stat');
+                    if (bigStat) {
+                        const scrolled = window.pageYOffset;
+                        const rate = scrolled * 0.1;
+                        if (rate < 50) {
+                            bigStat.style.transform = `translateY(${rate}px)`;
+                        }
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Speech Bubble Handler
+        const speechBubble = document.getElementById('speechBubble');
+        const speechBubbleClose = document.getElementById('speechBubbleClose');
+        const speechBubbleBird = document.getElementById('speechBubbleBird');
+
+        // Check if user has already dismissed the bubble this session
+        if (sessionStorage.getItem('speechBubbleDismissed')) {
+            speechBubble.style.display = 'none';
+        }
+
+        function dismissSpeechBubble() {
+            speechBubble.classList.add('hidden');
+            sessionStorage.setItem('speechBubbleDismissed', 'true');
+            // Remove from DOM after animation
+            setTimeout(() => {
+                speechBubble.style.display = 'none';
+            }, 300);
+        }
+
+        speechBubbleClose.addEventListener('click', dismissSpeechBubble);
+
+        // Clicking bird toggles bubble back if dismissed
+        speechBubbleBird.addEventListener('click', function() {
+            if (speechBubble.style.display === 'none') {
+                speechBubble.style.display = 'block';
+                speechBubble.classList.remove('hidden');
+                sessionStorage.removeItem('speechBubbleDismissed');
+            }
+        });
+    });
+    </script>
 </body>
 </html>

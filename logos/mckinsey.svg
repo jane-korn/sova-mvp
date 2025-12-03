@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 30" width="220" height="30">
+  <style>
+    .mckinsey-text { font-family: Georgia, 'Times New Roman', serif; font-size: 20px; fill: #f5f5dc; font-weight: normal; letter-spacing: 1px; }
+  </style>
+  <text x="0" y="22" class="mckinsey-text">McKinsey &amp; Company</text>
+</svg>

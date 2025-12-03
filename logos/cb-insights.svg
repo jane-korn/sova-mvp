@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 30" width="130" height="30">
+  <style>
+    .cb-text { font-family: 'Arial Black', Arial, sans-serif; font-size: 20px; fill: #f5f5dc; font-weight: 900; }
+  </style>
+  <text x="0" y="22" class="cb-text">CB Insights</text>
+</svg>
