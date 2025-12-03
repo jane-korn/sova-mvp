@@ -2266,11 +2266,18 @@ Protected by Digital Millennium Copyright Act (DMCA)
             }
 
             /* Fix tooltips/buttons on gap cards */
-            .tooltip-btn,
-            [style*="border: 2px solid"] {
+            .tooltip-btn {
                 font-size: 12px !important;
                 padding: 8px 12px !important;
                 white-space: nowrap !important;
+            }
+
+            /* Pilot phase note - allow text wrapping */
+            #prelim-page-1 > div:first-child {
+                white-space: normal !important;
+            }
+            #prelim-page-1 > div:first-child p {
+                white-space: normal !important;
             }
 
             /* FIX: Assessment tooltip buttons - 3 info buttons on line 1 (right-justified), Resource on line 2 */
