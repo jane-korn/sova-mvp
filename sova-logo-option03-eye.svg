@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 180">
+
+  <!-- S - circle with triangular wedge cut on right (like pac-man facing right) -->
+  <g transform="translate(48, 90)">
+    <circle cx="0" cy="0" r="46" fill="#eaffc4"/>
+    <polygon points="0,0 52,-20 52,20" fill="#2d2828"/>
+  </g>
+
+  <!-- O - circle with triangular wedge cut on left (like pac-man facing left) -->
+  <g transform="translate(148, 90)">
+    <circle cx="0" cy="0" r="46" fill="#eaffc4"/>
+    <polygon points="0,0 -52,-20 -52,20" fill="#2d2828"/>
+  </g>
+
+  <!-- V - downward arrow/chevron shape -->
+  <g transform="translate(248, 90)">
+    <path d="M -36 -46
+             L -10 -46
+             L -10 10
+             L 0 25
+             L 10 10
+             L 10 -46
+             L 36 -46
+             L 36 22
+             L 0 58
+             L -36 22
+             Z"
+          fill="#eaffc4"/>
+  </g>
+
+  <!-- a - bird head facing LEFT (beak on left, eye visible, small leg bottom-right) -->
+  <g transform="translate(365, 90)">
+    <!-- main bird head circle -->
+    <circle cx="0" cy="0" r="46" fill="#eaffc4"/>
+    <!-- beak pointing LEFT -->
+    <polygon points="-46,0 -90,-22 -90,22" fill="#eaffc4"/>
+    <!-- eye on the right side of head (since bird faces left) -->
+    <circle cx="15" cy="-18" r="6" fill="#2d2828"/>
+    <!-- small leg/tail extending down-right -->
+    <rect x="32" y="36" width="14" height="24" fill="#eaffc4"/>
+  </g>
+
+</svg>

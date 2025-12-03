@@ -10,6 +10,13 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 ### Session Updates - 3 Dec 2025
 - ✅ **Netlify hosting configured** with custom domain getsova.com.au
+- ✅ **SOVA_STARTUP_SUPPORT_DIRECTORY updated** - All 8 states/territories now covered:
+  - Added 2.7 Tasmania, 2.8 ACT, 2.9 NT to Networks section
+  - Added SA, TAS, ACT, NT to State-Based Accelerators (section 3.3)
+  - Added 4.3-4.9 Government Programs for NSW, QLD, WA, SA, TAS, ACT, NT
+  - Both MD and DOCX files updated
+- ✅ **DL flyer A4 print layout** - 2 flyers side by side with 1mm gap for single cut
+- ✅ **Fixed footer spacing** - Removed 100px body padding causing gap below footer
   - Connected GitHub repo to Netlify (auto-deploy on push to master)
   - Configured GoDaddy DNS: A record → 75.2.60.5, CNAME www → imaginative-longma-709f5d.netlify.app
   - SSL/TLS certificate provisioned via Let's Encrypt

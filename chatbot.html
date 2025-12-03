@@ -275,6 +275,44 @@ Protected by Digital Millennium Copyright Act (DMCA)
         }
         .referral-btn:hover { background: rgba(234, 255, 196, 0.1); transform: translateY(-2px); }
 
+        /* Program Card (for ecosystem guide recommendations) */
+        .program-card {
+            background: rgba(184, 215, 143, 0.08);
+            border: 1px solid rgba(184, 215, 143, 0.2);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        .program-card h4 { color: #b8d78f; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .program-card p { color: rgba(245, 245, 220, 0.85); font-size: 0.875rem; margin-bottom: 0.75rem; }
+        .program-card a {
+            display: inline-block;
+            color: #b8d78f;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(184, 215, 143, 0.3);
+        }
+        .program-card a:hover { border-bottom-color: #b8d78f; }
+
+        /* Ecosystem Guide Link */
+        .ecosystem-guide-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(234, 255, 196, 0.08);
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            border-radius: 8px;
+            color: #eaffc4;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .ecosystem-guide-link:hover { background: rgba(234, 255, 196, 0.15); border-color: rgba(234, 255, 196, 0.4); }
+
         /* Coming Soon Overlay */
         .coming-soon-overlay {
             position: fixed;
@@ -503,6 +541,35 @@ If deeper analysis would help, add:
 ## IF USER PROVIDES A WEBSITE OR DOCUMENT
 
 When they share context, acknowledge their specific business and tailor your response accordingly. Assure them their data is only used for this conversation.
+
+## RECOMMENDING SUPPORT PROGRAMS
+
+When a user needs support beyond specific tools (e.g., mentoring, community, funding, accelerators), recommend relevant programs from the Australian Startup Ecosystem Guide:
+
+**For specific founder groups:**
+- **Indigenous founders**: Barayamal (accelerator), IBA (loans), Supply Nation (certification), Many Rivers (coaching)
+- **Migrant/refugee founders**: Catalysr (accelerator), Thrive Refugee Enterprise (loans up to $50K)
+- **Women founders**: SheStarts, WLTH WLKS, Girls in Tech, Hatch Quarter
+- **Founders with disability**: Remarkable (accelerator), DEI Australia, NEIS
+- **University-affiliated**: UNSW 10x, Melbourne MAP, Monash Generator, QUT bluebox
+
+**By stage:**
+- **Idea stage**: The Startup Network (free), LaunchVic Office Hours (free), Business.gov.au Adviser Finder
+- **First customers**: Startmate Accelerator, university programs
+- **Scaling**: AWS Activate (credits), LaunchVic 30X30, corporate accelerators
+
+**By location:**
+- **WA/Perth**: Spacecubed, PLUS EIGHT, CERI, StartupWA
+- **Regional**: Spark Bureau, Many Rivers, Business.gov.au
+
+When recommending programs, use this format:
+<div class="program-card">
+<h4>[Program Name]</h4>
+<p>[Why this suits their situation]</p>
+<a href="[Program URL]" target="_blank">Visit program →</a>
+</div>
+
+Always mention: "For a comprehensive list of 100+ programs, check out the <a href='SOVA_EXPERTS_ECOSYSTEM_GUIDE_PROFESSIONAL.pdf' target='_blank'>Australian Startup Ecosystem Guide</a>."
 
 Remember: Be direct, be helpful, move toward solving their problem. No fluff, no greetings, no "when" questions.`;
         }
