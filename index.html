@@ -95,6 +95,124 @@ Protected by Digital Millennium Copyright Act (DMCA)
             color: var(--sova-green);
         }
 
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--sova-cream);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .hamburger span:nth-child(1) {
+            margin-bottom: 6px;
+        }
+
+        .hamburger span:nth-child(3) {
+            margin-top: 6px;
+        }
+
+        /* Hamburger active state - transforms to X */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* Mobile Nav Overlay */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 40, 40, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.4s;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-nav-overlay nav a {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--sova-cream);
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        color 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active nav a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-overlay.active nav a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-overlay.active nav a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-overlay.active nav a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav-overlay.active nav a:nth-child(4) { transition-delay: 0.25s; }
+
+        .mobile-nav-overlay nav a:hover {
+            color: var(--sova-green);
+        }
+
+        .mobile-nav-cta {
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-cta {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
         /* Typography */
         h1 {
             font-size: clamp(2.5rem, 6vw, 4.5rem);
@@ -789,8 +907,13 @@ Protected by Digital Millennium Copyright Act (DMCA)
         }
 
         @media (max-width: 768px) {
-            nav {
+            /* Hide desktop nav, show hamburger */
+            .header-content > nav {
                 display: none;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             section {
@@ -1043,6 +1166,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         /* ========================================
            SPEECH BUBBLE - Holiday/Beta Message from Bird
+           Pops out from beak 2 seconds after landing
            ======================================== */
         .speech-bubble-container {
             position: fixed;
@@ -1052,7 +1176,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 12px;
+            gap: 8px;
         }
 
         .speech-bubble {
@@ -1063,21 +1187,29 @@ Protected by Digital Millennium Copyright Act (DMCA)
             max-width: 340px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
             position: relative;
-            animation: bubbleIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            /* Start hidden, animate after 2 seconds via JS */
+            opacity: 0;
+            transform: scale(0) translateY(20px);
             transform-origin: bottom right;
+            transition: none;
         }
 
-        /* Speech bubble tail */
+        .speech-bubble.animate-in {
+            animation: bubbleFromBeak 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Speech bubble tail - points to bird's beak */
         .speech-bubble::after {
             content: '';
             position: absolute;
-            bottom: -12px;
-            right: 24px;
+            bottom: -10px;
+            right: 20px;
             width: 0;
             height: 0;
-            border-left: 14px solid transparent;
-            border-right: 14px solid transparent;
-            border-top: 14px solid var(--sova-green);
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid var(--sova-green);
+            transform-origin: top center;
         }
 
         .speech-bubble.hidden {
@@ -1085,12 +1217,20 @@ Protected by Digital Millennium Copyright Act (DMCA)
             pointer-events: none;
         }
 
-        @keyframes bubbleIn {
-            from {
+        /* Bubble emerges from beak with bounce effect */
+        @keyframes bubbleFromBeak {
+            0% {
                 opacity: 0;
-                transform: scale(0.8) translateY(10px);
+                transform: scale(0) translateY(30px);
             }
-            to {
+            50% {
+                opacity: 1;
+                transform: scale(1.05) translateY(-5px);
+            }
+            75% {
+                transform: scale(0.98) translateY(2px);
+            }
+            100% {
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
@@ -1103,8 +1243,18 @@ Protected by Digital Millennium Copyright Act (DMCA)
             }
             to {
                 opacity: 0;
-                transform: scale(0.8) translateY(10px);
+                transform: scale(0.8) translateY(20px);
             }
+        }
+
+        /* Bird subtle "speaking" animation when bubble appears */
+        .speech-bubble-bird.speaking {
+            animation: birdSpeak 0.15s ease-in-out 3;
+        }
+
+        @keyframes birdSpeak {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-3deg); }
         }
 
         .speech-bubble-close {
@@ -1242,9 +1392,26 @@ Protected by Digital Millennium Copyright Act (DMCA)
                     <a href="directory.html">Directory</a>
                     <a href="about.html">About Us</a>
                 </nav>
+                <!-- Mobile Hamburger -->
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="research.html">Research</a>
+            <a href="directory.html">Directory</a>
+            <a href="about.html">About Us</a>
+        </nav>
+        <a href="assessment-tool.html" class="btn btn-primary mobile-nav-cta">Start Assessment</a>
+    </div>
 
     <!-- Hero -->
     <section class="hero">
@@ -1440,7 +1607,40 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- Scroll Animation Script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Intersection Observer for scroll-triggered animations
+        // ========================================
+        // MOBILE HAMBURGER MENU
+        // ========================================
+        const hamburger = document.getElementById('hamburger');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking a link
+        mobileNavOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNavOverlay.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ========================================
+        // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
+        // ========================================
         const observerOptions = {
             root: null,
             rootMargin: '0px 0px -80px 0px',
@@ -1481,7 +1681,9 @@ Protected by Digital Millennium Copyright Act (DMCA)
             }
         });
 
-        // Speech Bubble Handler
+        // ========================================
+        // SPEECH BUBBLE - 2 second delayed animation from beak
+        // ========================================
         const speechBubble = document.getElementById('speechBubble');
         const speechBubbleClose = document.getElementById('speechBubbleClose');
         const speechBubbleBird = document.getElementById('speechBubbleBird');
@@ -1489,9 +1691,23 @@ Protected by Digital Millennium Copyright Act (DMCA)
         // Check if user has already dismissed the bubble this session
         if (sessionStorage.getItem('speechBubbleDismissed')) {
             speechBubble.style.display = 'none';
+        } else {
+            // Trigger the speech bubble animation after 2 seconds
+            setTimeout(function() {
+                if (!sessionStorage.getItem('speechBubbleDismissed')) {
+                    // Add speaking animation to bird
+                    speechBubbleBird.classList.add('speaking');
+                    // After bird "speaks", bubble pops out
+                    setTimeout(function() {
+                        speechBubble.classList.add('animate-in');
+                        speechBubbleBird.classList.remove('speaking');
+                    }, 300);
+                }
+            }, 2000);
         }
 
         function dismissSpeechBubble() {
+            speechBubble.classList.remove('animate-in');
             speechBubble.classList.add('hidden');
             sessionStorage.setItem('speechBubbleDismissed', 'true');
             // Remove from DOM after animation
@@ -1504,9 +1720,15 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         // Clicking bird toggles bubble back if dismissed
         speechBubbleBird.addEventListener('click', function() {
-            if (speechBubble.style.display === 'none') {
+            if (speechBubble.style.display === 'none' || !speechBubble.classList.contains('animate-in')) {
                 speechBubble.style.display = 'block';
                 speechBubble.classList.remove('hidden');
+                // Re-trigger the animation
+                speechBubbleBird.classList.add('speaking');
+                setTimeout(function() {
+                    speechBubble.classList.add('animate-in');
+                    speechBubbleBird.classList.remove('speaking');
+                }, 300);
                 sessionStorage.removeItem('speechBubbleDismissed');
             }
         });
