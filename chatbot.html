@@ -13,7 +13,7 @@ Protected by Australian Copyright Act 1968
 Protected by Digital Millennium Copyright Act (DMCA)
 ================================================================================
 -->
-<!-- UPDATED: 2025-12-02 - Version 3.1 - Security headers, copyright, anti-copy protection -->
+<!-- UPDATED: 2025-12-04 - Version 3.2 - Integrated comprehensive directory (162 resources: funding, programs, advice, connections) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -468,6 +468,13 @@ Protected by Digital Millennium Copyright Act (DMCA)
             // Get element definitions
             const elementDefs = knowledgeBase?.elementDefinitions || [];
 
+            // Get directory data (filtered for most commonly needed resources)
+            const directory = knowledgeBase?.directory || [];
+            const fundingOpps = directory.filter(d => d.need === 'Funding').slice(0, 30);
+            const adviceResources = directory.filter(d => d.need === 'Advice').slice(0, 20);
+            const programResources = directory.filter(d => d.need === 'Programs').slice(0, 25);
+            const communityResources = directory.filter(d => d.need === 'Connections').slice(0, 15);
+
             return `You are Sova, a professional startup guide for Australian entrepreneurs. Your goal is to diagnose challenges and provide specific, actionable recommendations.
 
 ## CRITICAL LANGUAGE RULES
@@ -542,34 +549,46 @@ If deeper analysis would help, add:
 
 When they share context, acknowledge their specific business and tailor your response accordingly. Assure them their data is only used for this conversation.
 
-## RECOMMENDING SUPPORT PROGRAMS
+## RECOMMENDING SUPPORT PROGRAMS AND DIRECTORY RESOURCES
 
-When a user needs support beyond specific tools (e.g., mentoring, community, funding, accelerators), recommend relevant programs from the Australian Startup Ecosystem Guide:
+**IMPORTANT**: You have access to a comprehensive directory of 162 Australian startup resources including:
+- **Funding**: ${fundingOpps.length} grants, investors, competitions
+- **Programs**: ${programResources.length} accelerators, incubators, corporate programs
+- **Advice**: ${adviceResources.length} government services, mentoring, legal help
+- **Connections**: ${communityResources.length} networks, events, communities
 
-**For specific founder groups:**
-- **Indigenous founders**: Barayamal (accelerator), IBA (loans), Supply Nation (certification), Many Rivers (coaching)
-- **Migrant/refugee founders**: Catalysr (accelerator), Thrive Refugee Enterprise (loans up to $50K)
-- **Women founders**: SheStarts, WLTH WLKS, Girls in Tech, Hatch Quarter
-- **Founders with disability**: Remarkable (accelerator), DEI Australia, NEIS
-- **University-affiliated**: UNSW 10x, Melbourne MAP, Monash Generator, QUT bluebox
+**When to recommend directory resources:**
+1. **No specific tool exists** - If there's no framework/methodology that directly solves their problem
+2. **Need funding** - User mentions grants, investment, capital, money, funding
+3. **Need mentoring/advice** - User asks "who can help", "need guidance", "where to start"
+4. **Need community** - User feels isolated, wants to meet founders, needs network
+5. **Stage-appropriate** - Match their stage (Idea, Validation, Efficiency, Scale) to programs
+6. **Location-specific** - Filter by their state if mentioned
+7. **Identity-specific** - If they're women/Indigenous/migrant/disability founders
 
-**By stage:**
-- **Idea stage**: The Startup Network (free), LaunchVic Office Hours (free), Business.gov.au Adviser Finder
-- **First customers**: Startmate Accelerator, university programs
-- **Scaling**: AWS Activate (credits), LaunchVic 30X30, corporate accelerators
-
-**By location:**
-- **WA/Perth**: Spacecubed, PLUS EIGHT, CERI, StartupWA
-- **Regional**: Spark Bureau, Many Rivers, Business.gov.au
-
-When recommending programs, use this format:
+**How to recommend:**
+Use the program-card format with relevant details from directory:
 <div class="program-card">
-<h4>[Program Name]</h4>
-<p>[Why this suits their situation]</p>
-<a href="[Program URL]" target="_blank">Visit program →</a>
+<h4>[Name]</h4>
+<p>[Description tailored to their situation] • [Category] • [Timeline if relevant]</p>
+<a href="[URL]" target="_blank">Learn more →</a>
 </div>
 
-Always mention: "For a comprehensive list of 100+ programs, check out the <a href='SOVA_EXPERTS_ECOSYSTEM_GUIDE_PROFESSIONAL.pdf' target='_blank'>Australian Startup Ecosystem Guide</a>."
+**Filtering logic:**
+- Match by **need** (Funding/Programs/Advice/Connections)
+- Match by **stage** (Idea/Validation/Efficiency/Scale)
+- Match by **state** if they mention location (NSW, VIC, QLD, WA, SA, TAS, ACT, NT, National)
+- Match by **identity** if mentioned (Women/Indigenous/Migrant/Disability)
+- Match by **industry** if relevant (Tech/DeepTech/FinTech/HealthTech/CleanTech/AgTech)
+
+**Key directory highlights:**
+${fundingOpps.slice(0, 10).map(f => `- **${f.name}** (${f.category}, ${f.state}): ${f.funding} ${f.description.substring(0, 80)}...`).join('\n')}
+
+${programResources.slice(0, 8).map(p => `- **${p.name}** (${p.category}, ${p.state}): ${p.description.substring(0, 80)}...`).join('\n')}
+
+**IMPORTANT**: Always contextualise recommendations to their specific situation. Don't list resources - explain WHY this specific resource helps THEIR problem.
+
+For comprehensive directory: "Explore all 162 programs and funding opportunities at <a href='directory.html' target='_blank'>Sova Directory</a>."
 
 Remember: Be direct, be helpful, move toward solving their problem. No fluff, no greetings, no "when" questions.`;
         }

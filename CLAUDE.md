@@ -8,7 +8,18 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 ## Recent Updates (2025-12-04)
 
-### Session Updates - 4 Dec 2025 - Directory Card Hover Fix
+### Session Updates - 4 Dec 2025 (Evening) - Chatbot Directory Integration
+- **Chatbot v3.2** - Integrated comprehensive directory into AI chatbot
+  - Added 162 directory entries to sova-knowledge-base.json (now 479.9 KB)
+  - Directory breakdown: 57 funding, 48 programs, 30 advice, 27 connections resources
+  - Covers all states: 87 National, 21 NSW, 14 VIC, 8 QLD, 9 WA, 8 SA, 4 TAS, 6 ACT, 5 NT
+  - Updated system prompt with intelligent filtering logic (stage, state, identity, industry)
+  - Chatbot now recommends grants, accelerators, government programs, networks when appropriate
+  - Logic: Only recommend directory when no specific tool/methodology exists
+- **Created update-knowledge-base.js** - Automated script to sync directory-data.js to knowledge base
+- **Updated directory-data.js** - Added Node.js module export for knowledge base integration
+
+### Session Updates - 4 Dec 2025 (Morning) - Directory Card Hover Fix
 - **Fixed directory card hover animation** - Cards now lift on hover
   - Root cause: `animation-fill-mode: forwards` was locking `transform` property to animation's final state
   - Solution: Added `!important` to hover transform to override animation fill-mode
@@ -550,17 +561,27 @@ Sophistication through subtraction. Every element must earn its place. Premium f
 
 ## Chatbot Development
 
-### Current State (v3.0)
+### Current State (v3.2)
 - **chatbot.html** - AI-powered chatbot using Gemini 2.5 Flash
-- **sova-knowledge-base.json** - Full knowledge base (399 KB)
+- **sova-knowledge-base.json** - Full knowledge base (479.9 KB)
 - Shares config.js with assessment-tool.html
 - Links from Path 3 in assessment flow
 - "Coming Soon" overlay (bypassed with ?from=assessment)
 
 ### AI Integration
 - **API:** Google Gemini 2.5 Flash (free tier)
-- **API Key:** Stored in chatbot.html (AIzaSyBgXewHcqq78OgbQSvJ0fZS7jZgwVKLoBk)
-- **Knowledge base loaded on startup:** 281 tools, 115 questions, 140 failure quotes
+- **API Key:** Stored in Netlify Functions proxy (/.netlify/functions/chat)
+- **Knowledge base loaded on startup:**
+  - 281 tools and methodologies
+  - 115 assessment questions
+  - 140 failure quotes
+  - 162 directory entries (grants, accelerators, programs, advice, networks)
+- **Directory coverage:**
+  - 57 funding opportunities (grants, investors, competitions)
+  - 48 programs (accelerators, incubators, university, corporate)
+  - 30 advice resources (government, legal, mentoring)
+  - 27 connections (networks, events, communities)
+  - All Australian states/territories covered
 
 ### Conversation Flow (Funnel Technique)
 1. **Explore:** Open question to understand context
@@ -572,6 +593,12 @@ Sophistication through subtraction. Every element must earn its place. Premium f
 - **URL input:** Users can share website for context
 - **File upload:** Business plans (txt, doc, docx, pdf)
 - **Tool recommendations:** Hyperlinked cards from knowledge base
+- **Directory recommendations:** Intelligent filtering by stage, state, identity, industry
+  - Recommends funding when user needs grants, investment, capital
+  - Suggests accelerators/programs when appropriate to stage
+  - Filters by location (NSW, VIC, QLD, WA, SA, TAS, ACT, NT, National)
+  - Identifies identity-specific programs (Women/Indigenous/Migrant/Disability)
+  - Only recommends when no specific tool/methodology exists
 - **Assessment referrals:** Cards linking to specific element assessments
 - **Turn tracking:** Moves toward recommendation after ~4 exchanges
 

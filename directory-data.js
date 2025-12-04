@@ -223,3 +223,8 @@ const filterOptions = {
   identities: ["Disability", "Indigenous", "Migrant", "Women"],
   industries: ["AgTech", "CleanTech", "DeepTech", "Defence", "FinTech", "HealthTech", "Legal", "Retail", "Tech"]
 };
+
+// Export for Node.js
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { directoryData, filterOptions };
+}
