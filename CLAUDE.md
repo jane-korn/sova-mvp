@@ -6,7 +6,21 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 **Live URL:** https://jane-korn.github.io/sova-mvp/
 **Repository:** https://github.com/jane-korn/sova-mvp.git
 
-## Recent Updates (2025-12-03)
+## Recent Updates (2025-12-04)
+
+### Session Updates - 4 Dec 2025 - Directory Card Hover Fix
+- **Fixed directory card hover animation** - Cards now lift on hover
+  - Root cause: `animation-fill-mode: forwards` was locking `transform` property to animation's final state
+  - Solution: Added `!important` to hover transform to override animation fill-mode
+  - Cards now lift 8px with enhanced shadow on hover (matches index.html behaviour)
+- **UX term**: Animation fill-mode - controls how CSS animation applies styles before/after execution. `forwards` keeps final keyframe values, which can block subsequent transforms.
+- **Renamed Excel file**: `Sova_Startup_Support_Directory.xlsx` to `SOVA_DIRECTORY.xlsx`
+- **Updated directory-data.js** - Restructured with unified format
+- **Added tagline to research.html** - "Built on why startups fail, designed for how they succeed."
+
+---
+
+## Previous Updates (2025-12-03)
 
 ### Session Updates - 3 Dec 2025 (Late Night) - Mobile Hamburger Menu
 - ✅ **Mobile hamburger menu** - All 4 pages (index, research, about, directory)
