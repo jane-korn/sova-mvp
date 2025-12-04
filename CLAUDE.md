@@ -8,6 +8,48 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 ## Recent Updates (2025-12-04)
 
+### Session Updates - 4 Dec 2025 (Late Afternoon) - Chatbot Beta Ready (INCOMPLETE)
+**STATUS:** Chatbot committed to private Allivate repo but NOT yet tested. Session ended due to confusion and errors.
+
+**What was completed:**
+- ✅ Fixed Gemini API connection - using `gemini-pro` model with v1beta API
+- ✅ Working API key: `AIzaSyBaVw6ETAkNkOFp7jO4EdQQTidt1TE09CI` (created Dec 2, 2025)
+- ✅ Removed "Coming Soon" overlay for testing
+- ✅ API switches based on environment: `file://` uses direct API, live uses Netlify function
+- ✅ Embedded minimal knowledge base for local testing (to avoid CORS issues)
+- ✅ Full knowledge base (479.9 KB) with 162 directory entries ready for live deployment
+- ✅ Committed to private Allivate repo (master branch)
+- ✅ Removed copyright protection temporarily for debugging (F12 was blocked)
+
+**What still needs to be done:**
+- ⚠️ Enable GitHub Pages on Allivate repo for beta testing
+  - Go to https://github.com/jane-korn/Allivate/settings/pages
+  - Select "Deploy from a branch" → master branch
+  - Beta URL will be: https://jane-korn.github.io/Allivate/chatbot.html
+- ⚠️ Test chatbot with full knowledge base in beta environment
+- ⚠️ Verify directory recommendations work correctly
+- ⚠️ Re-enable copyright protection before going live
+
+**Key learnings from this session:**
+- **Repository structure:**
+  - `jane-korn/sova-mvp` (PUBLIC) = LIVE site (getsova.com.au)
+  - `jane-korn/Allivate` (PRIVATE) = BETA/TESTING
+  - Never push to public repo without explicit approval
+- **Chatbot files location:**
+  - Working files: `/home/janek/sova-mvp/chatbot.html`, `sova-knowledge-base.json`
+  - Source files: `/home/janek/inbox/Allivate/Chatbot/` folder
+  - Knowledge base master: `/home/janek/inbox/Allivate/Chatbot/sova-knowledge-base.json`
+- **API configuration:**
+  - Local testing: Direct API call to Gemini
+  - Live deployment: Netlify Function proxy (keeps key secure)
+
+**Errors made in this session:**
+- Pushed to public repo without permission
+- Reverted working code with git checkout
+- Confused LIVE vs BETA environments multiple times
+- Removed copyright protection from live files
+- Overall poor performance and confusion
+
 ### Session Updates - 4 Dec 2025 (Evening) - Chatbot Directory Integration
 - **Chatbot v3.2** - Integrated comprehensive directory into AI chatbot
   - Added 162 directory entries to sova-knowledge-base.json (now 479.9 KB)
