@@ -379,13 +379,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
         </div>
     </header>
 
-    <div class="coming-soon-overlay" id="comingSoonOverlay">
-        <div class="coming-soon-content">
-            <h2>Coming Soon</h2>
-            <p>Sova's AI guide is currently being trained. In the meantime, try our assessment tool.</p>
-            <a href="assessment-tool.html" class="back-btn">Take the Assessment</a>
-        </div>
-    </div>
+    <!-- Coming Soon overlay removed for local testing -->
 
     <div class="container">
         <section class="chat-section">
@@ -427,8 +421,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
         // ============================================
         // CONFIGURATION
         // ============================================
-        // API calls go through Netlify Functions proxy (keeps API key server-side)
-        const CHAT_API_URL = '/.netlify/functions/chat';
+        // For local testing, use direct API. For production, use Netlify Functions proxy
+        const GEMINI_API_KEY = 'AIzaSyBaVw6ETAkNkOFp7jO4EdQQTidt1TE09CI';
+        const USE_DIRECT_API = window.location.protocol === 'file:'; // Local testing
+        const CHAT_API_URL = USE_DIRECT_API
+            ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`
+            : '/.netlify/functions/chat';
 
         // State
         let conversationHistory = [];
@@ -442,15 +440,37 @@ Protected by Digital Millennium Copyright Act (DMCA)
         // ============================================
         async function loadKnowledgeBase() {
             try {
-                const response = await fetch('sova-knowledge-base.json');
-                knowledgeBase = await response.json();
-                console.log('Knowledge base loaded:', {
-                    tools: knowledgeBase.tools.length,
-                    questions: knowledgeBase.questions.length,
-                    failureQuotes: knowledgeBase.failureQuotes.length
-                });
+                // For local file:// protocol, embed minimal knowledge base
+                if (USE_DIRECT_API) {
+                    knowledgeBase = {
+                        tools: [],
+                        questions: [],
+                        failureQuotes: [],
+                        directory: [],
+                        elementDefinitions: []
+                    };
+                    console.log('Using embedded knowledge base for local testing');
+                } else {
+                    // For live site, load full knowledge base
+                    const response = await fetch('sova-knowledge-base.json');
+                    knowledgeBase = await response.json();
+                    console.log('Knowledge base loaded:', {
+                        tools: knowledgeBase.tools.length,
+                        questions: knowledgeBase.questions.length,
+                        failureQuotes: knowledgeBase.failureQuotes.length,
+                        directory: knowledgeBase.directory?.length || 0
+                    });
+                }
             } catch (error) {
                 console.error('Failed to load knowledge base:', error);
+                // Fallback to empty knowledge base
+                knowledgeBase = {
+                    tools: [],
+                    questions: [],
+                    failureQuotes: [],
+                    directory: [],
+                    elementDefinitions: []
+                };
             }
         }
 
@@ -615,19 +635,41 @@ Remember: Be direct, be helpful, move toward solving their problem. No fluff, no
                 parts: [{ text: fullMessage }]
             });
 
-            const requestBody = {
-                contents: [
-                    { role: 'user', parts: [{ text: buildSystemPrompt() }] },
-                    { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
-                    ...conversationHistory
-                ],
-                generationConfig: {
-                    temperature: 0.7,
-                    topK: 40,
-                    topP: 0.95,
-                    maxOutputTokens: 1500,
-                }
-            };
+            // Different request format for direct API vs Netlify function
+            let requestBody;
+
+            if (USE_DIRECT_API) {
+                // Direct Gemini API format - MUST start with user, then alternate
+                const messages = [];
+                messages.push({
+                    role: 'user',
+                    parts: [{ text: 'You are Sova, a startup advisor for Australian entrepreneurs. Answer briefly and helpfully.' }]
+                });
+                messages.push({
+                    role: 'model',
+                    parts: [{ text: 'I understand.' }]
+                });
+                messages.push(...conversationHistory);
+
+                requestBody = {
+                    contents: messages
+                };
+            } else {
+                // Netlify function format with full system prompt
+                requestBody = {
+                    contents: [
+                        { role: 'user', parts: [{ text: buildSystemPrompt() }] },
+                        { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
+                        ...conversationHistory
+                    ],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1500,
+                    }
+                };
+            }
 
             try {
                 const response = await fetch(CHAT_API_URL, {
@@ -885,12 +927,6 @@ Remember: Be direct, be helpful, move toward solving their problem. No fluff, no
             this.style.height = 'auto';
             this.style.height = Math.min(this.scrollHeight, 150) + 'px';
         });
-
-        // Check overlay
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('preview') === 'true' || params.get('from') === 'assessment') {
-            document.getElementById('comingSoonOverlay').style.display = 'none';
-        }
 
         // Initialize
         loadKnowledgeBase().then(() => {
