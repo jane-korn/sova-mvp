@@ -13,7 +13,7 @@ Self-assessment tool for Australian startups and scaleups. Helps founders assess
 
 **What was completed:**
 - ✅ Fixed Gemini API connection - using `gemini-pro` model with v1beta API
-- ✅ Working API key: `AIzaSyBaVw6ETAkNkOFp7jO4EdQQTidt1TE09CI` (created Dec 2, 2025)
+- ✅ API key configured in Netlify environment variables (created Dec 2, 2025)
 - ✅ Removed "Coming Soon" overlay for testing
 - ✅ API switches based on environment: `file://` uses direct API, live uses Netlify function
 - ✅ Embedded minimal knowledge base for local testing (to avoid CORS issues)
