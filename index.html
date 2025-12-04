@@ -974,32 +974,78 @@ Protected by Digital Millennium Copyright Act (DMCA)
             scroll-behavior: smooth;
         }
 
-        /* Fade-in-up animation for scroll reveals */
+        /* Dramatic fade-in-up animation with scale */
         .fade-in-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
-                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(60px) scale(0.95);
+            transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 1s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .fade-in-up.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
-        /* Staggered children animation */
+        /* Slide from left animation */
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Slide from right animation */
+        .slide-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Staggered children with dramatic entrance */
         .stagger-children > * {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-                        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(50px) scale(0.9);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.4s; opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.55s; opacity: 1; transform: translateY(0) scale(1); }
+        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.7s; opacity: 1; transform: translateY(0) scale(1); }
+
+        /* Alternating slide animation for problem cards */
+        .stagger-slide > *:nth-child(odd) {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .stagger-slide > *:nth-child(even) {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .stagger-slide.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateX(0); }
+        .stagger-slide.visible > *:nth-child(2) { transition-delay: 0.25s; opacity: 1; transform: translateX(0); }
+        .stagger-slide.visible > *:nth-child(3) { transition-delay: 0.4s; opacity: 1; transform: translateX(0); }
+        .stagger-slide.visible > *:nth-child(4) { transition-delay: 0.55s; opacity: 1; transform: translateX(0); }
 
         /* Enhanced card hover effects */
         .problem-card,
@@ -1165,16 +1211,17 @@ Protected by Digital Millennium Copyright Act (DMCA)
         @keyframes numberGlow {
             0% {
                 opacity: 0;
-                filter: blur(10px);
-                transform: scale(0.8);
+                filter: blur(20px);
+                transform: scale(0.5) rotate(-10deg);
             }
-            50% {
+            60% {
+                opacity: 0.5;
                 filter: blur(0px);
             }
             100% {
                 opacity: 0.3;
                 filter: blur(0px);
-                transform: scale(1);
+                transform: scale(1) rotate(0deg);
             }
         }
 
@@ -1202,15 +1249,26 @@ Protected by Digital Millennium Copyright Act (DMCA)
             animation-play-state: paused;
         }
 
-        /* Logo subtle scale on hover */
+        /* Logo subtle scale on hover with pulse */
         .source-logo {
             transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
                         opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .source-logo:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
             opacity: 1 !important;
+            animation: none;
         }
 
         /* CTA button enhanced animations */
@@ -1232,6 +1290,55 @@ Protected by Digital Millennium Copyright Act (DMCA)
             background: rgba(234, 255, 196, 0.1);
             border-color: var(--sova-green);
             transform: translateY(-2px);
+        }
+
+        /* Scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sova-green), var(--sova-sage));
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px var(--sova-green);
+        }
+
+        /* Section reveal backdrop */
+        .problem, .solution {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem::before, .solution::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(234, 255, 196, 0.05), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .problem.visible::before {
+            animation: sweepRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        .solution.visible::before {
+            animation: sweepRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes sweepRight {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
         }
 
         /* Reduce motion for accessibility */
@@ -1445,6 +1552,9 @@ Protected by Digital Millennium Copyright Act (DMCA)
     </style>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Anti-copy protection - DISABLED FOR TESTING -->
     <!--
     <script>
@@ -1599,7 +1709,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 <span style="color: var(--sova-green);">It's just fragmented.</span>
             </h2>
 
-            <div class="stagger-children" style="display: grid; gap: 3rem; margin: 6rem 0;">
+            <div class="stagger-slide" style="display: grid; gap: 3rem; margin: 6rem 0;">
                 <div style="border-left: 2px solid rgba(234, 255, 196, 0.2); padding-left: 2rem;">
                     <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--sova-white);">Consultants</h3>
                     <p style="font-size: 1.125rem; line-height: 1.7; opacity: 0.7; font-weight: 300;">Deliver on strategy or marketing or operations. Not holistically. Cost thousands. Create dependency.</p>
@@ -1804,9 +1914,48 @@ Protected by Digital Millennium Copyright Act (DMCA)
         }, observerOptions);
 
         // Observe all elements with animation classes
-        document.querySelectorAll('.fade-in-up, .stagger-children').forEach(el => {
+        document.querySelectorAll('.fade-in-up, .stagger-children, .stagger-slide, .slide-left, .slide-right').forEach(el => {
             observer.observe(el);
         });
+
+        // Observe sections for sweep animation
+        document.querySelectorAll('.problem, .solution').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Scroll progress bar
+        const scrollProgress = document.getElementById('scrollProgress');
+        function updateScrollProgress() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.pageYOffset;
+            const progress = (scrolled / documentHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+        updateScrollProgress();
+
+        // Animate 90% counter on page load
+        const bigStat = document.querySelector('.big-stat');
+        if (bigStat) {
+            let currentValue = 0;
+            const targetValue = 90;
+            const duration = 2000;
+            const increment = targetValue / (duration / 16);
+
+            function animateCounter() {
+                currentValue += increment;
+                if (currentValue < targetValue) {
+                    bigStat.textContent = Math.floor(currentValue) + '%';
+                    requestAnimationFrame(animateCounter);
+                } else {
+                    bigStat.textContent = targetValue + '%';
+                }
+            }
+
+            setTimeout(animateCounter, 500);
+        }
 
         // Subtle parallax effects on scroll
         let ticking = false;
