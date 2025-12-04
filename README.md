@@ -94,16 +94,23 @@ Located in `/instagram-templates/` directory:
 
 ## Version
 
-Current: v6.52 (2025-12-03)
+Current: v6.53 (2025-12-05)
+- Homepage dramatic scroll animations (9 animation types)
+- Scroll progress bar with green glow
+- Number spin animations with rotation and blur
+- Problem cards alternating slide directions
+- Section sweep effects with green gradient
+- 90% counter animation on page load
+- Logo marquee pulse animation
+- Enhanced button hover states
+- Copy improvements: highlighted 281 tools, curated messaging
+- Section formatting standardised across homepage
+
+Previous: v6.52 (2025-12-03)
 - Netlify hosting with custom domain getsova.com.au
 - Pilot phase note with survey link on first prelim page
 - Fixed mobile text wrapping and footer spacing
 - Created outlined logo versions and DL flyer print layouts
-
-Previous: v6.51 (2025-11-28)
-- Mobile prelim layout fixes
-- Validation info buttons right-aligned
-- Different How It Works guidance per path
 
 ---
 
