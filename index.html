@@ -285,13 +285,14 @@ Protected by Digital Millennium Copyright Act (DMCA)
             padding: 3rem 0 2rem;
             position: relative;
             overflow: visible;
+            --bird-offset: 0px;
         }
 
         /* Giant decorative bird watermark in hero */
         .hero::before {
             content: '';
             position: absolute;
-            top: -10%;
+            top: calc(-10% + var(--bird-offset));
             right: -15%;
             width: 70%;
             height: 140%;
@@ -300,6 +301,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             opacity: 0.03;
             pointer-events: none;
             z-index: 0;
+            transition: top 0.1s ease-out;
         }
 
         .hero .container {
@@ -993,15 +995,11 @@ Protected by Digital Millennium Copyright Act (DMCA)
                         transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .stagger-children.visible > *:nth-child(1) { transition-delay: 0s; }
-        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.1s; }
-        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.2s; }
-        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.3s; }
-
-        .stagger-children.visible > * {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
 
         /* Enhanced card hover effects */
         .problem-card,
@@ -1150,6 +1148,90 @@ Protected by Digital Millennium Copyright Act (DMCA)
         nav a:hover::after {
             width: 100%;
             left: 0;
+        }
+
+        /* Number glow animation on scroll reveal */
+        .stagger-children > div {
+            position: relative;
+        }
+
+        .stagger-children.visible > div:nth-child(1) div[style*="font-size: 4rem"],
+        .stagger-children.visible > div:nth-child(2) div[style*="font-size: 4rem"],
+        .stagger-children.visible > div:nth-child(3) div[style*="font-size: 4rem"],
+        .stagger-children.visible > div:nth-child(4) div[style*="font-size: 4rem"] {
+            animation: numberGlow 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes numberGlow {
+            0% {
+                opacity: 0;
+                filter: blur(10px);
+                transform: scale(0.8);
+            }
+            50% {
+                filter: blur(0px);
+            }
+            100% {
+                opacity: 0.3;
+                filter: blur(0px);
+                transform: scale(1);
+            }
+        }
+
+        /* Enhanced border-left hover effects */
+        .problem div[style*="border-left"],
+        .solution div[style*="grid-template-columns: 80px"] {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .problem div[style*="border-left"]:hover {
+            border-left-color: rgba(234, 255, 196, 0.5) !important;
+            padding-left: 2.5rem !important;
+            background: rgba(234, 255, 196, 0.02);
+        }
+
+        .problem div[style*="border-left"]:hover h3,
+        .solution div:hover h3 {
+            color: var(--sova-green) !important;
+            transform: translateX(4px);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Marquee hover pause */
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Logo subtle scale on hover */
+        .source-logo {
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                        opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .source-logo:hover {
+            transform: scale(1.1);
+            opacity: 1 !important;
+        }
+
+        /* CTA button enhanced animations */
+        .btn-primary {
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(234, 255, 196, 0.3);
+        }
+
+        .btn-secondary {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(234, 255, 196, 0.1);
+            border-color: var(--sova-green);
+            transform: translateY(-2px);
         }
 
         /* Reduce motion for accessibility */
@@ -1428,12 +1510,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <section style="padding: 4rem 0 6rem; background: var(--gradient-dark);">
         <div class="container">
             <div style="max-width: 1000px; margin: 0 auto;">
-                <h2 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 6rem; text-align: left; color: var(--sova-white);">
+                <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 6rem; text-align: left; color: var(--sova-white);">
                     We've done the research<br>
                     <span style="color: var(--sova-green);">so you don't have to</span>
                 </h2>
 
-                <div style="display: grid; gap: 5rem; margin-bottom: 8rem;">
+                <div class="stagger-children" style="display: grid; gap: 5rem; margin-bottom: 8rem;">
                     <div style="display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start;">
                         <div style="font-size: 4rem; font-weight: 700; color: var(--sova-green); opacity: 0.3; line-height: 1;">01</div>
                         <div>
@@ -1466,7 +1548,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                     <p style="font-size: 1.125rem; line-height: 1.7; opacity: 0.6; font-weight: 300; margin-bottom: 3rem;">
                         No consultant fees. No equity trades.
                     </p>
-                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+                    <div class="fade-in-up" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
                         <a href="assessment-tool.html" class="btn btn-primary">Start Assessment</a>
                         <a href="research.html" class="btn btn-secondary">Read the Research</a>
                     </div>
@@ -1512,12 +1594,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- The Problem -->
     <section id="problem" class="problem">
         <div class="container" style="max-width: 1000px;">
-            <h2 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 2rem; text-align: left;">
+            <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 2rem; text-align: left;">
                 The advice exists.<br>
                 <span style="color: var(--sova-green);">It's just fragmented.</span>
             </h2>
 
-            <div style="display: grid; gap: 3rem; margin: 6rem 0;">
+            <div class="stagger-children" style="display: grid; gap: 3rem; margin: 6rem 0;">
                 <div style="border-left: 2px solid rgba(234, 255, 196, 0.2); padding-left: 2rem;">
                     <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--sova-white);">Consultants</h3>
                     <p style="font-size: 1.125rem; line-height: 1.7; opacity: 0.7; font-weight: 300;">Deliver on strategy or marketing or operations. Not holistically. Cost thousands. Create dependency.</p>
@@ -1539,7 +1621,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 </div>
             </div>
 
-            <p style="font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.4; font-weight: 300; margin-top: 6rem;">
+            <p class="fade-in-up" style="font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.4; font-weight: 300; margin-top: 6rem;">
                 The tools work. The advice is sound. <span style="color: var(--sova-green); font-weight: 400;">But no one maps it to your specific situation, holistically.</span>
             </p>
         </div>
@@ -1552,12 +1634,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <section id="solution" class="solution">
         <div class="container">
             <div style="max-width: 1000px; margin: 0 auto;">
-                <h2 style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 6rem; text-align: left; color: var(--sova-white);">
+                <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 6rem; text-align: left; color: var(--sova-white);">
                     Sova connects<br>
                     <span style="color: var(--sova-green);">the dots</span>
                 </h2>
 
-                <div style="display: grid; gap: 5rem;">
+                <div class="stagger-children" style="display: grid; gap: 5rem;">
                     <!-- Diagnosis -->
                     <div style="display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start;">
                         <div style="font-size: 4rem; font-weight: 700; color: var(--sova-green); opacity: 0.3; line-height: 1;">01</div>
@@ -1726,19 +1808,29 @@ Protected by Digital Millennium Copyright Act (DMCA)
             observer.observe(el);
         });
 
-        // Subtle parallax effect on big-stat
+        // Subtle parallax effects on scroll
         let ticking = false;
         window.addEventListener('scroll', function() {
             if (!ticking) {
                 window.requestAnimationFrame(function() {
+                    const scrolled = window.pageYOffset;
+
+                    // Big stat parallax
                     const bigStat = document.querySelector('.big-stat');
                     if (bigStat) {
-                        const scrolled = window.pageYOffset;
                         const rate = scrolled * 0.1;
                         if (rate < 50) {
                             bigStat.style.transform = `translateY(${rate}px)`;
                         }
                     }
+
+                    // Hero watermark bird subtle movement
+                    const hero = document.querySelector('.hero');
+                    if (hero && scrolled < 800) {
+                        const birdRate = scrolled * 0.05;
+                        hero.style.setProperty('--bird-offset', `${birdRate}px`);
+                    }
+
                     ticking = false;
                 });
                 ticking = true;
