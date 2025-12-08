@@ -594,41 +594,20 @@ Remember: Be direct, be helpful, move toward solving their problem. No fluff, no
                 parts: [{ text: fullMessage }]
             });
 
-            // Different request format for direct API vs Netlify function
-            let requestBody;
-
-            if (USE_DIRECT_API) {
-                // Direct Gemini API format - MUST start with user, then alternate
-                const messages = [];
-                messages.push({
-                    role: 'user',
-                    parts: [{ text: 'You are Sova, a startup advisor for Australian entrepreneurs. Answer briefly and helpfully.' }]
-                });
-                messages.push({
-                    role: 'model',
-                    parts: [{ text: 'I understand.' }]
-                });
-                messages.push(...conversationHistory);
-
-                requestBody = {
-                    contents: messages
-                };
-            } else {
-                // Netlify function format with full system prompt
-                requestBody = {
-                    contents: [
-                        { role: 'user', parts: [{ text: buildSystemPrompt() }] },
-                        { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
-                        ...conversationHistory
-                    ],
-                    generationConfig: {
-                        temperature: 0.7,
-                        topK: 40,
-                        topP: 0.95,
-                        maxOutputTokens: 1500,
-                    }
-                };
-            }
+            // Request format for Netlify function
+            const requestBody = {
+                contents: [
+                    { role: 'user', parts: [{ text: buildSystemPrompt() }] },
+                    { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
+                    ...conversationHistory
+                ],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 1500,
+                }
+            };
 
             try {
                 const response = await fetch(CHAT_API_URL, {
