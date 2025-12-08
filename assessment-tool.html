@@ -7429,18 +7429,6 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 content += `</div>`;
             }
 
-            // Add diagnostic guidance
-            if (interconnections.checkFirst) {
-                content += `
-                    <div style="background: rgba(184, 215, 143, 0.25); padding: 12px; border-radius: 8px; margin-top: 16px; border: 2px solid #b8d78f;">
-                        <p style="color: #2d2828; font-size: 12px; line-height: 1.6; margin: 0; font-weight: 600;">
-                            <strong style="font-size: 13px;">Diagnostic Tip:</strong><br>
-                            ${interconnections.checkFirst}
-                        </p>
-                    </div>
-                `;
-            }
-
             return `
                 <div class="tooltip-trigger lime">
                     Connection
