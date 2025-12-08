@@ -1,5 +1,19 @@
 <!DOCTYPE html>
-<!-- CREATED: 2025-11-27 - Version 3.0 - Sova AI Chatbot with Gemini, Full Knowledge Base, Funnel Technique -->
+<!--
+================================================================================
+PROPRIETARY AND CONFIDENTIAL
+Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
+
+This software and its documentation are protected by copyright law and
+international treaties. Unauthorized reproduction, distribution, or use of
+this software, in whole or in part, is strictly prohibited and may result
+in severe civil and criminal penalties.
+
+Protected by Australian Copyright Act 1968
+Protected by Digital Millennium Copyright Act (DMCA)
+================================================================================
+-->
+<!-- UPDATED: 2025-12-04 - Version 3.2 - Integrated comprehensive directory (162 resources: funding, programs, advice, connections) -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -261,30 +275,43 @@
         }
         .referral-btn:hover { background: rgba(234, 255, 196, 0.1); transform: translateY(-2px); }
 
-        /* Coming Soon Overlay */
-        .coming-soon-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(45, 40, 40, 0.97);
-            backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        .coming-soon-content { text-align: center; max-width: 480px; padding: 3rem 2rem; }
-        .coming-soon-content h2 { color: #eaffc4; font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; margin-bottom: 1rem; }
-        .coming-soon-content p { color: #b8d78f; font-size: 1.125rem; margin-bottom: 2.5rem; line-height: 1.7; opacity: 0.8; }
-        .coming-soon-content .back-btn {
-            display: inline-block;
-            background: #eaffc4;
-            color: #2d2828;
-            padding: 1rem 2.5rem;
+        /* Program Card (for ecosystem guide recommendations) */
+        .program-card {
+            background: rgba(184, 215, 143, 0.08);
+            border: 1px solid rgba(184, 215, 143, 0.2);
             border-radius: 12px;
-            font-weight: 600;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        .program-card h4 { color: #b8d78f; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .program-card p { color: rgba(245, 245, 220, 0.85); font-size: 0.875rem; margin-bottom: 0.75rem; }
+        .program-card a {
+            display: inline-block;
+            color: #b8d78f;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(184, 215, 143, 0.3);
+        }
+        .program-card a:hover { border-bottom-color: #b8d78f; }
+
+        /* Ecosystem Guide Link */
+        .ecosystem-guide-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(234, 255, 196, 0.08);
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            border-radius: 8px;
+            color: #eaffc4;
+            font-size: 0.875rem;
+            font-weight: 500;
             text-decoration: none;
             transition: all 0.3s;
         }
+        .ecosystem-guide-link:hover { background: rgba(234, 255, 196, 0.15); border-color: rgba(234, 255, 196, 0.4); }
 
         /* Mobile */
         @media (max-width: 768px) {
@@ -299,6 +326,26 @@
     </style>
 </head>
 <body>
+    <!-- Anti-copy protection -->
+    <script>
+    (function(){
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C')) { e.preventDefault(); return false; }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.userSelect = 'none';
+            document.body.style.webkitUserSelect = 'none';
+            document.querySelectorAll('input, textarea').forEach(function(el) {
+                el.style.userSelect = 'text';
+                el.style.webkitUserSelect = 'text';
+            });
+        });
+    })();
+    </script>
+
     <header>
         <div class="container">
             <div class="header-content">
@@ -307,7 +354,7 @@
         </div>
     </header>
 
-    <!-- Coming Soon overlay removed for beta testing -->
+    <!-- Coming Soon overlay removed for local testing -->
 
     <div class="container">
         <section class="chat-section">
@@ -349,8 +396,8 @@
         // ============================================
         // CONFIGURATION
         // ============================================
-        // API endpoint - uses Netlify Function to keep API key secure
-        const API_ENDPOINT = '/.netlify/functions/chat';
+        // Use Netlify Functions proxy for API calls
+        const CHAT_API_URL = '/.netlify/functions/chat';
 
         // State
         let conversationHistory = [];
@@ -364,15 +411,25 @@
         // ============================================
         async function loadKnowledgeBase() {
             try {
+                // Load full knowledge base
                 const response = await fetch('sova-knowledge-base.json');
                 knowledgeBase = await response.json();
                 console.log('Knowledge base loaded:', {
                     tools: knowledgeBase.tools.length,
                     questions: knowledgeBase.questions.length,
-                    failureQuotes: knowledgeBase.failureQuotes.length
+                    failureQuotes: knowledgeBase.failureQuotes.length,
+                    directory: knowledgeBase.directory?.length || 0
                 });
             } catch (error) {
                 console.error('Failed to load knowledge base:', error);
+                // Fallback to empty knowledge base
+                knowledgeBase = {
+                    tools: [],
+                    questions: [],
+                    failureQuotes: [],
+                    directory: [],
+                    elementDefinitions: []
+                };
             }
         }
 
@@ -390,40 +447,63 @@
             // Get element definitions
             const elementDefs = knowledgeBase?.elementDefinitions || [];
 
-            return `You are Sova, a friendly and knowledgeable startup guide for Australian entrepreneurs. Your goal is to diagnose challenges and provide specific, actionable recommendations.
+            // Get directory data (filtered for most commonly needed resources)
+            const directory = knowledgeBase?.directory || [];
+            const fundingOpps = directory.filter(d => d.need === 'Funding').slice(0, 30);
+            const adviceResources = directory.filter(d => d.need === 'Advice').slice(0, 20);
+            const programResources = directory.filter(d => d.need === 'Programs').slice(0, 25);
+            const communityResources = directory.filter(d => d.need === 'Connections').slice(0, 15);
 
-## YOUR CONVERSATION APPROACH (Funnel Technique)
+            return `You are Sova, a professional startup guide for Australian entrepreneurs. Your goal is to diagnose challenges and provide specific, actionable recommendations.
 
-Use these 4 stages to efficiently reach a recommendation:
+## CRITICAL LANGUAGE RULES
 
-**STAGE 1 - EXPLORE (1-2 questions)**
-Start broad to understand context:
-- "What's happening in your business right now?"
-- "Tell me about your startup and what's on your mind."
+1. **NEVER use greetings** - No "G'day", "Hello", "Hi there", "Greetings" or any greeting at any point in the conversation
+2. **NEVER ask "When" questions** - Don't ask when something happened or started. Focus on what the issue is and how to solve it.
+3. **Australian English**: organisation, analyse, prioritise, colour
+4. **No emojis**
+5. **Concise responses**: 2-3 short paragraphs max. Be direct and actionable.
+6. **MVP elements only**: Governance, Purpose, Strategy, Marketing. If asked about Finance, People, Process, Performance, Technology - acknowledge but say "coming February 2026"
 
-**STAGE 2 - PROBE (1-2 questions)**
-Narrow down to specifics:
-- "When did this become a problem?"
-- "What have you already tried?"
-- "Who's affected by this?"
+## YOUR CONVERSATION APPROACH
 
-**STAGE 3 - CONFIRM**
-Summarise and validate:
-- "So if I understand correctly, you're dealing with [X] which is affecting [Y]. Is that right?"
+**STAGE 1 - UNDERSTAND**
+Ask about their situation. When offering options, present them as clickable choices:
 
-**STAGE 4 - RECOMMEND**
-Provide specific advice with tools:
-- Name specific tools/frameworks with links
-- Include relevant failure research or best practice evidence
-- Offer the assessment for deeper analysis
+Example: "Are you looking at:" then list 2-4 options the user can choose from.
 
-## CRITICAL RULES
+**STAGE 2 - CLARIFY**
+Ask what they've tried or what specific aspect concerns them most. Never ask "when" - focus on "what" and "how".
 
-1. **Australian English**: organisation, analyse, prioritise, colour
-2. **No emojis**
-3. **Concise responses**: 2-4 short paragraphs max
-4. **Be goal-oriented**: Push toward a recommendation once you have enough context
-5. **MVP elements only**: Governance, Purpose, Strategy, Marketing. If asked about Finance, People, Process, Performance, Technology - acknowledge but say "coming February 2026"
+**STAGE 3 - RECOMMEND**
+Provide specific advice. Keep it short and actionable.
+
+## WHEN PRESENTING OPTIONS
+
+Always offer 2-4 clear options as a list that the user can choose from. Format as:
+- Option 1 description
+- Option 2 description
+- Option 3 description
+
+Then add: "Or tell me more about your specific situation."
+
+## RECOMMENDATION FORMAT
+
+When giving recommendations, structure your response in SHORT separate paragraphs:
+
+**Paragraph 1**: Why this matters (1-2 sentences max). Reference a relevant insight about startup challenges.
+
+**Paragraph 2**: How to approach it (2-3 sentences max). Explain the methodology briefly.
+
+**Paragraph 3**: Specific next steps with a tool card:
+
+<div class="tool-card">
+<h4>[Tool Name]</h4>
+<p>[One sentence on why this helps their situation]</p>
+<a href="[URL]" target="_blank">Learn more →</a>
+</div>
+
+**IMPORTANT**: Do NOT write "WHY", "HOW", or "WHAT" labels. Just write the content in separate paragraphs.
 
 ## ELEMENT DEFINITIONS
 ${elementDefs.map(e => `- **${e.element}**: ${e.definition}`).join('\n')}
@@ -432,31 +512,12 @@ ${elementDefs.map(e => `- **${e.element}**: ${e.definition}`).join('\n')}
 ${relevantTools.slice(0, 40).map(t => `- **${t.name}** (${t.element}): ${t.sovaContext || t.description}${t.url ? ` [Link](${t.url})` : ''}`).join('\n')}
 
 ## STARTUP FAILURE EVIDENCE
-Use these to support your advice:
+Use these to support your advice (paraphrase, don't quote directly):
 ${failureQuotes.slice(0, 10).map(q => `- ${q.element}: "${q.quote}"`).join('\n')}
-
-## RECOMMENDATION FORMAT (Golden Circle)
-
-When giving your final recommendation, structure it as:
-
-**WHY** (Purpose - why this matters)
-Start with why this is important. Connect to startup failure research or best practice evidence. Example: "Startups without clear role definitions are 3x more likely to experience co-founder conflict..."
-
-**HOW** (Process - how to approach it)
-Explain the approach or methodology. Reference specific frameworks. Example: "The RACI matrix helps you map out who is Responsible, Accountable, Consulted, and Informed for each key decision..."
-
-**WHAT** (Action - specific tools and next steps)
-Give concrete tools and actions:
-
-<div class="tool-card">
-<h4>[Tool Name]</h4>
-<p>[Why this tool helps their specific situation]</p>
-<a href="[URL]" target="_blank">Learn more →</a>
-</div>
 
 ## WHEN REFERRING TO ASSESSMENT
 
-After the WHY-HOW-WHAT recommendation, if deeper analysis would help:
+If deeper analysis would help, add:
 <div class="referral-card">
 <h4>Take the [Element] Assessment</h4>
 <p>Get a structured view of your [element] foundations with prioritised actions.</p>
@@ -465,12 +526,50 @@ After the WHY-HOW-WHAT recommendation, if deeper analysis would help:
 
 ## IF USER PROVIDES A WEBSITE OR DOCUMENT
 
-When they share context (website URL or uploaded document), acknowledge it specifically:
-- Reference specific details from their content
-- Tailor your questions to their actual business
-- Make recommendations relevant to their specific situation
+When they share context, acknowledge their specific business and tailor your response accordingly. Assure them their data is only used for this conversation.
 
-Remember: Be helpful first, recommend tools/assessment second. Every response should move toward solving their problem.`;
+## RECOMMENDING SUPPORT PROGRAMS AND DIRECTORY RESOURCES
+
+**IMPORTANT**: You have access to a comprehensive directory of 162 Australian startup resources including:
+- **Funding**: ${fundingOpps.length} grants, investors, competitions
+- **Programs**: ${programResources.length} accelerators, incubators, corporate programs
+- **Advice**: ${adviceResources.length} government services, mentoring, legal help
+- **Connections**: ${communityResources.length} networks, events, communities
+
+**When to recommend directory resources:**
+1. **No specific tool exists** - If there's no framework/methodology that directly solves their problem
+2. **Need funding** - User mentions grants, investment, capital, money, funding
+3. **Need mentoring/advice** - User asks "who can help", "need guidance", "where to start"
+4. **Need community** - User feels isolated, wants to meet founders, needs network
+5. **Stage-appropriate** - Match their stage (Idea, Validation, Efficiency, Scale) to programs
+6. **Location-specific** - Filter by their state if mentioned
+7. **Identity-specific** - If they're women/Indigenous/migrant/disability founders
+
+**How to recommend:**
+Use the program-card format with relevant details from directory:
+<div class="program-card">
+<h4>[Name]</h4>
+<p>[Description tailored to their situation] • [Category] • [Timeline if relevant]</p>
+<a href="[URL]" target="_blank">Learn more →</a>
+</div>
+
+**Filtering logic:**
+- Match by **need** (Funding/Programs/Advice/Connections)
+- Match by **stage** (Idea/Validation/Efficiency/Scale)
+- Match by **state** if they mention location (NSW, VIC, QLD, WA, SA, TAS, ACT, NT, National)
+- Match by **identity** if mentioned (Women/Indigenous/Migrant/Disability)
+- Match by **industry** if relevant (Tech/DeepTech/FinTech/HealthTech/CleanTech/AgTech)
+
+**Key directory highlights:**
+${fundingOpps.slice(0, 10).map(f => `- **${f.name}** (${f.category}, ${f.state}): ${f.funding} ${f.description.substring(0, 80)}...`).join('\n')}
+
+${programResources.slice(0, 8).map(p => `- **${p.name}** (${p.category}, ${p.state}): ${p.description.substring(0, 80)}...`).join('\n')}
+
+**IMPORTANT**: Always contextualise recommendations to their specific situation. Don't list resources - explain WHY this specific resource helps THEIR problem.
+
+For comprehensive directory: "Explore all 162 programs and funding opportunities at <a href='directory.html' target='_blank'>Sova Directory</a>."
+
+Remember: Be direct, be helpful, move toward solving their problem. No fluff, no greetings, no "when" questions.`;
         }
 
         // ============================================
@@ -495,23 +594,44 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
                 parts: [{ text: fullMessage }]
             });
 
-            const requestBody = {
-                contents: [
-                    { role: 'user', parts: [{ text: buildSystemPrompt() }] },
-                    { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
-                    ...conversationHistory
-                ],
-                generationConfig: {
-                    temperature: 0.7,
-                    topK: 40,
-                    topP: 0.95,
-                    maxOutputTokens: 1500,
-                }
-            };
+            // Different request format for direct API vs Netlify function
+            let requestBody;
+
+            if (USE_DIRECT_API) {
+                // Direct Gemini API format - MUST start with user, then alternate
+                const messages = [];
+                messages.push({
+                    role: 'user',
+                    parts: [{ text: 'You are Sova, a startup advisor for Australian entrepreneurs. Answer briefly and helpfully.' }]
+                });
+                messages.push({
+                    role: 'model',
+                    parts: [{ text: 'I understand.' }]
+                });
+                messages.push(...conversationHistory);
+
+                requestBody = {
+                    contents: messages
+                };
+            } else {
+                // Netlify function format with full system prompt
+                requestBody = {
+                    contents: [
+                        { role: 'user', parts: [{ text: buildSystemPrompt() }] },
+                        { role: 'model', parts: [{ text: 'I understand. I am Sova, a startup guide for Australian entrepreneurs. I will use the funnel technique to efficiently diagnose challenges and provide specific tool recommendations with evidence.' }] },
+                        ...conversationHistory
+                    ],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1500,
+                    }
+                };
+            }
 
             try {
-                // Call Netlify Function instead of direct API
-                const response = await fetch(API_ENDPOINT, {
+                const response = await fetch(CHAT_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
@@ -594,7 +714,7 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
         // ============================================
         function startConversation() {
             const greeting = `
-                <p>G'day! I'm Sova, your startup guide. I'm here to help you work through challenges and find practical solutions.</p>
+                <p>Welcome. I'm Sova, your startup guide. I'm here to help you work through challenges and find practical solutions.</p>
                 <p>I can help with:</p>
                 <ul>
                     <li><strong>Governance</strong> — Structure, roles, accountability, compliance</li>
@@ -603,8 +723,8 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
                     <li><strong>Marketing</strong> — Customers, messaging, growth</li>
                 </ul>
                 <p>More elements coming February 2026.</p>
-                <p style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(184, 215, 143, 0.15);"><strong>What's the biggest challenge you're facing right now?</strong></p>
-                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">You can also share a website URL or upload a business plan to give me more context.</p>
+                <p style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(184, 215, 143, 0.15);"><strong>Tell me a bit about your startup.</strong></p>
+                <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 0.5rem;">You can share your website URL or upload a business plan to give me more context. Your data is not stored, copied, or used beyond this conversation — it's processed only to provide you with relevant guidance.</p>
             `;
             addSovaMessage(greeting, getElementButtons());
         }
@@ -673,6 +793,7 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
 
             const paragraphs = text.split(/\n\n+/);
             let html = '';
+            let hasOptions = false;
 
             paragraphs.forEach(para => {
                 para = para.trim();
@@ -682,7 +803,21 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
                     html += para;
                 } else if (para.match(/^[-•]\s/m)) {
                     const items = para.split(/\n/).filter(l => l.trim());
-                    html += '<ul>' + items.map(i => `<li>${i.replace(/^[-•]\s*/, '')}</li>`).join('') + '</ul>';
+                    // Check if these look like clickable options (short items without links)
+                    const looksLikeOptions = items.length >= 2 && items.length <= 5 &&
+                        items.every(i => i.length < 100 && !i.includes('http'));
+
+                    if (looksLikeOptions && !hasOptions) {
+                        hasOptions = true;
+                        html += '<div class="element-buttons" style="margin: 1rem 0;">';
+                        items.forEach(item => {
+                            const cleanItem = item.replace(/^[-•]\s*/, '').replace(/<[^>]+>/g, '');
+                            html += `<button class="element-btn" onclick="quickSelect('${cleanItem.replace(/'/g, "\\'")}')">${cleanItem}</button>`;
+                        });
+                        html += '</div>';
+                    } else {
+                        html += '<ul>' + items.map(i => `<li>${i.replace(/^[-•]\s*/, '')}</li>`).join('') + '</ul>';
+                    }
                 } else if (para.match(/^\d+\.\s/m)) {
                     const items = para.split(/\n/).filter(l => l.trim());
                     html += '<ol>' + items.map(i => `<li>${i.replace(/^\d+\.\s*/, '')}</li>`).join('') + '</ol>';
@@ -752,16 +887,14 @@ Remember: Be helpful first, recommend tools/assessment second. Every response sh
             this.style.height = Math.min(this.scrollHeight, 150) + 'px';
         });
 
-        // Check overlay
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('preview') === 'true' || params.get('from') === 'assessment') {
-            document.getElementById('comingSoonOverlay').style.display = 'none';
-        }
-
         // Initialize
         loadKnowledgeBase().then(() => {
             startConversation();
         });
     </script>
+
+    <footer style="text-align: center; padding: 1rem; font-size: 0.75rem; color: rgba(245, 245, 220, 0.4); border-top: 1px solid rgba(234, 255, 196, 0.1); margin-top: 2rem;">
+        &copy; 2025 Sova. All rights reserved. Assessment tool and content protected by copyright. <a href="terms.html" style="color: #b8d78f;">Terms of Service</a>
+    </footer>
 </body>
 </html>
