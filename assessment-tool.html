@@ -28,6 +28,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <script src="questions-data.js?v=20251126"></script>
     <script src="article-urls.js?v=20251126"></script>
     <script src="content-data.js?v=20251126"></script>
+    <script src="interconnections-data.js?v=20251208"></script>
     <style>
         * {
             margin: 0;
@@ -6815,6 +6816,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                                                 </div>
                                             </div>
                                         ` : ''}
+                                        ${getInterconnectionsButton(elementName)}
                                         <div class="tooltip-trigger lime">
                                             Experts
                                             <div class="tooltip-popover">
@@ -7377,6 +7379,80 @@ Protected by Digital Millennium Copyright Act (DMCA)
                     text: 'Requires immediate focus.'
                 };
             }
+        }
+
+        // Generate Interconnections Button
+        function getInterconnectionsButton(elementName) {
+            const interconnections = getInterconnections(elementName);
+            if (!interconnections) return '';
+
+            let content = '';
+
+            if (interconnections.description) {
+                content += `<p style="color: #2d2828; font-size: 13px; line-height: 1.6; margin-bottom: 16px;">${interconnections.description}</p>`;
+            }
+
+            // Show impacts (how this element affects others)
+            if (interconnections.impacts) {
+                content += `<div style="display: flex; flex-direction: column; gap: 14px;">`;
+                interconnections.impacts.forEach((impact, idx) => {
+                    content += `
+                        <div style="background: rgba(234, 255, 196, 0.15); padding: 12px; border-radius: 8px; border-left: 3px solid #eaffc4;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                <span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #eaffc4; font-size: 11px; font-weight: 700; color: #2d2828; display: flex; align-items: center; justify-content: center;">${idx + 1}</span>
+                                <strong style="color: #2d2828; font-size: 13px;">Impacts ${impact.element}</strong>
+                            </div>
+                            <p style="color: #2d2828; font-size: 12px; line-height: 1.5; margin: 0 0 6px 30px;"><strong>Problem:</strong> ${impact.problem}</p>
+                            <p style="color: #2d2828; font-size: 12px; line-height: 1.5; margin: 0 0 6px 30px;"><strong>Result:</strong> ${impact.result}</p>
+                            <p style="color: #2d2828; font-size: 11px; line-height: 1.5; margin: 0 0 0 30px; font-style: italic; opacity: 0.85;">${impact.example}</p>
+                        </div>
+                    `;
+                });
+                content += `</div>`;
+            }
+
+            // Show symptoms (what problems look like this but are caused by other elements)
+            if (interconnections.symptoms) {
+                content += `<div style="display: flex; flex-direction: column; gap: 14px;">`;
+                interconnections.symptoms.forEach((symptom, idx) => {
+                    content += `
+                        <div style="background: rgba(234, 255, 196, 0.15); padding: 12px; border-radius: 8px; border-left: 3px solid #eaffc4;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                <span style="flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #eaffc4; font-size: 11px; font-weight: 700; color: #2d2828; display: flex; align-items: center; justify-content: center;">${idx + 1}</span>
+                                <strong style="color: #2d2828; font-size: 13px;">${symptom.symptom}</strong>
+                            </div>
+                            <p style="color: #2d2828; font-size: 12px; line-height: 1.5; margin: 0 0 6px 30px;"><strong>Actual problem:</strong> ${symptom.actualProblem} - ${symptom.reason}</p>
+                            <p style="color: #2d2828; font-size: 12px; line-height: 1.5; margin: 0 0 0 30px;"><strong>Fix:</strong> ${symptom.fix}</p>
+                        </div>
+                    `;
+                });
+                content += `</div>`;
+            }
+
+            // Add diagnostic guidance
+            if (interconnections.checkFirst) {
+                content += `
+                    <div style="background: rgba(184, 215, 143, 0.25); padding: 12px; border-radius: 8px; margin-top: 16px; border: 2px solid #b8d78f;">
+                        <p style="color: #2d2828; font-size: 12px; line-height: 1.6; margin: 0; font-weight: 600;">
+                            <strong style="font-size: 13px;">💡 Diagnostic Tip:</strong><br>
+                            ${interconnections.checkFirst}
+                        </p>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="tooltip-trigger lime">
+                    Interconnections
+                    <div class="tooltip-popover" style="max-width: 550px; width: 550px;">
+                        <div class="tooltip-corner lime"></div>
+                        <div class="tooltip-popover-label">How ${elementName} Connects</div>
+                        <div class="tooltip-popover-content">
+                            ${content}
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         // Generate Stage Progression Tracker
