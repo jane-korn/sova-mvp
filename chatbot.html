@@ -784,17 +784,28 @@ Remember: Be direct, be helpful, move toward solving their problem. No fluff, no
                     html += para;
                 } else if (para.match(/^[-•]\s/m)) {
                     const items = para.split(/\n/).filter(l => l.trim());
-                    // Check if these look like clickable options (short items without links)
-                    const looksLikeOptions = items.length >= 2 && items.length <= 6 &&
-                        items.every(i => i.length < 150 && !i.includes('http'));
 
-                    if (looksLikeOptions) {
+                    // Filter out the "Or tell me more" option - it should be text, not a button
+                    const buttonItems = items.filter(i => !i.match(/or tell me more/i));
+                    const textItems = items.filter(i => i.match(/or tell me more/i));
+
+                    // Check if these look like clickable options (short items without links)
+                    const looksLikeOptions = buttonItems.length >= 2 && buttonItems.length <= 6 &&
+                        buttonItems.every(i => i.length < 150 && !i.includes('http'));
+
+                    if (looksLikeOptions && buttonItems.length > 0) {
                         html += '<div class="element-buttons" style="margin: 1rem 0;">';
-                        items.forEach(item => {
+                        buttonItems.forEach(item => {
                             const cleanItem = item.replace(/^[-•]\s*/, '').replace(/<[^>]+>/g, '');
                             html += `<button class="element-btn" onclick="quickSelect('${cleanItem.replace(/'/g, "\\'")}')">${cleanItem}</button>`;
                         });
                         html += '</div>';
+
+                        // Add "Or tell me more" as regular text after buttons
+                        if (textItems.length > 0) {
+                            html += '<p style="margin-top: 0.5rem; font-style: italic; opacity: 0.8;">' +
+                                textItems.map(i => i.replace(/^[-•]\s*/, '')).join('<br>') + '</p>';
+                        }
                     } else {
                         html += '<ul>' + items.map(i => `<li>${i.replace(/^[-•]\s*/, '')}</li>`).join('') + '</ul>';
                     }
