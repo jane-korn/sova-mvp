@@ -12,6 +12,10 @@ AI-powered chatbot using Gemini 2.5 Flash for Sova startup assessment tool.
 - `netlify.toml` - Netlify configuration
 - `package.json` - Dependencies
 
+## Repository
+
+**GitHub:** https://github.com/jane-korn/sova-mvp/tree/chatbot-beta
+
 ## Deployment
 
 This folder is designed for Netlify deployment.
