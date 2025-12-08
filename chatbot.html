@@ -326,25 +326,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
     </style>
 </head>
 <body>
-    <!-- Anti-copy protection -->
-    <script>
-    (function(){
-        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
-            if (e.key === 'F12') { e.preventDefault(); return false; }
-            if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C')) { e.preventDefault(); return false; }
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.userSelect = 'none';
-            document.body.style.webkitUserSelect = 'none';
-            document.querySelectorAll('input, textarea').forEach(function(el) {
-                el.style.userSelect = 'text';
-                el.style.webkitUserSelect = 'text';
-            });
-        });
-    })();
-    </script>
+    <!-- Copy/paste enabled for beta testing -->
 
     <header>
         <div class="container">
