@@ -3,52 +3,58 @@
 
 const interconnectionsData = {
     "Governance": {
-        "description": "When Governance is weak, it creates cascading problems across all other elements.",
+        "description": "When Governance is weak, it creates problems across all other elements.",
         "impacts": [
             {
                 "element": "Purpose",
-                "problem": "No decision-making framework",
-                "result": "Mission drift - vision changes weekly based on last conversation",
-                "example": "You say your purpose is sustainability, but governance allows quick decisions that contradict this"
+                "problem": "No decision framework",
+                "result": "Vision changes weekly",
+                "exampleSolo": "You say your purpose is sustainability, but you make quick decisions that contradict this",
+                "exampleTeam": "Your team says the purpose is sustainability, but quick decisions contradict this"
             },
             {
                 "element": "Strategy",
-                "problem": "Slow or unclear decision authority",
-                "result": "Priorities shift constantly - team can't execute",
-                "example": "You pivot strategy every month because there's no process for evaluating strategic decisions"
+                "problem": "Unclear decision authority",
+                "result": "Priorities keep shifting",
+                "exampleSolo": "You pivot strategy every month because you have no process for evaluating decisions",
+                "exampleTeam": "The team pivots strategy every month because there's no process for evaluating decisions"
             },
             {
                 "element": "Marketing",
-                "problem": "No brand guidelines or approval process",
-                "result": "Inconsistent branding - every team member creates different versions",
-                "example": "Your marketing looks unprofessional because there's no governance around brand standards"
+                "problem": "No brand guidelines",
+                "result": "Inconsistent branding",
+                "exampleSolo": "Your marketing looks unprofessional because you have no brand standards",
+                "exampleTeam": "Your marketing looks unprofessional because everyone creates different versions"
             }
         ],
-        "checkFirst": "If you're struggling with inconsistent messaging, unclear priorities, or mission drift - check your Governance first. The symptom appears in other areas, but the root cause is governance."
+        "checkFirst": "If you're struggling with inconsistent messaging, unclear priorities, or vision changes, check your Governance first. The symptom appears in other areas, but the root cause is governance."
     },
     "Purpose": {
-        "description": "When Purpose is weak, it undermines direction and decision-making across the business.",
+        "description": "When Purpose is weak, it undermines direction and decision making.",
         "impacts": [
             {
                 "element": "Governance",
-                "problem": "No clear values framework",
-                "result": "Can't make values-based decisions - everything becomes subjective",
-                "example": "You can't decide what opportunities to pursue because you don't have a clear purpose guiding you"
+                "problem": "No clear values",
+                "result": "Every decision feels subjective",
+                "exampleSolo": "You can't decide what opportunities to pursue because you don't have a clear purpose",
+                "exampleTeam": "The team can't decide what opportunities to pursue because you don't have a clear purpose"
             },
             {
                 "element": "Strategy",
-                "problem": "Unclear vision or mission",
-                "result": "Can't set long-term direction - strategy becomes reactive",
-                "example": "You chase every opportunity because you don't have a clear purpose to guide strategic choices"
+                "problem": "Unclear vision",
+                "result": "Strategy becomes reactive",
+                "exampleSolo": "You chase every opportunity because you don't have a clear purpose to guide choices",
+                "exampleTeam": "The team chases every opportunity because there's no clear purpose to guide choices"
             },
             {
                 "element": "Marketing",
-                "problem": "Generic or unclear mission",
-                "result": "Messaging doesn't resonate - sounds like everyone else",
-                "example": "Your marketing is bland because you haven't articulated WHY you exist beyond making money"
+                "problem": "Generic mission",
+                "result": "Messaging sounds like everyone else",
+                "exampleSolo": "Your marketing is bland because you haven't articulated WHY you exist",
+                "exampleTeam": "Your marketing is bland because the WHY you exist isn't clear"
             }
         ],
-        "checkFirst": "If your messaging feels generic, you're chasing too many opportunities, or you can't make values-based decisions - check your Purpose. You might think it's a marketing or strategy problem, but it's actually purpose."
+        "checkFirst": "If your messaging feels generic, you're chasing too many opportunities, or you can't make values based decisions, check your Purpose. You might think it's a marketing or strategy problem, but it's actually purpose."
     },
     "Strategy": {
         "description": "When Strategy is weak, it creates confusion about priorities and target markets.",
@@ -56,47 +62,50 @@ const interconnectionsData = {
             {
                 "element": "Governance",
                 "problem": "No prioritisation framework",
-                "result": "Everything is urgent - team burns out on wrong priorities",
-                "example": "You can't say no to requests because you don't have strategic priorities to guide decisions"
+                "result": "Everything feels urgent",
+                "exampleSolo": "You can't say no to requests because you don't have strategic priorities",
+                "exampleTeam": "The team burns out on wrong priorities because there's no prioritisation framework"
             },
             {
                 "element": "Purpose",
-                "problem": "Strategy contradicts stated purpose",
-                "result": "Team sees disconnect between what you say and what you do",
-                "example": "You say you're customer-focused but your strategy prioritises investor metrics only"
+                "problem": "Strategy contradicts purpose",
+                "result": "Disconnect between what you say and do",
+                "exampleSolo": "You say you're customer focused but your strategy prioritises investor metrics only",
+                "exampleTeam": "The team sees a disconnect between stated purpose and actual strategy"
             },
             {
                 "element": "Marketing",
-                "problem": "Unclear target market or positioning",
-                "result": "Marketing tries to reach everyone - reaches no one",
-                "example": "Your marketing is weak because strategy hasn't defined who you're actually targeting"
+                "problem": "Unclear target market",
+                "result": "Marketing reaches no one",
+                "exampleSolo": "Your marketing is weak because you haven't defined who you're targeting",
+                "exampleTeam": "Your marketing is weak because strategy hasn't defined who you're targeting"
             }
         ],
-        "checkFirst": "If you're marketing to everyone, can't prioritise work, or your team sees contradictions - check your Strategy. The marketing symptom is actually a strategy gap."
+        "checkFirst": "If you're marketing to everyone, can't prioritise work, or see contradictions between what you say and do, check your Strategy. The marketing symptom is actually a strategy gap."
     },
     "Marketing": {
-        "description": "Marketing problems are RARELY just marketing problems - they're usually symptoms of upstream issues.",
+        "description": "Marketing problems are rarely just marketing problems. They're usually symptoms of other issues.",
         "symptoms": [
             {
-                "symptom": "Inconsistent branding across touchpoints",
+                "symptom": "Inconsistent branding",
                 "actualProblem": "Governance",
-                "reason": "No brand guidelines or approval process",
-                "fix": "Create governance framework for brand decisions"
+                "reason": "No brand guidelines",
+                "fix": "Create brand standards first"
             },
             {
-                "symptom": "Messaging feels generic and doesn't resonate",
+                "symptom": "Generic messaging",
                 "actualProblem": "Purpose",
-                "reason": "Unclear mission or value proposition",
-                "fix": "Define your WHY and unique purpose first"
+                "reason": "Unclear WHY you exist",
+                "fix": "Define your purpose first"
             },
             {
-                "symptom": "Trying to market to everyone",
+                "symptom": "Marketing to everyone",
                 "actualProblem": "Strategy",
-                "reason": "No clear target market or positioning",
-                "fix": "Define strategic priorities and ideal customer"
+                "reason": "No clear target market",
+                "fix": "Define who you're targeting first"
             }
         ],
-        "checkFirst": "Before you 'fix' marketing, ask: Do we have clear brand governance? Do we have a compelling purpose? Do we have a defined strategy? Marketing can't compensate for weak foundations."
+        "checkFirst": "Before you fix marketing, ask: Do you have clear brand standards? Do you have a compelling purpose? Do you have a defined strategy? Marketing cannot compensate for weak foundations."
     }
 };
 
