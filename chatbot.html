@@ -765,11 +765,10 @@ Remember: Be direct, be helpful, move toward solving their problem. No fluff, no
                 } else if (para.match(/^[-•]\s/m)) {
                     const items = para.split(/\n/).filter(l => l.trim());
                     // Check if these look like clickable options (short items without links)
-                    const looksLikeOptions = items.length >= 2 && items.length <= 5 &&
-                        items.every(i => i.length < 100 && !i.includes('http'));
+                    const looksLikeOptions = items.length >= 2 && items.length <= 6 &&
+                        items.every(i => i.length < 150 && !i.includes('http'));
 
-                    if (looksLikeOptions && !hasOptions) {
-                        hasOptions = true;
+                    if (looksLikeOptions) {
                         html += '<div class="element-buttons" style="margin: 1rem 0;">';
                         items.forEach(item => {
                             const cleanItem = item.replace(/^[-•]\s*/, '').replace(/<[^>]+>/g, '');
