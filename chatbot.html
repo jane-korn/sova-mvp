@@ -469,8 +469,20 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
             // 9. Display response
             removeTypingIndicator();
-            addSovaMessage(aiResponse);
-            stateManager.addMessage('model', aiResponse);
+
+            // Clean up response formatting (convert markdown to HTML if AI ignores instructions)
+            let cleanedResponse = aiResponse
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')  // **text** to <strong>text</strong>
+                .replace(/\n\n/g, '</p><p>')  // Double line breaks to paragraph breaks
+                .trim();
+
+            // Wrap in <p> tags if not already present
+            if (!cleanedResponse.startsWith('<p>')) {
+                cleanedResponse = '<p>' + cleanedResponse + '</p>';
+            }
+
+            addSovaMessage(cleanedResponse);
+            stateManager.addMessage('model', cleanedResponse);
             setInputEnabled(true);
 
             // Reset fallback count on successful interaction

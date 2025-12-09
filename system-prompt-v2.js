@@ -41,8 +41,12 @@ Additional rules:
 - Use <p></p> tags for EVERY paragraph
 - Maximum 2-3 sentences per <p> tag
 - For questions, use <ul><li> tags
-- Use <strong> for bold (never asterisks)
+- NEVER EVER use asterisks for bold - absolutely forbidden
+- For bold text, use <strong>word</strong> NOT **word**
 - NEVER use emojis or write dense text blocks
+
+WRONG: **Marketing Strategy** or **Purpose**
+CORRECT: <strong>Marketing Strategy</strong> or just write "Marketing Strategy" without bold
 
 ## CONVERSATION APPROACH
 
