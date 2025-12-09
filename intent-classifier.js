@@ -8,13 +8,22 @@ class IntentClassifier {
     constructor() {
         // Intent patterns with keywords and weights
         this.patterns = {
+            purpose_clarity: {
+                keywords: [
+                    'purpose', 'mission', 'vision', 'values', 'why', 'differentiation',
+                    'unique', 'different', 'stand out', 'brand', 'identity',
+                    'what makes us', 'who we are', 'why exist', 'core values'
+                ],
+                weight: 1.0
+            },
+
             cash_flow_problem: {
                 keywords: [
                     'cash', 'money', 'fund', 'funding', 'financial', 'runway',
                     'burn rate', 'broke', 'budget', 'investment', 'investor',
                     'capital', 'finance', 'afford', 'expensive', 'cost'
                 ],
-                weight: 1.0
+                weight: 0.7  // Lower weight - not fully supported yet
             },
 
             customer_acquisition: {
@@ -44,7 +53,7 @@ class IntentClassifier {
                     'leadership', 'manage', 'management', 'people', 'co-founder',
                     'partner', 'collaboration', 'communication'
                 ],
-                weight: 1.0
+                weight: 0.7  // Lower weight - People element not fully supported yet (Feb 2026)
             },
 
             tool_lookup: {

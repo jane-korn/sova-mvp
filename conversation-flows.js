@@ -6,7 +6,9 @@
 const conversationFlows = {
     /**
      * Cash Flow Diagnosis Flow
-     * Root cause often in: Strategy (pricing), Process (invoicing), Marketing (wrong customers), Finance (burn rate)
+     * NOTE: Partial support - Finance element not in MVP (Feb 2026), but can diagnose root causes in MVP elements
+     * Root cause often in: Strategy (pricing), Marketing (wrong customers) - both MVP elements
+     * Non-MVP root causes: Process (invoicing), Finance (burn rate) - limited support
      */
     cash_flow_diagnosis: {
         discovery: {
@@ -150,7 +152,9 @@ const conversationFlows = {
 
     /**
      * Team Performance Diagnosis Flow
-     * Root cause often in: Governance (unclear roles/accountability), Strategy (no clarity), Process (burdensome workflows), People (wrong hires)
+     * NOTE: Partial support - People element not in MVP (Feb 2026), but can diagnose root causes in MVP elements
+     * Root cause often in: Governance (unclear roles/accountability), Strategy (no clarity) - both MVP elements
+     * Non-MVP root causes: Process (burdensome workflows), People (wrong hires) - limited support
      */
     team_performance_diagnosis: {
         discovery: {
@@ -224,7 +228,7 @@ const conversationFlows = {
         discovery: {
             phaseGoal: 'Understand what they need help with',
             questions: [
-                "I can help with cash flow challenges, customer acquisition, strategic clarity, team performance, or recommend specific tools. Which area is most pressing for you right now?"
+                "I can provide insights on these four foundational elements: Governance (structure, roles, decision-making), Purpose (mission, differentiation), Strategy (direction, positioning), and Marketing (customer acquisition, growth). Which area is most pressing for you right now?"
             ],
             slotsToExtract: ['element_context', 'pain_point'],
             nextPhase: 'diagnosis'

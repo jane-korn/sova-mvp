@@ -512,14 +512,15 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
         function startConversation() {
             const greeting = `<p>Welcome. I'm Sova, your startup guide. I help Australian founders diagnose business challenges and find practical solutions.</p>
-                <p>I can help with:</p>
+                <p>Right now, I can provide research-backed insights on these 4 foundational elements:</p>
                 <ul>
-                    <li><strong>Cash flow challenges</strong> — Funding, runway, financial management</li>
-                    <li><strong>Customer acquisition</strong> — Marketing, growth, retention</li>
-                    <li><strong>Strategic clarity</strong> — Direction, positioning, focus</li>
-                    <li><strong>Team performance</strong> — Hiring, culture, accountability</li>
+                    <li><strong>Governance</strong> — Structure, roles, decision-making, accountability</li>
+                    <li><strong>Purpose</strong> — Mission, values, differentiation, why you exist</li>
+                    <li><strong>Strategy</strong> — Direction, positioning, competitive edge, planning</li>
+                    <li><strong>Marketing</strong> — Customer acquisition, messaging, growth, retention</li>
                 </ul>
-                <p style="margin-top: 1.5rem;"><strong>What's your main challenge right now?</strong></p>`;
+                <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">More elements (Finance, People, Process, Technology, Performance) launching February 2026.</p>
+                <p style="margin-top: 1.5rem;"><strong>What's your main challenge?</strong></p>`;
 
             addSovaMessage(greeting);
             stateManager.transitionPhase('discovery');
