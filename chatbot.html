@@ -683,7 +683,10 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             messageDiv.className = 'message sova';
             messageDiv.innerHTML = `<div class="message-content">${content}</div>`;
             messagesArea.appendChild(messageDiv);
-            scrollToBottom();
+
+            // Scroll to show the top of the bot's message, not the bottom
+            // This lets users read long responses from the beginning
+            setTimeout(() => scrollToElement(messageDiv), 100);
         }
 
         function addUserMessage(content) {
@@ -721,6 +724,13 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
         function scrollToBottom() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function scrollToElement(element) {
+            // Scroll to show the top of the element with some padding
+            const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+            const offset = 100; // Padding from top
+            window.scrollTo({ top: elementTop - offset, behavior: 'smooth' });
         }
 
         function sendMessage() {
