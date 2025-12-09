@@ -43,7 +43,10 @@ class IntentClassifier {
                     'strategy', 'direction', 'pivot', 'position', 'positioning',
                     'competitive', 'unclear', 'confused', 'lost', 'focus',
                     'priority', 'goal', 'vision', 'mission', 'purpose',
-                    'differentiation', 'value proposition', 'model'
+                    'differentiation', 'value proposition', 'model', 'stuck',
+                    'what to do', 'what should i', 'dont know', 'don\'t know',
+                    'overwhelmed', 'need help', 'need direction', 'next step',
+                    'where to start', 'how do i start', 'what next'
                 ],
                 weight: 1.0
             },

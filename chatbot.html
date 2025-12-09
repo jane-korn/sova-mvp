@@ -620,14 +620,15 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
          */
         function generateFallbackResponse(fallbackCount, userMessage) {
             if (fallbackCount === 1) {
-                return `<p>I'm not quite sure I understood. Are you asking about:</p>
+                return `<p>I understand you're looking for guidance. Let me help you identify what's most pressing.</p>
+                <p>Are you mainly concerned with:</p>
                 <ul>
-                    <li>Cash flow or funding challenges?</li>
-                    <li>Getting more customers or marketing?</li>
-                    <li>Strategy and business direction?</li>
-                    <li>Team performance or hiring?</li>
-                    <li>Something else?</li>
-                </ul>`;
+                    <li>Finding customers or growing your audience</li>
+                    <li>Figuring out your direction or what to focus on</li>
+                    <li>Getting your business structure or roles sorted</li>
+                    <li>Understanding what makes you different from others</li>
+                </ul>
+                <p>Just tell me which feels most urgent right now.</p>`;
             } else if (fallbackCount === 2) {
                 return `<p>I want to help, but I'm having trouble understanding. Could you rephrase that?</p>
                 <p>For example, you might say:</p>
