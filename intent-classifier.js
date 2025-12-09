@@ -123,29 +123,31 @@ class IntentClassifier {
         // Confidence based on:
         // - Number of keyword matches
         // - Score magnitude
-        // - Difference from second-highest intent
         let confidence = 0;
 
         if (topScore > 0) {
-            // Base confidence on score (normalize by typical maximum)
-            confidence = Math.min(topScore / 10, 1.0);
-
-            // Boost confidence if multiple keywords matched
-            if (totalMatches >= 2) {
-                confidence = Math.min(confidence * 1.2, 1.0);
-            }
+            // Base confidence on number of matches (more reliable than score)
             if (totalMatches >= 3) {
-                confidence = Math.min(confidence * 1.3, 1.0);
+                confidence = 0.9;  // 3+ keyword matches = high confidence
+            } else if (totalMatches >= 2) {
+                confidence = 0.75; // 2 keyword matches = good confidence
+            } else if (totalMatches === 1) {
+                // Single match: base on score (exact word boundary vs substring)
+                if (topScore >= 2) {
+                    confidence = 0.6;  // Exact match = decent confidence
+                } else {
+                    confidence = 0.45; // Substring match = lower confidence
+                }
             }
 
-            // Reduce confidence if score is low
-            if (topScore < 2) {
-                confidence *= 0.5;
+            // Boost confidence for high scores (many keywords or exact matches)
+            if (topScore >= 6) {
+                confidence = Math.min(confidence * 1.2, 1.0);
             }
         }
 
         // If confidence is too low, default to general_inquiry
-        if (confidence < 0.3) {
+        if (confidence < 0.4) {
             topIntent = 'general_inquiry';
             confidence = 0.3;
         }
