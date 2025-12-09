@@ -405,6 +405,12 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                 if (websiteUrl) contextNote.push(`Website: ${websiteUrl}`);
                 if (documentContext) contextNote.push(`Document: ${documentContext.filename}`);
                 addContextIndicator(contextNote.join(' | '));
+
+                // Collapse context section after sending
+                const contextInputs = document.getElementById('contextInputs');
+                if (contextInputs.classList.contains('visible')) {
+                    contextInputs.classList.remove('visible');
+                }
             }
 
             stateManager.addMessage('user', userMessage);
