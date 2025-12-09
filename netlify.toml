@@ -4,6 +4,8 @@
 
 [functions]
   node_bundler = "esbuild"
+  # Include knowledge base in function bundle
+  included_files = ["sova-knowledge-base.json"]
 
 [[headers]]
   for = "/*"

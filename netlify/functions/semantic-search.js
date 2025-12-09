@@ -13,8 +13,26 @@ let knowledgeBase = null;
 
 function loadKnowledgeBase() {
     if (!knowledgeBase) {
-        const kbPath = path.join(__dirname, '..', '..', 'sova-knowledge-base.json');
-        const raw = fs.readFileSync(kbPath, 'utf8');
+        // In Netlify Functions, need to go up to the project root
+        // __dirname is in .netlify/functions/semantic-search/
+        // Knowledge base is at project root
+        const kbPath = path.join(__dirname, '..', '..', '..', 'sova-knowledge-base.json');
+
+        // Fallback: try reading from common locations
+        let raw;
+        try {
+            raw = fs.readFileSync(kbPath, 'utf8');
+        } catch (e) {
+            // Try alternative path (deployment root)
+            const altPath = '/var/task/sova-knowledge-base.json';
+            try {
+                raw = fs.readFileSync(altPath, 'utf8');
+            } catch (e2) {
+                // Last resort: try current directory
+                raw = fs.readFileSync('./sova-knowledge-base.json', 'utf8');
+            }
+        }
+
         knowledgeBase = JSON.parse(raw);
     }
     return knowledgeBase;
