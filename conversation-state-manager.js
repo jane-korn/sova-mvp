@@ -6,7 +6,8 @@
 class ConversationStateManager {
     constructor() {
         this.state = this.initialiseState();
-        this.loadFromStorage();
+        // Clear any old stored state - each page load starts fresh
+        this.clearStorage();
     }
 
     /**
@@ -217,32 +218,30 @@ class ConversationStateManager {
     }
 
     /**
-     * Save state to sessionStorage
+     * Save state to sessionStorage (DISABLED - fresh start on each page load)
      */
     saveToStorage() {
-        try {
-            sessionStorage.setItem('sova_conversation_state', JSON.stringify(this.state));
-        } catch (e) {
-            console.warn('Failed to save conversation state:', e);
-        }
+        // Disabled: Not persisting state across page loads
+        // Each refresh starts a new conversation
+        return;
     }
 
     /**
-     * Load state from sessionStorage
+     * Load state from sessionStorage (DISABLED)
      */
     loadFromStorage() {
+        // Disabled: Not loading state from storage
+        return;
+    }
+
+    /**
+     * Clear stored state - ensures fresh start on page load
+     */
+    clearStorage() {
         try {
-            const stored = sessionStorage.getItem('sova_conversation_state');
-            if (stored) {
-                const parsed = JSON.parse(stored);
-                // Only load if session is < 24 hours old
-                const sessionAge = Date.now() - new Date(parsed.metadata.sessionStart).getTime();
-                if (sessionAge < 24 * 60 * 60 * 1000) {
-                    this.state = parsed;
-                }
-            }
+            sessionStorage.removeItem('sova_conversation_state');
         } catch (e) {
-            console.warn('Failed to load conversation state:', e);
+            console.warn('Failed to clear conversation state:', e);
         }
     }
 
