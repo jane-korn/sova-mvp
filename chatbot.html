@@ -411,6 +411,12 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                 if (contextInputs.classList.contains('visible')) {
                     contextInputs.classList.remove('visible');
                 }
+
+                // Clear context inputs after they've been sent once
+                document.getElementById('websiteUrl').value = '';
+                document.getElementById('documentUpload').value = '';
+                document.getElementById('fileStatus').textContent = '';
+                documentContext = null;
             }
 
             stateManager.addMessage('user', userMessage);
