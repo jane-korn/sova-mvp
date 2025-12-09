@@ -621,14 +621,13 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         function generateFallbackResponse(fallbackCount, userMessage) {
             if (fallbackCount === 1) {
                 return `<p>I understand you're looking for guidance. Let me help you identify what's most pressing.</p>
-                <p>Are you mainly concerned with:</p>
-                <ul>
-                    <li>Finding customers or growing your audience</li>
-                    <li>Figuring out your direction or what to focus on</li>
-                    <li>Getting your business structure or roles sorted</li>
-                    <li>Understanding what makes you different from others</li>
-                </ul>
-                <p>Just tell me which feels most urgent right now.</p>`;
+                <p>What feels most urgent right now?</p>
+                <div class="element-buttons">
+                    <button class="element-btn" onclick="processUserMessage('Finding customers or growing my audience')">Finding customers or growing my audience</button>
+                    <button class="element-btn" onclick="processUserMessage('Figuring out my direction or what to focus on')">Figuring out my direction or what to focus on</button>
+                    <button class="element-btn" onclick="processUserMessage('Getting my business structure or roles sorted')">Getting my business structure or roles sorted</button>
+                    <button class="element-btn" onclick="processUserMessage('Understanding what makes me different from others')">Understanding what makes me different from others</button>
+                </div>`;
             } else if (fallbackCount === 2) {
                 return `<p>I want to help, but I'm having trouble understanding. Could you rephrase that?</p>
                 <p>For example, you might say:</p>
