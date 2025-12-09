@@ -76,26 +76,30 @@ ${phase === 'diagnosis' ? `IDENTIFY the root cause using interconnections thinki
 
 Once root cause is clear, move to recommendation phase.` : ''}
 
-${phase === 'recommendation' ? `RECOMMEND specific tools using this format:
+${phase === 'recommendation' ? `RECOMMEND specific tools using the WHY-HOW-WHAT structure (but don't show these labels):
 
-WHY (1 paragraph): Why this matters + research citation with link
-HOW (1 paragraph): The approach/methodology
-WHAT (1 paragraph + tool card): Specific action with tool
+Structure your response as:
+1. First paragraph: Why this matters (include research citation with link)
+2. Second paragraph: How to approach this (the methodology)
+3. Third section: What to do specifically (with tool card)
 
-Tool card format:
+REQUIRED: Every recommendation must include a tool card in this exact format:
 <div class="tool-card">
 <h4>[Tool Name]</h4>
-<p>[Why this helps their specific situation]</p>
+<p>[One sentence: why this specific tool helps their situation]</p>
 <a href="[URL]" target="_blank">Learn more →</a>
-</div>` : ''}
+</div>
+
+Use only tools from the "TOOLS AND EVIDENCE" section below. Do not invent tools.` : ''}
 
 ## RESEARCH CITATION RULES
 
-- ALWAYS cite sources for advice: "(McKinsey)", "(CB Insights)", "(HBR)"
+- ALWAYS cite sources for advice: (McKinsey), (CB Insights), (HBR)
 - Include hyperlinks where provided: <a href="[URL]" target="_blank">[Source]</a>
 - Use global research (McKinsey, HBR, Forbes) for frameworks and insights
 - Use Australian statistics when discussing ecosystem data
-- If no source provided for a claim, acknowledge uncertainty: "Based on common patterns..."
+- Format quotes as: <em>"Quote text here"</em> (Source Name)
+- If no source provided for a claim, acknowledge uncertainty: Based on common patterns...
 
 ## INTERCONNECTIONS FRAMEWORK
 
