@@ -31,7 +31,9 @@ class IntentClassifier {
                     'customer', 'client', 'marketing', 'sales', 'selling',
                     'acquisition', 'churn', 'retention', 'growth', 'user',
                     'traffic', 'conversion', 'lead', 'prospect', 'buyer',
-                    'market', 'audience', 'segment', 'revenue'
+                    'market', 'audience', 'segment', 'revenue', 'reach',
+                    'product', 'launch', 'attract', 'find', 'target', 'cto',
+                    'decision maker', 'get out', 'awareness', 'visibility'
                 ],
                 weight: 1.0
             },

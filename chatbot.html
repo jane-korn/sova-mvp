@@ -88,6 +88,19 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         .message-content a { color: #eaffc4; text-decoration: none; border-bottom: 1px solid rgba(234, 255, 196, 0.3); }
         .message-content a:hover { border-bottom-color: #eaffc4; }
 
+        /* Context Indicator */
+        .context-indicator {
+            text-align: right;
+            margin: -0.5rem 0 0.5rem 0;
+            animation: fadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .context-indicator span {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: rgba(184, 215, 143, 0.7);
+            font-style: italic;
+        }
+
         /* Typing indicator */
         .typing-indicator { display: flex; gap: 6px; padding: 1rem 0; }
         .typing-indicator span {
@@ -384,6 +397,16 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         async function processUserMessage(userMessage) {
             // 1. Add user message to UI and state
             addUserMessage(userMessage);
+
+            // Show context indicator if provided
+            const websiteUrl = document.getElementById('websiteUrl').value.trim();
+            if (websiteUrl || documentContext) {
+                const contextNote = [];
+                if (websiteUrl) contextNote.push(`Website: ${websiteUrl}`);
+                if (documentContext) contextNote.push(`Document: ${documentContext.filename}`);
+                addContextIndicator(contextNote.join(' | '));
+            }
+
             stateManager.addMessage('user', userMessage);
             setInputEnabled(false);
             addTypingIndicator();
@@ -651,6 +674,15 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             messageDiv.className = 'message user';
             messageDiv.innerHTML = `<div class="message-content"><p>${escapeHtml(content)}</p></div>`;
             messagesArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addContextIndicator(contextText) {
+            const messagesArea = document.getElementById('messagesArea');
+            const contextDiv = document.createElement('div');
+            contextDiv.className = 'context-indicator';
+            contextDiv.innerHTML = `<span>📎 ${escapeHtml(contextText)}</span>`;
+            messagesArea.appendChild(contextDiv);
             scrollToBottom();
         }
 
