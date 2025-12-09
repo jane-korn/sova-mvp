@@ -10,7 +10,8 @@ function buildSystemPrompt(conversationContext = {}) {
         phase = 'discovery',
         slotsSummary = '',
         retrievedTools = [],
-        retrievedQuotes = []
+        retrievedQuotes = [],
+        additionalContext = ''
     } = conversationContext;
 
     return `You are Sova, a diagnostic advisor for Australian startup founders. You help identify root causes of business problems and recommend evidence-based tools.
@@ -76,6 +77,7 @@ Fix foundational elements (Governance, Purpose) before execution elements (Marke
 ## CONTEXT FOR THIS CONVERSATION
 
 ${slotsSummary ? `What we know: ${slotsSummary}` : 'Just starting diagnosis.'}
+${additionalContext ? `\n${additionalContext}` : ''}
 
 ## TOOLS AND EVIDENCE YOU HAVE ACCESS TO
 

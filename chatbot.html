@@ -123,6 +123,26 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             transform: translateY(-1px);
         }
 
+        /* Prompt Buttons */
+        .prompt-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+        .prompt-btn {
+            background: rgba(234, 255, 196, 0.08);
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            color: #eaffc4;
+            padding: 0.6rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            font-family: inherit;
+        }
+        .prompt-btn:hover {
+            background: rgba(234, 255, 196, 0.15);
+            border-color: rgba(234, 255, 196, 0.4);
+            transform: translateY(-1px);
+        }
+
         /* Tool Card */
         .tool-card {
             background: rgba(234, 255, 196, 0.05);
@@ -140,6 +160,70 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             font-weight: 500;
             text-decoration: none;
             border-bottom: 1px solid rgba(234, 255, 196, 0.3);
+        }
+
+        /* Context Input */
+        .context-section {
+            max-width: 700px;
+            margin: 0 auto 0.75rem auto;
+            font-size: 0.8125rem;
+        }
+        .context-toggle {
+            color: rgba(234, 255, 196, 0.6);
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            padding: 0;
+            transition: color 0.3s ease;
+        }
+        .context-toggle:hover { color: rgba(234, 255, 196, 0.9); }
+        .context-inputs {
+            display: none;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            flex-direction: column;
+        }
+        .context-inputs.visible { display: flex; }
+        .context-input-field {
+            background: rgba(245, 245, 220, 0.03);
+            border: 1px solid rgba(234, 255, 196, 0.12);
+            border-radius: 8px;
+            padding: 0.625rem 0.875rem;
+            color: #f5f5dc;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            font-weight: 300;
+        }
+        .context-input-field::placeholder { color: rgba(245, 245, 220, 0.4); }
+        .context-file-label {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            color: #eaffc4;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .context-file-label:hover {
+            background: rgba(234, 255, 196, 0.08);
+            border-color: rgba(234, 255, 196, 0.3);
+        }
+        .context-file-input { display: none; }
+        .context-file-status {
+            color: rgba(234, 255, 196, 0.7);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .context-privacy {
+            color: rgba(245, 245, 220, 0.5);
+            font-size: 0.6875rem;
+            font-style: italic;
+            margin-top: 0.5rem;
         }
 
         /* Input Area */
@@ -243,6 +327,20 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
     </div>
 
     <div class="input-area">
+        <div class="context-section">
+            <button class="context-toggle" onclick="toggleContextInputs()">+ Add context (website or document)</button>
+            <div class="context-inputs" id="contextInputs">
+                <input type="url" class="context-input-field" id="websiteUrl" placeholder="Your website URL (optional)">
+                <div>
+                    <label class="context-file-label" for="documentUpload">
+                        Upload document
+                    </label>
+                    <input type="file" class="context-file-input" id="documentUpload" accept=".txt,.doc,.docx,.pdf" onchange="handleFileUpload(event)">
+                    <div class="context-file-status" id="fileStatus"></div>
+                </div>
+                <p class="context-privacy">This information stays in our conversation and isn't stored.</p>
+            </div>
+        </div>
         <div class="input-wrapper">
             <textarea class="input-field" id="userInput" placeholder="Describe your challenge..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
             <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
@@ -321,12 +419,14 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             stateManager.storeRetrievedTools(searchResults.tools, searchResults.quotes);
 
             // 5. Build system prompt with retrieved context
+            const contextString = getContextString();
             const systemPrompt = buildSystemPrompt({
                 intent: classification.intent,
                 phase: stateManager.state.conversationPhase,
                 slotsSummary: stateManager.getConversationSummary(),
                 retrievedTools: searchResults.tools,
-                retrievedQuotes: searchResults.quotes
+                retrievedQuotes: searchResults.quotes,
+                additionalContext: contextString
             });
 
             // 6. Call Gemini API
@@ -520,10 +620,20 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                     <li><strong>Marketing</strong> — Customer acquisition, messaging, growth, retention</li>
                 </ul>
                 <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">More elements (Finance, People, Process, Technology, Performance) launching February 2026.</p>
-                <p style="margin-top: 1.5rem;"><strong>What's your main challenge?</strong></p>`;
+                <p style="margin-top: 1.5rem;"><strong>What's your main challenge?</strong></p>
+                <div class="prompt-buttons">
+                    <button class="prompt-btn" onclick="sendPrompt('I can\\'t get customers')">Can't get customers</button>
+                    <button class="prompt-btn" onclick="sendPrompt('My strategy isn\\'t clear')">Strategy unclear</button>
+                    <button class="prompt-btn" onclick="sendPrompt('Team unclear on roles and responsibilities')">Team unclear on roles</button>
+                    <button class="prompt-btn" onclick="sendPrompt('Not sure what makes us different')">Not sure what makes us different</button>
+                </div>`;
 
             addSovaMessage(greeting);
             stateManager.transitionPhase('discovery');
+        }
+
+        function sendPrompt(message) {
+            processUserMessage(message);
         }
 
         function addSovaMessage(content) {
@@ -617,6 +727,53 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                 <div><strong>Slots:</strong> ${Object.keys(debug.slotsFilled).filter(k => debug.slotsFilled[k]).join(', ') || 'none'}</div>
                 <div><strong>Phase History:</strong> ${debug.phaseHistory || 'none'}</div>
             `;
+        }
+
+        // ============================================
+        // CONTEXT HANDLING
+        // ============================================
+
+        let websiteContext = null;
+        let documentContext = null;
+
+        function toggleContextInputs() {
+            const inputs = document.getElementById('contextInputs');
+            inputs.classList.toggle('visible');
+        }
+
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const statusEl = document.getElementById('fileStatus');
+            statusEl.textContent = `Loading ${file.name}...`;
+
+            try {
+                const text = await file.text();
+                documentContext = {
+                    filename: file.name,
+                    content: text.substring(0, 3000)  // Limit to 3000 chars
+                };
+                statusEl.textContent = `✓ ${file.name} (${Math.round(file.size / 1024)}KB)`;
+            } catch (error) {
+                statusEl.textContent = `Failed to load ${file.name}`;
+                console.error('File upload error:', error);
+            }
+        }
+
+        function getContextString() {
+            let contextParts = [];
+
+            const websiteUrl = document.getElementById('websiteUrl').value.trim();
+            if (websiteUrl) {
+                contextParts.push(`Business website: ${websiteUrl}`);
+            }
+
+            if (documentContext) {
+                contextParts.push(`Document provided (${documentContext.filename}):\n${documentContext.content}`);
+            }
+
+            return contextParts.length > 0 ? `\n\nAdditional context:\n${contextParts.join('\n\n')}` : '';
         }
 
         // Auto-resize textarea
