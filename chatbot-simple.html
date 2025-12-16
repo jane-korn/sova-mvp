@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+PROPRIETARY AND CONFIDENTIAL
+Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
+================================================================================
+-->
+<!-- Sova Chatbot - Simple Claude-Style Version -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Sova - Chat with Your Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            background: #2d2828;
+            color: #f5f5dc;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; width: 100%; }
+
+        /* Header */
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+            background: #2d2828;
+        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .header-content a { display: flex; text-decoration: none; }
+        .header-content img { height: 90px; }
+
+        /* Bird Icon */
+        .bird-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            height: 45px;
+            opacity: 0.4;
+            z-index: 1000;
+            transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+        .bird-icon:hover { opacity: 0.7; }
+
+        /* Chat Layout */
+        .chat-section {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: calc(100vh - 122px);
+            padding: 2rem 0 10rem 0;
+        }
+        .chat-wrapper { max-width: 700px; width: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+        .messages-area { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Messages */
+        .message { animation: fadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message.sova .message-content { color: #f5f5dc; font-size: 1.125rem; line-height: 1.7; }
+        .message.user { align-self: flex-end; max-width: 80%; }
+        .message.user .message-content {
+            background: rgba(234, 255, 196, 0.08);
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            border-radius: 16px;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+        }
+        .message-content p { margin-bottom: 1rem; }
+        .message-content p:last-child { margin-bottom: 0; }
+        .message-content ul, .message-content ol { margin: 1rem 0; padding-left: 1.5rem; }
+        .message-content li { margin-bottom: 0.5rem; color: rgba(245, 245, 220, 0.9); }
+        .message-content strong { font-weight: 600; color: #eaffc4; }
+        .message-content em { font-style: italic; opacity: 0.85; }
+        .message-content a { color: #eaffc4; text-decoration: none; border-bottom: 1px solid rgba(234, 255, 196, 0.3); }
+        .message-content a:hover { border-bottom-color: #eaffc4; }
+
+        /* Context Indicator */
+        .context-indicator {
+            text-align: right;
+            margin: 0 0 0.25rem 0;
+            animation: fadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .context-indicator span {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: rgba(184, 215, 143, 0.7);
+            font-style: italic;
+            background: rgba(184, 215, 143, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+        }
+
+        /* Typing indicator */
+        .typing-indicator { display: flex; gap: 6px; padding: 1rem 0; }
+        .typing-indicator span {
+            width: 8px; height: 8px;
+            background: rgba(234, 255, 196, 0.5);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Prompt Buttons */
+        .prompt-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .prompt-btn {
+            background: rgba(234, 255, 196, 0.08);
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            color: #eaffc4;
+            padding: 0.6rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            font-family: inherit;
+        }
+        .prompt-btn:hover {
+            background: rgba(234, 255, 196, 0.15);
+            border-color: rgba(234, 255, 196, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Context Input */
+        .context-section {
+            max-width: 700px;
+            margin: 0 auto 0.75rem auto;
+            font-size: 0.8125rem;
+        }
+        .context-toggle {
+            color: rgba(234, 255, 196, 0.6);
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            padding: 0;
+            transition: color 0.3s ease;
+        }
+        .context-toggle:hover { color: rgba(234, 255, 196, 0.9); }
+        .context-inputs {
+            display: none;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            flex-direction: column;
+        }
+        .context-inputs.visible { display: flex; }
+        .context-input-field {
+            background: rgba(245, 245, 220, 0.03);
+            border: 1px solid rgba(234, 255, 196, 0.12);
+            border-radius: 8px;
+            padding: 0.625rem 0.875rem;
+            color: #f5f5dc;
+            font-family: inherit;
+            font-size: 0.8125rem;
+            font-weight: 300;
+        }
+        .context-input-field::placeholder { color: rgba(245, 245, 220, 0.4); }
+        .context-file-label {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid rgba(234, 255, 196, 0.2);
+            color: #eaffc4;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .context-file-label:hover {
+            background: rgba(234, 255, 196, 0.08);
+            border-color: rgba(234, 255, 196, 0.3);
+        }
+        .context-file-input { display: none; }
+        .context-file-status {
+            color: rgba(234, 255, 196, 0.7);
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .context-privacy {
+            color: rgba(245, 245, 220, 0.5);
+            font-size: 0.6875rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* Input Area */
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2d2828;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+            padding: 1rem 2rem;
+            z-index: 100;
+        }
+        .input-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+        }
+        .input-field {
+            flex: 1;
+            background: rgba(245, 245, 220, 0.03);
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: #f5f5dc;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 300;
+            resize: none;
+            min-height: 56px;
+            max-height: 150px;
+            transition: all 0.3s;
+        }
+        .input-field:focus { outline: none; border-color: rgba(234, 255, 196, 0.4); background: rgba(245, 245, 220, 0.05); }
+        .input-field::placeholder { color: rgba(245, 245, 220, 0.35); }
+        .input-field:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .send-btn {
+            background: #eaffc4;
+            border: none;
+            color: #2d2828;
+            padding: 1rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .send-btn:hover:not(:disabled) { background: #d4f0a8; transform: translateY(-2px); }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container { padding: 0 1.25rem; }
+            .chat-section { padding: 1.5rem 0 12rem 0; }
+            .message.sova .message-content { font-size: 1rem; }
+            .input-area { padding: 1rem 1.25rem; }
+            .input-wrapper { flex-direction: column; }
+            .send-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html"><img src="sova-logo-main-transparent.png" alt="Sova"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="chat-section">
+            <div class="chat-wrapper">
+                <div class="messages-area" id="messagesArea"></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="input-area">
+        <div class="context-section">
+            <button class="context-toggle" onclick="toggleContextInputs()">+ Add context (website or document)</button>
+            <div class="context-inputs" id="contextInputs">
+                <input type="url" class="context-input-field" id="websiteUrl" placeholder="Your website URL (optional)">
+                <div>
+                    <label class="context-file-label" for="documentUpload">
+                        Upload document
+                    </label>
+                    <input type="file" class="context-file-input" id="documentUpload" accept=".txt,.doc,.docx,.pdf" onchange="handleFileUpload(event)">
+                    <div class="context-file-status" id="fileStatus"></div>
+                </div>
+                <p class="context-privacy">This information stays in our conversation and isn't stored.</p>
+            </div>
+        </div>
+        <div class="input-wrapper">
+            <textarea class="input-field" id="userInput" placeholder="Describe your challenge..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <a href="assessment-tool.html" title="Take the Assessment">
+        <img src="sova-logo-icon-transparent.png" alt="Sova" class="bird-icon">
+    </a>
+
+    <!-- Load our simple scripts -->
+    <script src="directory-data.js"></script>
+    <script src="simple-search.js"></script>
+    <script src="system-prompt-simple.js"></script>
+
+    <script>
+        // ============================================
+        // SIMPLE CHATBOT LOGIC
+        // ============================================
+
+        let conversationHistory = [];
+        let knowledgeBase = null;
+
+        const CHAT_API_URL = '/.netlify/functions/claude-chat';
+
+        // Load knowledge base on startup
+        (async function init() {
+            knowledgeBase = await loadKnowledgeBase();
+            if (knowledgeBase) {
+                console.log('Knowledge base loaded:', knowledgeBase.version);
+                // Merge directory data from directory-data.js
+                if (typeof directoryData !== 'undefined') {
+                    knowledgeBase.directory = directoryData;
+                    console.log('Directory data merged:', directoryData.length, 'entries');
+                }
+            }
+            startConversation();
+        })();
+
+        function startConversation() {
+            const greeting = `<p>Welcome. I'm Sova, your startup guide.</p>
+                <p>I help Australian founders diagnose business challenges and find practical solutions.</p>
+                <p>Right now, I can provide research-backed insights on these 4 foundational elements:</p>
+                <ul>
+                    <li><strong>Governance</strong> — Structure, roles, decision-making, accountability</li>
+                    <li><strong>Purpose</strong> — Mission, values, differentiation, why you exist</li>
+                    <li><strong>Strategy</strong> — Direction, positioning, competitive edge, planning</li>
+                    <li><strong>Marketing</strong> — Customer acquisition, messaging, growth, retention</li>
+                </ul>
+                <p><em>More elements (Finance, People, Process, Technology, Performance) launching February 2026.</em></p>
+                <p>What's your main challenge?</p>`;
+            addSovaMessage(greeting, false); // Don't extract buttons from greeting
+        }
+
+        async function processUserMessage(userMessage) {
+            try {
+                console.log('=== processUserMessage called ===');
+                console.log('User message:', userMessage);
+
+                // Get user-provided context (website/document) first
+                const userProvidedContext = getUserContext();
+                console.log('User context length:', userProvidedContext.length);
+
+                // If website/document context exists, modify the user message to force acknowledgment
+                let actualMessage = userMessage;
+                if (userProvidedContext.trim()) {
+                    actualMessage = `First, mention what you learned from my website/document about my company. Then answer this: ${userMessage}`;
+                }
+
+                // Add user message (display original, send modified)
+                addUserMessage(userMessage);
+                conversationHistory.push({ role: 'user', content: actualMessage });
+                setInputEnabled(false);
+                addTypingIndicator();
+
+                // Search knowledge base for relevant context
+                const searchResults = searchKnowledgeBase(userMessage, knowledgeBase, 3);
+                const searchContext = formatSearchResults(searchResults);
+
+                // Combine all context
+                const fullContext = userProvidedContext + searchContext;
+
+                // Build system prompt with context
+                const systemPrompt = buildSystemPrompt({ additionalContext: fullContext });
+
+                // DEBUG: Log what we're sending
+                console.log('=== SYSTEM PROMPT BEING SENT TO CLAUDE ===');
+                console.log(systemPrompt.substring(0, 1000));
+                console.log('...');
+                console.log('=== END SYSTEM PROMPT ===');
+
+                // Call Claude API
+                console.log('About to call Claude API...');
+                const aiResponse = await callClaude(systemPrompt);
+                console.log('Received response from Claude:', aiResponse.substring(0, 100));
+
+                // Display response
+                removeTypingIndicator();
+                const cleanedResponse = formatMarkdown(aiResponse);
+                addSovaMessage(cleanedResponse, false); // No button extraction
+                conversationHistory.push({ role: 'assistant', content: aiResponse });
+                setInputEnabled(true);
+
+            } catch (error) {
+                console.error('=== processUserMessage ERROR ===');
+                console.error('Error:', error);
+                console.error('Error type:', error.constructor.name);
+                console.error('Error message:', error.message);
+                console.error('Stack trace:', error.stack);
+                removeTypingIndicator();
+                addSovaMessage('<p>Something went wrong. Please try again.</p>');
+                setInputEnabled(true);
+            }
+        }
+
+        async function callClaude(systemPrompt) {
+            try {
+                console.log('callClaude: Building request body...');
+                const requestBody = {
+                    system: systemPrompt,
+                    messages: conversationHistory,
+                    max_tokens: 800,
+                    temperature: 1.0
+                };
+                console.log('callClaude: Request body size:', JSON.stringify(requestBody).length, 'chars');
+
+                console.log('callClaude: Making fetch request to', CHAT_API_URL);
+                const response = await fetch(CHAT_API_URL, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(requestBody)
+                });
+                console.log('callClaude: Fetch completed, status:', response.status);
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.content[0].text;
+
+            } catch (error) {
+                console.error('callClaude ERROR:', error);
+                console.error('Error type:', error.constructor.name);
+                console.error('Error message:', error.message);
+                throw error;
+            }
+        }
+
+        function formatMarkdown(text) {
+            // First handle bold, italics, and links
+            let formatted = text
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')  // Bold
+                .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank">$1</a>');  // Links
+
+            // Handle bullet lists (including indented ones)
+            // Match lines with optional leading whitespace, then - or *
+            formatted = formatted.replace(/^\s*[\-\*]\s+(.+)$/gm, '<li>$1</li>');
+
+            // Handle numbered lists (including indented ones)
+            // Match lines with optional leading whitespace, then number.
+            formatted = formatted.replace(/^\s*\d+\.\s+(.+)$/gm, '<li>$1</li>');
+
+            // Wrap consecutive <li> items in <ul>
+            formatted = formatted.replace(/(<li>.*?<\/li>\s*)+/g, match => {
+                return '<ul>' + match.trim() + '</ul>';
+            });
+
+            // Now handle italics (after lists to avoid conflicts)
+            formatted = formatted.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+            // Normalize spacing: ensure blank lines between blocks
+            // Add blank lines after closing </ul> tags if not already present
+            // Match </ul> followed by either no newline, or single newline (not double)
+            formatted = formatted.replace(/<\/ul>(?:\n(?!\n)|(?!\n))/g, '</ul>\n\n');
+
+            // Add blank lines at end if missing
+            formatted = formatted.trim() + '\n\n';
+
+            // Split into blocks (paragraphs separated by blank lines)
+            const blocks = formatted.split(/\n\n+/);
+
+            // Process each block
+            const processedBlocks = blocks.map(block => {
+                block = block.trim();
+                if (!block) return '';
+
+                // If block is already a block-level element, return as is
+                if (block.startsWith('<ul>') || block.startsWith('<ol>') ||
+                    block.startsWith('<p>')) {
+                    return block;
+                }
+
+                // Convert single newlines to <br> tags within paragraphs
+                block = block.replace(/\n/g, '<br>');
+
+                // Otherwise wrap in paragraph tags
+                return '<p>' + block + '</p>';
+            }).filter(block => block);  // Remove empty blocks
+
+            formatted = processedBlocks.join('');
+
+            return formatted;
+        }
+
+        // ============================================
+        // UI FUNCTIONS
+        // ============================================
+
+        function addSovaMessage(content, extractButtons = true) {
+            const messagesArea = document.getElementById('messagesArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message sova';
+
+            // Create message content
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = content;
+            messageDiv.appendChild(contentDiv);
+
+            // Extract questions and create buttons (skip for greeting)
+            if (extractButtons) {
+                const questions = extractQuestions(content);
+                if (questions.length > 0) {
+                    const buttonsDiv = document.createElement('div');
+                    buttonsDiv.className = 'prompt-buttons';
+                    questions.forEach(question => {
+                        const btn = document.createElement('button');
+                        btn.className = 'prompt-btn';
+                        btn.textContent = question;
+                        btn.onclick = () => {
+                            document.getElementById('userInput').value = question;
+                            sendMessage();
+                        };
+                        buttonsDiv.appendChild(btn);
+                    });
+                    messageDiv.appendChild(buttonsDiv);
+                }
+            }
+
+            messagesArea.appendChild(messageDiv);
+
+            // Scroll to show user's message at top (unless this is the greeting)
+            if (document.querySelectorAll('.message.user').length > 0) {
+                scrollToUserMessage();
+            } else {
+                scrollToBottom();
+            }
+        }
+
+        function extractQuestions(htmlContent) {
+            // Create a temporary div to parse HTML
+            const temp = document.createElement('div');
+            temp.innerHTML = htmlContent;
+
+            // Remove bullet lists - those aren't meant to be clickable
+            const lists = temp.querySelectorAll('ul, ol');
+            lists.forEach(list => list.remove());
+
+            // Get text content and split into sentences
+            const text = temp.textContent;
+            const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 0);
+
+            // Generic phrases to ignore (too vague to be useful buttons)
+            const genericPhrases = [
+                'would you be willing',
+                'could you help me',
+                'can you tell me',
+                'would you like',
+                'could you share',
+                'can you share',
+                'do you mind',
+                'would you mind'
+            ];
+
+            // Find sentences that are questions
+            const questions = sentences.filter(sentence => {
+                const lower = sentence.toLowerCase();
+
+                // Must end with ? or start with question word
+                const isQuestion = lower.includes('?') ||
+                    lower.startsWith('what') ||
+                    lower.startsWith('how') ||
+                    lower.startsWith('when') ||
+                    lower.startsWith('where') ||
+                    lower.startsWith('why') ||
+                    lower.startsWith('which') ||
+                    lower.startsWith('have you') ||
+                    lower.startsWith('are you');
+
+                if (!isQuestion) return false;
+
+                // Filter out generic phrases
+                const isGeneric = genericPhrases.some(phrase => lower.includes(phrase));
+                if (isGeneric) return false;
+
+                // Must be at least 10 characters (filter out fragments)
+                if (sentence.length < 10) return false;
+
+                // Must not start with a dash (bullet point fragment)
+                if (sentence.startsWith('-')) return false;
+
+                return true;
+            }).map(q => q.replace(/\?$/, '').trim() + '?').slice(0, 3); // Max 3 questions
+
+            return questions;
+        }
+
+        function addUserMessage(content) {
+            const messagesArea = document.getElementById('messagesArea');
+
+            // Add context indicator only if context changed since last shown
+            const contextSummary = getContextSummary();
+            if (contextSummary && contextSummary !== userContext.lastShownContext) {
+                const contextDiv = document.createElement('div');
+                contextDiv.className = 'context-indicator';
+                contextDiv.innerHTML = `<span>Context: ${contextSummary}</span>`;
+                messagesArea.appendChild(contextDiv);
+                userContext.lastShownContext = contextSummary;  // Remember we showed this
+            }
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `<div class="message-content"><p>${escapeHtml(content)}</p></div>`;
+            messagesArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function addTypingIndicator() {
+            const messagesArea = document.getElementById('messagesArea');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message sova';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+            messagesArea.appendChild(typingDiv);
+            scrollToBottom();
+        }
+
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function scrollToUserMessage() {
+            // Scroll to show the last user message at the top of the viewport
+            const userMessages = document.querySelectorAll('.message.user');
+            if (userMessages.length > 0) {
+                const lastUserMessage = userMessages[userMessages.length - 1];
+                const yOffset = -20; // Small padding from top
+                const y = lastUserMessage.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            input.value = '';
+            input.style.height = 'auto';
+
+            // Collapse context section after sending
+            const contextInputs = document.getElementById('contextInputs');
+            if (contextInputs.classList.contains('visible')) {
+                contextInputs.classList.remove('visible');
+            }
+
+            processUserMessage(message);
+        }
+
+        function setInputEnabled(enabled) {
+            document.getElementById('userInput').disabled = !enabled;
+            document.getElementById('sendBtn').disabled = !enabled;
+            if (enabled) document.getElementById('userInput').focus();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Auto-resize textarea
+        document.getElementById('userInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+        });
+
+        // ============================================
+        // CONTEXT HANDLING
+        // ============================================
+
+        let userContext = {
+            website: null,
+            document: null,
+            lastShownContext: null  // Track what context we've already shown
+        };
+
+        function toggleContextInputs() {
+            const inputs = document.getElementById('contextInputs');
+            inputs.classList.toggle('visible');
+        }
+
+        async function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const statusEl = document.getElementById('fileStatus');
+            statusEl.textContent = `Reading ${file.name}...`;
+
+            try {
+                const text = await file.text();
+                userContext.document = {
+                    name: file.name,
+                    content: text.substring(0, 10000) // Limit to 10k chars
+                };
+                statusEl.textContent = `✓ ${file.name} ready`;
+                console.log('Document context loaded:', file.name);
+            } catch (error) {
+                statusEl.textContent = `Failed to read ${file.name}`;
+                console.error('File upload error:', error);
+            }
+        }
+
+        // Fetch website content when URL is entered
+        async function fetchWebsiteContext() {
+            const urlInput = document.getElementById('websiteUrl');
+            const url = urlInput.value.trim();
+
+            if (!url) return;
+
+            try {
+                console.log('Fetching website:', url);
+                const response = await fetch('/.netlify/functions/fetch-website', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch website');
+
+                const data = await response.json();
+                userContext.website = {
+                    url: url,
+                    content: data.text || data.content || ''
+                };
+
+                // Visual feedback
+                urlInput.style.borderColor = 'rgba(234, 255, 196, 0.5)';
+                console.log('Website context loaded:', url);
+
+            } catch (error) {
+                console.error('Website fetch error:', error);
+                userContext.website = {
+                    url: url,
+                    content: `Website URL: ${url}`
+                };
+            }
+        }
+
+        // Blur event on URL input to fetch website
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlInput = document.getElementById('websiteUrl');
+            if (urlInput) {
+                urlInput.addEventListener('blur', fetchWebsiteContext);
+                urlInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        fetchWebsiteContext();
+                    }
+                });
+            }
+        });
+
+        // Get context to add to system prompt
+        function getUserContext() {
+            let contextString = '';
+
+            if (userContext.website) {
+                contextString += `\n\n## USER'S BUSINESS CONTEXT\nWebsite: ${userContext.website.url}\n\nContent from their website:\n${userContext.website.content.substring(0, 5000)}\n`;
+            }
+
+            if (userContext.document) {
+                contextString += `\n\n## USER'S DOCUMENT (${userContext.document.name})\n${userContext.document.content}\n`;
+            }
+
+            return contextString;
+        }
+
+        // Get context summary for display
+        function getContextSummary() {
+            const parts = [];
+            if (userContext.website) parts.push(`Website: ${userContext.website.url}`);
+            if (userContext.document) parts.push(`Document: ${userContext.document.name}`);
+            return parts.length > 0 ? parts.join(' • ') : null;
+        }
+    </script>
+</body>
+</html>
