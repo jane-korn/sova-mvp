@@ -34,7 +34,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 4rem;
         }
 
         header {
@@ -196,18 +196,19 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
             color: var(--sova-green);
             margin: 1.5rem 0 1rem;
             line-height: 1.2;
+            text-align: left;
         }
 
         /* Hero section with decorative bird */
         .hero {
             position: relative;
             overflow: hidden;
-            padding-bottom: 3rem;
+            padding: 4rem 0 2rem;
         }
 
         .hero::before {
@@ -246,6 +247,10 @@
             font-size: 1.125rem;
         }
 
+        section {
+            padding: 6rem 0;
+        }
+
         .intro {
             font-size: 1.375rem;
             color: var(--sova-sage);
@@ -280,6 +285,18 @@
 
             .hamburger {
                 display: flex;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .hero {
+                padding: 3rem 0 1rem;
             }
 
             .values-grid {
@@ -614,6 +631,7 @@
                 <nav style="display: flex; gap: 2rem;">
                     <a href="research.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Research</a>
                     <a href="directory.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Directory</a>
+                    <a href="faq.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">FAQ</a>
                     <a href="about.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">About Us</a>
                 </nav>
                 <!-- Mobile Hamburger -->
@@ -632,51 +650,52 @@
             <a href="index.html">Home</a>
             <a href="research.html">Research</a>
             <a href="directory.html">Directory</a>
+            <a href="faq.html">FAQ</a>
             <a href="about.html">About Us</a>
         </nav>
         <a href="assessment-tool.html" class="mobile-nav-cta">Start Assessment</a>
     </div>
 
-    <div class="container hero">
-        <h1>Built by a best practice expert</h1>
-        <p class="intro">Sova was created by Jane Korneyko, a Strategy & Transformation Leader who saw the same patterns repeat across hundreds of businesses.</p>
+    <section class="hero">
+        <div class="container">
+            <h1>Built by a best practice expert</h1>
+            <p class="intro">Sova was created by Jane Korneyko, a Strategy & Transformation Leader who saw the same patterns repeat across hundreds of businesses.</p>
 
-        <h2 class="fade-in-up">The Background</h2>
-        <div class="fade-in-up">
-            <p>With over 15 years as a Strategy & Transformation Leader across Legal, Healthcare, and a startup herself, Jane has led strategic transformations, built operating models, and simplified complex systems, processes and frameworks.</p>
+            <h2>Who built Sova?</h2>
+            <div>
+                <p>Jane Korneyko built Sova after 15+ years as a Strategy & Transformation Leader across Legal, Healthcare, and running her own startup. She's led strategic transformations, built operating models, and simplified complex systems using the same frameworks consultancies charge thousands for.</p>
 
-            <p>She's seen the havoc caused by consultancies who don't empower and build reliance, and knows and uses all the tools they use. So she built Sova to democratise access to the same frameworks, tools, and best practices.</p>
-        </div>
-
-        <h2 class="fade-in-up">The Philosophy</h2>
-        <div class="philosophy fade-in-up">
-            "Running a business shouldn't require a management degree. Excellence should be accessible to everyone."
-        </div>
-
-        <p class="fade-in-up">Sova is built on three core values:</p>
-
-        <div class="values-grid stagger-children">
-            <div class="value-card">
-                <h3>Empowerment over dependency</h3>
-                <p>Learn once, apply forever. No recurring consultant fees or fragmented advice. Self-sufficiency is the goal.</p>
+                <p>After seeing consultancies create dependency rather than empowerment, Jane built Sova to democratise access to world-class tools and best practices. Every framework, every assessment question, and every recommendation comes from evidence-based research and real-world application.</p>
             </div>
 
-            <div class="value-card">
-                <h3>Simplicity over complexity</h3>
-                <p>Complex doesn't mean better. The best frameworks are clear, actionable, and easy to understand.</p>
+            <h2>The Philosophy</h2>
+            <div class="philosophy">
+                "Running a business shouldn't require a management degree. Excellence should be accessible to everyone."
             </div>
 
-            <div class="value-card">
-                <h3>Democracy over exclusivity</h3>
-                <p>World-class strategy shouldn't only be available to those who can afford consultancies or accelerators.</p>
+            <p>Sova is built on three core values:</p>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Empowerment over dependency</h3>
+                    <p>Learn once, apply forever. No recurring consultant fees or fragmented advice. Self-sufficiency is the goal.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Simplicity over complexity</h3>
+                    <p>Complex doesn't mean better. The best frameworks are clear, actionable, and easy to understand.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Democracy over exclusivity</h3>
+                    <p>World-class strategy shouldn't only be available to those who can afford consultancies or accelerators.</p>
+                </div>
             </div>
+
+            <h2>Why Sova Exists</h2>
+            <p>Because 90% of startups fail—not from lack of effort, but from preventable mistakes. The research is clear. The solutions exist. They're just scattered across the landscape, expensive, and inaccessible. Sova brings it all into one nest.</p>
         </div>
-
-        <h2 class="fade-in-up">Why Sova Exists</h2>
-        <p class="fade-in-up">Because 90% of startups fail—not from lack of effort, but from preventable mistakes. The research is clear. The solutions exist. They're just scattered across the landscape, expensive, and inaccessible. Sova brings it all into one nest.</p>
-
-        <a href="index.html" class="back-link fade-in-up">← Back to Home</a>
-    </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -691,6 +710,7 @@
                     <a href="research.html">Our Research</a>
                     <a href="about.html">About Us</a>
                     <a href="directory.html">Directory</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="assessment-tool.html">Start Assessment</a>
                 </div>
                 <div class="footer-section">

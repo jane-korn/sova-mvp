@@ -210,15 +210,29 @@
 
         /* Main Content */
         .main-content {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 48px;
+            padding: 0 4rem;
+        }
+
+        section {
+            padding: 6rem 0;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--green);
+            margin-bottom: 1.5rem;
+            text-align: left;
         }
 
         /* Page Title with decorative bird */
         .page-title {
-            text-align: center;
             margin-bottom: 48px;
+            padding: 4rem 0 2rem;
             position: relative;
             overflow: visible;
         }
@@ -499,8 +513,6 @@
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 24px;
             justify-content: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         /* Resource Card - Standardised design */
@@ -798,8 +810,12 @@
                 height: 70px;
             }
 
+            section {
+                padding: 4rem 0;
+            }
+
             .main-content {
-                padding: 24px;
+                padding: 0 1.5rem;
             }
 
             .page-title h1 {
@@ -812,6 +828,7 @@
 
             .page-title {
                 margin-bottom: 32px;
+                padding: 3rem 0 1rem;
             }
 
             /* Category buttons - 2x2 grid on mobile */
@@ -1097,6 +1114,7 @@
                 <nav>
                     <a href="research.html">Research</a>
                     <a href="directory.html">Directory</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="about.html">About Us</a>
                 </nav>
                 <!-- Mobile Hamburger -->
@@ -1115,6 +1133,7 @@
             <a href="index.html">Home</a>
             <a href="research.html">Research</a>
             <a href="directory.html">Directory</a>
+            <a href="faq.html">FAQ</a>
             <a href="about.html">About Us</a>
         </nav>
         <a href="assessment-tool.html" class="mobile-nav-cta">Start Assessment</a>
@@ -1124,7 +1143,10 @@
     <main class="main-content">
         <!-- Page Title -->
         <section class="page-title">
-            <h1>Startup Support Directory</h1>
+            <h1>What Australian startup resources are available?</h1>
+            <p style="font-size: 1.125rem; line-height: 1.7; opacity: 0.8; margin: 1.5rem 0 0; max-width: 900px; text-align: left;">
+                Sova's directory includes 205 Australian resources filtered by location, stage, and founder identity. Find grants, accelerators, government programs, legal support, networks, and mentoring opportunities across all states and territories.
+            </p>
         </section>
 
         <!-- Primary Category Buttons -->
@@ -1208,6 +1230,7 @@
                     <a href="research.html">Our Research</a>
                     <a href="about.html">About Us</a>
                     <a href="directory.html">Directory</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="assessment-tool.html">Start Assessment</a>
                 </div>
                 <div class="footer-section">

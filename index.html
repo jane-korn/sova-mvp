@@ -50,7 +50,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 4rem;
         }
 
         /* Header */
@@ -215,11 +215,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         /* Typography */
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
             line-height: 1.2;
             color: var(--sova-green);
             margin-bottom: 1.5rem;
+            text-align: center;
         }
 
         h2 {
@@ -282,7 +283,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
         /* Hero */
         .hero {
             text-align: center;
-            padding: 3rem 0 2rem;
+            padding: 4rem 0 2rem;
             position: relative;
             overflow: visible;
             --bird-offset: 0px;
@@ -322,15 +323,14 @@ Protected by Digital Millennium Copyright Act (DMCA)
         }
 
         .hero h1 {
-            max-width: 900px;
             margin: 0 auto 2rem;
         }
 
         .hero-subheading {
             font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-            max-width: 800px;
             margin: 0 auto 3rem;
             opacity: 0.9;
+            text-align: center;
         }
 
         .hero-subheading a {
@@ -385,7 +385,6 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         .problem-intro {
             font-size: 1.375rem;
-            max-width: 700px;
             margin-bottom: 3rem;
             color: var(--sova-sage);
             text-align: left;
@@ -525,7 +524,6 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         .solution-intro {
             font-size: 1.375rem;
-            max-width: 700px;
             margin-left: auto;
             margin-bottom: 4rem;
             color: var(--sova-sage);
@@ -731,7 +729,6 @@ Protected by Digital Millennium Copyright Act (DMCA)
         .cta-section p {
             color: var(--sova-brown);
             opacity: 0.85;
-            max-width: 700px;
             margin: 0 auto 3rem;
             font-size: 1.25rem;
         }
@@ -923,7 +920,11 @@ Protected by Digital Millennium Copyright Act (DMCA)
             }
 
             .hero {
-                padding: 5rem 0;
+                padding: 3rem 0 1rem;
+            }
+
+            .container {
+                padding: 0 1.5rem;
             }
 
             .problem-grid {
@@ -1611,6 +1612,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 <nav>
                     <a href="research.html">Research</a>
                     <a href="directory.html">Directory</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="about.html">About Us</a>
                 </nav>
                 <!-- Mobile Hamburger -->
@@ -1629,6 +1631,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <a href="index.html">Home</a>
             <a href="research.html">Research</a>
             <a href="directory.html">Directory</a>
+            <a href="faq.html">FAQ</a>
             <a href="about.html">About Us</a>
         </nav>
         <a href="assessment-tool.html" class="btn btn-primary mobile-nav-cta">Start Assessment</a>
@@ -1637,17 +1640,17 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <h1>See what others don't</h1>
+            <h1>Most startups fail the same way</h1>
             <p class="hero-subheading">Most startup advice focuses on one area.<br><span style="color: var(--sova-green);">Sova shows you how everything connects.</span></p>
-            <div class="fade-in-up" style="display: flex; gap: 2rem; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-top: 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
-                <div style="flex: 1; min-width: 280px; text-align: center;">
+            <div style="display: flex; gap: 2rem; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin-top: 3rem; margin-left: auto; margin-right: auto; max-width: 700px;">
+                <div style="flex: 1; min-width: 280px; max-width: 320px; text-align: center;">
                     <div style="position: relative; display: inline-block; width: 100%;">
                         <button disabled class="btn btn-primary" style="width: 100%; margin-bottom: 0.75rem; opacity: 0.5; cursor: not-allowed;">Ask Sova</button>
                         <span style="position: absolute; top: -10px; right: -10px; background: var(--sova-sage); color: var(--sova-brown); font-size: 9px; padding: 3px 8px; border-radius: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Coming Soon</span>
                     </div>
                     <p style="font-size: 0.875rem; opacity: 0.5; line-height: 1.5; min-height: 2.625rem;">Quick question? Get instant evidence-based guidance.</p>
                 </div>
-                <div style="flex: 1; min-width: 280px; text-align: center;">
+                <div style="flex: 1; min-width: 280px; max-width: 320px; text-align: center;">
                     <a href="assessment-tool.html" class="btn btn-primary" style="width: 100%; margin-bottom: 0.75rem;">Start Assessment</a>
                     <p style="font-size: 0.875rem; opacity: 0.7; line-height: 1.5; min-height: 2.625rem;">10 minutes. See what's working and what needs attention.</p>
                 </div>
@@ -1658,11 +1661,14 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- What We've Done -->
     <section style="padding: 4rem 0 6rem; background: var(--gradient-dark);">
         <div class="container">
-            <div style="max-width: 1000px; margin: 0 auto;">
-                <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 6rem; text-align: left; color: var(--sova-white);">
-                    We've done the research<br>
-                    <span style="color: var(--sova-green);">so you don't have to</span>
+            <div style="margin: 0 auto;">
+                <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 2rem; text-align: left; color: var(--sova-white);">
+                    What can Sova do for<br>
+                    <span style="color: var(--sova-green);">my startup?</span>
                 </h2>
+                <p class="fade-in-up" style="font-size: clamp(1.125rem, 2.5vw, 1.375rem); line-height: 1.7; opacity: 0.8; font-weight: 300; margin-bottom: 6rem;">
+                    Sova gives you a complete diagnosis across 9 interconnected business elements, ranked priorities based on your stage, and evidence-based tools matched to your specific situation. We've analysed hundreds of failure case studies and mapped 281 frameworks so you get actionable guidance in minutes, not months.
+                </p>
 
                 <div class="stagger-children" style="display: grid; gap: 5rem; margin-bottom: 8rem;">
                     <div style="display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start;">
@@ -1691,7 +1697,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 </div>
 
                 <div style="padding-top: 4rem;">
-                    <p style="font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.4; font-weight: 300; color: var(--sova-white); margin-bottom: 3rem; max-width: 800px;">
+                    <p style="font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.4; font-weight: 300; color: var(--sova-white); margin-bottom: 3rem;">
                         Complete diagnosis. Ranked priorities. Evidence-based tools matched to your stage.
                     </p>
                     <p style="font-size: 1.125rem; line-height: 1.7; opacity: 0.6; font-weight: 300; margin-bottom: 3rem;">
@@ -1742,7 +1748,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
     <!-- The Problem -->
     <section id="problem" class="problem">
-        <div class="container" style="max-width: 1000px;">
+        <div class="container">
             <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 2rem; text-align: left;">
                 The advice exists.<br>
                 <span style="color: var(--sova-green);">It's just fragmented.</span>
@@ -1782,7 +1788,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- The Solution -->
     <section id="solution" class="solution">
         <div class="container">
-            <div style="max-width: 1000px; margin: 0 auto;">
+            <div style="margin: 0 auto;">
                 <h2 class="fade-in-up" style="font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 6rem; text-align: left; color: var(--sova-white);">
                     Sova connects<br>
                     <span style="color: var(--sova-green);">the dots</span>
@@ -1872,6 +1878,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                     <a href="research.html">Our Research</a>
                     <a href="about.html">About Us</a>
                     <a href="directory.html">Directory</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="assessment-tool.html">Start Assessment</a>
                 </div>
                 <div class="footer-section">

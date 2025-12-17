@@ -34,7 +34,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 4rem;
         }
 
         header {
@@ -196,18 +196,19 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
             color: var(--sova-green);
             margin: 1.5rem 0 1rem;
             line-height: 1.2;
+            text-align: left;
         }
 
         /* Hero section with decorative bird */
         .hero {
             position: relative;
             overflow: hidden;
-            padding-bottom: 2rem;
+            padding: 4rem 0 2rem;
         }
 
         .hero::before {
@@ -244,6 +245,10 @@
         p {
             margin-bottom: 1.5rem;
             font-size: 1.125rem;
+        }
+
+        section {
+            padding: 6rem 0;
         }
 
         .intro {
@@ -504,6 +509,18 @@
 
             .hamburger {
                 display: flex;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .hero {
+                padding: 3rem 0 1rem;
             }
 
             .footer-content {
@@ -812,6 +829,7 @@
                 <nav style="display: flex; gap: 2rem;">
                     <a href="research.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Research</a>
                     <a href="directory.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Directory</a>
+                    <a href="faq.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">FAQ</a>
                     <a href="about.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">About Us</a>
                 </nav>
                 <!-- Mobile Hamburger -->
@@ -830,137 +848,138 @@
             <a href="index.html">Home</a>
             <a href="research.html">Research</a>
             <a href="directory.html">Directory</a>
+            <a href="faq.html">FAQ</a>
             <a href="about.html">About Us</a>
         </nav>
         <a href="assessment-tool.html" class="mobile-nav-cta">Start Assessment</a>
     </div>
 
-    <div class="container hero">
-        <h1>The Research: Why Startups Fail</h1>
-        <p class="intro">We've analysed hundreds of studies and distilled research from Harvard Business Review, CB Insights, Exploding Topics, and leading startup experts. Here's what we found.</p>
+    <section class="hero">
+        <div class="container">
+            <h1>The Research: Why Startups Fail</h1>
+            <p class="intro">We've analysed hundreds of studies and distilled research from Harvard Business Review, CB Insights, Exploding Topics, and leading startup experts. Here's what we found.</p>
 
-        <!-- Research Sources - Auto-scrolling Marquee -->
-        <div class="research-sources">
-            <p class="heading">All advice, tools, insights are distilled from:</p>
-            <div class="marquee-container">
-                <div class="marquee-track">
-                    <!-- First set of logos -->
-                    <img src="logos/hbr.svg" alt="Harvard Business Review" class="source-logo">
-                    <img src="logos/mckinsey.svg" alt="McKinsey" class="source-logo">
-                    <img src="logos/cb-insights.svg" alt="CB Insights" class="source-logo">
-                    <img src="logos/forbes.svg" alt="Forbes" class="source-logo">
-                    <img src="logos/startup-genome.svg" alt="Startup Genome" class="source-logo">
-                    <img src="logos/hubspot.svg" alt="HubSpot" class="source-logo">
-                    <img src="logos/entrepreneur.svg" alt="Entrepreneur" class="source-logo">
-                    <img src="logos/linkedin.svg" alt="LinkedIn" class="source-logo">
-                    <img src="logos/growth-institute.svg" alt="Growth Institute" class="source-logo">
-                    <img src="logos/lean-startup.svg" alt="Lean Startup" class="source-logo">
-                    <!-- Duplicate set for seamless loop -->
-                    <img src="logos/hbr.svg" alt="Harvard Business Review" class="source-logo">
-                    <img src="logos/mckinsey.svg" alt="McKinsey" class="source-logo">
-                    <img src="logos/cb-insights.svg" alt="CB Insights" class="source-logo">
-                    <img src="logos/forbes.svg" alt="Forbes" class="source-logo">
-                    <img src="logos/startup-genome.svg" alt="Startup Genome" class="source-logo">
-                    <img src="logos/hubspot.svg" alt="HubSpot" class="source-logo">
-                    <img src="logos/entrepreneur.svg" alt="Entrepreneur" class="source-logo">
-                    <img src="logos/linkedin.svg" alt="LinkedIn" class="source-logo">
-                    <img src="logos/growth-institute.svg" alt="Growth Institute" class="source-logo">
-                    <img src="logos/lean-startup.svg" alt="Lean Startup" class="source-logo">
+            <!-- Research Sources - Auto-scrolling Marquee -->
+            <div class="research-sources">
+                <p class="heading">All advice, tools, insights are distilled from:</p>
+                <div class="marquee-container">
+                    <div class="marquee-track">
+                        <!-- First set of logos -->
+                        <img src="logos/hbr.svg" alt="Harvard Business Review" class="source-logo">
+                        <img src="logos/mckinsey.svg" alt="McKinsey" class="source-logo">
+                        <img src="logos/cb-insights.svg" alt="CB Insights" class="source-logo">
+                        <img src="logos/forbes.svg" alt="Forbes" class="source-logo">
+                        <img src="logos/startup-genome.svg" alt="Startup Genome" class="source-logo">
+                        <img src="logos/hubspot.svg" alt="HubSpot" class="source-logo">
+                        <img src="logos/entrepreneur.svg" alt="Entrepreneur" class="source-logo">
+                        <img src="logos/linkedin.svg" alt="LinkedIn" class="source-logo">
+                        <img src="logos/growth-institute.svg" alt="Growth Institute" class="source-logo">
+                        <img src="logos/lean-startup.svg" alt="Lean Startup" class="source-logo">
+                        <!-- Duplicate set for seamless loop -->
+                        <img src="logos/hbr.svg" alt="Harvard Business Review" class="source-logo">
+                        <img src="logos/mckinsey.svg" alt="McKinsey" class="source-logo">
+                        <img src="logos/cb-insights.svg" alt="CB Insights" class="source-logo">
+                        <img src="logos/forbes.svg" alt="Forbes" class="source-logo">
+                        <img src="logos/startup-genome.svg" alt="Startup Genome" class="source-logo">
+                        <img src="logos/hubspot.svg" alt="HubSpot" class="source-logo">
+                        <img src="logos/entrepreneur.svg" alt="Entrepreneur" class="source-logo">
+                        <img src="logos/linkedin.svg" alt="LinkedIn" class="source-logo">
+                        <img src="logos/growth-institute.svg" alt="Growth Institute" class="source-logo">
+                        <img src="logos/lean-startup.svg" alt="Lean Startup" class="source-logo">
+                    </div>
+                </div>
+                <p class="sources-footer">...and many more.</p>
+            </div>
+
+            <div class="stat-box">
+                <strong>90%</strong>
+                <p>of startups fail globally, with 10% failing in year one and 70% failing in years 2-5.</p>
+                <cite>— Startup Genome, 2025 | Exploding Topics, 2025</cite>
+            </div>
+
+            <div class="stat-box">
+                <strong>2/3</strong>
+                <p>of startups never show a positive return on investment.</p>
+                <cite>— Harvard Business Review, 2021</cite>
+            </div>
+
+            <h2>The Top 10 Reasons Startups Fail</h2>
+
+            <div class="reasons-grid">
+                <div class="reason-card">
+                    <h3>1. Lack of Product-Market Fit (42%)</h3>
+                    <p>Building something nobody wants. Not solving a real problem people will pay for.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>2. Running Out of Cash (29%)</h3>
+                    <p>38% run out of capital or fail to raise funding due to weak foundations.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>3. Wrong Team (23%)</h3>
+                    <p>Shareholder disagreements, unclear roles, no founders' agreement with vesting. 73% of conflicts stem from unclear ownership.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>4. Overwhelming Competition (19%)</h3>
+                    <p>Inability to differentiate or keep pace with innovators. 76% of consumers prefer brands with clear differentiation.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>5. Pricing/Cost Issues (18%)</h3>
+                    <p>Wrong pricing model, unsustainable unit economics, or underestimating costs.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>6. Poor Product (17%)</h3>
+                    <p>User-unfriendly, bad timing, or failing to iterate based on feedback.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>7. Business Model Failure (17%)</h3>
+                    <p>No clear path to profitability or sustainable revenue model.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>8. Weak Marketing (14%)</h3>
+                    <p>Great product, but nobody knows about it. Ineffective customer acquisition.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>9. Ignoring Customers (14%)</h3>
+                    <p>70% of startups ask wrong questions to wrong people. Skipping customer discovery leads to flying blind.</p>
+                </div>
+
+                <div class="reason-card">
+                    <h3>10. Scaling Prematurely (13%)</h3>
+                    <p>74% scale without adequate systems or processes in place.</p>
                 </div>
             </div>
-            <p class="sources-footer">...and many more.</p>
-        </div>
 
-        <div class="stat-box fade-in-up">
-            <strong>90%</strong>
-            <p>of startups fail globally, with 10% failing in year one and 70% failing in years 2-5.</p>
-            <cite>— Startup Genome, 2025 | Exploding Topics, 2025</cite>
-        </div>
-
-        <div class="stat-box fade-in-up">
-            <strong>2/3</strong>
-            <p>of startups never show a positive return on investment.</p>
-            <cite>— Harvard Business Review, 2021</cite>
-        </div>
-
-        <h2 class="fade-in-up">The Top 10 Reasons Startups Fail</h2>
-
-        <div class="reasons-grid stagger-children">
-            <div class="reason-card">
-                <h3>1. Lack of Product-Market Fit (42%)</h3>
-                <p>Building something nobody wants. Not solving a real problem people will pay for.</p>
+            <div style="text-align: center; margin: 6rem 0 4rem;">
+                <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.2; color: var(--sova-green); margin-bottom: 0;">Built on why startups fail,<br>designed for how they succeed.</h2>
             </div>
 
-            <div class="reason-card">
-                <h3>2. Running Out of Cash (29%)</h3>
-                <p>38% run out of capital or fail to raise funding due to weak foundations.</p>
+            <h2>The Good News</h2>
+
+            <div class="stat-box">
+                <p><strong>With the right approach, you can increase your chances of success despite the odds.</strong></p>
+                <p>By understanding common pitfalls and having a plan in place for how to mitigate them, entrepreneurs can increase their chances of creating successful businesses and reaching their goals.</p>
+                <cite>— HubSpot, 2023</cite>
             </div>
 
-            <div class="reason-card">
-                <h3>3. Wrong Team (23%)</h3>
-                <p>Shareholder disagreements, unclear roles, no founders' agreement with vesting. 73% of conflicts stem from unclear ownership.</p>
-            </div>
+            <h2>What This Means for You</h2>
 
-            <div class="reason-card">
-                <h3>4. Overwhelming Competition (19%)</h3>
-                <p>Inability to differentiate or keep pace with innovators. 76% of consumers prefer brands with clear differentiation.</p>
-            </div>
+            <div>
+                <p>Most startup failures are <strong>preventable</strong>. The issues aren't mysterious—they're well-documented and researched. The problem is that this wisdom is scattered across the landscape.</p>
 
-            <div class="reason-card">
-                <h3>5. Pricing/Cost Issues (18%)</h3>
-                <p>Wrong pricing model, unsustainable unit economics, or underestimating costs.</p>
-            </div>
+                <p><strong>Sova consolidates it all.</strong> We've distilled the evidence and unified it into one holistic system matched to your specific situation.</p>
 
-            <div class="reason-card">
-                <h3>6. Poor Product (17%)</h3>
-                <p>User-unfriendly, bad timing, or failing to iterate based on feedback.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>7. Business Model Failure (17%)</h3>
-                <p>No clear path to profitability or sustainable revenue model.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>8. Weak Marketing (14%)</h3>
-                <p>Great product, but nobody knows about it. Ineffective customer acquisition.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>9. Ignoring Customers (14%)</h3>
-                <p>70% of startups ask wrong questions to wrong people. Skipping customer discovery leads to flying blind.</p>
-            </div>
-
-            <div class="reason-card">
-                <h3>10. Scaling Prematurely (13%)</h3>
-                <p>74% scale without adequate systems or processes in place.</p>
+                <p>You don't need to spend $150-$450/hour on consultants or give up 5-15% equity to an accelerator. You need a clear diagnosis and evidence-based roadmap.</p>
             </div>
         </div>
-
-        <div style="text-align: center; margin: 6rem 0 4rem;">
-            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.2; color: var(--sova-green); margin-bottom: 0;">Built on why startups fail,<br>designed for how they succeed.</h2>
-        </div>
-
-        <h2 class="fade-in-up">The Good News</h2>
-
-        <div class="stat-box fade-in-up">
-            <p><strong>With the right approach, you can increase your chances of success despite the odds.</strong></p>
-            <p>By understanding common pitfalls and having a plan in place for how to mitigate them, entrepreneurs can increase their chances of creating successful businesses and reaching their goals.</p>
-            <cite>— HubSpot, 2023</cite>
-        </div>
-
-        <h2 class="fade-in-up">What This Means for You</h2>
-
-        <div class="fade-in-up">
-            <p>Most startup failures are <strong>preventable</strong>. The issues aren't mysterious—they're well-documented and researched. The problem is that this wisdom is scattered across the landscape.</p>
-
-            <p><strong>Sova consolidates it all.</strong> We've distilled the evidence and unified it into one holistic system matched to your specific situation.</p>
-
-            <p>You don't need to spend $150-$450/hour on consultants or give up 5-15% equity to an accelerator. You need a clear diagnosis and evidence-based roadmap.</p>
-        </div>
-
-        <a href="index.html" class="back-link fade-in-up">← Back to Home</a>
-    </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -975,6 +994,8 @@
                     <a href="research.html">Our Research</a>
                     <a href="about.html">About Us</a>
                     <a href="directory.html">Directory</a>
+            <a href="faq.html">FAQ</a>
+                    <a href="faq.html">FAQ</a>
                     <a href="assessment-tool.html">Start Assessment</a>
                 </div>
                 <div class="footer-section">
