@@ -63,19 +63,67 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             height: 90px;
         }
 
-        .bird-icon {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            height: 45px;
+        /* Animated Tweet Birds */
+        .tweet-bird {
+            position: absolute;
+            top: -35px;
+            right: 10px;
+            height: 110px;
             width: auto;
-            opacity: 0.4;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
+            opacity: 0;
+            z-index: 10;
+            transform: translate(200px, -100px) rotate(-15deg) scale(0.8);
+            filter: drop-shadow(0 4px 12px rgba(234, 255, 196, 0.5)) brightness(1.2);
         }
 
-        .bird-icon:hover {
-            opacity: 0.7;
+        .tweet-bird.fly-in {
+            animation: birdFlyIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 1;
+        }
+
+        @keyframes birdFlyIn {
+            0% {
+                transform: translate(200px, -100px) rotate(-15deg) scale(0.8);
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            60% {
+                transform: translate(0, -20px) rotate(5deg) scale(1);
+            }
+            75% {
+                transform: translate(0, 5px) rotate(-2deg) scale(1);
+            }
+            85% {
+                transform: translate(0, -5px) rotate(1deg) scale(1);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .tweet-bird.jiggle {
+            animation: birdJiggle 0.4s ease-in-out;
+        }
+
+        @keyframes birdJiggle {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            20% {
+                transform: translate(-2px, -4px) rotate(-2deg);
+            }
+            40% {
+                transform: translate(2px, -2px) rotate(2deg);
+            }
+            60% {
+                transform: translate(-1px, -3px) rotate(-1deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
         }
 
         nav {
@@ -250,9 +298,9 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         }
 
         .blog-grid {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 2rem 6rem;
+            width: 100%;
+            margin: 0;
+            padding: 2rem 4rem 6rem;
         }
 
         .blog-post-card {
@@ -262,26 +310,10 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             padding: 2rem;
             margin-bottom: 2rem;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
                         box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
                         border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .blog-post-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-green);
-            opacity: 0;
-            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        .blog-post-card:hover::before {
-            opacity: 1;
         }
 
         .blog-post-card:hover {
@@ -609,6 +641,9 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
     <div class="blog-grid">
         <article class="blog-post-card fade-in-up">
+            <!-- Animated Bird -->
+            <img src="sova-logo-icon-transparent.png" alt="" class="tweet-bird" aria-hidden="true">
+
             <div class="post-meta">December 2025 | Jane Korneyko</div>
             <h2><a href="blog/why-i-built-sova.html">Why I Built Sova</a></h2>
             <p class="post-excerpt">In 2024-25, 437,150 new businesses entered the Australian market. 60% will fail within three years. Most of these failures are preventable. Here's why I built Sova to democratise access to the tools that prevent them.</p>
@@ -648,9 +683,6 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             </div>
         </div>
     </footer>
-
-    <!-- Bird icon bottom right -->
-    <img src="sova-logo-icon-transparent.png" alt="Sova" class="bird-icon">
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -696,6 +728,69 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
         document.querySelectorAll('.fade-in-up').forEach(el => {
             observer.observe(el);
+        });
+
+        // Trigger bird animations when blog cards come into view
+        const birdObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const bird = entry.target.querySelector('.tweet-bird');
+                    if (bird && !bird.classList.contains('fly-in')) {
+                        // Stagger animation based on card index
+                        const cards = document.querySelectorAll('.blog-post-card');
+                        const index = Array.from(cards).indexOf(entry.target);
+                        setTimeout(() => {
+                            bird.classList.add('fly-in');
+                            // After animation completes, set final position and remove animation
+                            setTimeout(() => {
+                                bird.style.transform = 'translate(0, 0) rotate(0deg) scale(1)';
+                                bird.style.animation = 'none';
+                            }, 1200); // Match animation duration
+                        }, index * 200); // 200ms delay per card
+                    }
+                    birdObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.blog-post-card').forEach(card => {
+            birdObserver.observe(card);
+        });
+
+        // Bird jiggle on hover - jiggles every time you hover
+        document.querySelectorAll('.blog-post-card').forEach(card => {
+            let jiggleTimeout = null;
+
+            card.addEventListener('mouseenter', () => {
+                const bird = card.querySelector('.tweet-bird');
+                if (bird && bird.classList.contains('fly-in')) {
+                    // Clear any existing jiggle animation
+                    if (jiggleTimeout) {
+                        clearTimeout(jiggleTimeout);
+                    }
+
+                    const baseTransform = 'translate(0, 0) rotate(0deg) scale(1)';
+
+                    // Jiggle sequence with smooth transitions
+                    bird.style.transition = 'transform 0.08s ease-in-out';
+                    bird.style.transform = 'translate(-2px, -4px) rotate(-2deg) scale(1)';
+
+                    setTimeout(() => {
+                        bird.style.transform = 'translate(2px, -2px) rotate(2deg) scale(1)';
+                    }, 80);
+
+                    setTimeout(() => {
+                        bird.style.transform = 'translate(-1px, -3px) rotate(-1deg) scale(1)';
+                    }, 160);
+
+                    jiggleTimeout = setTimeout(() => {
+                        bird.style.transform = baseTransform;
+                        setTimeout(() => {
+                            bird.style.transition = '';
+                        }, 80);
+                    }, 240);
+                }
+            });
         });
     });
     </script>

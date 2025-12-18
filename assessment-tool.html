@@ -3122,6 +3122,117 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 opacity: 0.9;
             }
         }
+
+        /* Footer Styles */
+        footer {
+            background: #1a1717;
+            padding: 5rem 0 3rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .footer-main {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            margin-bottom: 2rem;
+        }
+
+        .footer-tagline {
+            font-size: 1rem;
+            color: var(--sova-cream);
+            opacity: 0.6;
+            margin: 0;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-nav a:hover {
+            color: var(--sova-green);
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .footer-email {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-email:hover {
+            color: var(--sova-green);
+        }
+
+        .footer-legal {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-legal p {
+            font-size: 0.75rem;
+            color: var(--sova-sage);
+            line-height: 1.6;
+            opacity: 0.6;
+            margin: 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+            font-size: 0.75rem;
+            color: var(--sova-sage);
+        }
+
+        .footer-bottom span {
+            opacity: 0.6;
+        }
+
+        .footer-bottom a {
+            color: var(--sova-sage);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-bottom a:hover {
+            opacity: 1;
+            color: var(--sova-green);
+        }
+
+        .footer-separator {
+            margin: 0 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -3166,159 +3277,234 @@ Protected by Digital Millennium Copyright Act (DMCA)
 
         <!-- New One-Per-Page Preliminary Flow -->
         <div class="prelim-section" id="prelimFlow" style="display: flex; align-items: flex-start; justify-content: center; padding-top: 1rem; padding-bottom: 2rem;">
-            <div class="prelim-container" style="max-width: 800px; width: 100%; padding: 0 1rem; box-sizing: border-box; overflow: hidden;">
+            <div class="prelim-container" style="max-width: 800px; width: 100%; padding: 0 1rem; box-sizing: border-box;">
+<!-- BEAUTIFUL SINGLE-PAGE PRELIM - Complete Visual Continuity -->
+<!-- All cards use identical base styling -->
+<!-- Sophisticated animations throughout -->
 
-                <!-- Page 1: Team Size -->
-                <div id="prelim-page-1" class="prelim-page">
-                    <!-- Pilot Phase Note -->
-                    <div style="border: 2px solid #eaffc4; padding: 1.5rem; margin-bottom: 2rem; background: rgba(234, 255, 196, 0.1); border-radius: 12px; text-align: left; overflow-wrap: break-word; word-wrap: break-word; box-sizing: border-box; max-width: 100%;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                            <p style="color: #eaffc4; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0;">Pilot phase</p>
-                            <button onclick="startFresh()" style="padding: 4px 10px; background: rgba(255, 107, 107, 0.7); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; transition: background 0.2s ease;" onmouseover="this.style.background='#ff6b6b'" onmouseout="this.style.background='rgba(255, 107, 107, 0.7)'">Start Fresh</button>
-                        </div>
-                        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0;">Sova is currently in pilot and we'd love your help. This version covers 4 core elements: Governance, Purpose, Strategy, and Marketing. The full system will include 9 elements.</p>
-                        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 1rem 0 0 0;">Complete the assessment, then <a href="https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAThFnbJUNDA4WEY1M0I5NUMyMlczTkUzOEIyUFQwTS4u&route=shorturl" target="_blank" style="color: #eaffc4; text-decoration: underline;">share your feedback</a> to help us improve. Use <span style="color: #eaffc4;">Start Fresh</span> to clear your progress and begin again.</p>
-                    </div>
+    <!-- Pilot Phase Note -->
+    <div style="border: 2px solid #eaffc4; padding: 1.5rem; margin-bottom: 4rem; background: rgba(234, 255, 196, 0.1); border-radius: 12px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <p style="color: #eaffc4; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0;">Pilot phase</p>
+            <button onclick="startFresh()" style="padding: 4px 10px; background: rgba(255, 107, 107, 0.7); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; transition: background 0.2s ease;" onmouseover="this.style.background='#ff6b6b'" onmouseout="this.style.background='rgba(255, 107, 107, 0.7)'">Start Fresh</button>
+        </div>
+        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0;">Sova is currently in pilot and we'd love your help. This version covers 4 core elements: Governance, Purpose, Strategy, and Marketing. The full system will include 9 elements.</p>
+        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 1rem 0 0 0;">Complete the assessment, then <a href="https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAThFnbJUNDA4WEY1M0I5NUMyMlczTkUzOEIyUFQwTS4u&route=shorturl" target="_blank" style="color: #eaffc4; text-decoration: underline;">share your feedback</a> to help us improve. Use <span style="color: #eaffc4;">Start Fresh</span> to clear your progress and begin again.</p>
+    </div>
 
-                    <!-- Prelim Step Indicator - single line, left and right justified -->
-                    <div class="prelim-step-indicator" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 8px;">
-                        <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0;">Getting to know you</span>
-                        <span style="color: #b8d78f; font-size: 13px; opacity: 0.7; white-space: nowrap; flex-shrink: 0;">Question 1 of 3</span>
-                    </div>
+    <!-- Getting to Know You Badge -->
+    <div style="margin-bottom: 3rem; text-align: center;">
+        <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 10px; font-weight: 700; padding: 6px 14px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.8px; display: inline-block;">Getting to know you</span>
+    </div>
 
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Are you flying solo or with a team?</h1>
-                    <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 2rem;">This helps us tailor questions to your situation.</p>
+    <!-- Question 1: Solo or Team -->
+    <div id="question-1" class="question-section" style="margin-bottom: 8rem; scroll-margin-top: 2rem;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <div style="color: #b8d78f; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Question 1 of 3</div>
+            <h2 style="color: #eaffc4; font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; margin: 0 0 1rem 0; line-height: 1.2;">Are you flying solo or with a team?</h2>
+            <p style="color: #b8d78f; font-size: 1.0625rem; margin: 0; opacity: 0.85; font-weight: 300;">This helps us tailor questions to your situation.</p>
+        </div>
 
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="option-card" onclick="selectPrelimOptionAndAdvance('teamSize', 'Solo', this, 2)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Solo</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Just me for now</div>
-                        </div>
-                        <div class="option-card" onclick="selectPrelimOptionAndAdvance('teamSize', 'Team', this, 2)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Team</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">2 or more people</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Page 2: Stage Selection -->
-                <div id="prelim-page-2" class="prelim-page" style="display: none;">
-                    <!-- Prelim Step Indicator - single line, left and right justified -->
-                    <div class="prelim-step-indicator" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 8px;">
-                        <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0;">Getting to know you</span>
-                        <span style="color: #b8d78f; font-size: 13px; opacity: 0.7; white-space: nowrap; flex-shrink: 0;">Question 2 of 3</span>
-                    </div>
-
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Where are you in your startup journey?</h1>
-                    <p style="color: #b8d78f; font-size: 1.125rem; margin-bottom: 2.5rem;">Pick the closest match. You may sit between stages, and that's normal.</p>
-
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="option-card" onclick="selectStageAndContinue('Discovery', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Discovery</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Still exploring the problem, testing ideas, no paying customers yet</div>
-                        </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Validation', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Validation</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Have a product and some customers, testing if the model is repeatable</div>
-                        </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Efficiency', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Efficiency</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Model works, now optimising operations and unit economics</div>
-                        </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Scale', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Scale</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Proven model, focused on growth, expansion, and building systems</div>
-                        </div>
-                        <div class="option-card" onclick="selectStageAndContinue('Unsure', this)" style="background: rgba(245, 245, 220, 0.05); padding: 1.5rem; border-radius: 16px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.3s ease;">
-                            <div style="font-size: 1.25rem; font-weight: 600; color: #f5f5dc; margin-bottom: 0.5rem;">Unsure</div>
-                            <div style="font-size: 1rem; color: #b8d78f;">Not sure where I fit. Help me figure it out.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Validation Pages (Dynamic) -->
-                <div id="validation-pages-container"></div>
-
-                <!-- Page 4: Choose Your Path -->
-                <div id="prelim-page-4" class="prelim-page" style="display: none;">
-                    <!-- Prelim Step Indicator - single line, left and right justified -->
-                    <div class="prelim-step-indicator" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 8px;">
-                        <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 10px; font-weight: 700; padding: 5px 10px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0;">Getting to know you</span>
-                        <span style="color: #b8d78f; font-size: 13px; opacity: 0.7; white-space: nowrap; flex-shrink: 0;">Question 3 of 3</span>
-                    </div>
-
-                    <h1 style="color: #eaffc4; font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2;">Choose Your Flight Path</h1>
-                    <p style="color: #f5f5dc; font-size: clamp(1.125rem, 2vw, 1.375rem); line-height: 1.6; margin-bottom: 1.5rem; font-weight: 300;">
-                        You're about to gain clarity on your business foundations across the elements that determine startup success.
-                    </p>
-
-
-                    <!-- Path Options -->
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <!-- Path 1: Full Health Check -->
-                        <div class="path-card" onclick="selectPathAndContinue('complete')">
-                            <span class="path-number">1</span>
-                            <h2 class="path-title">Full Health Check</h2>
-                            <p class="path-desc">
-                                Assess your startup across all 4 elements. Get a complete picture of your business foundations and where to focus.
-                            </p>
-                            <div class="path-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Time:</span>
-                                    <span>15-20 minutes</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Output:</span>
-                                    <span>Full report with action plan</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Path 2: Quick Start -->
-                        <div class="path-card" onclick="selectPathAndContinue('zoomin')">
-                            <span class="path-number">2</span>
-                            <h2 class="path-title">Quick Start</h2>
-                            <p class="path-desc">
-                                Pick one area to focus on first. Great if you're short on time or already know where you need help. You can always complete the others later.
-                            </p>
-                            <div class="path-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Time:</span>
-                                    <span>5-7 minutes</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Output:</span>
-                                    <span>Targeted insights</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Path 3: Chatbot - Coming Soon -->
-                        <div class="path-card coming-soon">
-                            <span class="path-number">3</span>
-                            <h2 class="path-title">
-                                Chat with Sova
-                                <span style="display: block; font-size: 12px; font-weight: 400; opacity: 0.7; margin-top: 4px;">Coming Soon</span>
-                            </h2>
-                            <p class="path-desc">
-                                Have a specific question or issue? Talk it through with Sova and get tailored advice and resources.
-                            </p>
-                            <div class="path-meta">
-                                <div class="meta-item">
-                                    <span class="meta-label">Time:</span>
-                                    <span>Your pace</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Output:</span>
-                                    <span>Conversational support</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 700px; margin: 0 auto;">
+            <div class="option-card" data-question="1" data-field="teamSize" data-value="Solo" onclick="selectOptionWithScroll(this, 'question-2')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 2.5rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Solo</div>
+                <div style="font-size: 1rem; color: #b8d78f; opacity: 0.85; line-height: 1.5;">Just me for now</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+            <div class="option-card" data-question="1" data-field="teamSize" data-value="Team" onclick="selectOptionWithScroll(this, 'question-2')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 2.5rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.5rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Team</div>
+                <div style="font-size: 1rem; color: #b8d78f; opacity: 0.85; line-height: 1.5;">2 or more people</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
             </div>
         </div>
+    </div>
+
+    <!-- Question 2: Stage -->
+    <div id="question-2" class="question-section" style="margin-bottom: 8rem; scroll-margin-top: 2rem; opacity: 0.3; pointer-events: none; transition: opacity 0.6s ease;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <div style="color: #b8d78f; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Question 2 of 3</div>
+            <h2 style="color: #eaffc4; font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; margin: 0 0 1rem 0; line-height: 1.2;">Where are you in your startup journey?</h2>
+            <p style="color: #b8d78f; font-size: 1.0625rem; margin: 0; opacity: 0.85; font-weight: 300;">Pick the closest match. You may sit between stages, and that's normal.</p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.25rem; max-width: 700px; margin: 0 auto;">
+            <div class="option-card" data-question="2" data-field="stage" data-value="Discovery" onclick="selectOptionWithScroll(this, 'question-3')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 1.75rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 0.75rem; transition: all 0.3s ease;">Discovery</div>
+                <div style="font-size: 0.9375rem; color: #b8d78f; opacity: 0.85; line-height: 1.6;">Still exploring the problem, testing ideas, no paying customers yet</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+            <div class="option-card" data-question="2" data-field="stage" data-value="Validation" onclick="selectOptionWithScroll(this, 'question-3')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 1.75rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 0.75rem; transition: all 0.3s ease;">Validation</div>
+                <div style="font-size: 0.9375rem; color: #b8d78f; opacity: 0.85; line-height: 1.6;">Have a product and some customers, testing if the model is repeatable</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+            <div class="option-card" data-question="2" data-field="stage" data-value="Efficiency" onclick="selectOptionWithScroll(this, 'question-3')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 1.75rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 0.75rem; transition: all 0.3s ease;">Efficiency</div>
+                <div style="font-size: 0.9375rem; color: #b8d78f; opacity: 0.85; line-height: 1.6;">Model works, now optimising operations and unit economics</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+            <div class="option-card" data-question="2" data-field="stage" data-value="Scale" onclick="selectOptionWithScroll(this, 'question-3')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 1.75rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 0.75rem; transition: all 0.3s ease;">Scale</div>
+                <div style="font-size: 0.9375rem; color: #b8d78f; opacity: 0.85; line-height: 1.6;">Proven model, focused on growth, expansion, and building systems</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+            <div class="option-card" data-question="2" data-field="stage" data-value="Unsure" onclick="selectOptionWithScroll(this, 'question-3')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 1.75rem 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 0.75rem; transition: all 0.3s ease;">Unsure</div>
+                <div style="font-size: 0.9375rem; color: #b8d78f; opacity: 0.85; line-height: 1.6;">Not sure where I fit. Help me figure it out.</div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question 3: Path Selection - SAME DESIGN AS ABOVE -->
+    <div id="question-3" class="question-section" style="margin-bottom: 6rem; scroll-margin-top: 2rem; opacity: 0.3; pointer-events: none; transition: opacity 0.6s ease;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <div style="color: #b8d78f; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Question 3 of 3</div>
+            <h2 style="color: #eaffc4; font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; margin: 0 0 1rem 0; line-height: 1.2;">Choose your flight path</h2>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.25rem; max-width: 700px; margin: 0 auto;">
+            <!-- Path 1: Full Health Check - SAME CARD DESIGN -->
+            <div class="option-card" data-question="3" data-field="path" data-value="complete" onclick="selectPath(this, 'complete')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Full Health Check</div>
+                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Assess your startup across all 4 elements. Get a complete picture of your business foundations and where to focus.</div>
+                <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f;">
+                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">15-20 minutes</span></div>
+                    <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Full report with action plan</span></div>
+                </div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+
+            <!-- Path 2: Quick Start - SAME CARD DESIGN -->
+            <div class="option-card" data-question="3" data-field="path" data-value="zoomin" onclick="selectPath(this, 'zoomin')"
+                 style="background: rgba(245, 245, 220, 0.04); padding: 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Quick Start</div>
+                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Pick one area to focus on first. Great if you're short on time or already know where you need help. You can always complete the others later.</div>
+                <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f;">
+                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">5-7 minutes</span></div>
+                    <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Targeted insights</span></div>
+                </div>
+                <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
+            </div>
+
+            <!-- Path 3: Chatbot - Coming Soon - SAME CARD DESIGN but disabled -->
+            <div style="background: rgba(245, 245, 220, 0.02); padding: 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.05); opacity: 0.5; position: relative; text-align: center;">
+                <div style="font-size: 1.25rem; font-weight: 700; color: #b8d78f; margin-bottom: 0.5rem;">Chat with Sova</div>
+                <div style="font-size: 0.75rem; color: #b8d78f; opacity: 0.7; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Coming Soon</div>
+                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.7; line-height: 1.6; margin-bottom: 1.25rem;">Have a specific question or issue? Talk it through with Sova and get tailored advice and resources.</div>
+                <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f; opacity: 0.6;">
+                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">Your pace</span></div>
+                    <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Conversational support</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+/* Unified selection state for ALL cards */
+.option-card.selected {
+    background: rgba(234, 255, 196, 0.1) !important;
+    border-color: rgba(234, 255, 196, 0.4) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(234, 255, 196, 0.2);
+}
+
+.option-card.selected .selection-bar {
+    transform: scaleX(1) !important;
+}
+
+.option-card.selected > div:first-of-type {
+    color: #eaffc4 !important;
+    transform: scale(1.05);
+}
+
+/* Unified hover state */
+.option-card:hover:not(.selected) {
+    border-color: rgba(234, 255, 196, 0.2) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(234, 255, 196, 0.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #question-1 > div:last-child {
+        grid-template-columns: 1fr !important;
+    }
+}
+</style>
+
+<script>
+// Track selections
+const prelimSelectionsScroll = {
+    teamSize: null,
+    stage: null,
+    path: null
+};
+
+// Select option with smooth scroll
+function selectOptionWithScroll(element, nextQuestionId) {
+    const field = element.getAttribute('data-field');
+    const value = element.getAttribute('data-value');
+
+    // Remove selected from siblings
+    const parent = element.parentElement;
+    parent.querySelectorAll('.option-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    // Add selected class
+    element.classList.add('selected');
+
+    // Store selection
+    prelimSelectionsScroll[field] = value;
+
+    // Update prelimData
+    if (field === 'teamSize') {
+        prelimData.teamSize = value;
+    } else if (field === 'stage') {
+        prelimData.stage = value;
+    }
+
+    // Enable and scroll to next question
+    setTimeout(() => {
+        const nextSection = document.getElementById(nextQuestionId);
+        if (nextSection) {
+            nextSection.style.opacity = '1';
+            nextSection.style.pointerEvents = 'auto';
+
+            nextSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    }, 500);
+}
+
+// Select path (final question)
+function selectPath(element, pathValue) {
+    const parent = element.parentElement;
+    parent.querySelectorAll('.option-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+
+    element.classList.add('selected');
+    prelimSelectionsScroll.path = pathValue;
+
+    setTimeout(() => {
+        selectPathAndContinue(pathValue);
+    }, 700);
+}
+</script>
+
+            </div>
 
         <!-- Questionnaire Section -->
         <div class="questionnaire-section" id="questionnaireSection">
@@ -8412,8 +8598,35 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- Bird icon bottom right -->
     <img src="favicon.png" alt="Sova" class="bird-icon">
 
-    <footer style="text-align: center; padding: 1rem; font-size: 0.75rem; color: rgba(45, 40, 40, 0.4); border-top: 1px solid rgba(45, 40, 40, 0.1); margin-top: 2rem; background: #f5f5dc;">
-        &copy; 2025 Sova. All rights reserved. Assessment tool and content protected by copyright. <a href="terms.html" style="color: #b8d78f;">Terms of Service</a>
+    <footer>
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <p class="footer-tagline">Giving every founder the wings to fly</p>
+                </div>
+                <nav class="footer-nav">
+                    <a href="assessment-tool.html">Assessment</a>
+                    <a href="research.html">Research</a>
+                    <a href="directory.html">Directory</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="about.html">About</a>
+                    <a href="faq.html">FAQ</a>
+                </nav>
+                <div class="footer-contact">
+                    <a href="mailto:jane.korneyko@gmail.com" class="footer-email">jane.korneyko@gmail.com</a>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <p>We acknowledge the Wurundjeri Woi Wurrung and Bunurong peoples of the Kulin Nation as the Traditional Owners of the land on which Sova operates. We pay our respects to their Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2025 Sova</span>
+                <span class="footer-separator">·</span>
+                <a href="terms.html">Terms</a>
+                <span class="footer-separator">·</span>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
