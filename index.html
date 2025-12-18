@@ -219,8 +219,8 @@ Protected by Digital Millennium Copyright Act (DMCA)
             font-weight: 700;
             line-height: 1.2;
             color: var(--sova-green);
-            margin-bottom: 1.5rem;
-            text-align: center;
+            margin: 1.5rem 0 1rem;
+            text-align: left;
         }
 
         h2 {
@@ -323,7 +323,9 @@ Protected by Digital Millennium Copyright Act (DMCA)
         }
 
         .hero h1 {
-            margin: 0 auto 2rem;
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
         }
 
         .hero-subheading {
@@ -856,42 +858,127 @@ Protected by Digital Millennium Copyright Act (DMCA)
         /* Footer */
         footer {
             background: #1a1717;
-            padding: 4rem 0 2rem;
+            padding: 5rem 0 3rem;
             border-top: 1px solid rgba(234, 255, 196, 0.1);
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            margin-bottom: 3rem;
+        .footer-main {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
-        .footer-section h4 {
-            color: var(--sova-green);
-            margin-bottom: 1rem;
-            font-size: 1rem;
+        .footer-brand {
+            margin-bottom: 2.5rem;
         }
 
-        .footer-section p,
-        .footer-section a {
+        .footer-tagline {
             color: var(--sova-sage);
-            font-size: 0.95rem;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 300;
+            opacity: 0.6;
+            margin: 0;
         }
 
-        .footer-section a:hover {
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-nav a:hover {
             color: var(--sova-green);
+            opacity: 1;
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-email {
+            color: var(--sova-sage);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-email:hover {
+            color: var(--sova-green);
+            opacity: 1;
+        }
+
+        .footer-legal {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(234, 255, 196, 0.05);
+        }
+
+        .footer-legal p {
+            color: var(--sova-sage);
+            font-size: 0.75rem;
+            line-height: 1.7;
+            opacity: 0.4;
+            margin: 0;
         }
 
         .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(234, 255, 196, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
             color: var(--sova-sage);
-            font-size: 0.875rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom span {
+            color: var(--sova-sage);
+            opacity: 0.4;
+        }
+
+        .footer-separator {
+            opacity: 0.3;
+        }
+
+        .footer-bottom a {
+            color: var(--sova-sage);
+            text-decoration: none;
+            opacity: 0.4;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--sova-green);
+            opacity: 1;
         }
 
         /* Responsive */
@@ -960,8 +1047,43 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 margin-left: 0;
             }
 
-            .footer-content {
-                grid-template-columns: 1fr;
+            footer {
+                padding: 3rem 0 2rem;
+            }
+
+            .footer-main {
+                margin-bottom: 3rem;
+            }
+
+            .footer-brand {
+                margin-bottom: 2rem;
+            }
+
+            .footer-tagline {
+                font-size: 1rem;
+            }
+
+            .footer-nav {
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .footer-nav a {
+                font-size: 0.9rem;
+            }
+
+            .footer-legal {
+                padding: 1.5rem 0;
+                margin-bottom: 2rem;
+            }
+
+            .footer-legal p {
+                font-size: 0.7rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.75rem;
+                flex-wrap: wrap;
             }
         }
 
@@ -1609,11 +1731,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 <a href="index.html" class="logo">
                     <img src="sova-logo-main-transparent.png" alt="Sova">
                 </a>
-                <nav>
-                    <a href="research.html">Research</a>
-                    <a href="directory.html">Directory</a>
-                    <a href="faq.html">FAQ</a>
-                    <a href="about.html">About Us</a>
+                <nav style="display: flex; gap: 2rem;">
+                    <a href="research.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Research</a>
+                    <a href="directory.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Directory</a>
+                    <a href="blog.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Blog</a>
+                    <a href="faq.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">FAQ</a>
+                    <a href="about.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">About Us</a>
                 </nav>
                 <!-- Mobile Hamburger -->
                 <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -1631,6 +1754,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <a href="index.html">Home</a>
             <a href="research.html">Research</a>
             <a href="directory.html">Directory</a>
+            <a href="blog.html">Blog</a>
             <a href="faq.html">FAQ</a>
             <a href="about.html">About Us</a>
         </nav>
@@ -1868,28 +1992,35 @@ Protected by Digital Millennium Copyright Act (DMCA)
     <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Sova</h4>
-                    <p>Giving every founder the wings to fly with world-class startup tools and best practice.</p>
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <p class="footer-tagline">Giving every founder the wings to fly</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Learn More</h4>
-                    <a href="research.html">Our Research</a>
-                    <a href="about.html">About Us</a>
+
+                <nav class="footer-nav">
+                    <a href="assessment-tool.html">Assessment</a>
+                    <a href="research.html">Research</a>
                     <a href="directory.html">Directory</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="about.html">About</a>
                     <a href="faq.html">FAQ</a>
-                    <a href="assessment-tool.html">Start Assessment</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>jane.korneyko@gmail.com</p>
-                    <p>Built for Australian founders</p>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="mailto:jane.korneyko@gmail.com" class="footer-email">jane.korneyko@gmail.com</a>
                 </div>
             </div>
+
+            <div class="footer-legal">
+                <p>We acknowledge the Wurundjeri Woi Wurrung and Bunurong peoples of the Kulin Nation as the Traditional Owners of the land on which Sova operates. We pay our respects to their Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
+            </div>
+
             <div class="footer-bottom">
-                <p style="font-size: 0.75rem; margin-bottom: 1rem;">We acknowledge the Wurundjeri Woi Wurrung and Bunurong peoples of the Kulin Nation as the Traditional Owners of the land on which Sova operates. We pay our respects to their Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
-                <p style="font-size: 0.75rem;">&copy; 2025 Sova. All rights reserved. Assessment tool and content protected by copyright. <a href="terms.html" style="color: var(--sova-sage);">Terms of Service</a></p>
+                <span>&copy; 2025 Sova</span>
+                <span class="footer-separator">·</span>
+                <a href="terms.html">Terms</a>
+                <span class="footer-separator">·</span>
+                <a href="privacy.html">Privacy</a>
             </div>
         </div>
     </footer>

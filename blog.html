@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+PROPRIETARY AND CONFIDENTIAL
+Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
+================================================================================
+-->
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Sova - Evidence-Based Startup Guidance</title>
+    <meta name="description" content="Insights on startup success, evidence-based tools, and business excellence for Australian founders.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sova-green: #eaffc4;
+            --sova-brown: #2d2828;
+            --sova-cream: #f5f5dc;
+            --sova-sage: #b8d78f;
+            --sova-white: #ffffff;
+            --gradient-green: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%);
+            --gradient-dark: linear-gradient(180deg, #2d2828 0%, #1a1717 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            background: var(--sova-brown);
+            color: var(--sova-cream);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+            position: sticky;
+            top: 0;
+            background: var(--sova-brown);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 90px;
+        }
+
+        .bird-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            height: 45px;
+            width: auto;
+            opacity: 0.4;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        .bird-icon:hover {
+            opacity: 0.7;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--sova-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--sova-cream);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .hamburger span:nth-child(1) { margin-bottom: 6px; }
+        .hamburger span:nth-child(3) { margin-top: 6px; }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 40, 40, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.4s;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-nav-overlay nav a {
+            font-size: 1.5rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mobile-nav-overlay.active nav a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-overlay.active nav a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-overlay.active nav a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-overlay.active nav a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav-overlay.active nav a:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-nav-overlay.active nav a:nth-child(5) { transition-delay: 0.3s; }
+
+        .mobile-nav-cta {
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-cta {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.35s;
+        }
+
+        .hero {
+            text-align: left;
+            padding: 4rem 0 2rem;
+            position: relative;
+            overflow: visible;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -5%;
+            right: -8%;
+            width: 45%;
+            height: 110%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--sova-green);
+            margin: 1.5rem 0 1rem;
+            text-align: left;
+        }
+
+        .hero-intro {
+            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+            color: var(--sova-sage);
+            max-width: 700px;
+            margin: 0 0 3rem;
+            line-height: 1.6;
+        }
+
+        .blog-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 2rem 6rem;
+        }
+
+        .blog-post-card {
+            background: rgba(245, 245, 220, 0.04);
+            border: 1px solid rgba(234, 255, 196, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .blog-post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .blog-post-card:hover::before {
+            opacity: 1;
+        }
+
+        .blog-post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(234, 255, 196, 0.25);
+        }
+
+        .post-meta {
+            font-size: 0.9375rem;
+            color: var(--sova-sage);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .blog-post-card h2 {
+            font-size: clamp(1.5rem, 3vw, 1.875rem);
+            font-weight: 700;
+            color: var(--sova-white);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .blog-post-card h2 a {
+            color: var(--sova-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .blog-post-card h2 a:hover {
+            color: var(--sova-green);
+        }
+
+        .post-excerpt {
+            font-size: 1.0625rem;
+            line-height: 1.6;
+            color: var(--sova-cream);
+            margin-bottom: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: var(--sova-green);
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 1.0625rem;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--sova-sage);
+        }
+
+        .read-more::after {
+            content: ' →';
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .read-more:hover::after {
+            transform: translateX(4px);
+        }
+
+        footer {
+            background: #1a1717;
+            padding: 5rem 0 3rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .footer-main {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            margin-bottom: 2rem;
+        }
+
+        .footer-tagline {
+            font-size: 1rem;
+            color: var(--sova-cream);
+            opacity: 0.6;
+            margin: 0;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-nav a:hover {
+            color: var(--sova-green);
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .footer-email {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-email:hover {
+            color: var(--sova-green);
+        }
+
+        .footer-legal {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .footer-legal p {
+            font-size: 0.75rem;
+            color: var(--sova-sage);
+            line-height: 1.6;
+            opacity: 0.6;
+            margin: 0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+            font-size: 0.75rem;
+            color: var(--sova-sage);
+        }
+
+        .footer-bottom span {
+            opacity: 0.6;
+        }
+
+        .footer-bottom a {
+            color: var(--sova-sage);
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), color 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-bottom a:hover {
+            opacity: 1;
+            color: var(--sova-green);
+        }
+
+        .footer-separator {
+            margin: 0 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            border-radius: 32px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.125rem;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .btn-primary {
+            background: var(--sova-green);
+            color: var(--sova-brown);
+        }
+
+        .btn-primary:hover {
+            background: var(--sova-sage);
+            transform: translateY(-2px);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .header-content > nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .blog-grid {
+                padding: 3rem 1.5rem 6rem;
+            }
+
+            .blog-post-card {
+                padding: 2rem;
+            }
+
+            .hero {
+                padding: 4rem 0 3rem;
+            }
+
+            footer {
+                padding: 3rem 0 2rem;
+            }
+
+            .footer-main {
+                margin-bottom: 2rem;
+            }
+
+            .footer-nav {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .footer-legal {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Hero animations */
+        .hero h1 {
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content" style="display: flex; justify-content: space-between; align-items: center;">
+                <a href="index.html" class="logo">
+                    <img src="sova-logo-main-transparent.png" alt="Sova">
+                </a>
+                <nav style="display: flex; gap: 2rem;">
+                    <a href="research.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Research</a>
+                    <a href="directory.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Directory</a>
+                    <a href="blog.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">Blog</a>
+                    <a href="faq.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">FAQ</a>
+                    <a href="about.html" style="color: var(--sova-cream); text-decoration: none; font-weight: 400;">About Us</a>
+                </nav>
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="research.html">Research</a>
+            <a href="directory.html">Directory</a>
+            <a href="blog.html">Blog</a>
+            <a href="faq.html">FAQ</a>
+            <a href="about.html">About Us</a>
+        </nav>
+        <a href="assessment-tool.html" class="btn btn-primary mobile-nav-cta">Start Assessment</a>
+    </div>
+
+    <div class="hero">
+        <div class="container">
+            <h1>Blog</h1>
+            <p class="hero-intro">Evidence-based insights on startup success, business excellence, and why most failures are preventable.</p>
+        </div>
+    </div>
+
+    <div class="blog-grid">
+        <article class="blog-post-card fade-in-up">
+            <div class="post-meta">December 2025 | Jane Korneyko</div>
+            <h2><a href="blog/why-i-built-sova.html">Why I Built Sova</a></h2>
+            <p class="post-excerpt">In 2024-25, 437,150 new businesses entered the Australian market. 60% will fail within three years. Most of these failures are preventable. Here's why I built Sova to democratise access to the tools that prevent them.</p>
+            <a href="blog/why-i-built-sova.html" class="read-more">Read full post</a>
+        </article>
+
+        <!-- Future blog posts will be added here -->
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <p class="footer-tagline">Giving every founder the wings to fly</p>
+                </div>
+                <nav class="footer-nav">
+                    <a href="assessment-tool.html">Assessment</a>
+                    <a href="research.html">Research</a>
+                    <a href="directory.html">Directory</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="about.html">About</a>
+                    <a href="faq.html">FAQ</a>
+                </nav>
+                <div class="footer-contact">
+                    <a href="mailto:jane.korneyko@gmail.com" class="footer-email">jane.korneyko@gmail.com</a>
+                </div>
+            </div>
+            <div class="footer-legal">
+                <p>We acknowledge the Wurundjeri Woi Wurrung and Bunurong peoples of the Kulin Nation as the Traditional Owners of the land on which Sova operates. We pay our respects to their Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2025 Sova</span>
+                <span class="footer-separator">·</span>
+                <a href="terms.html">Terms</a>
+                <span class="footer-separator">·</span>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bird icon bottom right -->
+    <img src="sova-logo-icon-transparent.png" alt="Sova" class="bird-icon">
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hamburger = document.getElementById('hamburger');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileNavOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNavOverlay.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+    });
+    </script>
+</body>
+</html>
