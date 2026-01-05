@@ -16,6 +16,35 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Motion Design Tokens */
+        :root {
+            --duration-instant: 0ms;
+            --duration-fast: 150ms;
+            --duration-normal: 250ms;
+            --duration-slow: 350ms;
+            --ease-in: cubic-bezier(0.4, 0, 1, 1);
+            --ease-out: cubic-bezier(0, 0, 0.2, 1);
+            --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Spacing tokens */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+
+            /* Border radius tokens */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 100px;
+        }
+
         body {
             font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 300;
@@ -65,11 +94,12 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         .messages-area { display: flex; flex-direction: column; gap: 1.5rem; }
 
         /* Messages */
-        .message { animation: fadeInUp 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .message { animation: fadeInUp var(--duration-normal) var(--ease-out); }
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
+        .message:nth-child(n+2) { animation-delay: 50ms; }
         .message.sova .message-content { color: #f5f5dc; font-size: 1.125rem; line-height: 1.7; }
         .message.user { align-self: flex-end; max-width: 80%; }
         .message.user .message-content {
@@ -87,6 +117,105 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         .message-content em { font-style: italic; opacity: 0.85; }
         .message-content a { color: #eaffc4; text-decoration: none; border-bottom: 1px solid rgba(234, 255, 196, 0.3); }
         .message-content a:hover { border-bottom-color: #eaffc4; }
+
+        /* Message Feedback */
+        .message-feedback {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .message-feedback-default {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            opacity: 0.25;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+        .message-feedback-default:hover { opacity: 0.5; }
+        .feedback-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            opacity: 0.25;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+        .feedback-btn:hover { opacity: 0.6; background: rgba(234, 255, 196, 0.1); }
+        .feedback-btn.selected { opacity: 1; background: rgba(234, 255, 196, 0.15); }
+        .feedback-btn:disabled { cursor: default; }
+        .message-feedback-expanded {
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .message-feedback-expanded.visible { display: flex; }
+        .feedback-prompt {
+            font-size: 0.75rem;
+            color: rgba(245, 245, 220, 0.6);
+        }
+        .feedback-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+        }
+        .feedback-notes {
+            flex: 1;
+            max-width: 280px;
+            padding: 0.5rem 0.75rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: inherit;
+            background: rgba(245, 245, 220, 0.04);
+            color: #f5f5dc;
+            outline: none;
+        }
+        .feedback-notes:focus { background: rgba(245, 245, 220, 0.06); }
+        .feedback-notes::placeholder { color: rgba(245, 245, 220, 0.4); }
+        .feedback-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+        .feedback-cancel {
+            font-size: 0.6875rem;
+            color: rgba(245, 245, 220, 0.4);
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+        .feedback-cancel:hover { color: rgba(245, 245, 220, 0.7); }
+        .feedback-submit {
+            background: #2d2828;
+            border: 1px solid rgba(234, 255, 196, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.6875rem;
+            color: #eaffc4;
+            cursor: pointer;
+            opacity: 0.4;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .feedback-submit:not(:disabled):hover { opacity: 0.8; background: rgba(234, 255, 196, 0.1); }
+        .feedback-submit:disabled { cursor: not-allowed; }
+        .feedback-complete {
+            display: none;
+            font-size: 0.6875rem;
+            color: rgba(245, 245, 220, 0.5);
+            font-style: italic;
+        }
+        .feedback-complete.visible { display: flex; align-items: center; gap: 0.5rem; }
 
         /* Context Indicator */
         .context-indicator {
@@ -126,17 +255,24 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             border: 1px solid rgba(234, 255, 196, 0.2);
             color: #eaffc4;
             padding: 0.6rem 1.25rem;
-            border-radius: 100px;
+            border-radius: var(--radius-full);
             font-size: 0.875rem;
             font-weight: 400;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all var(--duration-fast) var(--ease-out);
             font-family: inherit;
+            min-height: 44px;
         }
         .prompt-btn:hover {
             background: rgba(234, 255, 196, 0.15);
             border-color: rgba(234, 255, 196, 0.4);
             transform: translateY(-1px);
+            transition-duration: var(--duration-normal);
+            transition-timing-function: var(--ease-in-out);
+        }
+        .prompt-btn:active {
+            transform: translateY(0);
+            background: rgba(234, 255, 196, 0.2);
         }
 
         /* Context Input */
@@ -236,7 +372,12 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             max-height: 150px;
             transition: all 0.3s;
         }
-        .input-field:focus { outline: none; border-color: rgba(234, 255, 196, 0.4); background: rgba(245, 245, 220, 0.05); }
+        .input-field:focus {
+            outline: 2px solid rgba(234, 255, 196, 0.6);
+            outline-offset: 2px;
+            border-color: rgba(234, 255, 196, 0.4);
+            background: rgba(245, 245, 220, 0.05);
+        }
         .input-field::placeholder { color: rgba(245, 245, 220, 0.35); }
         .input-field:disabled { opacity: 0.5; cursor: not-allowed; }
 
@@ -245,15 +386,105 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             border: none;
             color: #2d2828;
             padding: 1rem 1.75rem;
-            border-radius: 12px;
+            border-radius: var(--radius-md);
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all var(--duration-fast) var(--ease-out);
             font-family: inherit;
+            position: relative;
         }
-        .send-btn:hover:not(:disabled) { background: #d4f0a8; transform: translateY(-2px); }
+        .send-btn:hover:not(:disabled) {
+            background: #d4f0a8;
+            transform: translateY(-2px);
+            transition-duration: var(--duration-normal);
+            transition-timing-function: var(--ease-in-out);
+        }
+        .send-btn:active:not(:disabled) {
+            transform: translateY(0);
+            background: #c5e090;
+        }
         .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .send-btn.loading { color: transparent; }
+        .send-btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #2d2828;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #eaffc4;
+            color: #2d2828;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            z-index: 9999;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Tablet (portrait) */
+        @media (min-width: 640px) and (max-width: 768px) {
+            .chat-wrapper { max-width: 600px; }
+            .message.sova .message-content { font-size: 1.0625rem; }
+            .prompt-btn {
+                padding: 0.7rem 1.5rem;
+                min-height: 44px;
+            }
+        }
+
+        /* Touch device enhancements */
+        @media (hover: none) and (pointer: coarse) {
+            .prompt-btn,
+            .send-btn,
+            .context-toggle,
+            .context-file-label {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            .prompt-btn:hover,
+            .send-btn:hover,
+            .bird-icon:hover {
+                transform: none;
+            }
+        }
+
+        /* Landscape mobile improvements */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .chat-section { padding: 1rem 0 10rem 0; }
+            .input-area { padding: 0.75rem 1.25rem; }
+            .input-field { max-height: 80px; }
+        }
 
         /* Mobile */
         @media (max-width: 768px) {
@@ -267,6 +498,8 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
     </style>
 </head>
 <body>
+    <a href="#userInput" class="skip-link">Skip to chat input</a>
+    <div aria-live="polite" aria-atomic="true" class="sr-only" id="srAnnounce"></div>
     <header>
         <div class="container">
             <div class="header-content">
@@ -285,7 +518,7 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
     <div class="input-area">
         <div class="context-section">
-            <button class="context-toggle" onclick="toggleContextInputs()">+ Add context (website or document)</button>
+            <button class="context-toggle" onclick="toggleContextInputs()">+ Add context about your business</button>
             <div class="context-inputs" id="contextInputs">
                 <input type="url" class="context-input-field" id="websiteUrl" placeholder="Your website URL (optional)">
                 <div>
@@ -295,12 +528,12 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                     <input type="file" class="context-file-input" id="documentUpload" accept=".txt,.doc,.docx,.pdf" onchange="handleFileUpload(event)">
                     <div class="context-file-status" id="fileStatus"></div>
                 </div>
-                <p class="context-privacy">This information stays in our conversation and isn't stored.</p>
+                <p class="context-privacy">Your information stays private and isn't stored anywhere.</p>
             </div>
         </div>
         <div class="input-wrapper">
-            <textarea class="input-field" id="userInput" placeholder="Describe your challenge..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
-            <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+            <textarea class="input-field" id="userInput" placeholder="What's your main challenge right now?" rows="1" onkeydown="handleKeyDown(event)"></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()">Ask Sova</button>
         </div>
     </div>
 
@@ -320,6 +553,15 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
         let conversationHistory = [];
         let knowledgeBase = null;
+        let conversationState = {
+            phase: 'greeting',
+            diagnosticCount: 0,
+            userStage: null,
+            userElement: null,
+            rootCause: null,
+            hasGivenRecommendation: false
+        };
+        let fallbackAttempts = 0;
 
         const CHAT_API_URL = '/.netlify/functions/claude-chat';
 
@@ -342,95 +584,245 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                 <p>I help Australian founders diagnose business challenges and find practical solutions.</p>
                 <p>Right now, I can provide research-backed insights on these 4 foundational elements:</p>
                 <ul>
-                    <li><strong>Governance</strong> — Structure, roles, decision-making, accountability</li>
-                    <li><strong>Purpose</strong> — Mission, values, differentiation, why you exist</li>
-                    <li><strong>Strategy</strong> — Direction, positioning, competitive edge, planning</li>
-                    <li><strong>Marketing</strong> — Customer acquisition, messaging, growth, retention</li>
+                    <li><strong>Governance</strong>: Structure, roles, decision-making, accountability</li>
+                    <li><strong>Purpose</strong>: Mission, values, differentiation, why you exist</li>
+                    <li><strong>Strategy</strong>: Direction, positioning, competitive edge, planning</li>
+                    <li><strong>Marketing</strong>: Customer acquisition, messaging, growth, retention</li>
                 </ul>
                 <p><em>More elements (Finance, People, Process, Technology, Performance) launching February 2026.</em></p>
                 <p>What's your main challenge?</p>`;
-            addSovaMessage(greeting, false); // Don't extract buttons from greeting
+            addSovaMessage(greeting, false);
+            announceToScreenReader('Sova chatbot ready');
+        }
+
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
+
+        function announceToScreenReader(message) {
+            const announcer = document.getElementById('srAnnounce');
+            if (announcer) {
+                announcer.textContent = message;
+                setTimeout(() => {
+                    announcer.textContent = '';
+                }, 1000);
+            }
+        }
+
+        function detectUserIntent(message) {
+            const intents = {
+                funding: /\b(fund|grant|money|capital|investor|cash|raise)\b/i,
+                customers: /\b(customer|client|lead|sale|revenue|market)\b/i,
+                team: /\b(team|hire|cofounder|partner|staff)\b/i,
+                product: /\b(product|build|feature|develop|mvp)\b/i,
+                strategy: /\b(strategy|direction|pivot|focus|position)\b/i,
+                validation: /\b(valid|test|proof|research|interview)\b/i
+            };
+
+            const detected = [];
+            for (const [intent, pattern] of Object.entries(intents)) {
+                if (pattern.test(message)) {
+                    detected.push(intent);
+                }
+            }
+
+            return detected;
+        }
+
+        function getErrorMessage(error, response) {
+            if (!navigator.onLine) {
+                return {
+                    message: "You've lost internet connection. Check your connection and try again.",
+                    retry: true
+                };
+            }
+
+            if (response?.status === 429) {
+                return {
+                    message: "Sova's getting a lot of questions right now. Wait 30 seconds and try again.",
+                    retry: true,
+                    wait: 30
+                };
+            }
+
+            if (response?.status === 500) {
+                return {
+                    message: "Something's not working on our end. Try the self-assessment instead while we fix this.",
+                    action: {
+                        text: "Take the assessment",
+                        url: "assessment-tool.html"
+                    }
+                };
+            }
+
+            return {
+                message: "Something went wrong. Try rephrasing your question, or use the self-assessment.",
+                action: {
+                    text: "Take the assessment",
+                    url: "assessment-tool.html"
+                }
+            };
+        }
+
+        function getFallbackMessage(level) {
+            const fallbacks = {
+                1: {
+                    message: "I'm not quite sure I understood. Are you asking about getting customers, or about your business structure?",
+                    options: ["Getting customers", "Business structure", "Something else"]
+                },
+                2: {
+                    message: "Let me show you what I can help with:",
+                    options: [
+                        "Finding the right strategy",
+                        "Getting more customers",
+                        "Understanding what's broken",
+                        "Finding Australian resources"
+                    ]
+                },
+                3: {
+                    message: "I think I might not be the best fit for this question. Would you like to try the self-assessment instead? It can help identify exactly what needs attention.",
+                    options: ["Take the assessment", "Try rephrasing my question"]
+                }
+            };
+
+            return fallbacks[level] || fallbacks[3];
         }
 
         async function processUserMessage(userMessage) {
             try {
-                console.log('=== processUserMessage called ===');
-                console.log('User message:', userMessage);
+                // Detect user intents for better search
+                const userIntents = detectUserIntent(userMessage);
+                console.log('Detected intents:', userIntents);
+
+                // Update conversation state
+                if (conversationState.phase === 'diagnostic') {
+                    conversationState.diagnosticCount++;
+                }
 
                 // Get user-provided context (website/document) first
                 const userProvidedContext = getUserContext();
-                console.log('User context length:', userProvidedContext.length);
 
-                // If website/document context exists, modify the user message to force acknowledgment
-                let actualMessage = userMessage;
-                if (userProvidedContext.trim()) {
-                    actualMessage = `First, mention what you learned from my website/document about my company. Then answer this: ${userMessage}`;
+                // Add user message to conversation
+                addUserMessage(userMessage);
+                conversationHistory.push({ role: 'user', content: userMessage });
+
+                // Limit conversation history to last 10 exchanges (20 messages)
+                const MAX_HISTORY = 20;
+                if (conversationHistory.length > MAX_HISTORY) {
+                    conversationHistory = conversationHistory.slice(-MAX_HISTORY);
                 }
 
-                // Add user message (display original, send modified)
-                addUserMessage(userMessage);
-                conversationHistory.push({ role: 'user', content: actualMessage });
                 setInputEnabled(false);
                 addTypingIndicator();
 
-                // Search knowledge base for relevant context
-                const searchResults = searchKnowledgeBase(userMessage, knowledgeBase, 3);
-                const searchContext = formatSearchResults(searchResults);
+                // Search knowledge base using semantic search API
+                let searchContext = '';
+                try {
+                    const searchResponse = await fetch('/.netlify/functions/semantic-search', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ query: userMessage, limit: 5 })
+                    });
+                    if (searchResponse.ok) {
+                        const searchData = await searchResponse.json();
+                        searchContext = searchData.formatted || '';
+                        console.log(`[Search] ${searchData.meta?.searchMethod || 'unknown'}: ${searchData.meta?.returned?.context || 0} chunks, ${searchData.meta?.returned?.tools || 0} tools`);
+                    } else {
+                        // Fallback to local keyword search
+                        console.warn('[Search] API failed, using keyword fallback');
+                        const searchResults = searchKnowledgeBase(userMessage, knowledgeBase, 3);
+                        searchContext = formatSearchResults(searchResults);
+                    }
+                } catch (searchError) {
+                    // Fallback to local keyword search
+                    console.warn('[Search] Error, using keyword fallback:', searchError.message);
+                    const searchResults = searchKnowledgeBase(userMessage, knowledgeBase, 3);
+                    searchContext = formatSearchResults(searchResults);
+                }
 
                 // Combine all context
                 const fullContext = userProvidedContext + searchContext;
 
                 // Build system prompt with context
-                const systemPrompt = buildSystemPrompt({ additionalContext: fullContext });
+                // Pass isNewContext flag so Claude knows to acknowledge new context
+                const hasContext = userContext.website || userContext.document;
+                const isNewContext = hasContext && !userContext.contextAcknowledged;
 
-                // DEBUG: Log what we're sending
-                console.log('=== SYSTEM PROMPT BEING SENT TO CLAUDE ===');
-                console.log(systemPrompt.substring(0, 1000));
-                console.log('...');
-                console.log('=== END SYSTEM PROMPT ===');
+                // DEBUG: Log context state
+                console.log('=== CONTEXT DEBUG ===');
+                console.log('userContext.website:', userContext.website ? userContext.website.url : 'null');
+                console.log('userContext.document:', userContext.document ? userContext.document.name : 'null');
+                console.log('userContext.contextAcknowledged:', userContext.contextAcknowledged);
+                console.log('hasContext:', hasContext);
+                console.log('isNewContext:', isNewContext);
+
+                const systemPrompt = buildSystemPrompt({
+                    additionalContext: fullContext,
+                    isNewContext: isNewContext
+                });
+
+                // DEBUG: Check if mandatory instruction is at the start
+                console.log('System prompt starts with MANDATORY:', systemPrompt.startsWith('<MANDATORY'));
+                console.log('System prompt first 200 chars:', systemPrompt.substring(0, 200));
 
                 // Call Claude API
-                console.log('About to call Claude API...');
                 const aiResponse = await callClaude(systemPrompt);
-                console.log('Received response from Claude:', aiResponse.substring(0, 100));
 
                 // Display response
                 removeTypingIndicator();
                 const cleanedResponse = formatMarkdown(aiResponse);
-                addSovaMessage(cleanedResponse, false); // No button extraction
+                addSovaMessage(cleanedResponse, false);
                 conversationHistory.push({ role: 'assistant', content: aiResponse });
+
+                // Mark context as acknowledged after successful response
+                if (isNewContext) {
+                    userContext.contextAcknowledged = true;
+                }
+
+                // Update state after response
+                if (conversationState.diagnosticCount >= 3) {
+                    conversationState.phase = 'recommendation';
+                    conversationState.hasGivenRecommendation = true;
+                }
+
+                // Reset fallback attempts on successful response
+                fallbackAttempts = 0;
+
                 setInputEnabled(true);
+                announceToScreenReader('Sova responded');
 
             } catch (error) {
-                console.error('=== processUserMessage ERROR ===');
                 console.error('Error:', error);
-                console.error('Error type:', error.constructor.name);
-                console.error('Error message:', error.message);
-                console.error('Stack trace:', error.stack);
                 removeTypingIndicator();
-                addSovaMessage('<p>Something went wrong. Please try again.</p>');
+
+                // Use enhanced error messaging
+                const errorInfo = getErrorMessage(error, error.response);
+                let errorHTML = `<p>${errorInfo.message}</p>`;
+
+                if (errorInfo.action) {
+                    errorHTML += `<p><a href="${errorInfo.action.url}" style="color: #eaffc4; text-decoration: underline;">${errorInfo.action.text}</a></p>`;
+                }
+
+                addSovaMessage(errorHTML);
+                announceToScreenReader('Error: ' + errorInfo.message);
                 setInputEnabled(true);
             }
         }
 
         async function callClaude(systemPrompt) {
             try {
-                console.log('callClaude: Building request body...');
                 const requestBody = {
                     system: systemPrompt,
                     messages: conversationHistory,
                     max_tokens: 800,
                     temperature: 1.0
                 };
-                console.log('callClaude: Request body size:', JSON.stringify(requestBody).length, 'chars');
 
-                console.log('callClaude: Making fetch request to', CHAT_API_URL);
                 const response = await fetch(CHAT_API_URL, {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(requestBody)
                 });
-                console.log('callClaude: Fetch completed, status:', response.status);
 
                 if (!response.ok) {
                     throw new Error(`API error: ${response.status}`);
@@ -440,9 +832,7 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                 return data.content[0].text;
 
             } catch (error) {
-                console.error('callClaude ERROR:', error);
-                console.error('Error type:', error.constructor.name);
-                console.error('Error message:', error.message);
+                console.error('Claude API error:', error);
                 throw error;
             }
         }
@@ -507,10 +897,14 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         // UI FUNCTIONS
         // ============================================
 
+        let messageCounter = 0;
+
         function addSovaMessage(content, extractButtons = true) {
             const messagesArea = document.getElementById('messagesArea');
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message sova';
+            const messageId = `msg-${messageCounter++}`;
+            messageDiv.setAttribute('data-message-id', messageId);
 
             // Create message content
             const contentDiv = document.createElement('div');
@@ -536,6 +930,34 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                     });
                     messageDiv.appendChild(buttonsDiv);
                 }
+
+                // Add feedback UI for non-greeting messages
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.className = 'message-feedback';
+                feedbackDiv.innerHTML = `
+                    <div class="message-feedback-default" id="feedback-default-${messageId}" onclick="expandFeedback('${messageId}')">
+                        <button class="feedback-btn" id="thumb-up-${messageId}" onclick="event.stopPropagation(); selectFeedbackRating('${messageId}', 'up')">&#128077;</button>
+                        <button class="feedback-btn" id="thumb-down-${messageId}" onclick="event.stopPropagation(); selectFeedbackRating('${messageId}', 'down')">&#128078;</button>
+                    </div>
+                    <div class="message-feedback-expanded" id="feedback-expanded-${messageId}">
+                        <div class="feedback-row">
+                            <span class="feedback-prompt">Was this helpful?</span>
+                            <button class="feedback-btn" id="thumb-up-exp-${messageId}" onclick="selectFeedbackRating('${messageId}', 'up')">&#128077;</button>
+                            <button class="feedback-btn" id="thumb-down-exp-${messageId}" onclick="selectFeedbackRating('${messageId}', 'down')">&#128078;</button>
+                        </div>
+                        <div class="feedback-row">
+                            <input type="text" class="feedback-notes" id="notes-${messageId}" placeholder="Tell us more (optional)">
+                            <div class="feedback-actions">
+                                <button class="feedback-cancel" onclick="collapseFeedback('${messageId}')">Cancel</button>
+                                <button class="feedback-submit" id="submit-${messageId}" onclick="submitFeedback('${messageId}')" disabled>Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback-complete" id="feedback-complete-${messageId}">
+                        <span>Thanks for your feedback</span>
+                    </div>
+                `;
+                messageDiv.appendChild(feedbackDiv);
             }
 
             messagesArea.appendChild(messageDiv);
@@ -631,9 +1053,13 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message sova';
             typingDiv.id = 'typingIndicator';
-            typingDiv.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+            typingDiv.innerHTML = `
+                <div class="typing-indicator"><span></span><span></span><span></span></div>
+                <p style="font-size: 0.875rem; color: rgba(234, 255, 196, 0.5); margin-top: 0.5rem;">Sova is thinking...</p>
+            `;
             messagesArea.appendChild(typingDiv);
             scrollToBottom();
+            announceToScreenReader('Sova is thinking');
         }
 
         function removeTypingIndicator() {
@@ -658,8 +1084,12 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
 
         function sendMessage() {
             const input = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
             const message = input.value.trim();
             if (!message) return;
+
+            // Add loading state to button
+            sendBtn.classList.add('loading');
 
             input.value = '';
             input.style.height = 'auto';
@@ -670,13 +1100,23 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                 contextInputs.classList.remove('visible');
             }
 
+            // Start diagnostic phase if this is the first message
+            if (conversationHistory.length === 0) {
+                conversationState.phase = 'diagnostic';
+            }
+
             processUserMessage(message);
         }
 
         function setInputEnabled(enabled) {
-            document.getElementById('userInput').disabled = !enabled;
-            document.getElementById('sendBtn').disabled = !enabled;
-            if (enabled) document.getElementById('userInput').focus();
+            const sendBtn = document.getElementById('sendBtn');
+            const userInput = document.getElementById('userInput');
+
+            sendBtn.classList.remove('loading');
+            userInput.disabled = !enabled;
+            sendBtn.disabled = !enabled;
+
+            if (enabled) userInput.focus();
         }
 
         function escapeHtml(text) {
@@ -705,7 +1145,8 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         let userContext = {
             website: null,
             document: null,
-            lastShownContext: null  // Track what context we've already shown
+            lastShownContext: null,  // Track what context we've already shown
+            contextAcknowledged: true  // Track if Claude has acknowledged the context
         };
 
         function toggleContextInputs() {
@@ -726,6 +1167,7 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
                     name: file.name,
                     content: text.substring(0, 10000) // Limit to 10k chars
                 };
+                userContext.contextAcknowledged = false;  // New context needs acknowledgment
                 statusEl.textContent = `✓ ${file.name} ready`;
                 console.log('Document context loaded:', file.name);
             } catch (error) {
@@ -738,35 +1180,61 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
         async function fetchWebsiteContext() {
             const urlInput = document.getElementById('websiteUrl');
             const url = urlInput.value.trim();
-
             if (!url) return;
+
+            // Add loading state
+            const originalValue = url;
+            urlInput.style.borderColor = 'rgba(234, 255, 196, 0.4)';
+            urlInput.disabled = true;
+            urlInput.value = 'Loading...';
 
             try {
                 console.log('Fetching website:', url);
                 const response = await fetch('/.netlify/functions/fetch-website', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url })
+                    body: JSON.stringify({ url: originalValue })
                 });
 
                 if (!response.ok) throw new Error('Failed to fetch website');
 
                 const data = await response.json();
+                const websiteContent = data.content || data.text || '';
                 userContext.website = {
-                    url: url,
-                    content: data.text || data.content || ''
+                    url: originalValue,
+                    content: websiteContent
                 };
+                console.log('Website content received:', websiteContent.substring(0, 200) + '...');
+                userContext.contextAcknowledged = false;  // New context needs acknowledgment
 
-                // Visual feedback
-                urlInput.style.borderColor = 'rgba(234, 255, 196, 0.5)';
-                console.log('Website context loaded:', url);
+                // Success feedback - keep URL visible with checkmark
+                urlInput.value = '✓ ' + originalValue;
+                urlInput.style.borderColor = 'rgba(184, 215, 143, 0.6)';
+                urlInput.style.background = 'rgba(184, 215, 143, 0.1)';
+                urlInput.disabled = false;
+                console.log('Website context loaded:', originalValue, 'Content length:', userContext.website.content.length);
+
 
             } catch (error) {
                 console.error('Website fetch error:', error);
+
+                // Error feedback
+                urlInput.value = '✗ Could not load website';
+                urlInput.style.borderColor = 'rgba(239, 68, 68, 0.6)';
+                urlInput.style.background = 'rgba(239, 68, 68, 0.1)';
+
                 userContext.website = {
-                    url: url,
-                    content: `Website URL: ${url}`
+                    url: originalValue,
+                    content: `Website URL: ${originalValue}`
                 };
+                userContext.contextAcknowledged = false;  // New context needs acknowledgment
+
+                setTimeout(() => {
+                    urlInput.value = originalValue;
+                    urlInput.style.borderColor = '';
+                    urlInput.style.background = '';
+                    urlInput.disabled = false;
+                }, 3000);
             }
         }
 
@@ -805,6 +1273,210 @@ Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
             if (userContext.website) parts.push(`Website: ${userContext.website.url}`);
             if (userContext.document) parts.push(`Document: ${userContext.document.name}`);
             return parts.length > 0 ? parts.join(' • ') : null;
+        }
+
+        // Show persistent indicator that context is loaded
+        function showContextLoaded() {
+            // Remove existing indicator if any
+            const existing = document.getElementById('contextLoadedIndicator');
+            if (existing) existing.remove();
+
+            const summary = getContextSummary();
+            if (!summary) return;
+
+            // Create indicator element
+            const indicator = document.createElement('div');
+            indicator.id = 'contextLoadedIndicator';
+            indicator.style.cssText = `
+                background: rgba(184, 215, 143, 0.15);
+                border: 1px solid rgba(184, 215, 143, 0.3);
+                border-radius: 8px;
+                padding: 0.5rem 0.75rem;
+                margin-bottom: 0.75rem;
+                font-size: 0.8125rem;
+                color: rgba(184, 215, 143, 0.9);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            `;
+            indicator.innerHTML = `
+                <span style="color: #b8d78f;">✓</span>
+                <span>Context loaded: ${summary}</span>
+                <button onclick="clearContext()" style="
+                    margin-left: auto;
+                    background: none;
+                    border: none;
+                    color: rgba(184, 215, 143, 0.6);
+                    cursor: pointer;
+                    font-size: 0.75rem;
+                    padding: 0.25rem;
+                ">Clear</button>
+            `;
+
+            // Insert before input wrapper
+            const inputWrapper = document.querySelector('.input-wrapper');
+            inputWrapper.parentNode.insertBefore(indicator, inputWrapper);
+        }
+
+        // Clear loaded context
+        function clearContext() {
+            userContext.website = null;
+            userContext.document = null;
+            userContext.contextAcknowledged = true;
+
+            // Remove indicator
+            const indicator = document.getElementById('contextLoadedIndicator');
+            if (indicator) indicator.remove();
+
+            // Reset URL input
+            const urlInput = document.getElementById('websiteUrl');
+            if (urlInput) {
+                urlInput.value = '';
+                urlInput.style.borderColor = '';
+                urlInput.style.background = '';
+            }
+
+            // Reset file status
+            const fileStatus = document.getElementById('fileStatus');
+            if (fileStatus) fileStatus.textContent = '';
+
+            console.log('Context cleared');
+        }
+
+        // ============================================
+        // FEEDBACK FUNCTIONS
+        // ============================================
+
+        let pendingFeedbackRatings = {};
+
+        function expandFeedback(messageId) {
+            const defaultEl = document.getElementById(`feedback-default-${messageId}`);
+            const expandedEl = document.getElementById(`feedback-expanded-${messageId}`);
+            if (defaultEl) defaultEl.style.display = 'none';
+            if (expandedEl) expandedEl.classList.add('visible');
+        }
+
+        function collapseFeedback(messageId) {
+            const defaultEl = document.getElementById(`feedback-default-${messageId}`);
+            const expandedEl = document.getElementById(`feedback-expanded-${messageId}`);
+            if (defaultEl) defaultEl.style.display = 'flex';
+            if (expandedEl) expandedEl.classList.remove('visible');
+
+            // Reset rating selection
+            const thumbUp = document.getElementById(`thumb-up-exp-${messageId}`);
+            const thumbDown = document.getElementById(`thumb-down-exp-${messageId}`);
+            if (thumbUp) thumbUp.classList.remove('selected');
+            if (thumbDown) thumbDown.classList.remove('selected');
+
+            // Reset submit button
+            const submitBtn = document.getElementById(`submit-${messageId}`);
+            if (submitBtn) submitBtn.disabled = true;
+
+            // Clear pending rating
+            delete pendingFeedbackRatings[messageId];
+        }
+
+        function selectFeedbackRating(messageId, rating) {
+            // Expand if not already expanded
+            expandFeedback(messageId);
+
+            const thumbUp = document.getElementById(`thumb-up-exp-${messageId}`);
+            const thumbDown = document.getElementById(`thumb-down-exp-${messageId}`);
+            const submitBtn = document.getElementById(`submit-${messageId}`);
+
+            // Reset both
+            if (thumbUp) thumbUp.classList.remove('selected');
+            if (thumbDown) thumbDown.classList.remove('selected');
+
+            // Highlight selected
+            if (rating === 'up' && thumbUp) {
+                thumbUp.classList.add('selected');
+            } else if (rating === 'down' && thumbDown) {
+                thumbDown.classList.add('selected');
+            }
+
+            // Store pending rating
+            pendingFeedbackRatings[messageId] = rating;
+
+            // Enable submit button
+            if (submitBtn) submitBtn.disabled = false;
+        }
+
+        function submitFeedback(messageId) {
+            const rating = pendingFeedbackRatings[messageId];
+            if (!rating) return;
+
+            const notesField = document.getElementById(`notes-${messageId}`);
+            const notes = notesField ? notesField.value : '';
+            const submittedAt = new Date().toISOString();
+
+            // Get the message content for context
+            const messageEl = document.querySelector(`[data-message-id="${messageId}"]`);
+            const messageContent = messageEl ? messageEl.querySelector('.message-content').textContent.substring(0, 200) : '';
+
+            // Submit to Google Form (same pattern as Assessment tool)
+            submitFeedbackToForm(messageId, rating, notes, messageContent, submittedAt);
+
+            // Hide expanded view and show complete message
+            const expandedEl = document.getElementById(`feedback-expanded-${messageId}`);
+            const defaultEl = document.getElementById(`feedback-default-${messageId}`);
+            const completeEl = document.getElementById(`feedback-complete-${messageId}`);
+
+            if (expandedEl) expandedEl.classList.remove('visible');
+            if (defaultEl) defaultEl.style.display = 'none';
+            if (completeEl) completeEl.classList.add('visible');
+
+            // Clear pending rating
+            delete pendingFeedbackRatings[messageId];
+
+            console.log('Feedback submitted:', { messageId, rating, notes });
+        }
+
+        function submitFeedbackToForm(messageId, rating, notes, messageContent, submittedAt) {
+            // Get or create session ID (same pattern as Assessment tool)
+            let sessionId = sessionStorage.getItem('sovaSessionId');
+            if (!sessionId) {
+                sessionId = 'session-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('sovaSessionId', sessionId);
+            }
+
+            // Use same Google Form as Assessment tool
+            const formId = '1FAIpQLSdTOWZGqVoKqIFkO4OHDHESNTPDlua9InbfHPkZYJqQ9el9eg';
+            const entryIds = {
+                sessionId: '692417882',
+                element: '1977777150',      // Using for context (Chatbot)
+                stage: '1690374263',        // Using for conversation phase
+                question: '1219793943',     // Using for message content
+                rating: '2045483238',
+                feedback: '62288543',
+                assessmentMode: '415723265', // Key differentiator: "chatbot"
+                completedAt: '1029134294'
+            };
+
+            // Build form data
+            const formData = new URLSearchParams();
+            formData.append(`entry.${entryIds.sessionId}`, sessionId);
+            formData.append(`entry.${entryIds.element}`, 'Chatbot');
+            formData.append(`entry.${entryIds.stage}`, conversationState.phase || 'unknown');
+            formData.append(`entry.${entryIds.question}`, messageContent || 'No content');
+            formData.append(`entry.${entryIds.rating}`, rating === 'up' ? 'Helpful' : 'Needs work');
+            formData.append(`entry.${entryIds.feedback}`, notes || '');
+            formData.append(`entry.${entryIds.assessmentMode}`, 'Chatbot');
+            formData.append(`entry.${entryIds.completedAt}`, submittedAt);
+
+            // Submit via fetch (fire and forget)
+            fetch(`https://docs.google.com/forms/d/e/${formId}/formResponse`, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
+            }).then(() => {
+                console.log('Chatbot feedback submitted to Google Form');
+            }).catch(err => {
+                console.warn('Feedback submission failed (may still have succeeded):', err);
+            });
         }
     </script>
 </body>

@@ -13,9 +13,25 @@ const url = require('url');
 try {
     const dotenv = fs.readFileSync('.env', 'utf8');
     dotenv.split('\n').forEach(line => {
-        const [key, value] = line.split('=');
-        if (key && value) {
-            process.env[key.trim()] = value.trim().replace(/^["']|["']$/g, '');
+        // Skip empty lines and comments
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return;
+
+        // Split on first = only
+        const equalIndex = trimmed.indexOf('=');
+        if (equalIndex === -1) return;
+
+        const key = trimmed.substring(0, equalIndex).trim();
+        let value = trimmed.substring(equalIndex + 1).trim();
+
+        // Remove surrounding quotes if present
+        if ((value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))) {
+            value = value.slice(1, -1);
+        }
+
+        if (key) {
+            process.env[key] = value;
         }
     });
 } catch (e) {
@@ -88,6 +104,36 @@ async function handleClaudeChatFunction(req) {
                 });
             } catch (error) {
                 console.error('Claude chat function error:', error);
+                resolve({
+                    statusCode: 500,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ error: error.message })
+                });
+            }
+        });
+    });
+}
+
+async function handleClaudeChatV2Function(req) {
+    return new Promise((resolve) => {
+        let body = '';
+        req.on('data', chunk => { body += chunk.toString(); });
+        req.on('end', async () => {
+            try {
+                const claudeChatV2Function = require('./netlify/functions/claude-chat-v2.js');
+                const result = await claudeChatV2Function.handler({
+                    httpMethod: 'POST',
+                    headers: req.headers,
+                    body: body
+                });
+
+                resolve({
+                    statusCode: result.statusCode,
+                    headers: result.headers || { 'Content-Type': 'application/json' },
+                    body: result.body
+                });
+            } catch (error) {
+                console.error('Claude chat v2 function error:', error);
                 resolve({
                     statusCode: 500,
                     headers: { 'Content-Type': 'application/json' },
@@ -190,6 +236,14 @@ const server = http.createServer(async (req, res) => {
         return;
     }
 
+    if (pathname === '/.netlify/functions/claude-chat-v2') {
+        console.log('🤖 Chat request (Claude v2)');
+        const result = await handleClaudeChatV2Function(req);
+        res.writeHead(result.statusCode, result.headers);
+        res.end(result.body);
+        return;
+    }
+
     if (pathname === '/.netlify/functions/semantic-search') {
         console.log('🔍 Search request');
         const result = await handleSemanticSearchFunction(req);
@@ -234,12 +288,12 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
     console.log('🦉 Sova Local Development Server');
     console.log(`📡 Running on: http://localhost:${PORT}`);
-    console.log(`🔑 Using API key: ${process.env.GEMINI_API_KEY ? '✓ Set' : '✗ Not set'}`);
+    console.log(`🔑 Claude API key: ${process.env.CLAUDE_API_KEY ? '✓ Set' : '✗ Not set'}`);
 
-    if (!process.env.GEMINI_API_KEY) {
+    if (!process.env.CLAUDE_API_KEY) {
         console.log();
-        console.log('⚠️  WARNING: API key not set!');
-        console.log('   Set it with: export GEMINI_API_KEY="your-key-here"');
+        console.log('⚠️  WARNING: CLAUDE_API_KEY not set!');
+        console.log('   Set it with: export CLAUDE_API_KEY="your-key-here"');
         console.log('   Or add to .env file');
         console.log();
     }

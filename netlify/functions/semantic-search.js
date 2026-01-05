@@ -1,200 +1,292 @@
 /**
- * Sova Semantic Search v2.0
- * Retrieves relevant tools/quotes from knowledge base
- * Phase 1: Keyword + filter matching (simple, fast)
- * Phase 2: Embeddings-based semantic search (upgrade later)
+ * Sova Semantic Search v4.0
+ * Uses OpenAI text-embedding-3-small for semantic similarity
  */
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 
-// Load knowledge base (cached at function cold start)
+// Load knowledge base and embeddings (cached at function cold start)
 let knowledgeBase = null;
+let embeddings = null;
+let useEmbeddings = false;
 
 function loadKnowledgeBase() {
     if (!knowledgeBase) {
-        // In Netlify Functions, need to go up to the project root
-        // __dirname is in .netlify/functions/semantic-search/
-        // Knowledge base is at project root
-        const kbPath = path.join(__dirname, '..', '..', '..', 'sova-knowledge-base.json');
+        // Try multiple paths for Netlify compatibility
+        const paths = [
+            path.join(__dirname, '../../sova-knowledge-base.json'),
+            '/var/task/sova-knowledge-base.json',
+            './sova-knowledge-base.json'
+        ];
 
-        // Fallback: try reading from common locations
-        let raw;
-        try {
-            raw = fs.readFileSync(kbPath, 'utf8');
-        } catch (e) {
-            // Try alternative path (deployment root)
-            const altPath = '/var/task/sova-knowledge-base.json';
+        for (const p of paths) {
             try {
-                raw = fs.readFileSync(altPath, 'utf8');
-            } catch (e2) {
-                // Last resort: try current directory
-                raw = fs.readFileSync('./sova-knowledge-base.json', 'utf8');
+                knowledgeBase = JSON.parse(fs.readFileSync(p, 'utf8'));
+                console.log('Loaded KB from:', p);
+                break;
+            } catch (e) {
+                continue;
             }
         }
-
-        knowledgeBase = JSON.parse(raw);
     }
     return knowledgeBase;
 }
 
-/**
- * Score a tool's relevance to the query
- */
-function scoreToolRelevance(tool, query, filters) {
-    let score = 0;
-    const queryLower = query.toLowerCase();
-    const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3);  // Filter short words
+function loadEmbeddings() {
+    if (embeddings === null) {
+        const paths = [
+            path.join(__dirname, '../../sova-embeddings.json'),
+            '/var/task/sova-embeddings.json',
+            './sova-embeddings.json'
+        ];
 
-    // 1. Element match (highest priority)
-    if (filters.element && tool.element === filters.element) {
-        score += 50;
-    }
-
-    // 2. Name/description keyword match
-    const toolText = `${tool.name} ${tool.description || ''} ${tool.sovaContext || ''}`.toLowerCase();
-
-    // Exact phrase match in name
-    if (tool.name.toLowerCase().includes(queryLower)) {
-        score += 30;
-    }
-
-    // Keyword matches in tool text
-    for (const word of queryWords) {
-        if (toolText.includes(word)) {
-            score += 5;
-        }
-    }
-
-    // 3. Stage appropriateness (medium priority)
-    // Note: Most tools don't have explicit stage tags yet, so this is future enhancement
-    // For now, certain tools are known to be stage-specific
-    if (filters.stage) {
-        const stageKeywords = {
-            Discovery: ['lean canvas', 'customer interview', 'mom test', 'assumption', 'validation', 'mvp'],
-            Validation: ['metrics', 'analytics', 'test', 'experiment', 'pivot', 'okr'],
-            Efficiency: ['process', 'automation', 'efficiency', 'optimization', 'kanban', 'workflow'],
-            Scale: ['governance', 'delegation', 'system', 'framework', 'structure', 'policy']
-        };
-
-        const stageWords = stageKeywords[filters.stage] || [];
-        for (const word of stageWords) {
-            if (toolText.includes(word)) {
-                score += 3;
+        for (const p of paths) {
+            try {
+                embeddings = JSON.parse(fs.readFileSync(p, 'utf8'));
+                useEmbeddings = true;
+                console.log('Loaded embeddings from:', p, '- chunks:', embeddings.chunks.length);
+                break;
+            } catch (e) {
+                continue;
             }
         }
-    }
 
-    // 4. Intent match (if provided)
-    if (filters.intent) {
-        const intentKeywords = {
-            cash_flow_problem: ['cash', 'finance', 'budget', 'forecast', 'runway', 'pricing'],
-            customer_acquisition: ['customer', 'marketing', 'sales', 'acquisition', 'value proposition', 'segment'],
-            strategic_clarity: ['strategy', 'lean canvas', 'business model', 'swot', 'vision', 'mission'],
-            team_performance: ['team', 'people', 'culture', 'hire', 'raci', 'role', 'accountability']
-        };
-
-        const intentWords = intentKeywords[filters.intent] || [];
-        for (const word of intentWords) {
-            if (toolText.includes(word)) {
-                score += 4;
-            }
+        if (!embeddings) {
+            console.log('Embeddings not available, using keyword search');
+            embeddings = false;
+            useEmbeddings = false;
         }
     }
-
-    // 5. Bonus for having URL (complete/actionable tool)
-    if (tool.url && tool.url.trim()) {
-        score += 2;
-    }
-
-    return score;
+    return embeddings;
 }
 
 /**
- * Score a quote's relevance to the query
+ * Calculate cosine similarity between two vectors
  */
-function scoreQuoteRelevance(quote, query, filters) {
-    let score = 0;
+function cosineSimilarity(vecA, vecB) {
+    if (vecA.length !== vecB.length) return 0;
+
+    let dotProduct = 0;
+    let normA = 0;
+    let normB = 0;
+
+    for (let i = 0; i < vecA.length; i++) {
+        dotProduct += vecA[i] * vecB[i];
+        normA += vecA[i] * vecA[i];
+        normB += vecB[i] * vecB[i];
+    }
+
+    normA = Math.sqrt(normA);
+    normB = Math.sqrt(normB);
+
+    if (normA === 0 || normB === 0) return 0;
+
+    return dotProduct / (normA * normB);
+}
+
+/**
+ * Create query embedding using OpenAI API (text-embedding-3-small)
+ */
+async function createQueryEmbedding(query, apiKey) {
+    return new Promise((resolve, reject) => {
+        const data = JSON.stringify({
+            model: 'text-embedding-3-small',
+            input: query,
+        });
+
+        const options = {
+            hostname: 'api.openai.com',
+            path: '/v1/embeddings',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`,
+            },
+        };
+
+        const req = https.request(options, (res) => {
+            let body = '';
+            res.on('data', chunk => body += chunk);
+            res.on('end', () => {
+                if (res.statusCode !== 200) {
+                    reject(new Error(`OpenAI API error ${res.statusCode}: ${body}`));
+                    return;
+                }
+                try {
+                    const json = JSON.parse(body);
+                    resolve(json.data[0].embedding);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        });
+
+        req.on('error', reject);
+        req.write(data);
+        req.end();
+    });
+}
+
+/**
+ * Semantic search using embeddings
+ */
+async function semanticSearch(query, filters, limit, apiKey) {
+    try {
+        // Create query embedding
+        const queryEmbedding = await createQueryEmbedding(query, apiKey);
+
+        // Load embeddings
+        const emb = loadEmbeddings();
+        if (!emb || !emb.chunks) {
+            throw new Error('Embeddings not loaded');
+        }
+
+        // Calculate similarity for all chunks
+        const scoredChunks = emb.chunks.map(chunk => {
+            const similarity = cosineSimilarity(queryEmbedding, chunk.embedding);
+            return {
+                text: chunk.text,
+                source: chunk.source,
+                section: chunk.section,
+                score: similarity
+            };
+        });
+
+        // Sort by score and return top results (minimum threshold 0.25)
+        const topChunks = scoredChunks
+            .filter(chunk => chunk.score > 0.25)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit * 2);
+
+        // Extract relevant structured data from knowledge base based on chunk content
+        const kb = loadKnowledgeBase();
+        const matchedText = topChunks.map(c => c.text).join(' ').toLowerCase();
+        const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+
+        // Helper to score items by presence in semantic results + query keywords
+        const scoreItem = (text) => {
+            if (!text) return 0;
+            const lower = text.toLowerCase();
+            let score = 0;
+            if (matchedText.includes(lower.slice(0, 40))) score += 3;
+            queryWords.forEach(word => {
+                if (lower.includes(word)) score += 1;
+            });
+            return score;
+        };
+
+        // Score tools
+        const tools = (kb.tools || [])
+            .filter(tool => tool.url && tool.url !== 'null' && !tool.url.includes('d.docs.live.net'))
+            .map(tool => {
+                const score = scoreItem(tool.name) + scoreItem(tool.description);
+                return score > 0 ? { ...tool, score } : null;
+            })
+            .filter(Boolean)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit);
+
+        // Score quotes
+        const quotes = (kb.quotes || [])
+            .map(quote => {
+                const score = scoreItem(quote.quote) + scoreItem(quote.source);
+                return score > 0 ? { ...quote, score } : null;
+            })
+            .filter(Boolean)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit);
+
+        // Score directory
+        const directory = (kb.directory || [])
+            .map(entry => {
+                const score = scoreItem(entry.name) + scoreItem(entry.description) + scoreItem(entry.category);
+                return score > 0 ? { ...entry, score } : null;
+            })
+            .filter(Boolean)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit);
+
+        return {
+            quotes,
+            tools,
+            directory,
+            context: topChunks.slice(0, limit)
+        };
+
+    } catch (error) {
+        console.error('Semantic search error:', error);
+        throw error;
+    }
+}
+
+/**
+ * Keyword-based search (fallback)
+ */
+function keywordSearch(query, filters, limit) {
+    const kb = loadKnowledgeBase();
     const queryLower = query.toLowerCase();
     const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3);
 
-    // Element match
-    if (filters.element && quote.element === filters.element) {
-        score += 30;
-    }
+    // Score quotes
+    const scoredQuotes = (kb.quotes || []).map(quote => {
+        let score = 0;
 
-    // Keyword matches
-    const quoteText = quote.quote.toLowerCase();
-    for (const word of queryWords) {
-        if (quoteText.includes(word)) {
-            score += 5;
+        if (filters.element && quote.element === filters.element) {
+            score += 30;
         }
-    }
 
-    // Intent match
-    if (filters.intent) {
-        const intentKeywords = {
-            cash_flow_problem: ['cash', 'money', 'fund', 'finance', 'runway'],
-            customer_acquisition: ['customer', 'market', 'product-market fit', 'demand'],
-            strategic_clarity: ['strategy', 'direction', 'focus', 'pivot'],
-            team_performance: ['team', 'founder', 'people', 'conflict']
-        };
-
-        const intentWords = intentKeywords[filters.intent] || [];
-        for (const word of intentWords) {
-            if (quoteText.includes(word)) {
-                score += 4;
-            }
-        }
-    }
-
-    // Bonus for having URL
-    if (quote.url && quote.url.trim()) {
-        score += 2;
-    }
-
-    return score;
-}
-
-/**
- * Score directory entry relevance
- */
-function scoreDirectoryRelevance(entry, query, filters) {
-    let score = 0;
-    const queryLower = query.toLowerCase();
-
-    // Need type matching
-    const needKeywords = {
-        Funding: ['fund', 'money', 'grant', 'invest', 'capital', 'cash'],
-        Programs: ['program', 'accelerator', 'incubator', 'mentor', 'support'],
-        Advice: ['advice', 'legal', 'help', 'consult', 'guidance'],
-        Connections: ['network', 'connect', 'community', 'event', 'peer']
-    };
-
-    const entryNeedWords = needKeywords[entry.need] || [];
-    for (const word of entryNeedWords) {
-        if (queryLower.includes(word)) {
-            score += 10;
-        }
-    }
-
-    // Stage matching
-    if (filters.stage && entry.stage && entry.stage.includes(filters.stage)) {
-        score += 15;
-    }
-
-    // Description matching
-    if (entry.description) {
-        const descLower = entry.description.toLowerCase();
-        const queryWords = queryLower.split(/\s+/).filter(w => w.length > 3);
+        const quoteText = quote.quote.toLowerCase();
         for (const word of queryWords) {
-            if (descLower.includes(word)) {
-                score += 3;
+            if (quoteText.includes(word)) {
+                score += 5;
             }
         }
-    }
 
-    return score;
+        return { ...quote, score };
+    });
+
+    // Score tools
+    const scoredTools = (kb.tools || [])
+        .filter(tool => tool.url && tool.url !== 'null' && !tool.url.includes('d.docs.live.net'))
+        .map(tool => {
+            let score = 0;
+
+            if (filters.element && tool.element === filters.element) {
+                score += 50;
+            }
+
+            const toolText = `${tool.name} ${tool.description || ''}`.toLowerCase();
+            for (const word of queryWords) {
+                if (toolText.includes(word)) {
+                    score += 5;
+                }
+            }
+
+            return { ...tool, score };
+        });
+
+    // Score directory
+    const scoredDirectory = (kb.directory || []).map(entry => {
+        let score = 0;
+
+        const entryText = `${entry.name} ${entry.description || ''} ${entry.category || ''}`.toLowerCase();
+        for (const word of queryWords) {
+            if (entryText.includes(word)) {
+                score += 5;
+            }
+        }
+
+        return { ...entry, score };
+    });
+
+    return {
+        quotes: scoredQuotes.filter(q => q.score > 0).sort((a, b) => b.score - a.score).slice(0, limit),
+        tools: scoredTools.filter(t => t.score > 0).sort((a, b) => b.score - a.score).slice(0, limit),
+        directory: scoredDirectory.filter(d => d.score > 0).sort((a, b) => b.score - a.score).slice(0, limit),
+        context: []
+    };
 }
 
 /**
@@ -230,75 +322,82 @@ exports.handler = async (event) => {
             };
         }
 
-        const kb = loadKnowledgeBase();
+        // Try embeddings-based search first
+        let results;
+        let searchMethod = 'keyword';
 
-        // Score and rank tools
-        const toolsWithScores = (kb.tools || []).map(tool => ({
-            ...tool,
-            relevanceScore: scoreToolRelevance(tool, query, filters)
-        }));
+        const apiKey = process.env.OPENAI_API_KEY;
 
-        // Filter out tools with score 0 and sort by score
-        const rankedTools = toolsWithScores
-            .filter(t => t.relevanceScore > 0)
-            .sort((a, b) => b.relevanceScore - a.relevanceScore)
-            .slice(0, limit);
-
-        // Score and rank quotes (limit to 3 max)
-        const quotesWithScores = (kb.failureQuotes || []).map(quote => ({
-            ...quote,
-            relevanceScore: scoreQuoteRelevance(quote, query, filters)
-        }));
-
-        const rankedQuotes = quotesWithScores
-            .filter(q => q.relevanceScore > 0)
-            .sort((a, b) => b.relevanceScore - a.relevanceScore)
-            .slice(0, 3);
-
-        // Score and rank directory entries (only if query mentions funding/programs/etc)
-        let rankedDirectory = [];
-        const queryLower = query.toLowerCase();
-        if (/fund|grant|program|accelerator|advice|legal|network|community/.test(queryLower)) {
-            const directoryWithScores = (kb.directory || []).map(entry => ({
-                ...entry,
-                relevanceScore: scoreDirectoryRelevance(entry, query, filters)
-            }));
-
-            rankedDirectory = directoryWithScores
-                .filter(d => d.relevanceScore > 0)
-                .sort((a, b) => b.relevanceScore - a.relevanceScore)
-                .slice(0, 3);
+        if (apiKey && (useEmbeddings || loadEmbeddings())) {
+            try {
+                results = await semanticSearch(query, filters, limit, apiKey);
+                searchMethod = 'semantic';
+                console.log(`[Semantic] Found ${results.context?.length || 0} chunks, ${results.tools?.length || 0} tools`);
+            } catch (error) {
+                console.error('Semantic search failed, falling back to keyword:', error.message);
+                results = keywordSearch(query, filters, limit);
+            }
+        } else {
+            console.log('[Search] Using keyword search (no API key or embeddings)');
+            results = keywordSearch(query, filters, limit);
         }
 
-        // Remove relevanceScore from returned objects (internal use only)
-        const cleanTools = rankedTools.map(({relevanceScore, ...tool}) => tool);
-        const cleanQuotes = rankedQuotes.map(({relevanceScore, ...quote}) => quote);
-        const cleanDirectory = rankedDirectory.map(({relevanceScore, ...entry}) => entry);
+        // Format context for system prompt
+        let formatted = '';
+        if (results.context && results.context.length > 0) {
+            formatted += '\n**RELEVANT CONTEXT:**\n';
+            results.context.forEach(chunk => {
+                formatted += `[From ${chunk.source}${chunk.section ? ` > ${chunk.section}` : ''}]\n`;
+                formatted += `${chunk.text.slice(0, 600)}${chunk.text.length > 600 ? '...' : ''}\n\n`;
+            });
+        }
+        if (results.tools && results.tools.length > 0) {
+            formatted += '\n**AVAILABLE TOOLS:**\n';
+            results.tools.forEach(tool => {
+                formatted += `[${tool.name}](${tool.url}) - ${tool.description || ''}\n`;
+            });
+        }
+        if (results.quotes && results.quotes.length > 0) {
+            formatted += '\n**RESEARCH:**\n';
+            results.quotes.forEach(quote => {
+                formatted += `- *"${quote.quote}"*`;
+                if (quote.source && quote.url) {
+                    formatted += ` ([${quote.source}](${quote.url}))`;
+                } else if (quote.source) {
+                    formatted += ` (${quote.source})`;
+                }
+                formatted += '\n';
+            });
+        }
+        if (results.directory && results.directory.length > 0) {
+            formatted += '\n**AUSTRALIAN RESOURCES:**\n';
+            results.directory.forEach(entry => {
+                formatted += `[${entry.name}](${entry.url}) - ${entry.description || ''}\n`;
+            });
+        }
 
         return {
             statusCode: 200,
             headers,
             body: JSON.stringify({
-                tools: cleanTools,
-                quotes: cleanQuotes,
-                directory: cleanDirectory,
+                ...results,
+                formatted,
                 meta: {
                     query,
                     filters,
-                    totalTools: kb.tools?.length || 0,
-                    totalQuotes: kb.failureQuotes?.length || 0,
-                    totalDirectory: kb.directory?.length || 0,
+                    searchMethod,
                     returned: {
-                        tools: cleanTools.length,
-                        quotes: cleanQuotes.length,
-                        directory: cleanDirectory.length
+                        context: results.context?.length || 0,
+                        quotes: results.quotes?.length || 0,
+                        tools: results.tools?.length || 0,
+                        directory: results.directory?.length || 0
                     }
                 }
             })
         };
 
     } catch (error) {
-        console.error('Semantic search error:', error);
+        console.error('Search error:', error);
         return {
             statusCode: 500,
             headers,
