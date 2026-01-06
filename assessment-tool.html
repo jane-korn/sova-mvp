@@ -564,14 +564,15 @@ Protected by Digital Millennium Copyright Act (DMCA)
             50% { opacity: 1; transform: scale(1.1); }
         }
 
-        .element-dot.active:not(.completed):not(.in-progress) {
+        /* Only pulse element with specific .pulsing class - not all active elements */
+        .element-dot.pulsing {
             animation: elementPulse 2s ease-in-out infinite;
             transform-origin: center;
             transform-box: fill-box;
         }
 
         /* Pause animation on hover for clear feedback */
-        .element-dot.active:not(.completed):not(.in-progress):hover {
+        .element-dot.pulsing:hover {
             animation-play-state: paused;
             transform: scale(1.15) !important;
             filter: drop-shadow(0 0 20px #eaffc4) brightness(1.2) !important;
@@ -1848,7 +1849,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             font-size: 11px;
             font-weight: 700;
             font-style: normal;
-            text-decoration: none;
+            text-decoration: none !important;
             cursor: pointer;
             padding: 0;
             display: inline-flex;
@@ -1866,16 +1867,41 @@ Protected by Digital Millennium Copyright Act (DMCA)
         .source-link::after {
             content: '▸';
             font-size: 10px;
+            text-decoration: none !important;
+            display: inline-block;
         }
 
         .read-more-link.expand::after {
             content: '▾';
             font-size: 10px;
+            text-decoration: none !important;
+            display: inline-block;
         }
 
         .read-more-link.collapse::after {
             content: '▴';
             font-size: 10px;
+            text-decoration: none !important;
+            display: inline-block;
+        }
+
+        /* ========================================
+           SIDEBAR TAB CENTERING
+           ======================================== */
+        #webChartSidebar,
+        #reportSidebar,
+        #actionSidebar {
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #webChartSidebar div,
+        #reportSidebar div,
+        #actionSidebar div {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            text-align: center;
         }
 
         /* ========================================
@@ -1924,6 +1950,11 @@ Protected by Digital Millennium Copyright Act (DMCA)
         @media screen and (max-width: 768px) {
             body {
                 font-size: 16px;
+            }
+
+            #modelHeading {
+                white-space: normal !important;
+                font-size: 1.6rem !important;
             }
 
             .container {
@@ -3292,15 +3323,13 @@ Protected by Digital Millennium Copyright Act (DMCA)
         <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 1rem 0 0 0;">Complete the assessment, then <a href="https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAThFnbJUNDA4WEY1M0I5NUMyMlczTkUzOEIyUFQwTS4u&route=shorturl" target="_blank" style="color: #eaffc4; text-decoration: underline;">share your feedback</a> to help us improve. Use <span style="color: #eaffc4;">Start Fresh</span> to clear your progress and begin again.</p>
     </div>
 
-    <!-- Getting to Know You Badge -->
-    <div style="margin-bottom: 3rem; text-align: center;">
-        <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 10px; font-weight: 700; padding: 6px 14px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.8px; display: inline-block;">Getting to know you</span>
-    </div>
-
     <!-- Question 1: Solo or Team -->
     <div id="question-1" class="question-section" style="margin-bottom: 8rem; scroll-margin-top: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 700px; margin: 0 auto 1.5rem auto;">
+            <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Getting to know you</span>
+            <span style="color: #b8d78f; font-size: 14px; opacity: 0.7;">Question 1 of 3</span>
+        </div>
         <div style="text-align: center; margin-bottom: 3rem;">
-            <div style="color: #b8d78f; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Question 1 of 3</div>
             <h2 style="color: #eaffc4; font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; margin: 0 0 1rem 0; line-height: 1.2;">Are you flying solo or with a team?</h2>
             <p style="color: #b8d78f; font-size: 1.0625rem; margin: 0; opacity: 0.85; font-weight: 300;">This helps us tailor questions to your situation.</p>
         </div>
@@ -3322,9 +3351,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
     </div>
 
     <!-- Question 2: Stage -->
-    <div id="question-2" class="question-section" style="margin-bottom: 8rem; scroll-margin-top: 2rem; opacity: 0.3; pointer-events: none; transition: opacity 0.6s ease;">
+    <div id="question-2" class="question-section" style="margin-bottom: 8rem; scroll-margin-top: 6rem; opacity: 0.3; pointer-events: none; transition: opacity 0.6s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 700px; margin: 0 auto 1.5rem auto;">
+            <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Getting to know you</span>
+            <span style="color: #b8d78f; font-size: 14px; opacity: 0.7;">Question 2 of 3</span>
+        </div>
         <div style="text-align: center; margin-bottom: 3rem;">
-            <div style="color: #b8d78f; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Question 2 of 3</div>
             <h2 style="color: #eaffc4; font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; margin: 0 0 1rem 0; line-height: 1.2;">Where are you in your startup journey?</h2>
             <p style="color: #b8d78f; font-size: 1.0625rem; margin: 0; opacity: 0.85; font-weight: 300;">Pick the closest match. You may sit between stages, and that's normal.</p>
         </div>
@@ -3364,9 +3396,12 @@ Protected by Digital Millennium Copyright Act (DMCA)
     </div>
 
     <!-- Question 3: Path Selection - SAME DESIGN AS ABOVE -->
-    <div id="question-3" class="question-section" style="margin-bottom: 6rem; scroll-margin-top: 2rem; opacity: 0.3; pointer-events: none; transition: opacity 0.6s ease;">
+    <div id="question-3" class="question-section" style="margin-bottom: 6rem; scroll-margin-top: 6rem; opacity: 0.3; pointer-events: none; transition: opacity 0.6s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; max-width: 700px; margin: 0 auto 1.5rem auto;">
+            <span style="background: rgba(234, 255, 196, 0.15); color: #eaffc4; font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Getting to know you</span>
+            <span style="color: #b8d78f; font-size: 14px; opacity: 0.7;">Question 3 of 3</span>
+        </div>
         <div style="text-align: center; margin-bottom: 3rem;">
-            <div style="color: #b8d78f; font-size: 0.8125rem; opacity: 0.6; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Question 3 of 3</div>
             <h2 style="color: #eaffc4; font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: 700; margin: 0 0 1rem 0; line-height: 1.2;">Choose your flight path</h2>
         </div>
 
@@ -3377,7 +3412,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Full Health Check</div>
                 <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Assess your startup across all 4 elements. Get a complete picture of your business foundations and where to focus.</div>
                 <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f;">
-                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">15-20 minutes</span></div>
+                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">8-10 minutes</span></div>
                     <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Full report with action plan</span></div>
                 </div>
                 <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
@@ -3389,7 +3424,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
                 <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Quick Start</div>
                 <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Pick one area to focus on first. Great if you're short on time or already know where you need help. You can always complete the others later.</div>
                 <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f;">
-                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">5-7 minutes</span></div>
+                    <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">2-3 minutes</span></div>
                     <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Targeted insights</span></div>
                 </div>
                 <div class="selection-bar" style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%); transform: scaleX(0); transform-origin: center; transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); border-radius: 0 0 18px 18px;"></div>
@@ -3482,7 +3517,7 @@ function selectOptionWithScroll(element, nextQuestionId) {
 
             nextSection.scrollIntoView({
                 behavior: 'smooth',
-                block: 'center'
+                block: 'start'
             });
         }
     }, 500);
@@ -3597,8 +3632,8 @@ function selectPath(element, pathValue) {
         <!-- Model Section -->
         <div class="model-section" id="modelSection">
             <!-- Welcome section - orientation for the assessment -->
-            <div id="modelIntro" style="max-width: 750px; margin: 0 auto; padding: 2rem 2rem 2.5rem; text-align: center;">
-                <h1 id="modelHeading" style="color: #eaffc4; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 2rem; line-height: 1.2;">Welcome to the Sova Assessment</h1>
+            <div id="modelIntro" style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem 2.5rem; text-align: center;">
+                <h1 id="modelHeading" style="color: #eaffc4; font-size: clamp(1.4rem, 4.5vw, 3rem); font-weight: 700; margin-bottom: 2rem; line-height: 1.2; white-space: nowrap;">Welcome to the Sova Assessment</h1>
 
                 <!-- How it works - step by step (Complete mode - guided) -->
                 <div id="modelGuidanceComplete" style="background: rgba(234, 255, 196, 0.08); border: 1px solid rgba(234, 255, 196, 0.15); border-radius: 16px; padding: 1.5rem 2rem; text-align: left; display: none;">
@@ -3873,18 +3908,18 @@ function selectPath(element, pathValue) {
                 </div>
 
                 <!-- Sticky Web Chart Sidebar (above Report on right) - Hidden until pictorial shown -->
-                <div id="webChartSidebar" style="display: none; position: fixed; right: 0; bottom: 320px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); text-align: center; line-height: 100px; border: 2px solid transparent;" onclick="scrollToWebChart()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
-                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; vertical-align: middle; line-height: normal; color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease; white-space: nowrap;">WEBCHART</div>
+                <div id="webChartSidebar" style="display: none; position: fixed; right: 0; bottom: 320px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); border: 2px solid transparent; align-items: center; justify-content: center;" onclick="scrollToWebChart()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
+                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); color: #2d2828; font-weight: 700; font-size: 12px; letter-spacing: 1px; transition: color 0.3s ease; white-space: nowrap;">WEBCHART</div>
                 </div>
 
                 <!-- Sticky Report Sidebar (above Actions on right) - Hidden until pictorial shown -->
-                <div id="reportSidebar" style="display: none; position: fixed; right: 0; bottom: 200px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); text-align: center; line-height: 100px; border: 2px solid transparent;" onclick="scrollToReport()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
-                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; vertical-align: middle; line-height: normal; color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;">REPORT</div>
+                <div id="reportSidebar" style="display: none; position: fixed; right: 0; bottom: 200px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); border: 2px solid transparent; align-items: center; justify-content: center;" onclick="scrollToReport()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
+                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); color: #2d2828; font-weight: 700; font-size: 12px; letter-spacing: 1px; transition: color 0.3s ease;">REPORT</div>
                 </div>
 
-                <!-- Sticky Action Sidebar (at bottom on right) -->
-                <div id="actionSidebar" style="position: fixed; right: 0; bottom: 80px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); text-align: center; line-height: 100px; border: 2px solid transparent;" onclick="toggleActionPanel()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
-                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; vertical-align: middle; line-height: normal; color: #2d2828; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: color 0.3s ease;">ACTIONS</div>
+                <!-- Sticky Action Sidebar (at bottom on right) - Hidden until pictorial shown -->
+                <div id="actionSidebar" style="display: none; position: fixed; right: 0; bottom: 80px; width: 60px; height: 100px; background: #eaffc4; border-radius: 12px 0 0 12px; cursor: pointer; transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); z-index: 1000; box-shadow: -4px 0 12px rgba(0,0,0,0.1); border: 2px solid transparent; align-items: center; justify-content: center;" onclick="toggleActionPanel()" onmouseover="this.style.width='75px'; this.style.boxShadow='-8px 0 20px rgba(45,40,40,0.3)'; this.style.background='#2d2828'; this.style.borderColor='#eaffc4'; this.querySelector('div').style.color='#eaffc4';" onmouseout="this.style.width='60px'; this.style.boxShadow='-4px 0 12px rgba(0,0,0,0.1)'; this.style.background='#eaffc4'; this.style.borderColor='transparent'; this.querySelector('div').style.color='#2d2828';">
+                    <div style="writing-mode: vertical-rl; transform: rotate(180deg); color: #2d2828; font-weight: 700; font-size: 12px; letter-spacing: 1px; transition: color 0.3s ease;">ACTIONS</div>
                 </div>
 
                 <!-- Slide-out Action Panel -->
@@ -4949,8 +4984,9 @@ function selectPath(element, pathValue) {
 
             // Show sidebars and report section now that we're on pictorial
             document.getElementById('reportSection').style.display = 'block';
-            document.getElementById('webChartSidebar').style.display = 'block';
-            document.getElementById('reportSidebar').style.display = 'block';
+            document.getElementById('webChartSidebar').style.display = 'flex';
+            document.getElementById('reportSidebar').style.display = 'flex';
+            document.getElementById('actionSidebar').style.display = 'flex';
 
             // Show Complete mode guidance (hide Zoom mode)
             document.getElementById('modelGuidanceComplete').style.display = 'block';
@@ -4971,7 +5007,10 @@ function selectPath(element, pathValue) {
             loadCompletionStatus();
 
             // Start demo animation only after user scrolls past "How it Works" + 6 seconds
-            setupScrollTriggerForAssessment();
+            // Delay setup to allow smooth scroll to complete first
+            setTimeout(() => {
+                setupScrollTriggerForAssessment();
+            }, 800);
         }
 
         // Setup scroll detection to start assessment after user reads instructions
@@ -4990,8 +5029,8 @@ function selectPath(element, pathValue) {
                 if (hasScrolledPast) return;
 
                 const rect = guidanceSection.getBoundingClientRect();
-                // User has scrolled past when the bottom of the guidance is above the viewport
-                if (rect.bottom < 0) {
+                // User has scrolled past when the top of the guidance section is above the viewport
+                if (rect.top < 0) {
                     hasScrolledPast = true;
                     window.removeEventListener('scroll', checkScrollPosition);
 
@@ -5017,8 +5056,9 @@ function selectPath(element, pathValue) {
 
             // Show sidebars and report section now that we're on pictorial
             document.getElementById('reportSection').style.display = 'block';
-            document.getElementById('webChartSidebar').style.display = 'block';
-            document.getElementById('reportSidebar').style.display = 'block';
+            document.getElementById('webChartSidebar').style.display = 'flex';
+            document.getElementById('reportSidebar').style.display = 'flex';
+            document.getElementById('actionSidebar').style.display = 'flex';
 
             // Show Zoom mode guidance (hide Complete mode)
             document.getElementById('modelGuidanceComplete').style.display = 'none';
@@ -5038,14 +5078,31 @@ function selectPath(element, pathValue) {
             // Load completion status
             loadCompletionStatus();
 
-            // NO auto-pulse animation - user manually selects elements
-            console.log('🔍 Manual mode: Ready for user to select elements');
+            // Add pulsing to all MVP elements so user knows which ones to click
+            const mvpElements = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            mvpElements.forEach(element => {
+                const dot = document.getElementById(`${element.toLowerCase()}-dot`);
+                if (dot && !dot.classList.contains('completed')) {
+                    dot.classList.add('pulsing');
+                }
+            });
+            console.log('🔍 Manual mode: MVP elements glowing, ready for user to select');
         }
 
         // Demo animation: glow the next element and gracefully zoom into assessment
         function startDemoAnimation() {
             console.log('🎬 startDemoAnimation() called');
             console.log('📦 multiElementProgress:', multiElementProgress);
+
+            // Clear all pulsing classes first
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            elementOrder.forEach(element => {
+                const dotId = element.toLowerCase() + '-dot';
+                const dot = document.getElementById(dotId);
+                if (dot) {
+                    dot.classList.remove('pulsing');
+                }
+            });
 
             // Determine which element to start next
             const nextElement = getNextElementToAssess();
@@ -5489,9 +5546,9 @@ function selectPath(element, pathValue) {
 
             // Show report section and sidebars with current progress
             document.getElementById('reportSection').style.display = 'block';
-            document.getElementById('webChartSidebar').style.display = 'block';
-            document.getElementById('reportSidebar').style.display = 'block';
-            document.getElementById('actionSidebar').style.display = 'block';
+            document.getElementById('webChartSidebar').style.display = 'flex';
+            document.getElementById('reportSidebar').style.display = 'flex';
+            document.getElementById('actionSidebar').style.display = 'flex';
             updateReportLive(); // Update report with latest answers
             updateWebChart(); // Update web chart with progress
 
@@ -5603,7 +5660,7 @@ function selectPath(element, pathValue) {
             const dot = document.getElementById(dotId);
 
             if (dot) {
-                dot.classList.remove('in-progress', 'completed');
+                dot.classList.remove('in-progress', 'completed', 'pulsing');
                 if (status === 'in-progress') {
                     dot.classList.add('in-progress');
                 } else if (status === 'completed') {
@@ -6600,9 +6657,9 @@ function selectPath(element, pathValue) {
             document.getElementById('questionnaireSection').classList.remove('active');
             document.getElementById('modelSection').classList.add('active');
             document.getElementById('reportSection').style.display = 'block';  // Show report again
-            document.getElementById('webChartSidebar').style.display = 'block';  // Show web chart sidebar
-            document.getElementById('reportSidebar').style.display = 'block';  // Show report sidebar
-            document.getElementById('actionSidebar').style.display = 'block';  // Show actions sidebar
+            document.getElementById('webChartSidebar').style.display = 'flex';  // Show web chart sidebar
+            document.getElementById('reportSidebar').style.display = 'flex';  // Show report sidebar
+            document.getElementById('actionSidebar').style.display = 'flex';  // Show actions sidebar
             updateWebChart(); // Update with new element data
 
             // Scroll behaviour depends on mode
@@ -7515,9 +7572,9 @@ function selectPath(element, pathValue) {
             document.getElementById('questionnaireSection').classList.remove('active');
             document.getElementById('modelSection').classList.add('active');
             document.getElementById('reportSection').style.display = 'block';  // Ensure report is visible
-            document.getElementById('webChartSidebar').style.display = 'block';  // Show web chart sidebar
-            document.getElementById('reportSidebar').style.display = 'block';  // Show report sidebar
-            document.getElementById('actionSidebar').style.display = 'block';  // Show actions sidebar
+            document.getElementById('webChartSidebar').style.display = 'flex';  // Show web chart sidebar
+            document.getElementById('reportSidebar').style.display = 'flex';  // Show report sidebar
+            document.getElementById('actionSidebar').style.display = 'flex';  // Show actions sidebar
 
             // Update web chart and report one final time
             updateWebChart();
@@ -8055,11 +8112,12 @@ function selectPath(element, pathValue) {
             const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
             const currentIndex = elementOrder.indexOf(currentElement);
 
-            // Stop any existing animations first
+            // Remove pulsing class from all elements first
             elementOrder.forEach(element => {
                 const dotId = element.toLowerCase() + '-dot';
                 const dot = document.getElementById(dotId);
                 if (dot) {
+                    dot.classList.remove('pulsing');
                     dot.style.animation = 'none';
                 }
             });
@@ -8070,13 +8128,9 @@ function selectPath(element, pathValue) {
                 const nextDot = document.getElementById(nextDotId);
 
                 if (nextDot) {
-                    // Wait a moment then pulse
+                    // Wait a moment then add pulsing class
                     setTimeout(() => {
-                        // Force reflow to restart animation
-                        nextDot.style.animation = 'none';
-                        void nextDot.offsetWidth; // Trigger reflow
-                        // Slower pulse (2s), more iterations (5x) for better visibility
-                        nextDot.style.animation = 'glow 2s ease-in-out 5';
+                        nextDot.classList.add('pulsing');
                     }, 500);
                 }
             }
@@ -8160,16 +8214,23 @@ function selectPath(element, pathValue) {
 
             console.log('🔧 Mobile Fix Running - Window Width:', window.innerWidth, 'isMobile:', isMobile);
 
-            // Handle sidebar buttons visibility - always show them
+            // Handle sidebar buttons visibility - only show when model section is active (not during prelim)
+            const modelSection = document.getElementById('modelSection');
+            const isModelActive = modelSection && modelSection.classList.contains('active');
             const sidebarButtons = ['webChartSidebar', 'reportSidebar', 'actionSidebar'];
-            sidebarButtons.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.style.display = 'block';
-                    el.style.visibility = 'visible';
-                    console.log('✅ Sidebar button visible:', id);
-                }
-            });
+
+            if (isModelActive) {
+                sidebarButtons.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.style.display = 'flex';
+                        el.style.visibility = 'visible';
+                        console.log('✅ Sidebar button visible:', id);
+                    }
+                });
+            } else {
+                console.log('📋 Prelim page - sidebars hidden');
+            }
 
             if (isMobile) {
                 console.log('📱 Applying mobile fixes...');
@@ -8663,6 +8724,7 @@ function selectPath(element, pathValue) {
                     <p class="footer-tagline">Giving every founder the wings to fly</p>
                 </div>
                 <nav class="footer-nav">
+                    <a href="index.html">Home</a>
                     <a href="assessment-tool.html">Assessment</a>
                     <a href="research.html">Research</a>
                     <a href="directory.html">Directory</a>
