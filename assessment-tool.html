@@ -4970,11 +4970,44 @@ function selectPath(element, pathValue) {
             // Load completion status
             loadCompletionStatus();
 
-            // Start demo animation after a longer delay so user can read instructions
-            // 3 seconds gives time to read before pulsing starts
-            setTimeout(() => {
-                startDemoAnimation();
-            }, 3000);
+            // Start demo animation only after user scrolls past "How it Works" + 6 seconds
+            setupScrollTriggerForAssessment();
+        }
+
+        // Setup scroll detection to start assessment after user reads instructions
+        function setupScrollTriggerForAssessment() {
+            const guidanceSection = document.getElementById('modelGuidanceComplete');
+            if (!guidanceSection) {
+                // Fallback: start after 6 seconds if guidance not found
+                setTimeout(() => startDemoAnimation(), 6000);
+                return;
+            }
+
+            let hasScrolledPast = false;
+            let scrollTimeout = null;
+
+            function checkScrollPosition() {
+                if (hasScrolledPast) return;
+
+                const rect = guidanceSection.getBoundingClientRect();
+                // User has scrolled past when the bottom of the guidance is above the viewport
+                if (rect.bottom < 0) {
+                    hasScrolledPast = true;
+                    window.removeEventListener('scroll', checkScrollPosition);
+
+                    console.log('📜 User scrolled past How it Works. Starting assessment in 6 seconds...');
+
+                    // Wait 6 seconds after scrolling past, then start
+                    scrollTimeout = setTimeout(() => {
+                        startDemoAnimation();
+                    }, 6000);
+                }
+            }
+
+            window.addEventListener('scroll', checkScrollPosition);
+
+            // Also check immediately in case page is already scrolled
+            checkScrollPosition();
         }
 
         // Show model WITHOUT auto-pulse animation (for Zoom In mode)
