@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://getsova.com.au/sitemap.xml
