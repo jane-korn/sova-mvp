@@ -4674,6 +4674,30 @@ function selectPath(element, pathValue) {
 
         // Select path and continue to assessment
         function selectPathAndContinue(mode) {
+            // CRITICAL: Copy preliminary selections to userData (required for assessment to work)
+            userData.teamSize = prelimData.teamSize || prelimSelectionsScroll.teamSize;
+            userData.selectedStage = prelimData.stage || prelimSelectionsScroll.stage;
+
+            // Set assessment start stage (Discovery/Unsure start at Discovery, others at their stage)
+            const stage = userData.selectedStage;
+            if (stage === 'Discovery' || stage === 'Unsure') {
+                userData.assessmentStartStage = 'Discovery';
+            } else {
+                userData.assessmentStartStage = stage;
+            }
+
+            userData.location = 'Not specified';
+            userData.aimingForVC = true;
+
+            // Clear old assessment data when starting fresh
+            multiElementProgress = {
+                elementsCompleted: [],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+                allComplete: false,
+                results: {}
+            };
+            localStorage.removeItem('sovaMultiElementProgress');
+
             // Store the chosen mode
             userData.assessmentMode = mode;
             localStorage.setItem('sovaUserData', JSON.stringify(userData));
