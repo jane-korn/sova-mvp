@@ -1,5 +1,5 @@
 // Sova Unified Directory Data
-// Last Updated: 2025-12-11
+// Last Updated: 2026-01-08
 // Comprehensive Australian startup support resources and funding opportunities
 // Version 2.0 - Gap analysis complete
 
@@ -8,6 +8,19 @@ const directoryData = [
   // SOVA
   // ============================================================
   { name: "Sova", description: "Holistic diagnostic tool helping founders identify gaps across key business elements, all aligned to startup failure research and evidence based best practice from leading experts.", url: "https://getsova.com.au", state: "National", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "-", funding: "-", cost: "Free" },
+
+  // ============================================================
+  // GOVERNMENT RESOURCES (Advice)
+  // ============================================================
+  { name: "Business.gov.au Grants and Programs Finder", description: "Free guided search tool to find grants, funding and support programs from across Australian government. Over 500 grants searchable by industry, location, and business type.", url: "https://business.gov.au/grants-and-programs", state: "National", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "GrantConnect", description: "Centralised database of all Australian Government grant opportunities. Search current and forecast grants, view awarded grants, and track opportunities.", url: "https://www.grants.gov.au", state: "National", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "NSW Grants and Funding Finder", description: "Find NSW Government grants, funding programs and initiatives to support your business, project or community.", url: "https://www.nsw.gov.au/grants-and-funding", state: "NSW", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "Business Victoria Grants Finder", description: "Find and apply for Victorian Government grants, funding and financial assistance for businesses, including eligibility criteria and application dates.", url: "https://business.vic.gov.au/grants-and-programs", state: "VIC", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "Queensland Government Grants Finder", description: "Find Queensland grants, rebates, loans, subsidies and training programs you may be eligible for.", url: "https://www.grants.services.qld.gov.au", state: "QLD", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "WA Grants Assistance and Programs Register", description: "Register of available Western Australian state and federal government funding programs and assistance for industry.", url: "https://www.wa.gov.au/organisation/department-of-jobs-tourism-science-and-innovation/grants-assistance-and-programs-register-wa-industry", state: "WA", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "Service Tasmania Business Grants Finder", description: "Search tool to find Tasmanian government grants and programs for starting and running a business.", url: "https://www.service.tas.gov.au/services/working-in-tasmania/starting-and-running-a-business/business-grants-and-programs-finder", state: "TAS", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "ACT Government Grants Portal", description: "Search ACT Government grants and funding opportunities for individuals, groups and organisations that benefit Canberrans.", url: "https://www.grants.act.gov.au", state: "ACT", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
+  { name: "GrantsNT", description: "Northern Territory Government online grant management system. Search current, previous and expired NT Government grants.", url: "https://grantsnt.nt.gov.au", state: "NT", category: "Tool", need: "Advice", stages: ["Idea", "Validation", "Efficiency", "Scale"], identity: [], industry: [], timeline: "Always open", funding: "-", cost: "Free" },
 
   // ============================================================
   // GOVERNMENT GRANTS - Federal (Funding)
