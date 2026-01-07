@@ -3410,7 +3410,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <div class="option-card" data-question="3" data-field="path" data-value="complete" onclick="selectPath(this, 'complete')"
                  style="background: rgba(245, 245, 220, 0.04); padding: 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
                 <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Full Health Check</div>
-                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Assess your startup across all 5 elements. Get a complete picture of your business foundations and where to focus.</div>
+                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Assess your startup across all 6 elements. Get a complete picture of your business foundations and where to focus.</div>
                 <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f;">
                     <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">8-10 minutes</span></div>
                     <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Full report with action plan</span></div>
@@ -3641,7 +3641,7 @@ function selectPath(element, pathValue) {
                     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                         <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
                             <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">1.</span>
-                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">We'll guide you through all 5 elements, starting with Governance</span>
+                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">We'll guide you through all 6 elements, starting with Governance</span>
                         </div>
                         <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
                             <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">2.</span>
@@ -3823,11 +3823,11 @@ function selectPath(element, pathValue) {
                     <circle cx="824" cy="1129" r="24" fill="#b8d78f" class="element-dot active" id="marketing-dot" style="cursor: pointer;" onclick="startElementAssessment('Marketing')"/>
                     <text x="824" y="1175" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Marketing')">MARKETING</text>
 
-                    <!-- FINANCE (200°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
+                    <!-- FINANCE (200°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <!-- Line stops 40 units before dot centre -->
-                    <line x1="633" y1="697" x2="489" y2="1091" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="476" cy="1129" r="24" fill="#b8d78f" class="element-dot locked" id="finance-dot" opacity="0.4"/>
-                    <text x="476" y="1168" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="middle" opacity="0.3" letter-spacing="0.5">FINANCE</text>
+                    <line x1="633" y1="697" x2="489" y2="1091" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
+                    <circle cx="476" cy="1129" r="24" fill="#b8d78f" class="element-dot active" id="finance-dot" style="cursor: pointer;" onclick="startElementAssessment('Finance')"/>
+                    <text x="476" y="1175" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="middle" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Finance')">FINANCE</text>
 
                     <!-- PEOPLE (240°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
                     <!-- Line stops 40 units before dot centre -->
@@ -4372,7 +4372,7 @@ function selectPath(element, pathValue) {
             'strategy-dot': { name: 'Strategy', desc: 'Plans, priorities, positioning', active: true, questions: 11 },
             'marketing-dot': { name: 'Marketing', desc: 'Customer experience and branding', active: true, questions: 9 },
             'performance-dot': { name: 'Performance', desc: 'KPIs, metrics, data-driven decisions', active: true, questions: 8 },
-            'finance-dot': { name: 'Finance', desc: 'Financial management and planning', active: false, questions: 16 },
+            'finance-dot': { name: 'Finance', desc: 'Financial management and planning', active: true, questions: 12 },
             'people-dot': { name: 'People', desc: 'Talent, culture, development', active: false, questions: 16 },
             'process-dot': { name: 'Process', desc: 'Processes, workflows, systems', active: false, questions: 14 },
             'technology-dot': { name: 'Technology', desc: 'Digital tools and infrastructure', active: false, questions: 16 }
@@ -4686,7 +4686,7 @@ function selectPath(element, pathValue) {
             // Clear old assessment data
             multiElementProgress = {
                 elementsCompleted: [],
-                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
                 allComplete: false,
                 results: {}
             };
@@ -4733,7 +4733,7 @@ function selectPath(element, pathValue) {
             // Clear old assessment data when starting fresh
             multiElementProgress = {
                 elementsCompleted: [],
-                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
                 allComplete: false,
                 results: {}
             };
@@ -4792,7 +4792,7 @@ function selectPath(element, pathValue) {
             console.log('🧹 Clearing old assessment data...');
             multiElementProgress = {
                 elementsCompleted: [],
-                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
                 allComplete: false,
                 results: {}
             };
@@ -5084,7 +5084,7 @@ function selectPath(element, pathValue) {
             loadCompletionStatus();
 
             // Add pulsing to all MVP elements so user knows which ones to click
-            const mvpElements = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+            const mvpElements = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
             mvpElements.forEach(element => {
                 const dot = document.getElementById(`${element.toLowerCase()}-dot`);
                 if (dot && !dot.classList.contains('completed')) {
@@ -5100,7 +5100,7 @@ function selectPath(element, pathValue) {
             console.log('📦 multiElementProgress:', multiElementProgress);
 
             // Clear all pulsing classes first
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
             elementOrder.forEach(element => {
                 const dotId = element.toLowerCase() + '-dot';
                 const dot = document.getElementById(dotId);
@@ -5230,7 +5230,7 @@ function selectPath(element, pathValue) {
 
         // Get Next Element to Assess
         function getNextElementToAssess() {
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
             console.log('🔍 Elements completed:', multiElementProgress.elementsCompleted);
 
             // Find first element not yet completed
@@ -5483,7 +5483,7 @@ function selectPath(element, pathValue) {
         // Multi-Element Assessment Tracking
         let multiElementProgress = JSON.parse(localStorage.getItem('sovaMultiElementProgress')) || {
             elementsCompleted: [],  // ['Governance', 'Purpose']
-            elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
+            elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
             allComplete: false,
             results: {}  // Will store per-element results
             // results['Governance'] = {
@@ -6566,8 +6566,8 @@ function selectPath(element, pathValue) {
             // Remove from remaining list
             multiElementProgress.elementsRemaining = multiElementProgress.elementsRemaining.filter(e => e !== currentElement);
 
-            // Check if all 5 elements complete
-            if (multiElementProgress.elementsCompleted.length === 5) {
+            // Check if all 6 elements complete
+            if (multiElementProgress.elementsCompleted.length === 6) {
                 multiElementProgress.allComplete = true;
             }
 
@@ -6601,7 +6601,7 @@ function selectPath(element, pathValue) {
                 message = `
                     <h2 style="color: #2d2828; margin-bottom: 16px;">Assessment Complete!</h2>
                     <p style="color: #2d2828; font-size: 18px; margin-bottom: 24px;">
-                        You've completed all 5 elements.
+                        You've completed all 6 elements.
                         Your ${currentElement} score: <strong>${elementResult.score}%</strong>
                     </p>
                     <button class="btn-primary" onclick="this.parentElement.parentElement.remove(); showCombinedReport();">
@@ -6680,7 +6680,7 @@ function selectPath(element, pathValue) {
             // Scroll behaviour depends on mode
             if (userData.assessmentMode === 'complete') {
                 // Complete mode: scroll so diagram is visible with next element shown
-                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
                 const nextElement = elementOrder.find(el => !multiElementProgress.elementsCompleted.includes(el));
 
                 if (nextElement) {
@@ -6959,8 +6959,8 @@ function selectPath(element, pathValue) {
             if (elementGrid && elementsStarted > 0) {
                 let gridHTML = '';
 
-                // Show all 5 elements in fixed order
-                const allElements = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+                // Show all 6 elements in fixed order
+                const allElements = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
                 allElements.forEach(elementName => {
                     const result = multiElementProgress.results[elementName];
 
@@ -7075,7 +7075,7 @@ function selectPath(element, pathValue) {
                 };
 
                 // FIXED: Display elements in FIXED order: Governance → Purpose → Strategy → Marketing
-                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
 
                 // Wrap in container for max-width
                 gapsHTML += '<div style="max-width: 1200px; margin: 0 auto;">';
@@ -7510,7 +7510,7 @@ function selectPath(element, pathValue) {
             const todoContent = document.getElementById('todoContent');
             if (todoContent && allGaps.length > 0) {
                 // SORT gaps by element order
-                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
                 allGaps.sort((a, b) => {
                     const aIndex = elementOrder.indexOf(a.element);
                     const bIndex = elementOrder.indexOf(b.element);
@@ -8015,14 +8015,15 @@ function selectPath(element, pathValue) {
                 return;
             }
 
-            // Element positions on the circle (NEW: dots at r=510) - 5 ACTIVE ELEMENTS FOR MVP
+            // Element positions on the circle (NEW: dots at r=510) - 6 ACTIVE ELEMENTS FOR MVP
             // Center is at (650, 650), evenly spaced starting from 0° (top)
             const elementPositions = {
                 'Governance': { cx: 650, cy: 140 },       // 0° (12 o'clock) at r=510
                 'Purpose': { cx: 978, cy: 259 },         // 40° at r=510
                 'Strategy': { cx: 1152, cy: 561 },       // 80° at r=510
                 'Performance': { cx: 1092, cy: 905 },    // 120° at r=510
-                'Marketing': { cx: 824, cy: 1129 }       // 160° at r=510
+                'Marketing': { cx: 824, cy: 1129 },      // 160° at r=510
+                'Finance': { cx: 476, cy: 1129 }         // 200° at r=510
             };
 
             // Calculate points for web chart
@@ -8032,8 +8033,8 @@ function selectPath(element, pathValue) {
             const wedgesContainer = document.getElementById('webChartWedges');
             wedgesContainer.innerHTML = ''; // Clear previous wedges
 
-            // For MVP, only plot the 5 active elements in clockwise order
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+            // For MVP, only plot the 6 active elements in clockwise order
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
 
             // Stage radii (NEW: ring boundaries for scoring visualization)
             // Each stage has its own 100px band, 0-100% scores plot within that band
@@ -8129,7 +8130,7 @@ function selectPath(element, pathValue) {
         // Pulse Next Element
         function pulseNextElement() {
             // Order of active elements: Governance -> Purpose -> Strategy -> Marketing
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
             const currentIndex = elementOrder.indexOf(currentElement);
 
             // Remove pulsing class from all elements first
