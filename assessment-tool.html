@@ -3319,7 +3319,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <p style="color: #eaffc4; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0;">Pilot phase</p>
             <button onclick="startFresh()" style="padding: 4px 10px; background: rgba(255, 107, 107, 0.7); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; transition: background 0.2s ease;" onmouseover="this.style.background='#ff6b6b'" onmouseout="this.style.background='rgba(255, 107, 107, 0.7)'">Start Fresh</button>
         </div>
-        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0;">Sova is currently in pilot and we'd love your help. This version covers 5 core elements: Governance, Purpose, Strategy, Performance, and Marketing. The full system will include 9 elements.</p>
+        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0;">Sova is currently in pilot and we'd love your help. This version covers 6 core elements: Governance, Purpose, Strategy, Performance, Marketing, and Finance. The full system will include 9 elements.</p>
         <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 1rem 0 0 0;">Complete the assessment, then <a href="https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAThFnbJUNDA4WEY1M0I5NUMyMlczTkUzOEIyUFQwTS4u&route=shorturl" target="_blank" style="color: #eaffc4; text-decoration: underline;">share your feedback</a> to help us improve. Use <span style="color: #eaffc4;">Start Fresh</span> to clear your progress and begin again.</p>
     </div>
 
@@ -3882,13 +3882,13 @@ function selectPath(element, pathValue) {
                     </div>
                 </div>
 
-                <!-- 5-Column Element Comparison Grid -->
+                <!-- 6-Column Element Comparison Grid -->
                 <div style="background: #f5f5dc; padding: 60px;">
                     <div style="max-width: 1400px; margin: 0 auto;">
                         <h2 style="color: #2d2828; font-size: 32px; font-weight: 700; margin: 0 0 40px 0; letter-spacing: -1px;">Element Breakdown</h2>
 
                         <!-- Element Cards Grid -->
-                        <div id="elementGrid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+                        <div id="elementGrid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;">
                             <!-- Will be populated with element cards -->
                         </div>
                     </div>
@@ -6692,13 +6692,13 @@ function selectPath(element, pathValue) {
                         const wrapperRect = modelWrapper.getBoundingClientRect();
                         const wrapperTop = wrapperRect.top + window.scrollY;
 
-                        if (nextElement === 'Marketing') {
-                            // Marketing is at bottom of diagram - scroll so it's visible
-                            // Marketing dot is at cy=1129 out of 1500 viewBox
+                        if (nextElement === 'Marketing' || nextElement === 'Finance') {
+                            // Marketing and Finance are at bottom of diagram - scroll so they're visible
+                            // Both dots are at cy=1129 out of 1500 viewBox
                             const scrollTarget = wrapperTop + wrapperRect.height - window.innerHeight + 100;
                             window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
                         } else {
-                            // Governance, Purpose, Strategy are at top - scroll to top of diagram
+                            // Governance, Purpose, Strategy, Performance are at top/right - scroll to top of diagram
                             // Offset slightly so Governance dot at top is visible with some padding
                             window.scrollTo({ top: Math.max(0, wrapperTop - 20), behavior: 'smooth' });
                         }
@@ -6861,7 +6861,7 @@ function selectPath(element, pathValue) {
                 overallProgress.innerHTML = `
                     <div style="display: flex; justify-content: space-around; text-align: center;">
                         <div>
-                            <div style="font-size: 32px; font-weight: 700; color: #2d2828;">${elementsStarted}/5</div>
+                            <div style="font-size: 32px; font-weight: 700; color: #2d2828;">${elementsStarted}/6</div>
                             <div style="font-size: 14px; color: #2d2828; opacity: 0.7;">Elements Started</div>
                         </div>
                         <div>
@@ -7074,7 +7074,7 @@ function selectPath(element, pathValue) {
                     }
                 };
 
-                // FIXED: Display elements in FIXED order: Governance → Purpose → Strategy → Marketing
+                // FIXED: Display elements in FIXED order: Governance → Purpose → Strategy → Performance → Marketing → Finance
                 const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
 
                 // Wrap in container for max-width
@@ -8129,7 +8129,7 @@ function selectPath(element, pathValue) {
 
         // Pulse Next Element
         function pulseNextElement() {
-            // Order of active elements: Governance -> Purpose -> Strategy -> Marketing
+            // Order of active elements: Governance -> Purpose -> Strategy -> Performance -> Marketing -> Finance
             const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'];
             const currentIndex = elementOrder.indexOf(currentElement);
 

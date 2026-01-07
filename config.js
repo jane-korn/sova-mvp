@@ -34,10 +34,10 @@ var sovaConfig = {
     ],
 
     // MVP elements (active in current version)
-    mvpElements: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+    mvpElements: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
 
     // Element order for web chart (clockwise from 12 o'clock)
-    elementOrder: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+    elementOrder: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
 
     // ===================
     // PRELIMINARY QUESTIONS
@@ -158,7 +158,7 @@ var sovaConfig = {
         complete: {
             number: 1,
             title: 'Complete Assessment',
-            description: 'Answer questions across all 4 elements to get a bird\'s-eye view of your business health. Best for seeing the full picture and identifying priorities.',
+            description: 'Answer questions across all 6 elements to get a bird\'s-eye view of your business health. Best for seeing the full picture and identifying priorities.',
             time: '15-20 minutes',
             output: 'Full report with action plan'
         },
