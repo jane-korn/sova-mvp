@@ -3319,7 +3319,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <p style="color: #eaffc4; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin: 0;">Pilot phase</p>
             <button onclick="startFresh()" style="padding: 4px 10px; background: rgba(255, 107, 107, 0.7); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 600; transition: background 0.2s ease;" onmouseover="this.style.background='#ff6b6b'" onmouseout="this.style.background='rgba(255, 107, 107, 0.7)'">Start Fresh</button>
         </div>
-        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0;">Sova is currently in pilot and we'd love your help. This version covers 4 core elements: Governance, Purpose, Strategy, and Marketing. The full system will include 9 elements.</p>
+        <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 0;">Sova is currently in pilot and we'd love your help. This version covers 5 core elements: Governance, Purpose, Strategy, Performance, and Marketing. The full system will include 9 elements.</p>
         <p style="color: #f5f5dc; font-size: 15px; line-height: 1.7; margin: 1rem 0 0 0;">Complete the assessment, then <a href="https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAANAAThFnbJUNDA4WEY1M0I5NUMyMlczTkUzOEIyUFQwTS4u&route=shorturl" target="_blank" style="color: #eaffc4; text-decoration: underline;">share your feedback</a> to help us improve. Use <span style="color: #eaffc4;">Start Fresh</span> to clear your progress and begin again.</p>
     </div>
 
@@ -3410,7 +3410,7 @@ Protected by Digital Millennium Copyright Act (DMCA)
             <div class="option-card" data-question="3" data-field="path" data-value="complete" onclick="selectPath(this, 'complete')"
                  style="background: rgba(245, 245, 220, 0.04); padding: 2rem; border-radius: 20px; border: 2px solid rgba(234, 255, 196, 0.1); cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); position: relative; text-align: center;">
                 <div style="font-size: 1.25rem; font-weight: 700; color: #eaffc4; margin-bottom: 1rem; transition: all 0.3s ease;">Full Health Check</div>
-                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Assess your startup across all 4 elements. Get a complete picture of your business foundations and where to focus.</div>
+                <div style="font-size: 0.9375rem; color: #f5f5dc; opacity: 0.9; line-height: 1.6; margin-bottom: 1.25rem;">Assess your startup across all 5 elements. Get a complete picture of your business foundations and where to focus.</div>
                 <div style="display: flex; justify-content: center; gap: 2.5rem; font-size: 0.8125rem; color: #b8d78f;">
                     <div><span style="opacity: 0.6;">Time:</span> <span style="color: #f5f5dc; font-weight: 500;">8-10 minutes</span></div>
                     <div><span style="opacity: 0.6;">Output:</span> <span style="color: #f5f5dc; font-weight: 500;">Full report with action plan</span></div>
@@ -3641,7 +3641,7 @@ function selectPath(element, pathValue) {
                     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                         <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
                             <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">1.</span>
-                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">We'll guide you through all 4 elements, starting with Governance</span>
+                            <span style="color: #f5f5dc; font-size: 0.95rem; line-height: 1.5; opacity: 0.9;">We'll guide you through all 5 elements, starting with Governance</span>
                         </div>
                         <div style="display: flex; align-items: flex-start; gap: 0.75rem;">
                             <span style="color: #eaffc4; font-weight: 700; font-size: 0.9rem; min-width: 20px;">2.</span>
@@ -3811,11 +3811,11 @@ function selectPath(element, pathValue) {
                     <circle cx="1152" cy="561" r="24" fill="#b8d78f" class="element-dot active" id="strategy-dot" style="cursor: pointer;" onclick="startElementAssessment('Strategy')"/>
                     <text x="1188" y="569" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Strategy')">STRATEGY</text>
 
-                    <!-- PERFORMANCE (120°) - LOCKED (LARGER TEXT, MOVED FURTHER) -->
+                    <!-- PERFORMANCE (120°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <!-- Line stops 40 units before dot centre -->
-                    <line x1="693" y1="675" x2="1058" y2="882" stroke="#b8d78f" stroke-width="2.5" opacity="0.3"/>
-                    <circle cx="1092" cy="905" r="24" fill="#b8d78f" class="element-dot locked" id="performance-dot" opacity="0.4"/>
-                    <text x="1133" y="925" font-family="Arial, sans-serif" font-size="24" fill="#f5f5dc" text-anchor="start" opacity="0.3" letter-spacing="0.5">PERFORMANCE</text>
+                    <line x1="693" y1="675" x2="1058" y2="882" stroke="#b8d78f" stroke-width="2.5" opacity="0.7"/>
+                    <circle cx="1092" cy="905" r="24" fill="#b8d78f" class="element-dot active" id="performance-dot" style="cursor: pointer;" onclick="startElementAssessment('Performance')"/>
+                    <text x="1133" y="925" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#eaffc4" text-anchor="start" letter-spacing="0.5" style="cursor: pointer;" onclick="startElementAssessment('Performance')">PERFORMANCE</text>
 
                     <!-- MARKETING (160°) - ACTIVE (LARGER TEXT, MOVED FURTHER) -->
                     <!-- Line stops 40 units before dot centre -->
@@ -3882,13 +3882,13 @@ function selectPath(element, pathValue) {
                     </div>
                 </div>
 
-                <!-- 4-Column Element Comparison Grid -->
+                <!-- 5-Column Element Comparison Grid -->
                 <div style="background: #f5f5dc; padding: 60px;">
                     <div style="max-width: 1400px; margin: 0 auto;">
                         <h2 style="color: #2d2828; font-size: 32px; font-weight: 700; margin: 0 0 40px 0; letter-spacing: -1px;">Element Breakdown</h2>
 
                         <!-- Element Cards Grid -->
-                        <div id="elementGrid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                        <div id="elementGrid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
                             <!-- Will be populated with element cards -->
                         </div>
                     </div>
@@ -4371,7 +4371,7 @@ function selectPath(element, pathValue) {
             'purpose-dot': { name: 'Purpose', desc: 'Vision, mission, why you exist', active: true, questions: 12 },
             'strategy-dot': { name: 'Strategy', desc: 'Plans, priorities, positioning', active: true, questions: 11 },
             'marketing-dot': { name: 'Marketing', desc: 'Customer experience and branding', active: true, questions: 9 },
-            'performance-dot': { name: 'Performance', desc: 'KPIs, metrics, data-driven decisions', active: false, questions: 16 },
+            'performance-dot': { name: 'Performance', desc: 'KPIs, metrics, data-driven decisions', active: true, questions: 8 },
             'finance-dot': { name: 'Finance', desc: 'Financial management and planning', active: false, questions: 16 },
             'people-dot': { name: 'People', desc: 'Talent, culture, development', active: false, questions: 16 },
             'process-dot': { name: 'Process', desc: 'Processes, workflows, systems', active: false, questions: 14 },
@@ -4410,6 +4410,11 @@ function selectPath(element, pathValue) {
                 localStorage.removeItem('sovaUserData');
                 localStorage.removeItem('sovaAssessmentProgress');
                 localStorage.removeItem('sovaAllResults');
+                localStorage.removeItem('sovaSessionId');
+
+                // Also clear any sessionStorage
+                sessionStorage.clear();
+
                 console.log('✅ All session data cleared - complete reset');
 
                 // Force hard refresh to bypass cache
@@ -4681,7 +4686,7 @@ function selectPath(element, pathValue) {
             // Clear old assessment data
             multiElementProgress = {
                 elementsCompleted: [],
-                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
                 allComplete: false,
                 results: {}
             };
@@ -4728,7 +4733,7 @@ function selectPath(element, pathValue) {
             // Clear old assessment data when starting fresh
             multiElementProgress = {
                 elementsCompleted: [],
-                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
                 allComplete: false,
                 results: {}
             };
@@ -4787,7 +4792,7 @@ function selectPath(element, pathValue) {
             console.log('🧹 Clearing old assessment data...');
             multiElementProgress = {
                 elementsCompleted: [],
-                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+                elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
                 allComplete: false,
                 results: {}
             };
@@ -5079,7 +5084,7 @@ function selectPath(element, pathValue) {
             loadCompletionStatus();
 
             // Add pulsing to all MVP elements so user knows which ones to click
-            const mvpElements = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            const mvpElements = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
             mvpElements.forEach(element => {
                 const dot = document.getElementById(`${element.toLowerCase()}-dot`);
                 if (dot && !dot.classList.contains('completed')) {
@@ -5095,7 +5100,7 @@ function selectPath(element, pathValue) {
             console.log('📦 multiElementProgress:', multiElementProgress);
 
             // Clear all pulsing classes first
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
             elementOrder.forEach(element => {
                 const dotId = element.toLowerCase() + '-dot';
                 const dot = document.getElementById(dotId);
@@ -5225,7 +5230,7 @@ function selectPath(element, pathValue) {
 
         // Get Next Element to Assess
         function getNextElementToAssess() {
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
             console.log('🔍 Elements completed:', multiElementProgress.elementsCompleted);
 
             // Find first element not yet completed
@@ -5369,6 +5374,7 @@ function selectPath(element, pathValue) {
                 'Governance': '#eaffc4',
                 'Purpose': '#b8d78f',
                 'Strategy': '#b8d78f',
+                'Performance': '#c5d982',
                 'Marketing': '#A8D600'
             };
             return colours[elementName] || '#eaffc4';
@@ -5442,6 +5448,14 @@ function selectPath(element, pathValue) {
                     { text: "Startups navigate in an environment of uncertainty and unpredictability, making strategy especially important.", link: "https://www.forbes.com/councils/forbestechcouncil/2024/09/24/strategy-vs-chaos-why-startups-always-need-a-strategic-plan/" }
                 ]
             },
+            'Performance': {
+                quotes: [
+                    { text: "What gets measured gets managed. Startups that track the right metrics make better decisions and grow faster.", link: "https://www.forbes.com/sites/martinzwilling/2015/07/15/startups-need-metrics-to-survive/" },
+                    { text: "36% of startups fail because they don't track the right metrics. Without data, you're flying blind.", link: "https://www.cbinsights.com/research/report/startup-failure-reasons-top/" },
+                    { text: "The most successful founders are obsessed with metrics. They know their numbers cold and use data to drive every decision.", link: "https://a16z.com/metrics/" },
+                    { text: "Investors want to see that you understand your unit economics. If you can't explain your CAC, LTV, and payback period, you're not ready for funding.", link: "https://www.ycombinator.com/library/6j-how-to-work-with-vcs" }
+                ]
+            },
             'Marketing': {
                 quotes: [
                     { text: "Good marketing results do not just magically happen, they need to be planned and created so if you do not have a strategy in place now is the time to do it. The more thought and time put into a marketing strategy, the more you will gain from it, building opportunities and ultimately business.", link: "https://startupsmagazine.co.uk/article-why-having-marketing-strategy-important-all-startups" },
@@ -5469,7 +5483,7 @@ function selectPath(element, pathValue) {
         // Multi-Element Assessment Tracking
         let multiElementProgress = JSON.parse(localStorage.getItem('sovaMultiElementProgress')) || {
             elementsCompleted: [],  // ['Governance', 'Purpose']
-            elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Marketing'],
+            elementsRemaining: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'],
             allComplete: false,
             results: {}  // Will store per-element results
             // results['Governance'] = {
@@ -6552,8 +6566,8 @@ function selectPath(element, pathValue) {
             // Remove from remaining list
             multiElementProgress.elementsRemaining = multiElementProgress.elementsRemaining.filter(e => e !== currentElement);
 
-            // Check if all 4 elements complete
-            if (multiElementProgress.elementsCompleted.length === 4) {
+            // Check if all 5 elements complete
+            if (multiElementProgress.elementsCompleted.length === 5) {
                 multiElementProgress.allComplete = true;
             }
 
@@ -6587,7 +6601,7 @@ function selectPath(element, pathValue) {
                 message = `
                     <h2 style="color: #2d2828; margin-bottom: 16px;">Assessment Complete!</h2>
                     <p style="color: #2d2828; font-size: 18px; margin-bottom: 24px;">
-                        You've completed all 4 elements.
+                        You've completed all 5 elements.
                         Your ${currentElement} score: <strong>${elementResult.score}%</strong>
                     </p>
                     <button class="btn-primary" onclick="this.parentElement.parentElement.remove(); showCombinedReport();">
@@ -6661,11 +6675,12 @@ function selectPath(element, pathValue) {
             document.getElementById('reportSidebar').style.display = 'flex';  // Show report sidebar
             document.getElementById('actionSidebar').style.display = 'flex';  // Show actions sidebar
             updateWebChart(); // Update with new element data
+            updateReportLive(); // Update report with final scores
 
             // Scroll behaviour depends on mode
             if (userData.assessmentMode === 'complete') {
                 // Complete mode: scroll so diagram is visible with next element shown
-                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
                 const nextElement = elementOrder.find(el => !multiElementProgress.elementsCompleted.includes(el));
 
                 if (nextElement) {
@@ -6846,7 +6861,7 @@ function selectPath(element, pathValue) {
                 overallProgress.innerHTML = `
                     <div style="display: flex; justify-content: space-around; text-align: center;">
                         <div>
-                            <div style="font-size: 32px; font-weight: 700; color: #2d2828;">${elementsStarted}/4</div>
+                            <div style="font-size: 32px; font-weight: 700; color: #2d2828;">${elementsStarted}/5</div>
                             <div style="font-size: 14px; color: #2d2828; opacity: 0.7;">Elements Started</div>
                         </div>
                         <div>
@@ -6944,8 +6959,8 @@ function selectPath(element, pathValue) {
             if (elementGrid && elementsStarted > 0) {
                 let gridHTML = '';
 
-                // Show all 4 elements in fixed order
-                const allElements = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+                // Show all 5 elements in fixed order
+                const allElements = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
                 allElements.forEach(elementName => {
                     const result = multiElementProgress.results[elementName];
 
@@ -7049,6 +7064,10 @@ function selectPath(element, pathValue) {
                         text: 'Strategy refers to a comprehensive plan that outlines how a business will achieve its objectives. It involves identifying key opportunities, understanding market dynamics, and creating a sustainable competitive advantage.',
                         link: 'https://www.linkedin.com/pulse/importance-strategy-entrepreneurship-chinmay-saraf-hmjff/'
                     },
+                    'Performance': {
+                        text: 'Performance is about tracking the metrics that matter. What gets measured gets managed. Startups that understand their unit economics, track key KPIs, and make data-driven decisions consistently outperform those flying blind.',
+                        link: 'https://www.forbes.com/sites/martinzwilling/2015/07/15/startups-need-metrics-to-survive/'
+                    },
                     'Marketing': {
                         text: 'Marketing connects your solution to people who need it. Great products with poor marketing fail. Average products with great marketing thrive.',
                         link: 'https://www.entrepreneur.com/starting-a-business/why-marketing-is-important-for-your-business/299334'
@@ -7056,7 +7075,7 @@ function selectPath(element, pathValue) {
                 };
 
                 // FIXED: Display elements in FIXED order: Governance → Purpose → Strategy → Marketing
-                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
 
                 // Wrap in container for max-width
                 gapsHTML += '<div style="max-width: 1200px; margin: 0 auto;">';
@@ -7491,7 +7510,7 @@ function selectPath(element, pathValue) {
             const todoContent = document.getElementById('todoContent');
             if (todoContent && allGaps.length > 0) {
                 // SORT gaps by element order
-                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+                const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
                 allGaps.sort((a, b) => {
                     const aIndex = elementOrder.indexOf(a.element);
                     const bIndex = elementOrder.indexOf(b.element);
@@ -7996,12 +8015,13 @@ function selectPath(element, pathValue) {
                 return;
             }
 
-            // Element positions on the circle (NEW: dots at r=510) - ONLY 4 ACTIVE ELEMENTS FOR MVP
-            // Center is at (650, 650), evenly spaced at 40° intervals starting from 0° (top)
+            // Element positions on the circle (NEW: dots at r=510) - 5 ACTIVE ELEMENTS FOR MVP
+            // Center is at (650, 650), evenly spaced starting from 0° (top)
             const elementPositions = {
                 'Governance': { cx: 650, cy: 140 },       // 0° (12 o'clock) at r=510
                 'Purpose': { cx: 978, cy: 259 },         // 40° at r=510
                 'Strategy': { cx: 1152, cy: 561 },       // 80° at r=510
+                'Performance': { cx: 1092, cy: 905 },    // 120° at r=510
                 'Marketing': { cx: 824, cy: 1129 }       // 160° at r=510
             };
 
@@ -8012,8 +8032,8 @@ function selectPath(element, pathValue) {
             const wedgesContainer = document.getElementById('webChartWedges');
             wedgesContainer.innerHTML = ''; // Clear previous wedges
 
-            // For MVP, only plot the 4 active elements in clockwise order
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            // For MVP, only plot the 5 active elements in clockwise order
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
 
             // Stage radii (NEW: ring boundaries for scoring visualization)
             // Each stage has its own 100px band, 0-100% scores plot within that band
@@ -8109,7 +8129,7 @@ function selectPath(element, pathValue) {
         // Pulse Next Element
         function pulseNextElement() {
             // Order of active elements: Governance -> Purpose -> Strategy -> Marketing
-            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Marketing'];
+            const elementOrder = ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing'];
             const currentIndex = elementOrder.indexOf(currentElement);
 
             // Remove pulsing class from all elements first
