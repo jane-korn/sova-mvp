@@ -34,10 +34,10 @@ var sovaConfig = {
     ],
 
     // MVP elements (active in current version)
-    mvpElements: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
+    mvpElements: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Finance', 'Marketing'],
 
     // Element order for web chart (clockwise from 12 o'clock)
-    elementOrder: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Marketing', 'Finance'],
+    elementOrder: ['Governance', 'Purpose', 'Strategy', 'Performance', 'Finance', 'Marketing'],
 
     // ===================
     // PRELIMINARY QUESTIONS

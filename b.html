@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+PROPRIETARY AND CONFIDENTIAL
+Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
+================================================================================
+-->
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Business Assessment | Sova</title>
+    <meta name="description" content="Most startup advice focuses on one area. Sova shows you how everything connects. Free 10 minute assessment across 9 interconnected business elements.">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sova-green: #eaffc4;
+            --sova-brown: #2d2828;
+            --sova-cream: #f5f5dc;
+            --sova-sage: #b8d78f;
+            --sova-white: #ffffff;
+            --gradient-green: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%);
+            --gradient-dark: linear-gradient(180deg, #2d2828 0%, #1a1717 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            background: var(--sova-brown);
+            color: var(--sova-cream);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sova-green), var(--sova-sage));
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px var(--sova-green);
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            background: var(--sova-brown);
+            z-index: 100;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 90px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        nav a:hover {
+            color: var(--sova-green);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--sova-cream);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .hamburger span:nth-child(1) { margin-bottom: 6px; }
+        .hamburger span:nth-child(3) { margin-top: 6px; }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        /* Mobile Nav Overlay */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 40, 40, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.4s;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-nav-overlay nav a {
+            font-size: 1.5rem;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        color 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active nav a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-overlay.active nav a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-overlay.active nav a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-overlay.active nav a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav-overlay.active nav a:nth-child(4) { transition-delay: 0.25s; }
+
+        .mobile-nav-cta {
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-cta {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 5rem;
+            position: relative;
+            overflow: hidden;
+            --bird-offset: 0px;
+        }
+
+        /* Decorative bird watermark in hero */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: calc(-10% + var(--bird-offset));
+            right: -15%;
+            width: 70%;
+            height: 140%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+            transition: top 0.1s ease-out;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--sova-cream);
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero h1 span {
+            color: var(--sova-green);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+            color: var(--sova-sage);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            background: var(--gradient-green);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--sova-sage);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* CTA Button */
+        .cta-btn {
+            display: inline-block;
+            background: var(--sova-green);
+            color: var(--sova-brown);
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Button shimmer effect */
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(234, 255, 196, 0.3);
+        }
+
+        .cta-subtext {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--sova-sage);
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.7s;
+            opacity: 0;
+        }
+
+        .hero-cta-wrapper {
+            animation: fadeInUp 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+
+        /* Divider */
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--sova-green), var(--sova-sage), transparent);
+            opacity: 0.4;
+            margin: 0;
+        }
+
+        /* What We Did Section */
+        .what-we-did {
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative bird on left side */
+        .what-we-did::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 50%;
+            height: 100%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.02;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+
+        .what-we-did .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .what-we-did h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--sova-cream);
+            margin-bottom: 1rem;
+        }
+
+        .what-we-did h2 span {
+            color: var(--sova-green);
+        }
+
+        .what-we-did .intro {
+            font-size: 1.125rem;
+            color: var(--sova-sage);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--sova-green);
+            line-height: 1;
+            min-width: 70px;
+            opacity: 0;
+            transform: scale(0.3) rotate(-20deg);
+            filter: blur(30px);
+        }
+
+        .step-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--sova-cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            font-size: 1rem;
+            color: var(--sova-sage);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Number glow animation */
+        @keyframes numberGlow {
+            0% {
+                opacity: 0;
+                filter: blur(30px);
+                transform: scale(0.3) rotate(-20deg);
+            }
+            50% {
+                opacity: 0.6;
+                filter: blur(5px);
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px);
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .stagger-children.visible .step-item:nth-child(1) .step-number {
+            animation: numberGlow 1.5s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards;
+        }
+
+        .stagger-children.visible .step-item:nth-child(2) .step-number {
+            animation: numberGlow 1.5s cubic-bezier(0.23, 1, 0.32, 1) 0.4s forwards;
+        }
+
+        .stagger-children.visible .step-item:nth-child(3) .step-number {
+            animation: numberGlow 1.5s cubic-bezier(0.23, 1, 0.32, 1) 0.6s forwards;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 5rem 0;
+            background: rgba(234, 255, 196, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative bird on right side */
+        .benefits::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -8%;
+            width: 45%;
+            height: 80%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.025;
+            pointer-events: none;
+            transform: rotate(10deg);
+        }
+
+        .benefits .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-heading {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            color: var(--sova-cream);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: rgba(245, 245, 220, 0.04);
+            border: 1px solid rgba(234, 255, 196, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Gradient top bar on hover */
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(234, 255, 196, 0.3);
+        }
+
+        .benefit-number {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-green);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--sova-brown);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .benefit-card:hover .benefit-number {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(234, 255, 196, 0.4);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--sova-cream);
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.9375rem;
+            color: var(--sova-sage);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Quick Facts */
+        .quick-facts {
+            padding: 3.5rem 0;
+        }
+
+        .facts-row {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .fact-item {
+            text-align: center;
+        }
+
+        .fact-text {
+            font-size: 1rem;
+            color: var(--sova-cream);
+        }
+
+        .fact-text strong {
+            color: var(--sova-green);
+            font-weight: 600;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 0;
+            background: rgba(234, 255, 196, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative accent line */
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--sova-green) 50%, transparent 100%);
+            opacity: 0.3;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(245, 245, 220, 0.04);
+            border: 1px solid rgba(234, 255, 196, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        border-color 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(234, 255, 196, 0.3);
+        }
+
+        /* Large quote mark decoration */
+        .testimonial-card::after {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--sova-green);
+            opacity: 0.08;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .testimonial-quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--sova-cream);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 2rem;
+            color: var(--sova-green);
+            opacity: 0.6;
+            line-height: 0;
+            margin-right: 0.25rem;
+        }
+
+        .testimonial-author {
+            font-size: 0.875rem;
+            color: var(--sova-sage);
+            font-weight: 500;
+        }
+
+        /* Research Section */
+        .research {
+            padding: 3.5rem 0;
+        }
+
+        .research-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .research-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--sova-cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .sources-list {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .source-badge {
+            background: rgba(234, 255, 196, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8125rem;
+            color: var(--sova-cream);
+            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+                        background 0.3s ease;
+        }
+
+        .source-badge:hover {
+            transform: scale(1.05);
+            background: rgba(234, 255, 196, 0.15);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 6rem 0;
+            text-align: center;
+            background: var(--gradient-green);
+            color: var(--sova-brown);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative bird watermark in CTA */
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 120%;
+            background: url('sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .final-cta .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--sova-brown);
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.125rem;
+            color: var(--sova-brown);
+            opacity: 0.85;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .cta-btn {
+            background: var(--sova-brown);
+            color: var(--sova-green);
+            font-size: 1.25rem;
+            padding: 1.5rem 3.5rem;
+            box-shadow: 0 8px 32px rgba(45, 40, 40, 0.3);
+        }
+
+        .final-cta .cta-btn:hover {
+            background: #1a1717;
+            box-shadow: 0 12px 40px rgba(45, 40, 40, 0.4);
+        }
+
+        .final-cta .cta-subtext {
+            color: var(--sova-brown);
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1717;
+            padding: 5rem 0 3rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .footer-main {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .footer-tagline {
+            color: var(--sova-sage);
+            font-size: 1.125rem;
+            font-weight: 300;
+            opacity: 0.6;
+            margin: 0 0 2.5rem;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .footer-nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-nav a:hover {
+            color: var(--sova-green);
+            opacity: 1;
+        }
+
+        .footer-nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-email {
+            color: var(--sova-sage);
+            text-decoration: none;
+            font-size: 0.95rem;
+            opacity: 0.7;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-email:hover {
+            color: var(--sova-green);
+            opacity: 1;
+        }
+
+        .footer-legal {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(234, 255, 196, 0.05);
+        }
+
+        .footer-legal p {
+            color: var(--sova-sage);
+            font-size: 0.75rem;
+            line-height: 1.7;
+            opacity: 0.4;
+            margin: 0;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--sova-sage);
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom span {
+            color: var(--sova-sage);
+            opacity: 0.4;
+        }
+
+        .footer-separator {
+            opacity: 0.3;
+        }
+
+        .footer-bottom a {
+            color: var(--sova-sage);
+            text-decoration: none;
+            opacity: 0.4;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--sova-green);
+            opacity: 1;
+        }
+
+        /* ========================================
+           SCROLL ANIMATIONS
+           ======================================== */
+
+        /* Fade in up */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+        .stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+
+        /* Section sweep animation */
+        .sweep-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sweep-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(234, 255, 196, 0.05), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sweep-section.visible::after {
+            animation: sweepRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes sweepRight {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Speech Bubble Container */
+        .speech-bubble-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .speech-bubble {
+            background: var(--sova-green);
+            color: var(--sova-brown);
+            padding: 1.5rem 1.75rem;
+            border-radius: 24px;
+            max-width: 340px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            position: relative;
+            opacity: 0;
+            transform: scale(0) translateY(20px);
+            transform-origin: bottom right;
+            transition: none;
+        }
+
+        .speech-bubble.animate-in {
+            animation: bubbleFromBeak 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid var(--sova-green);
+        }
+
+        .speech-bubble.hidden {
+            animation: bubbleOut 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            pointer-events: none;
+        }
+
+        @keyframes bubbleFromBeak {
+            0% { opacity: 0; transform: scale(0) translateY(30px); }
+            50% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+            75% { transform: scale(0.98) translateY(2px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes bubbleOut {
+            from { opacity: 1; transform: scale(1) translateY(0); }
+            to { opacity: 0; transform: scale(0.8) translateY(20px); }
+        }
+
+        .speech-bubble-bird.speaking {
+            animation: birdSpeak 0.15s ease-in-out 3;
+        }
+
+        @keyframes birdSpeak {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-3deg); }
+        }
+
+        .speech-bubble-close {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--sova-brown);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .speech-bubble-close:hover {
+            transform: scale(1.1);
+        }
+
+        .speech-bubble-close::before,
+        .speech-bubble-close::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 2px;
+            background: var(--sova-green);
+        }
+
+        .speech-bubble-close::before { transform: rotate(45deg); }
+        .speech-bubble-close::after { transform: rotate(-45deg); }
+
+        .speech-bubble-headline {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .speech-bubble-message {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            font-weight: 400;
+        }
+
+        .speech-bubble-cta {
+            display: inline-block;
+            padding: 0.6rem 1.25rem;
+            background: var(--sova-brown);
+            color: var(--sova-green);
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .speech-bubble-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .speech-bubble-bird {
+            height: 55px;
+            width: auto;
+            opacity: 0.9;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .speech-bubble-bird:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .header-content > nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .container { padding: 0 1.5rem; }
+
+            .hero {
+                padding: 3rem 0 4rem;
+            }
+
+            .stats-row { gap: 2rem; }
+
+            .benefits-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .benefit-card,
+            .testimonial-card {
+                padding: 1.75rem;
+            }
+
+            .facts-row { gap: 2rem; }
+
+            .sources-list { gap: 0.75rem; }
+
+            .step-item {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .step-number {
+                font-size: 2.5rem;
+            }
+
+            footer {
+                padding: 3rem 0 2rem;
+            }
+
+            .footer-main {
+                margin-bottom: 3rem;
+            }
+
+            .footer-nav {
+                gap: 1.5rem;
+            }
+
+            .footer-bottom {
+                flex-wrap: wrap;
+            }
+
+            .speech-bubble-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+            }
+
+            .speech-bubble {
+                max-width: none;
+                border-radius: 16px;
+                border-bottom-right-radius: 4px;
+            }
+
+            .speech-bubble-bird {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Anti-copy protection -->
+    <script>
+    (function(){
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
+            if (e.key === 'F12') { e.preventDefault(); return false; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'j' || e.key === 'J' || e.key === 'c' || e.key === 'C')) { e.preventDefault(); return false; }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.userSelect = 'none';
+            document.body.style.webkitUserSelect = 'none';
+        });
+    })();
+    </script>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="sova-logo-main-transparent.png" alt="Sova">
+                </a>
+                <nav>
+                    <a href="research.html">Research</a>
+                    <a href="directory.html">Directory</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="about.html">About Us</a>
+                </nav>
+                <!-- Mobile Hamburger -->
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="research.html">Research</a>
+            <a href="directory.html">Directory</a>
+            <a href="about.html">About Us</a>
+        </nav>
+        <a href="assessment-tool.html" class="cta-btn mobile-nav-cta">Start Assessment</a>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Most startups fail the same way<br><span>Sova shows you how everything connects</span></h1>
+                <p class="hero-subtitle">Complete diagnosis across 9 interconnected business elements. Ranked priorities based on your stage. Evidence-based tools matched to your situation.</p>
+
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value">281</div>
+                        <div class="stat-label">Frameworks Mapped</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">9</div>
+                        <div class="stat-label">Business Elements</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">10</div>
+                        <div class="stat-label">Minutes</div>
+                    </div>
+                </div>
+
+                <div class="hero-cta-wrapper">
+                    <a href="assessment-tool.html" class="cta-btn">Start Assessment</a>
+                </div>
+                <p class="cta-subtext">Free. No signup required. Immediate results.</p>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- What We Did -->
+        <section class="what-we-did sweep-section">
+            <div class="container">
+                <h2 class="fade-in-up">What can Sova do for <span>my startup?</span></h2>
+                <p class="intro fade-in-up">Sova gives you a complete diagnosis across 9 interconnected business elements, ranked priorities based on your stage, and evidence-based tools matched to your specific situation.</p>
+
+                <div class="steps-list stagger-children">
+                    <div class="step-item">
+                        <div class="step-number">01</div>
+                        <div class="step-content">
+                            <h3>Why startups fail</h3>
+                            <p>Analysed hundreds of studies from Harvard Business Review, CB Insights, McKinsey, and leading experts to understand the root causes of the 90% failure rate.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">02</div>
+                        <div class="step-content">
+                            <h3>What actually works</h3>
+                            <p>Mapped every piece of fragmented advice back to 281 evidence-based tools, frameworks, and methodologies. Curated based on your specific need and stage.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">03</div>
+                        <div class="step-content">
+                            <h3>How it all connects</h3>
+                            <p>Built a holistic framework that assesses 9 interconnected business elements, meets you exactly where you are, and gives you the tools to fix what is broken yourself.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Benefits Section -->
+        <section class="benefits sweep-section">
+            <div class="container">
+                <h2 class="section-heading fade-in-up">What you will get</h2>
+                <div class="benefits-grid stagger-children">
+                    <div class="benefit-card">
+                        <div class="benefit-number">1</div>
+                        <h3>Complete Diagnosis</h3>
+                        <p>Governance, Strategy, Marketing, Finance, People, Operations, Technology, Purpose, Performance. Assessed holistically.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">2</div>
+                        <h3>Ranked Priorities</h3>
+                        <p>Your top gaps ranked by impact. Matched to your stage (Discovery, Validation, Efficiency, or Scale). What to fix first.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-number">3</div>
+                        <h3>Evidence-Based Tools</h3>
+                        <p>The exact frameworks consultants use (Lean Canvas, OKRs, Value Proposition Canvas) mapped to your gaps.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Quick Facts -->
+        <section class="quick-facts">
+            <div class="container">
+                <div class="facts-row fade-in-up">
+                    <div class="fact-item">
+                        <div class="fact-text"><strong>10 minutes</strong> to complete</div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-text"><strong>Completely free</strong></div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-text"><strong>No consultant fees</strong></div>
+                    </div>
+                    <div class="fact-item">
+                        <div class="fact-text"><strong>No equity trades</strong></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <h2 class="section-heading fade-in-up">What founders are saying</h2>
+                <div class="testimonials-grid stagger-children">
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">I really like what you're building and I see the value</p>
+                        <p class="testimonial-author">Vestur Founder</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">Sova did hit all the right features for me and I can't wait to see more</p>
+                        <p class="testimonial-author">KeywiX Founder</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">Elegant design, simple to use, all information is readily available but not in an overwhelming way</p>
+                        <p class="testimonial-author">Sova Tester</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Research Section -->
+        <section class="research">
+            <div class="container">
+                <div class="research-content fade-in-up">
+                    <h3>Built on research and best practice from</h3>
+                    <div class="sources-list">
+                        <span class="source-badge">Harvard Business Review</span>
+                        <span class="source-badge">McKinsey</span>
+                        <span class="source-badge">CB Insights</span>
+                        <span class="source-badge">Forbes</span>
+                        <span class="source-badge">Startup Genome</span>
+                        <span class="source-badge">Lean Startup</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- Final CTA -->
+        <section class="final-cta">
+            <div class="container">
+                <h2 class="fade-in-up">Spread your wings</h2>
+                <p class="fade-in-up">Get clear diagnosis, evidence-based guidance, and a roadmap matched to your situation.</p>
+                <div class="fade-in-up">
+                    <a href="assessment-tool.html" class="cta-btn">Start Assessment</a>
+                </div>
+                <p class="cta-subtext fade-in-up">10 minutes. Free. Immediate results.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-main">
+                <p class="footer-tagline">Giving every founder the wings to fly</p>
+
+                <nav class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="assessment-tool.html">Assessment</a>
+                    <a href="research.html">Research</a>
+                    <a href="directory.html">Directory</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="about.html">About</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="mailto:jane.korneyko@gmail.com" class="footer-email">jane.korneyko@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="footer-legal">
+                <p>We acknowledge the Wurundjeri Woi Wurrung and Bunurong peoples of the Kulin Nation as the Traditional Owners of the land on which Sova operates. We pay our respects to their Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2025 Sova</span>
+                <span class="footer-separator">.</span>
+                <a href="terms.html">Terms</a>
+                <span class="footer-separator">.</span>
+                <a href="privacy.html">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Speech Bubble from Bird -->
+    <div class="speech-bubble-container" id="speechBubbleContainer">
+        <div class="speech-bubble" id="speechBubble">
+            <button class="speech-bubble-close" id="speechBubbleClose" aria-label="Close"></button>
+            <p class="speech-bubble-headline">Launching in 2026!</p>
+            <p class="speech-bubble-message">Sova is currently being tested and we would love for you to participate and provide feedback.</p>
+            <a href="assessment-tool.html" class="speech-bubble-cta">Test Sova</a>
+        </div>
+        <img src="sova-logo-icon-transparent.png" alt="Sova" class="speech-bubble-bird" id="speechBubbleBird">
+    </div>
+
+    <!-- Scripts -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ========================================
+        // MOBILE HAMBURGER MENU
+        // ========================================
+        const hamburger = document.getElementById('hamburger');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileNavOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNavOverlay.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ========================================
+        // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
+        // ========================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up, .stagger-children, .sweep-section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========================================
+        // SCROLL PROGRESS BAR
+        // ========================================
+        const scrollProgress = document.getElementById('scrollProgress');
+        function updateScrollProgress() {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.pageYOffset;
+            const progress = (scrolled / documentHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+        updateScrollProgress();
+
+        // ========================================
+        // SUBTLE PARALLAX EFFECTS
+        // ========================================
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    const scrolled = window.pageYOffset;
+
+                    // Hero watermark bird subtle movement
+                    const hero = document.querySelector('.hero');
+                    if (hero && scrolled < 800) {
+                        const birdRate = scrolled * 0.05;
+                        hero.style.setProperty('--bird-offset', `${birdRate}px`);
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ========================================
+        // SPEECH BUBBLE - 2 second delayed animation
+        // ========================================
+        const speechBubble = document.getElementById('speechBubble');
+        const speechBubbleClose = document.getElementById('speechBubbleClose');
+        const speechBubbleBird = document.getElementById('speechBubbleBird');
+
+        if (sessionStorage.getItem('speechBubbleDismissed')) {
+            speechBubble.style.display = 'none';
+        } else {
+            setTimeout(function() {
+                if (!sessionStorage.getItem('speechBubbleDismissed')) {
+                    speechBubbleBird.classList.add('speaking');
+                    setTimeout(function() {
+                        speechBubble.classList.add('animate-in');
+                        speechBubbleBird.classList.remove('speaking');
+                    }, 300);
+                }
+            }, 2000);
+        }
+
+        function dismissSpeechBubble() {
+            speechBubble.classList.remove('animate-in');
+            speechBubble.classList.add('hidden');
+            sessionStorage.setItem('speechBubbleDismissed', 'true');
+            setTimeout(() => {
+                speechBubble.style.display = 'none';
+            }, 300);
+        }
+
+        speechBubbleClose.addEventListener('click', dismissSpeechBubble);
+
+        speechBubbleBird.addEventListener('click', function() {
+            if (speechBubble.style.display === 'none' || !speechBubble.classList.contains('animate-in')) {
+                speechBubble.style.display = 'block';
+                speechBubble.classList.remove('hidden');
+                speechBubbleBird.classList.add('speaking');
+                setTimeout(function() {
+                    speechBubble.classList.add('animate-in');
+                    speechBubbleBird.classList.remove('speaking');
+                }, 300);
+                sessionStorage.removeItem('speechBubbleDismissed');
+            }
+        });
+    });
+    </script>
+</body>
+</html>

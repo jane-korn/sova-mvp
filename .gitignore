@@ -1,0 +1,22 @@
+# Secrets (defense in depth)
+.env
+*.key
+credentials.json
+
+# Source files (stay in private)
+*.xlsx
+
+# Private development
+chatbot.html
+sova-knowledge-base.json
+
+# Backups
+backups/
+*.backup
+
+# Temporary
+*.tmp
+.DS_Store
+
+# Dependencies
+node_modules/

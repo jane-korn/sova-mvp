@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+PROPRIETARY AND CONFIDENTIAL
+Copyright (c) 2025 Sova Pty Ltd. All Rights Reserved.
+
+This software and its documentation are protected by copyright law and
+international treaties. Unauthorized reproduction, distribution, or use of
+this software, in whole or in part, is strictly prohibited and may result
+in severe civil and criminal penalties.
+
+Protected by Australian Copyright Act 1968
+Protected by Digital Millennium Copyright Act (DMCA)
+================================================================================
+-->
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why I Built Sova | Evidence-Based Tools for Every Australian Founder</title>
+    <meta name="description" content="437,150 new Australian businesses entered the market in 2024-25. 60% will fail within three years. Most failures are preventable. Here's why I built Sova.">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sova-green: #eaffc4;
+            --sova-brown: #2d2828;
+            --sova-cream: #f5f5dc;
+            --sova-sage: #b8d78f;
+            --sova-white: #ffffff;
+            --gradient-green: linear-gradient(135deg, #eaffc4 0%, #b8d78f 100%);
+            --gradient-dark: linear-gradient(180deg, #2d2828 0%, #1a1717 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            background: var(--sova-brown);
+            color: var(--sova-cream);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        /* Header */
+        header {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(234, 255, 196, 0.1);
+            position: sticky;
+            top: 0;
+            background: var(--sova-brown);
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 90px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--sova-cream);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--sova-green);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), left 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--sova-cream);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .hamburger span:nth-child(1) { margin-bottom: 6px; }
+        .hamburger span:nth-child(3) { margin-top: 6px; }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        /* Mobile Nav Overlay */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(45, 40, 40, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.4s;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-overlay nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-nav-overlay nav a {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--sova-cream);
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        color 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active nav a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-overlay.active nav a:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-overlay.active nav a:nth-child(2) { transition-delay: 0.15s; }
+        .mobile-nav-overlay.active nav a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-nav-overlay.active nav a:nth-child(4) { transition-delay: 0.25s; }
+        .mobile-nav-overlay.active nav a:nth-child(5) { transition-delay: 0.3s; }
+
+        .mobile-nav-overlay nav a:hover {
+            color: var(--sova-green);
+        }
+
+        .mobile-nav-cta {
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-cta {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.35s;
+        }
+
+        /* Typography */
+        .article-header {
+            text-align: center;
+            padding: 6rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -15%;
+            width: 60%;
+            height: 120%;
+            background: url('../sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .article-header > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--sova-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .article-meta {
+            font-size: 1rem;
+            color: var(--sova-sage);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .article-intro {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: var(--sova-white);
+            margin: 3rem auto;
+            max-width: 800px;
+            font-weight: 400;
+        }
+
+        .article-intro strong {
+            color: var(--sova-green);
+            font-weight: 600;
+        }
+
+        article {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem 8rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--sova-white);
+            margin: 4rem 0 2rem;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 1.875rem);
+            font-weight: 600;
+            color: var(--sova-green);
+            margin: 3rem 0 1.5rem;
+        }
+
+        p {
+            font-size: clamp(1.0625rem, 2vw, 1.1875rem);
+            line-height: 1.8;
+            margin-bottom: 1.75rem;
+            color: var(--sova-cream);
+        }
+
+        ul {
+            margin: 2rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            font-size: clamp(1.0625rem, 2vw, 1.125rem);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: var(--sova-cream);
+        }
+
+        li strong {
+            color: var(--sova-green);
+            font-weight: 600;
+        }
+
+        /* Callout boxes */
+        .stat-callout {
+            background: rgba(234, 255, 196, 0.08);
+            border-left: 4px solid var(--sova-green);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border-radius: 8px;
+        }
+
+        .stat-callout p {
+            margin: 0;
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            font-weight: 500;
+            color: var(--sova-white);
+            line-height: 1.6;
+        }
+
+        .emphasis-box {
+            background: var(--gradient-dark);
+            padding: 3rem;
+            margin: 4rem 0;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 255, 196, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emphasis-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-green);
+        }
+
+        .emphasis-box p {
+            font-size: clamp(1.125rem, 2.25vw, 1.25rem);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-green);
+            color: var(--sova-brown);
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+            margin-top: 6rem;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 120%;
+            background: url('../sova-logo-icon-transparent-outlined.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .cta-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            color: var(--sova-brown);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            color: var(--sova-brown);
+            opacity: 0.85;
+            margin: 0 auto 3rem;
+            max-width: 700px;
+            font-size: 1.25rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            border-radius: 32px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.125rem;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--sova-brown);
+            color: var(--sova-green);
+            box-shadow: 0 8px 32px rgba(45, 40, 40, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #1a1717;
+            box-shadow: 0 12px 40px rgba(45, 40, 40, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--sova-brown);
+            border: 2px solid var(--sova-brown);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(45, 40, 40, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* About section */
+        .about-section {
+            background: rgba(234, 255, 196, 0.04);
+            padding: 4rem 3rem;
+            margin: 5rem 0;
+            border-radius: 20px;
+            border: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .about-section h3 {
+            margin-top: 0;
+            font-size: 1.75rem;
+        }
+
+        .about-section p {
+            margin-bottom: 1rem;
+        }
+
+        .about-section a {
+            color: var(--sova-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .about-section a:hover {
+            color: var(--sova-sage);
+            text-decoration: underline;
+        }
+
+        /* Sources section */
+        .sources-section {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.2);
+        }
+
+        .sources-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--sova-sage);
+        }
+
+        .sources-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .sources-section li {
+            margin-bottom: 0.75rem;
+            font-size: 0.9375rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1717;
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--sova-green);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--sova-sage);
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--sova-green);
+        }
+
+        .footer-section a {
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--sova-green);
+            transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .footer-section a:hover::after {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(234, 255, 196, 0.1);
+            color: var(--sova-sage);
+            font-size: 0.875rem;
+        }
+
+        /* Scroll animations */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+                        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content > nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            article {
+                padding: 3rem 1.5rem 6rem;
+            }
+
+            .article-header {
+                padding: 4rem 0 2rem;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .emphasis-box {
+                padding: 2rem;
+            }
+
+            .stat-callout {
+                padding: 1.5rem;
+            }
+
+            .about-section {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <img src="../sova-logo-main-transparent.png" alt="Sova">
+                </a>
+                <nav>
+                    <a href="../research.html">Research</a>
+                    <a href="../directory.html">Directory</a>
+                    <a href="../blog.html">Blog</a>
+                    <a href="../faq.html">FAQ</a>
+                    <a href="../about.html">About Us</a>
+                </nav>
+                <!-- Mobile Hamburger -->
+                <button class="hamburger" id="hamburger" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../research.html">Research</a>
+            <a href="../directory.html">Directory</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../faq.html">FAQ</a>
+            <a href="../about.html">About Us</a>
+        </nav>
+        <a href="../assessment-tool.html" class="btn btn-primary mobile-nav-cta">Start Assessment</a>
+    </div>
+
+    <!-- Article Header -->
+    <div class="article-header">
+        <div class="container">
+            <h1>Why I Built Sova</h1>
+            <p class="article-meta">December 2025 | Jane Korneyko, Founder, Sova</p>
+            <p class="article-intro">In 2024-25, <strong>437,150</strong> new businesses entered the Australian market. <strong>60%</strong> will fail within three years. One in three won't survive the first year.<br><br>And here's what frustrates me: <strong>most of these failures are preventable.</strong></p>
+        </div>
+    </div>
+
+    <!-- Article Content -->
+    <article>
+        <div class="fade-in-up">
+            <h2>Why Startups Fail (When the Solutions Exist)</h2>
+
+            <div class="stat-callout">
+                <p><strong>42%</strong> of startups fail because they build something nobody wants. <strong>29%</strong> run out of cash. <strong>19%</strong> fail from flawed business models.</p>
+            </div>
+
+            <p>These aren't execution problems. They're planning failures. And the tools that prevent them? They already exist:</p>
+
+            <h3>For the 42% no market need</h3>
+            <ul>
+                <li><strong>Value Proposition Canvas (Osterwalder, 2012)</strong> - forces validation of customer jobs, pains, gains before building</li>
+                <li><strong>Customer Development (Blank, 2005)</strong> - tests assumptions with real customers before committing resources</li>
+            </ul>
+
+            <h3>For the 29% ran out of cash</h3>
+            <ul>
+                <li><strong>Unit Economics Framework (1990s-2000s)</strong> - shows runway and burn rate months in advance</li>
+                <li><strong>Scenario Planning (Shell, 1960s-1970s)</strong> - stress-tests financial resilience across different futures</li>
+            </ul>
+
+            <h3>For the 19% flawed business model</h3>
+            <ul>
+                <li><strong>Business Model Canvas (Osterwalder & Pigneur, 2008)</strong> - exposes model weaknesses before scaling</li>
+                <li><strong>Porter's Five Forces (Porter, 1979)</strong> - analyses competitive threats systematically</li>
+                <li><strong>SWOT Analysis (Humphrey at Stanford, 1960s-1970s)</strong> - identifies strategic vulnerabilities</li>
+                <li><strong>McKinsey 7S Framework (Peters & Waterman, 1980)</strong> - aligns all organisational elements</li>
+            </ul>
+
+            <div class="emphasis-box">
+                <p>These aren't experimental startup hacks. They're <strong>evidence-based business management theory</strong> used for decades by successful businesses globally. McKinsey, BCG, Bain, and every major consultancy teach these frameworks to Fortune 500 companies. They work. They're proven. They prevent failure.</p>
+            </div>
+
+            <p>So why aren't founders using them?</p>
+        </div>
+
+        <div class="fade-in-up">
+            <h2>Because Access Requires Either Time or Money or Both</h2>
+
+            <p>The information is locked behind gatekeepers:</p>
+
+            <ul>
+                <li><strong>$200,000 MBA degrees</strong> teaching frameworks created 40 years ago</li>
+                <li><strong>$500 per hour consultants</strong> explaining Business Model Canvas in workshops</li>
+                <li><strong>Incubators and accelerators</strong> that take 5-10% equity</li>
+            </ul>
+
+            <p>And even when you can access it, <strong>the information is fragmented</strong>:</p>
+
+            <p>You learn Business Model Canvas from one book. Financial planning from another consultant. Marketing strategy from a different course. But nobody shows you how it all connects.</p>
+
+            <p>So founders fix marketing (get customers) only to watch operations fail. They raise funding without a financial model and run out of cash. They hire teams without clear strategy and waste months building the wrong thing.</p>
+
+            <div class="stat-callout">
+                <p>You can't fix problems in isolation. You need to understand how <strong>Purpose</strong> informs <strong>Strategy</strong>, how <strong>Strategy</strong> drives <strong>Marketing</strong>, how <strong>Marketing</strong> depends on <strong>Finance</strong>, and how all of it requires solid <strong>Governance</strong>.</p>
+            </div>
+
+            <p>Most founders don't have $200k for an MBA. They don't have $50k for consultants or can afford 10% equity before they even get off the ground. They don't have time to piece together fragmented information across books, courses, and frameworks.</p>
+
+            <p>So they fail. Preventably.</p>
+        </div>
+
+        <div class="fade-in-up">
+            <h2>What Sova Does: Empower You to Help Yourself</h2>
+
+            <p>I spent <strong>15+ years as a Strategy & Transformation Leader</strong>, applying renowned, global, business tools, theory, and principles of excellence frameworks like Baldridge, EFQM and ISO 9001.</p>
+
+            <p>I know these work. I also know startups can't access them.</p>
+
+            <p>So I built Sova to <strong>empower founders to help themselves</strong> and their startups succeed.</p>
+
+            <div class="emphasis-box">
+                <p>No degree required. No $50k consultant. No equity shares.<br><br>Just evidence-based tools, brought together using business management theory, made accessible to every Australian founder.</p>
+            </div>
+        </div>
+
+        <div class="fade-in-up">
+            <h2>How Sova Works</h2>
+
+            <p>Sova is built on the principle that <strong>business excellence is a system, not a checklist</strong>.</p>
+
+            <p>We've mapped nine interconnected elements: <strong>Governance, Purpose, Strategy, Marketing, Finance, Performance, People, Process, Technology</strong>.</p>
+
+            <p>Sova gives you:</p>
+
+            <ul>
+                <li><strong>Assessment tool</strong> showing your maturity across all nine elements</li>
+                <li><strong>Gap analysis</strong> identifying where you're weak and how those weaknesses cascade</li>
+                <li><strong>Prioritised action plan</strong> based on your stage (Discovery, Validation, Efficiency, Scale)</li>
+                <li><strong>Tool recommendations</strong> for frameworks you actually need right now</li>
+                <li><strong>AI-powered guidance</strong> asking diagnostic questions to find root causes</li>
+            </ul>
+
+            <p>Everything backed by research:</p>
+
+            <ul>
+                <li><strong>281 tools and methodologies</strong> with descriptions and URLs</li>
+                <li><strong>162 Australian startup resources</strong> (grants, accelerators, programs, networks) filtered by state, stage, and identity</li>
+                <li><strong>140+ startup failure and advice insights</strong> from CB Insights, Harvard Business Review, McKinsey</li>
+                <li><strong>Assessment based on all of the above</strong></li>
+            </ul>
+        </div>
+
+        <div class="fade-in-up">
+            <h2>Empower Yourself</h2>
+
+            <p>If you're one of the <strong>437,150 Australians</strong> who started a business this year:</p>
+
+            <ul>
+                <li>Have you validated that anyone actually wants what you're building?</li>
+                <li>Do you have a documented business model?</li>
+                <li>Can you forecast your cash runway?</li>
+                <li>Do you understand how the nine elements of your business interconnect?</li>
+            </ul>
+
+            <p>If you hesitated, you're not alone. But you don't need a $200k MBA or a $50k consultant.</p>
+
+            <p><strong>You need the tools that are proven to work. And now, you have them.</strong></p>
+
+            <p>Take Sova's free assessment. See where you stand. Get a personalised action plan. Access the frameworks that prevent the 42%.</p>
+
+            <p style="font-size: 1.375rem; margin-top: 2rem; color: var(--sova-green); font-weight: 500;">Because you didn't quit your job to become a statistic.</p>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-section fade-in-up">
+            <h3>About Sova</h3>
+            <p>Sova is Australia's first AI-powered startup assessment and guidance platform. We help founders assess their business maturity across nine elements, identify gaps before they become crises, and access the evidence-based tools that prevent failure.</p>
+            <p>
+                <a href="../index.html">Learn more: getsova.com.au</a><br>
+                <a href="../assessment-tool.html">Take the assessment: getsova.com.au/assessment-tool.html</a><br>
+                <a href="../directory.html">Explore resources: getsova.com.au/directory.html</a>
+            </p>
+        </div>
+
+        <!-- Sources Section -->
+        <div class="sources-section">
+            <h3>Sources</h3>
+            <ul>
+                <li>Australian Bureau of Statistics: Counts of Australian Businesses 2024-25</li>
+                <li>Lawpath: Statistics on Small Businesses in Australia 2025</li>
+                <li>Inside Small Business: Business Failure Rates</li>
+                <li>CB Insights: Top Startup Failure Reasons Report</li>
+                <li>NIST: Baldrige Excellence Framework</li>
+                <li>CIO Wiki: EFQM Excellence Model</li>
+                <li>Qualio: ISO 9001 Quality Management Standard</li>
+            </ul>
+        </div>
+    </article>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="fade-in-up">Ready to spread your wings?</h2>
+            <p class="fade-in-up">Get your free assessment, see where you stand, and access the tools that prevent failure.</p>
+            <div class="fade-in-up">
+                <a href="../assessment-tool.html" class="btn btn-primary">Start Assessment</a>
+                <a href="../directory.html" class="btn btn-secondary">Explore Resources</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Sova</h4>
+                    <p>Giving every founder the wings to fly with world-class startup tools and best practice.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Learn More</h4>
+                    <a href="../research.html">Our Research</a>
+                    <a href="../about.html">About Us</a>
+                    <a href="../directory.html">Directory</a>
+                    <a href="../blog.html">Blog</a>
+                    <a href="../faq.html">FAQ</a>
+                    <a href="../assessment-tool.html">Start Assessment</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>jane.korneyko@gmail.com</p>
+                    <p>Built for Australian founders</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="font-size: 0.75rem; margin-bottom: 1rem;">We acknowledge the Wurundjeri Woi Wurrung and Bunurong peoples of the Kulin Nation as the Traditional Owners of the land on which Sova operates. We pay our respects to their Elders past and present, and extend that respect to all Aboriginal and Torres Strait Islander peoples.</p>
+                <p style="font-size: 0.75rem;">&copy; 2025 Sova. All rights reserved. Assessment tool and content protected by copyright. <a href="../terms.html" style="color: var(--sova-sage);">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Animation Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileNavOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileNavOverlay.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNavOverlay.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+    });
+    </script>
+</body>
+</html>
